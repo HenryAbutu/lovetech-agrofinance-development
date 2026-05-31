@@ -9,38 +9,362 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as ProgrammesRouteImport } from './routes/programmes'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AcademyRouteImport } from './routes/academy'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
+import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
+import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
+import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
+import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammesRoute = ProgrammesRouteImport.update({
+  id: '/programmes',
+  path: '/programmes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanceReadinessRoute = FinanceReadinessRouteImport.update({
+  id: '/finance-readiness',
+  path: '/finance-readiness',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AcademyRoute = AcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademyCoursesProfessionalsAiEdgeRoute =
+  AcademyCoursesProfessionalsAiEdgeRouteImport.update({
+    id: '/courses/professionals-ai-edge',
+    path: '/courses/professionals-ai-edge',
+    getParentRoute: () => AcademyRoute,
+  } as any)
+const AcademyCoursesIcss20EntrepreneurshipRoute =
+  AcademyCoursesIcss20EntrepreneurshipRouteImport.update({
+    id: '/courses/icss-2-0-entrepreneurship',
+    path: '/courses/icss-2-0-entrepreneurship',
+    getParentRoute: () => AcademyRoute,
+  } as any)
+const AcademyCoursesFinanceReadinessMsmesRoute =
+  AcademyCoursesFinanceReadinessMsmesRouteImport.update({
+    id: '/courses/finance-readiness-msmes',
+    path: '/courses/finance-readiness-msmes',
+    getParentRoute: () => AcademyRoute,
+  } as any)
+const AuthenticatedAdminVideoStudioRoute =
+  AuthenticatedAdminVideoStudioRouteImport.update({
+    id: '/admin/video-studio',
+    path: '/admin/video-studio',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAcademyDashboardRoute =
+  AuthenticatedAcademyDashboardRouteImport.update({
+    id: '/academy/dashboard',
+    path: '/academy/dashboard',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/academy': typeof AcademyRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/finance-readiness': typeof FinanceReadinessRoute
+  '/insights': typeof InsightsRoute
+  '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
+  '/programmes': typeof ProgrammesRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/services': typeof ServicesRoute
+  '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
+  '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
+  '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/academy': typeof AcademyRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/finance-readiness': typeof FinanceReadinessRoute
+  '/insights': typeof InsightsRoute
+  '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
+  '/programmes': typeof ProgrammesRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/services': typeof ServicesRoute
+  '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
+  '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
+  '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/about': typeof AboutRoute
+  '/academy': typeof AcademyRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/finance-readiness': typeof FinanceReadinessRoute
+  '/insights': typeof InsightsRoute
+  '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
+  '/programmes': typeof ProgrammesRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/services': typeof ServicesRoute
+  '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
+  '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
+  '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/academy'
+    | '/contact'
+    | '/finance-readiness'
+    | '/insights'
+    | '/login'
+    | '/privacy'
+    | '/programmes'
+    | '/reset-password'
+    | '/services'
+    | '/signup'
+    | '/terms'
+    | '/academy/dashboard'
+    | '/admin/video-studio'
+    | '/academy/courses/finance-readiness-msmes'
+    | '/academy/courses/icss-2-0-entrepreneurship'
+    | '/academy/courses/professionals-ai-edge'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/academy'
+    | '/contact'
+    | '/finance-readiness'
+    | '/insights'
+    | '/login'
+    | '/privacy'
+    | '/programmes'
+    | '/reset-password'
+    | '/services'
+    | '/signup'
+    | '/terms'
+    | '/academy/dashboard'
+    | '/admin/video-studio'
+    | '/academy/courses/finance-readiness-msmes'
+    | '/academy/courses/icss-2-0-entrepreneurship'
+    | '/academy/courses/professionals-ai-edge'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/academy'
+    | '/contact'
+    | '/finance-readiness'
+    | '/insights'
+    | '/login'
+    | '/privacy'
+    | '/programmes'
+    | '/reset-password'
+    | '/services'
+    | '/signup'
+    | '/terms'
+    | '/_authenticated/academy/dashboard'
+    | '/_authenticated/admin/video-studio'
+    | '/academy/courses/finance-readiness-msmes'
+    | '/academy/courses/icss-2-0-entrepreneurship'
+    | '/academy/courses/professionals-ai-edge'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AcademyRoute: typeof AcademyRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  FinanceReadinessRoute: typeof FinanceReadinessRoute
+  InsightsRoute: typeof InsightsRoute
+  LoginRoute: typeof LoginRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ProgrammesRoute: typeof ProgrammesRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  ServicesRoute: typeof ServicesRoute
+  SignupRoute: typeof SignupRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programmes': {
+      id: '/programmes'
+      path: '/programmes'
+      fullPath: '/programmes'
+      preLoaderRoute: typeof ProgrammesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finance-readiness': {
+      id: '/finance-readiness'
+      path: '/finance-readiness'
+      fullPath: '/finance-readiness'
+      preLoaderRoute: typeof FinanceReadinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy': {
+      id: '/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof AcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +372,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academy/courses/professionals-ai-edge': {
+      id: '/academy/courses/professionals-ai-edge'
+      path: '/courses/professionals-ai-edge'
+      fullPath: '/academy/courses/professionals-ai-edge'
+      preLoaderRoute: typeof AcademyCoursesProfessionalsAiEdgeRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/courses/icss-2-0-entrepreneurship': {
+      id: '/academy/courses/icss-2-0-entrepreneurship'
+      path: '/courses/icss-2-0-entrepreneurship'
+      fullPath: '/academy/courses/icss-2-0-entrepreneurship'
+      preLoaderRoute: typeof AcademyCoursesIcss20EntrepreneurshipRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/academy/courses/finance-readiness-msmes': {
+      id: '/academy/courses/finance-readiness-msmes'
+      path: '/courses/finance-readiness-msmes'
+      fullPath: '/academy/courses/finance-readiness-msmes'
+      preLoaderRoute: typeof AcademyCoursesFinanceReadinessMsmesRouteImport
+      parentRoute: typeof AcademyRoute
+    }
+    '/_authenticated/admin/video-studio': {
+      id: '/_authenticated/admin/video-studio'
+      path: '/admin/video-studio'
+      fullPath: '/admin/video-studio'
+      preLoaderRoute: typeof AuthenticatedAdminVideoStudioRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/academy/dashboard': {
+      id: '/_authenticated/academy/dashboard'
+      path: '/academy/dashboard'
+      fullPath: '/academy/dashboard'
+      preLoaderRoute: typeof AuthenticatedAcademyDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRoute
+  AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAcademyDashboardRoute: AuthenticatedAcademyDashboardRoute,
+  AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
+interface AcademyRouteChildren {
+  AcademyCoursesFinanceReadinessMsmesRoute: typeof AcademyCoursesFinanceReadinessMsmesRoute
+  AcademyCoursesIcss20EntrepreneurshipRoute: typeof AcademyCoursesIcss20EntrepreneurshipRoute
+  AcademyCoursesProfessionalsAiEdgeRoute: typeof AcademyCoursesProfessionalsAiEdgeRoute
+}
+
+const AcademyRouteChildren: AcademyRouteChildren = {
+  AcademyCoursesFinanceReadinessMsmesRoute:
+    AcademyCoursesFinanceReadinessMsmesRoute,
+  AcademyCoursesIcss20EntrepreneurshipRoute:
+    AcademyCoursesIcss20EntrepreneurshipRoute,
+  AcademyCoursesProfessionalsAiEdgeRoute:
+    AcademyCoursesProfessionalsAiEdgeRoute,
+}
+
+const AcademyRouteWithChildren =
+  AcademyRoute._addFileChildren(AcademyRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  AboutRoute: AboutRoute,
+  AcademyRoute: AcademyRouteWithChildren,
+  ContactRoute: ContactRoute,
+  FinanceReadinessRoute: FinanceReadinessRoute,
+  InsightsRoute: InsightsRoute,
+  LoginRoute: LoginRoute,
+  PrivacyRoute: PrivacyRoute,
+  ProgrammesRoute: ProgrammesRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  ServicesRoute: ServicesRoute,
+  SignupRoute: SignupRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

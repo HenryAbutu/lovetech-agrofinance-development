@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      academy_course_access_links: {
+        Row: {
+          course_id: string
+          created_at: string
+          id: string
+          updated_at: string
+          whatsapp_link: string | null
+          zoom_link: string | null
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          whatsapp_link?: string | null
+          zoom_link?: string | null
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          whatsapp_link?: string | null
+          zoom_link?: string | null
+        }
+        Relationships: []
+      }
       academy_courses: {
         Row: {
           course_image: string | null
@@ -29,8 +56,6 @@ export type Database = {
           subtitle: string | null
           title: string
           updated_at: string
-          whatsapp_link: string | null
-          zoom_link: string | null
         }
         Insert: {
           course_image?: string | null
@@ -46,8 +71,6 @@ export type Database = {
           subtitle?: string | null
           title: string
           updated_at?: string
-          whatsapp_link?: string | null
-          zoom_link?: string | null
         }
         Update: {
           course_image?: string | null
@@ -63,8 +86,6 @@ export type Database = {
           subtitle?: string | null
           title?: string
           updated_at?: string
-          whatsapp_link?: string | null
-          zoom_link?: string | null
         }
         Relationships: []
       }

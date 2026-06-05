@@ -4,6 +4,7 @@
 //     componentTagger (dev-only), VITE_* env injection, @ path alias, React/TanStack dedupe,
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import netlify from "@netlify/vite-plugin-tanstack-start";
 
 export default defineConfig({
   tanstackStart: {
@@ -14,4 +15,5 @@ export default defineConfig({
   nitro: {
     preset: process.env.NITRO_PRESET ?? "netlify",
   },
+  plugins: [netlify()],
 });

@@ -28,6 +28,8 @@ import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './rout
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
+import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack.webhook'
+import { Route as ApiPublicPaystackVerifyRouteImport } from './routes/api/public/paystack.verify'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -128,6 +130,17 @@ const AuthenticatedAcademyDashboardRoute =
     path: '/academy/dashboard',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const ApiPublicPaystackWebhookRoute =
+  ApiPublicPaystackWebhookRouteImport.update({
+    id: '/api/public/paystack/webhook',
+    path: '/api/public/paystack/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicPaystackVerifyRoute = ApiPublicPaystackVerifyRouteImport.update({
+  id: '/api/public/paystack/verify',
+  path: '/api/public/paystack/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -148,6 +161,8 @@ export interface FileRoutesByFullPath {
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
+  '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
+  '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -168,6 +183,8 @@ export interface FileRoutesByTo {
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
+  '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
+  '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -190,6 +207,8 @@ export interface FileRoutesById {
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
+  '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
+  '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -212,6 +231,8 @@ export interface FileRouteTypes {
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
+    | '/api/public/paystack/verify'
+    | '/api/public/paystack/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -232,6 +253,8 @@ export interface FileRouteTypes {
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
+    | '/api/public/paystack/verify'
+    | '/api/public/paystack/webhook'
   id:
     | '__root__'
     | '/'
@@ -253,6 +276,8 @@ export interface FileRouteTypes {
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
+    | '/api/public/paystack/verify'
+    | '/api/public/paystack/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -270,6 +295,8 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
+  ApiPublicPaystackVerifyRoute: typeof ApiPublicPaystackVerifyRoute
+  ApiPublicPaystackWebhookRoute: typeof ApiPublicPaystackWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -407,6 +434,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAcademyDashboardRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/api/public/paystack/webhook': {
+      id: '/api/public/paystack/webhook'
+      path: '/api/public/paystack/webhook'
+      fullPath: '/api/public/paystack/webhook'
+      preLoaderRoute: typeof ApiPublicPaystackWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/paystack/verify': {
+      id: '/api/public/paystack/verify'
+      path: '/api/public/paystack/verify'
+      fullPath: '/api/public/paystack/verify'
+      preLoaderRoute: typeof ApiPublicPaystackVerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -457,6 +498,8 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
+  ApiPublicPaystackVerifyRoute: ApiPublicPaystackVerifyRoute,
+  ApiPublicPaystackWebhookRoute: ApiPublicPaystackWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

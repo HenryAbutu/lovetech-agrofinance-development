@@ -67,6 +67,10 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     }
 
     // Live Paystack init (once key is added)
+    const req = getRequest();
+    const origin = new URL(req.url).origin;
+    const callbackUrl = `${origin}/api/public/paystack/verify`;
+
     const res = await fetch("https://api.paystack.co/transaction/initialize", {
       method: "POST",
       headers: {
@@ -75,8 +79,10 @@ export const enrolInCourse = createServerFn({ method: "POST" })
       },
       body: JSON.stringify({
         email: data.email,
-        amount: amount * 100,
-        metadata: { enrolment_id: enrol.id, course_id: course.id },
+        amount: Math.round(amount * 100),
+        currency: "NGN",
+        callback_url: callbackUrl,
+        metadata: { enrolment_id: enrol.id, course_id: course.id, full_name: data.full_name },
       }),
     });
     const json = (await res.json()) as { data?: { authorization_url?: string; reference?: string } };

@@ -1,7 +1,0 @@
-[build]
-  command = "bun run build"
-  publish = "dist/client"
-
-[functions]
-  directory = ".netlify/functions-internal"
-  node_bundler = "esbuild"

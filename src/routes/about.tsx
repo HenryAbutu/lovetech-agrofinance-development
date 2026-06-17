@@ -3,10 +3,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — LoveTech Agrofinance & Development" },
-      { name: "description", content: "Mission, vision, values and focus areas of LoveTech Agrofinance & Development." },
-      { property: "og:title", content: "About LoveTech Agrofinance & Development" },
-      { property: "og:description", content: "Helping Nigerian MSMEs move from hustle to structure." },
+      { title: "About — LoveTech Agrofinance & Development Ltd" },
+      { name: "description", content: "Mission, vision, and focus areas of LoveTech Agrofinance & Development Ltd — RC 9535107." },
+      { property: "og:title", content: "About LoveTech Agrofinance & Development Ltd" },
+      { property: "og:description", content: "Capital, capacity, and tech-enabled advisory for Nigerian enterprises." },
     ],
   }),
   component: AboutPage,

@@ -40,7 +40,12 @@ function Home() {
     <main>
       {/* HERO */}
       <section className="relative overflow-hidden px-6 pt-16 pb-20 lg:px-8 lg:pt-24">
-        <div className="mx-auto max-w-7xl">
+        {/* ambient motion backdrop */}
+        <FloatingLeaves className="left-[-60px] top-10 size-[420px] opacity-50" />
+        <FloatingLeaves className="right-[-80px] bottom-[-40px] size-[360px] opacity-40 rotate-180" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-1 lt-shimmer" />
+
+        <div className="relative mx-auto max-w-7xl">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-vetiver/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-vetiver">
@@ -69,15 +74,27 @@ function Home() {
               </div>
             </div>
             <div className="relative">
-              <img src={heroImg} alt="Nigerian business owner reviewing finances and agribusiness samples" width={1600} height={1200} className="aspect-[4/5] w-full rounded-2xl object-cover ring-1 ring-black/5" />
-              <div className="absolute -bottom-6 -left-6 hidden rounded-xl border border-border bg-card p-5 shadow-xl sm:block">
-                <div className="font-serif text-3xl text-vetiver">From hustle</div>
-                <div className="font-serif text-3xl italic text-ochre">to structure.</div>
+              <img src={heroImg} alt="Nigerian agribusiness entrepreneur reviewing a finance dashboard in a thriving farm" width={1280} height={1600} className="aspect-[4/5] w-full rounded-2xl object-cover ring-1 ring-black/5" />
+              {/* animated chart card overlay */}
+              <div className="absolute -right-4 top-8 hidden w-56 rounded-xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur sm:block">
+                <div className="mb-2 flex items-center justify-between text-[10px] font-semibold uppercase tracking-widest text-foreground/60">
+                  <span>Growth signal</span>
+                  <span className="text-ochre">+38%</span>
+                </div>
+                <GrowthChart className="h-20 w-full text-vetiver" />
+              </div>
+              <div className="absolute -bottom-6 -left-6 hidden items-center gap-3 rounded-xl border border-border bg-card p-5 shadow-xl sm:flex">
+                <SproutMark className="size-10 shrink-0" />
+                <div>
+                  <div className="font-serif text-2xl text-vetiver">From hustle</div>
+                  <div className="font-serif text-2xl italic text-ochre">to structure.</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* WHAT WE DO */}
       <section className="border-y border-border bg-card py-20">

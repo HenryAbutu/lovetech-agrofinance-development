@@ -42,7 +42,7 @@ function Home() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-vetiver/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-vetiver">
-                <Sparkles className="size-3.5" /> Nigerian MSMEs · Agribusiness · AI
+                <Sparkles className="size-3.5" /> Agrofinance · Enterprise Development · Access to Finance · Climate Finance
               </div>
               <h1 className="text-balance font-serif text-5xl leading-[1.05] text-vetiver md:text-6xl lg:text-7xl">
                 Capital, capacity, and a sharper way to get businesses funded.

@@ -42,7 +42,7 @@ function AcademyPage() {
           <h1 className="max-w-3xl font-serif text-5xl text-bone md:text-7xl">Practical courses for entrepreneurs, professionals and value chain actors.</h1>
           <p className="mt-6 max-w-2xl text-lg text-bone/75">Self-paced and cohort-based training in AI, entrepreneurship, finance readiness, agribusiness and digital tools — built for the realities of Nigerian business.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to={ENROL_LINK} className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
+            <Link to={ENROL_LINK} hash={ENROL_HASH} className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
               <PlayCircle className="size-4" /> Enroll in AI Edge — ₦1,000
             </Link>
             <Link to="/signup" className="rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">Create learner account</Link>
@@ -63,7 +63,7 @@ function AcademyPage() {
               <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Courses</p>
               <h2 className="font-serif text-4xl text-vetiver">Choose your next skill</h2>
             </div>
-            <Link to={ENROL_LINK} className="hidden text-sm font-semibold text-vetiver underline-offset-4 hover:underline md:inline">Skip to enrolment →</Link>
+            <Link to={ENROL_LINK} hash={ENROL_HASH} className="hidden text-sm font-semibold text-vetiver underline-offset-4 hover:underline md:inline">Skip to enrolment →</Link>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             <CourseCard
@@ -74,7 +74,7 @@ function AcademyPage() {
               meta="Deadline · 15 June 2026"
               priceOld="₦10,000"
               priceNew="₦1,000"
-              to={ENROL_LINK}
+              to={ENROL_LINK} hash={ENROL_HASH}
               cta="Enroll Now"
               featured
             />
@@ -117,7 +117,7 @@ function AcademyPage() {
             <h2 className="font-serif text-3xl md:text-4xl">Ready to start with AI Edge?</h2>
             <p className="mt-2 max-w-xl text-bone/70">Join the launch cohort for ₦1,000. Deadline 15 June 2026.</p>
           </div>
-          <Link to={ENROL_LINK} className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
+          <Link to={ENROL_LINK} hash={ENROL_HASH} className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
             Enroll Now <ArrowRight className="size-4" />
           </Link>
         </div>

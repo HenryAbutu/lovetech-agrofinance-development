@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import logoAsset from "@/assets/LoveTech_Logo_Option1.png.asset.json";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -16,10 +17,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid size-8 place-items-center rounded-sm bg-vetiver">
-            <span className="size-3 rotate-45 bg-ochre" />
-          </span>
-          <span className="font-serif text-xl tracking-tight text-vetiver">LoveTech</span>
+          <img src={logoAsset.url} alt="LoveTech Agrofinance & Development Ltd" className="h-10 w-auto" />
         </Link>
         <nav className="hidden items-center gap-7 text-sm font-medium text-foreground/70 lg:flex">
           {navLinks.slice(1, -1).map((l) => (
@@ -50,8 +48,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="mb-4 flex items-center gap-2">
-            <span className="size-6 rounded-sm bg-ochre" />
-            <span className="font-serif text-xl text-bone">LoveTech Agrofinance & Development Ltd</span>
+            <img src={logoAsset.url} alt="LoveTech" className="h-8 w-auto rounded-sm bg-bone px-2 py-1" />
           </div>
           <p className="max-w-md text-sm leading-relaxed">
             Helping Nigerian MSMEs, agribusinesses, and professionals build structured, fundable, and growth-ready enterprises.

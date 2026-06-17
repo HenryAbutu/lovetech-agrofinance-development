@@ -17,10 +17,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid size-8 place-items-center rounded-sm bg-vetiver">
-            <span className="size-3 rotate-45 bg-ochre" />
-          </span>
-          <span className="font-serif text-xl tracking-tight text-vetiver">LoveTech</span>
+          <img src={logoAsset.url} alt="LoveTech Agrofinance & Development Ltd" className="h-10 w-auto" />
         </Link>
         <nav className="hidden items-center gap-7 text-sm font-medium text-foreground/70 lg:flex">
           {navLinks.slice(1, -1).map((l) => (

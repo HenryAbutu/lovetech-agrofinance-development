@@ -214,10 +214,28 @@ function Home() {
         </div>
       </section>
 
+      {/* MARQUEE STRIP */}
+      <section aria-hidden="true" className="overflow-hidden border-y border-border bg-bone py-6">
+        <div className="flex w-max gap-12 whitespace-nowrap font-serif text-3xl text-vetiver/70 lt-marquee md:text-4xl">
+          {Array.from({ length: 2 }).map((_, dup) => (
+            <div key={dup} className="flex items-center gap-12">
+              {["Capital", "Capacity", "Code", "Agrofinance", "Climate-smart", "MSME Growth", "Access to Finance", "Impact"].map((w) => (
+                <span key={w} className="flex items-center gap-12">
+                  <span className="italic">{w}</span>
+                  <SproutMark className="size-7 shrink-0" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* CTA BAND */}
-      <section className="px-6 pb-24 lg:px-8">
-        <div className="mx-auto max-w-7xl rounded-3xl bg-vetiver p-10 text-bone md:p-16">
-          <div className="grid items-center gap-8 md:grid-cols-[2fr_1fr]">
+      <section className="px-6 py-24 lg:px-8">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-vetiver p-10 text-bone md:p-16">
+          <FloatingLeaves className="-right-10 -top-10 size-[360px] opacity-30" />
+          <OrbitingNodes className="pointer-events-none absolute -left-20 -bottom-20 size-80 text-bone opacity-25" />
+          <div className="relative grid items-center gap-8 md:grid-cols-[2fr_1fr]">
             <div>
               <h2 className="mb-4 text-balance font-serif text-4xl md:text-5xl">Ready to build a more structured and growth-ready business?</h2>
               <p className="max-w-xl text-bone/75">Book a consultation, start your finance readiness diagnostic, or join the Academy.</p>
@@ -230,6 +248,7 @@ function Home() {
           </div>
         </div>
       </section>
+
     </main>
   );
 }

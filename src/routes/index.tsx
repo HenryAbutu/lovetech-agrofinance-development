@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/hero-lovetech.jpg";
 import academyImg from "@/assets/academy.jpg";
 import diagnosticImg from "@/assets/diagnostic.jpg";
 import { ArrowRight, Sparkles, TrendingUp, GraduationCap, Cpu, Sprout, ClipboardCheck, Users } from "lucide-react";
+import { FloatingLeaves, GrowthChart, OrbitingNodes, SproutMark } from "@/components/motion-graphics";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({

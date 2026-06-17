@@ -43,7 +43,7 @@ function AcademyPage() {
           <p className="mt-6 max-w-2xl text-lg text-bone/75">Self-paced and cohort-based training in AI, entrepreneurship, finance readiness, agribusiness and digital tools — built for the realities of Nigerian business.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to={ENROL_LINK} hash={ENROL_HASH} className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
-              <PlayCircle className="size-4" /> Enroll in AI Edge — ₦1,000
+              <PlayCircle className="size-4" /> Enroll in AI Edge — ₦5,000
             </Link>
             <Link to="/signup" className="rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">Create learner account</Link>
           </div>
@@ -71,9 +71,9 @@ function AcademyPage() {
               status="Enrolment Open"
               title="Professionals AI Edge"
               body="Practical AI tools for more efficient, productive and profitable businesses."
-              meta="Deadline · 15 June 2026"
+              meta="Self-paced + Zoom cohort"
               priceOld="₦10,000"
-              priceNew="₦1,000"
+              priceNew="₦5,000"
               to={ENROL_LINK} hash={ENROL_HASH}
               cta="Enroll Now"
               featured
@@ -115,7 +115,7 @@ function AcademyPage() {
         <div className="relative mx-auto flex max-w-5xl flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="font-serif text-3xl md:text-4xl">Ready to start with AI Edge?</h2>
-            <p className="mt-2 max-w-xl text-bone/70">Join the launch cohort for ₦1,000. Deadline 15 June 2026.</p>
+            <p className="mt-2 max-w-xl text-bone/70">Join the launch cohort for ₦5,000.</p>
           </div>
           <Link to={ENROL_LINK} hash={ENROL_HASH} className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
             Enroll Now <ArrowRight className="size-4" />

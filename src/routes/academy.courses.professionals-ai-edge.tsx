@@ -1,16 +1,19 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, Calendar, Clock, MessageCircle, Phone, ShieldCheck, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { enrolInCourse } from "@/lib/enrolment.functions";
+import courseImg from "@/assets/course-ai-edge.jpg";
 
 export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
   head: () => ({
     meta: [
-      { title: "Professionals AI Edge — LoveTech Agro Academy" },
-      { name: "description", content: "Practical AI tools for more efficient, productive and profitable businesses. Launch price ₦1,000." },
+      { title: "Enroll · Professionals AI Edge — LoveTech Agro Academy" },
+      { name: "description", content: "Practical AI tools for more efficient, productive and profitable businesses. Launch price ₦1,000. Deadline 15 June 2026." },
       { property: "og:title", content: "Professionals AI Edge" },
+      { property: "og:description", content: "Practical AI tools for Nigerian professionals and founders. Launch price ₦1,000." },
+      { property: "og:image", content: courseImg },
     ],
   }),
   component: Page,

@@ -17,7 +17,8 @@ export const Route = createFileRoute("/academy")({
   component: AcademyPage,
 });
 
-const ENROL_LINK = "/academy/courses/professionals-ai-edge#enrol";
+const ENROL_LINK = "/academy/courses/professionals-ai-edge" as const;
+const ENROL_HASH = "enrol";
 
 function AcademyPage() {
   return (

@@ -7,7 +7,7 @@ import { submitEnquiry } from "@/lib/forms.functions";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — LoveTech Agrofinance & Development" },
+      { title: "Contact — LoveTech Agrofinance & Development Ltd" },
       { name: "description", content: "Get in touch to book a consultation or talk to our team." },
     ],
   }),

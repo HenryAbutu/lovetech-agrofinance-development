@@ -7,10 +7,10 @@ import { ArrowRight, Sparkles, TrendingUp, GraduationCap, Cpu, Sprout, Clipboard
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LoveTech Agrofinance & Development — Business Growth & Agrofinance for Nigerian MSMEs" },
-      { name: "description", content: "Practical business development, finance-readiness, training, and AI-enabled support for Nigerian MSMEs, agribusinesses, and professionals." },
-      { property: "og:title", content: "LoveTech Agrofinance & Development" },
-      { property: "og:description", content: "Helping entrepreneurs move from hustle to structure — agrofinance, training, consulting and the LoveTech Agro Academy." },
+      { title: "LoveTech Agrofinance & Development Ltd — Capital, Capacity & Code for Nigerian MSMEs" },
+      { name: "description", content: "Capital, capacity, and tech-enabled advisory for agribusinesses, MSMEs, and development programmes across Nigeria and West Africa." },
+      { property: "og:title", content: "LoveTech Agrofinance & Development Ltd" },
+      { property: "og:description", content: "Capital, capacity, and tech-enabled advisory for agribusinesses, MSMEs, and development programmes across Nigeria and West Africa." },
     ],
   }),
   component: Home,

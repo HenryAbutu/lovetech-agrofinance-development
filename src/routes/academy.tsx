@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, GraduationCap, Sparkles, PlayCircle, Users, BookOpen } from "lucide-react";
-import academyHero from "@/assets/academy-hero-new.jpg";
+import academyHero from "@/assets/academy-hero-v3.jpg";
 import aiEdgeImg from "@/assets/course-ai-edge.jpg";
 import icssImg from "@/assets/course-icss.jpg";
 import financeImg from "@/assets/course-finance.jpg";

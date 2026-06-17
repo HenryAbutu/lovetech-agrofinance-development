@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero.jpg";
+import heroImg from "@/assets/hero-lovetech.jpg";
 import academyImg from "@/assets/academy.jpg";
 import diagnosticImg from "@/assets/diagnostic.jpg";
 import { ArrowRight, Sparkles, TrendingUp, GraduationCap, Cpu, Sprout, ClipboardCheck, Users } from "lucide-react";
+import { FloatingLeaves, GrowthChart, OrbitingNodes, SproutMark } from "@/components/motion-graphics";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,7 +40,12 @@ function Home() {
     <main>
       {/* HERO */}
       <section className="relative overflow-hidden px-6 pt-16 pb-20 lg:px-8 lg:pt-24">
-        <div className="mx-auto max-w-7xl">
+        {/* ambient motion backdrop */}
+        <FloatingLeaves className="left-[-60px] top-10 size-[420px] opacity-50" />
+        <FloatingLeaves className="right-[-80px] bottom-[-40px] size-[360px] opacity-40 rotate-180" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-1 lt-shimmer" />
+
+        <div className="relative mx-auto max-w-7xl">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-vetiver/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-vetiver">
@@ -67,19 +74,32 @@ function Home() {
               </div>
             </div>
             <div className="relative">
-              <img src={heroImg} alt="Nigerian business owner reviewing finances and agribusiness samples" width={1600} height={1200} className="aspect-[4/5] w-full rounded-2xl object-cover ring-1 ring-black/5" />
-              <div className="absolute -bottom-6 -left-6 hidden rounded-xl border border-border bg-card p-5 shadow-xl sm:block">
-                <div className="font-serif text-3xl text-vetiver">From hustle</div>
-                <div className="font-serif text-3xl italic text-ochre">to structure.</div>
+              <img src={heroImg} alt="Nigerian agribusiness entrepreneur reviewing a finance dashboard in a thriving farm" width={1280} height={1600} className="aspect-[4/5] w-full rounded-2xl object-cover ring-1 ring-black/5" />
+              {/* animated chart card overlay */}
+              <div className="absolute -right-4 top-8 hidden w-56 rounded-xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur sm:block">
+                <div className="mb-2 flex items-center justify-between text-[10px] font-semibold uppercase tracking-widest text-foreground/60">
+                  <span>Growth signal</span>
+                  <span className="text-ochre">+38%</span>
+                </div>
+                <GrowthChart className="h-20 w-full text-vetiver" />
+              </div>
+              <div className="absolute -bottom-6 -left-6 hidden items-center gap-3 rounded-xl border border-border bg-card p-5 shadow-xl sm:flex">
+                <SproutMark className="size-10 shrink-0" />
+                <div>
+                  <div className="font-serif text-2xl text-vetiver">From hustle</div>
+                  <div className="font-serif text-2xl italic text-ochre">to structure.</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+
       {/* WHAT WE DO */}
-      <section className="border-y border-border bg-card py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="relative overflow-hidden border-y border-border bg-card py-20">
+        <OrbitingNodes className="pointer-events-none absolute -right-16 top-10 size-72 text-vetiver opacity-60" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-14 max-w-2xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">What we do</p>
             <h2 className="text-balance font-serif text-4xl text-vetiver md:text-5xl">Practical support for growing businesses</h2>
@@ -97,6 +117,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* FEATURED SOLUTIONS */}
       <section className="py-24">
@@ -193,10 +214,28 @@ function Home() {
         </div>
       </section>
 
+      {/* MARQUEE STRIP */}
+      <section aria-hidden="true" className="overflow-hidden border-y border-border bg-bone py-6">
+        <div className="flex w-max gap-12 whitespace-nowrap font-serif text-3xl text-vetiver/70 lt-marquee md:text-4xl">
+          {Array.from({ length: 2 }).map((_, dup) => (
+            <div key={dup} className="flex items-center gap-12">
+              {["Capital", "Capacity", "Code", "Agrofinance", "Climate-smart", "MSME Growth", "Access to Finance", "Impact"].map((w) => (
+                <span key={w} className="flex items-center gap-12">
+                  <span className="italic">{w}</span>
+                  <SproutMark className="size-7 shrink-0" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* CTA BAND */}
-      <section className="px-6 pb-24 lg:px-8">
-        <div className="mx-auto max-w-7xl rounded-3xl bg-vetiver p-10 text-bone md:p-16">
-          <div className="grid items-center gap-8 md:grid-cols-[2fr_1fr]">
+      <section className="px-6 py-24 lg:px-8">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-vetiver p-10 text-bone md:p-16">
+          <FloatingLeaves className="-right-10 -top-10 size-[360px] opacity-30" />
+          <OrbitingNodes className="pointer-events-none absolute -left-20 -bottom-20 size-80 text-bone opacity-25" />
+          <div className="relative grid items-center gap-8 md:grid-cols-[2fr_1fr]">
             <div>
               <h2 className="mb-4 text-balance font-serif text-4xl md:text-5xl">Ready to build a more structured and growth-ready business?</h2>
               <p className="max-w-xl text-bone/75">Book a consultation, start your finance readiness diagnostic, or join the Academy.</p>
@@ -209,6 +248,7 @@ function Home() {
           </div>
         </div>
       </section>
+
     </main>
   );
 }

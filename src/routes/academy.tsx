@@ -165,7 +165,7 @@ function CourseCard({ img, status, title, body, meta, priceOld, priceNew, to, ha
             <span className="text-2xl font-bold text-ochre">{priceNew}</span>
           </div>
         )}
-        <Link to={to} className={`rounded-sm py-2.5 text-center text-sm font-semibold ${featured ? "text-white" : "border border-vetiver/20 text-vetiver hover:bg-vetiver/5"}`} style={featured ? { backgroundColor: "var(--academy)" } : undefined}>
+        <Link to={to} hash={hash} className={`rounded-sm py-2.5 text-center text-sm font-semibold ${featured ? "text-white" : "border border-vetiver/20 text-vetiver hover:bg-vetiver/5"}`} style={featured ? { backgroundColor: "var(--academy)" } : undefined}>
           {cta}
         </Link>
       </div>

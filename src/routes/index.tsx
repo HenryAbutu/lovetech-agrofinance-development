@@ -173,7 +173,7 @@ function Home() {
               body="Practical AI tools for more efficient, productive and profitable businesses."
               priceRegular="₦10,000"
               priceLaunch="₦1,000"
-              to="/academy/courses/professionals-ai-edge#enrol"
+              to="/academy/courses/professionals-ai-edge" hash="enrol"
               cta="Enroll Now"
               featured
             />

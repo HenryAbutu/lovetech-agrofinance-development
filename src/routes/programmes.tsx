@@ -11,7 +11,7 @@ export const Route = createFileRoute("/programmes")({
 });
 
 const current = [
-  { t: "Professionals AI Edge", status: "Enrolment Open", b: "Practical AI tools for more efficient, productive and profitable businesses. ₦10,000 → ₦1,000 launch price.", to: "/academy/courses/professionals-ai-edge#enrol" },
+  { t: "Professionals AI Edge", status: "Enrolment Open", b: "Practical AI tools for more efficient, productive and profitable businesses. ₦10,000 → ₦1,000 launch price.", to: "/academy/courses/professionals-ai-edge" hash="enrol" },
 ];
 const upcoming = [
   { t: "ICSS 2.0 Entrepreneurship Programme", b: "Practical entrepreneurship training for MSME growth, finance readiness and market access.", to: "/academy/courses/icss-2-0-entrepreneurship" },

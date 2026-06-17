@@ -97,8 +97,9 @@ function Home() {
 
 
       {/* WHAT WE DO */}
-      <section className="border-y border-border bg-card py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="relative overflow-hidden border-y border-border bg-card py-20">
+        <OrbitingNodes className="pointer-events-none absolute -right-16 top-10 size-72 text-vetiver opacity-60" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-14 max-w-2xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">What we do</p>
             <h2 className="text-balance font-serif text-4xl text-vetiver md:text-5xl">Practical support for growing businesses</h2>
@@ -116,6 +117,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* FEATURED SOLUTIONS */}
       <section className="py-24">

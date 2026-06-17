@@ -48,8 +48,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="mb-4 flex items-center gap-2">
-            <span className="size-6 rounded-sm bg-ochre" />
-            <span className="font-serif text-xl text-bone">LoveTech Agrofinance & Development Ltd</span>
+            <img src={logoAsset.url} alt="LoveTech" className="h-8 w-auto rounded-sm bg-bone px-2 py-1" />
           </div>
           <p className="max-w-md text-sm leading-relaxed">
             Helping Nigerian MSMEs, agribusinesses, and professionals build structured, fundable, and growth-ready enterprises.

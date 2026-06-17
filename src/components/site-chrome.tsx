@@ -51,7 +51,7 @@ export function SiteFooter() {
         <div className="md:col-span-2">
           <div className="mb-4 flex items-center gap-2">
             <span className="size-6 rounded-sm bg-ochre" />
-            <span className="font-serif text-xl text-bone">LoveTech Agrofinance & Development</span>
+            <span className="font-serif text-xl text-bone">LoveTech Agrofinance & Development Ltd</span>
           </div>
           <p className="max-w-md text-sm leading-relaxed">
             Helping Nigerian MSMEs, agribusinesses, and professionals build structured, fundable, and growth-ready enterprises.
@@ -83,7 +83,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/5 px-6 py-6 text-center text-xs text-bone/50 lg:px-8">
-        © {new Date().getFullYear()} LoveTech Agrofinance & Development. All rights reserved.
+        © {new Date().getFullYear()} LoveTech Agrofinance & Development Ltd. All rights reserved.
       </div>
     </footer>
   );

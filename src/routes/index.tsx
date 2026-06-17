@@ -7,22 +7,22 @@ import { ArrowRight, Sparkles, TrendingUp, GraduationCap, Cpu, Sprout, Clipboard
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LoveTech Agrofinance & Development — Business Growth & Agrofinance for Nigerian MSMEs" },
-      { name: "description", content: "Practical business development, finance-readiness, training, and AI-enabled support for Nigerian MSMEs, agribusinesses, and professionals." },
-      { property: "og:title", content: "LoveTech Agrofinance & Development" },
-      { property: "og:description", content: "Helping entrepreneurs move from hustle to structure — agrofinance, training, consulting and the LoveTech Agro Academy." },
+      { title: "LoveTech Agrofinance & Development Ltd — Capital, Capacity & Code for Nigerian MSMEs" },
+      { name: "description", content: "Capital, capacity, and tech-enabled advisory for agribusinesses, MSMEs, and development programmes across Nigeria and West Africa." },
+      { property: "og:title", content: "LoveTech Agrofinance & Development Ltd" },
+      { property: "og:description", content: "Capital, capacity, and tech-enabled advisory for agribusinesses, MSMEs, and development programmes across Nigeria and West Africa." },
     ],
   }),
   component: Home,
 });
 
 const services = [
-  { icon: TrendingUp, title: "Business Development", body: "Strategy, operations, market access and growth readiness support for MSMEs and startups." },
-  { icon: ClipboardCheck, title: "Finance Readiness", body: "Diagnostics, documentation, cashflow review, loan- and grant-readiness preparation." },
-  { icon: Sprout, title: "Agrofinance & Value Chain", body: "Support for agribusinesses, cooperatives and value chain actors to become investment-ready." },
-  { icon: GraduationCap, title: "Training & Capacity", body: "Practical courses via LoveTech Agro Academy — entrepreneurship, AI, finance, digital tools." },
-  { icon: Cpu, title: "Digital & AI Support", body: "AI, automation and data for better marketing, sales, operations and profitability." },
-  { icon: Users, title: "Consulting & Implementation", body: "Programme design, diagnostics, MSME projects, monitoring and enterprise-support systems." },
+  { icon: TrendingUp, title: "Capital", body: "Loan and grant readiness, business plans, financial modelling, pitch decks, and direct linkages to markets and capital matched to your stage and sector." },
+  { icon: ClipboardCheck, title: "Capacity", body: "MSME training and academy programmes, business development services, cooperative strengthening, governance advisory, and climate-smart enterprise support." },
+  { icon: Sprout, title: "Code", body: "M&E and impact assessment, research and ecosystem mapping, data dashboards, pipeline tools, and evidence-based policy support." },
+  { icon: GraduationCap, title: "Training & Academy", body: "Practical courses via LoveTech Agro Academy — entrepreneurship, AI, finance, digital tools — for individuals, teams and partner organisations." },
+  { icon: Cpu, title: "Digital & AI Support", body: "Apply AI, automation, data and digital tools to marketing, sales, operations and profitability. We translate the hype into real workflows." },
+  { icon: Users, title: "Consulting & Implementation", body: "Programme design, diagnostics, enterprise-support systems, monitoring, MSME projects and partner-organisation support." },
 ];
 
 const approach = [
@@ -42,13 +42,13 @@ function Home() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-vetiver/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-vetiver">
-                <Sparkles className="size-3.5" /> Nigerian MSMEs · Agribusiness · AI
+                <Sparkles className="size-3.5" /> Agrofinance · Enterprise Development · Access to Finance · Climate Finance
               </div>
               <h1 className="text-balance font-serif text-5xl leading-[1.05] text-vetiver md:text-6xl lg:text-7xl">
-                Business Growth, Agrofinance and Digital Solutions for MSMEs
+                Capital, capacity, and a sharper way to get businesses funded.
               </h1>
               <p className="mt-6 max-w-xl text-lg text-foreground/75">
-                LoveTech Agrofinance & Development supports MSMEs, startups, professionals, agribusinesses and value chain actors with practical business development, finance-readiness, training, consulting and digital transformation.
+                LoveTech Agrofinance & Development Ltd supports agribusinesses, MSMEs, cooperatives, women- and youth-led enterprises, institutions, and development programmes to become finance-ready, investment-ready, and growth-ready.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link to="/contact" className="rounded-sm bg-vetiver px-7 py-3 text-base font-semibold text-bone shadow-sm transition-opacity hover:opacity-95">

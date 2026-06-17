@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/insights")({
   head: () => ({
     meta: [
-      { title: "Insights — LoveTech Agrofinance & Development" },
+      { title: "Insights — LoveTech Agrofinance & Development Ltd" },
       { name: "description", content: "Articles and resources on MSME growth, agrofinance, AI for business, and finance readiness." },
     ],
   }),

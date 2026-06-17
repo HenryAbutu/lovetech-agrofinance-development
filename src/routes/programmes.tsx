@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/programmes")({
   head: () => ({
     meta: [
-      { title: "Programmes — LoveTech Agrofinance & Development" },
+      { title: "Programmes — LoveTech Agrofinance & Development Ltd" },
       { name: "description", content: "Current and upcoming programmes for MSMEs, professionals and agribusinesses." },
     ],
   }),

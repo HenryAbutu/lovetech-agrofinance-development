@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import logoAsset from "@/assets/LoveTech_Logo_Option1.png.asset.json";
 
 const navLinks = [
   { to: "/", label: "Home" },

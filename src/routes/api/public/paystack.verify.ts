@@ -44,7 +44,7 @@ export const Route = createFileRoute("/api/public/paystack/verify")({
         }
 
         throw redirect({
-          href: `${origin}/academy/dashboard?payment=${ok ? "success" : "failed"}&ref=${encodeURIComponent(reference)}`,
+          href: `${origin}/academy/receipt?payment=${ok ? "success" : "failed"}&ref=${encodeURIComponent(reference)}`,
         });
       },
     },

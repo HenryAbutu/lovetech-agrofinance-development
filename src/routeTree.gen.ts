@@ -27,6 +27,7 @@ import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/
 import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
+import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
 import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack.webhook'
 import { Route as ApiPublicPaystackVerifyRouteImport } from './routes/api/public/paystack.verify'
@@ -124,6 +125,12 @@ const AuthenticatedAdminVideoStudioRoute =
     path: '/admin/video-studio',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAcademyReceiptRoute =
+  AuthenticatedAcademyReceiptRouteImport.update({
+    id: '/academy/receipt',
+    path: '/academy/receipt',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAcademyDashboardRoute =
   AuthenticatedAcademyDashboardRouteImport.update({
     id: '/academy/dashboard',
@@ -157,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -179,6 +187,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -203,6 +212,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -227,6 +237,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/academy/dashboard'
+    | '/academy/receipt'
     | '/admin/video-studio'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/academy/dashboard'
+    | '/academy/receipt'
     | '/admin/video-studio'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -272,6 +284,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/academy/dashboard'
+    | '/_authenticated/academy/receipt'
     | '/_authenticated/admin/video-studio'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -427,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminVideoStudioRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/academy/receipt': {
+      id: '/_authenticated/academy/receipt'
+      path: '/academy/receipt'
+      fullPath: '/academy/receipt'
+      preLoaderRoute: typeof AuthenticatedAcademyReceiptRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/academy/dashboard': {
       id: '/_authenticated/academy/dashboard'
       path: '/academy/dashboard'
@@ -453,11 +473,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRoute
+  AuthenticatedAcademyReceiptRoute: typeof AuthenticatedAcademyReceiptRoute
   AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAcademyDashboardRoute: AuthenticatedAcademyDashboardRoute,
+  AuthenticatedAcademyReceiptRoute: AuthenticatedAcademyReceiptRoute,
   AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
 }
 

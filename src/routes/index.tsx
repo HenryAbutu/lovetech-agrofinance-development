@@ -17,12 +17,12 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { icon: TrendingUp, title: "Business Development", body: "Strategy, operations, market access and growth readiness support for MSMEs and startups." },
-  { icon: ClipboardCheck, title: "Finance Readiness", body: "Diagnostics, documentation, cashflow review, loan- and grant-readiness preparation." },
-  { icon: Sprout, title: "Agrofinance & Value Chain", body: "Support for agribusinesses, cooperatives and value chain actors to become investment-ready." },
-  { icon: GraduationCap, title: "Training & Capacity", body: "Practical courses via LoveTech Agro Academy — entrepreneurship, AI, finance, digital tools." },
-  { icon: Cpu, title: "Digital & AI Support", body: "AI, automation and data for better marketing, sales, operations and profitability." },
-  { icon: Users, title: "Consulting & Implementation", body: "Programme design, diagnostics, MSME projects, monitoring and enterprise-support systems." },
+  { icon: TrendingUp, title: "Capital", body: "Loan and grant readiness, business plans, financial modelling, pitch decks, and direct linkages to markets and capital matched to your stage and sector." },
+  { icon: ClipboardCheck, title: "Capacity", body: "MSME training and academy programmes, business development services, cooperative strengthening, governance advisory, and climate-smart enterprise support." },
+  { icon: Sprout, title: "Code", body: "M&E and impact assessment, research and ecosystem mapping, data dashboards, pipeline tools, and evidence-based policy support." },
+  { icon: GraduationCap, title: "Training & Academy", body: "Practical courses via LoveTech Agro Academy — entrepreneurship, AI, finance, digital tools — for individuals, teams and partner organisations." },
+  { icon: Cpu, title: "Digital & AI Support", body: "Apply AI, automation, data and digital tools to marketing, sales, operations and profitability. We translate the hype into real workflows." },
+  { icon: Users, title: "Consulting & Implementation", body: "Programme design, diagnostics, enterprise-support systems, monitoring, MSME projects and partner-organisation support." },
 ];
 
 const approach = [

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/programmes")({
 });
 
 const current = [
-  { t: "Professionals AI Edge", status: "Enrolment Open", b: "Practical AI tools for more efficient, productive and profitable businesses. ₦10,000 → ₦1,000 launch price.", to: "/academy/courses/professionals-ai-edge" },
+  { t: "Professionals AI Edge", status: "Enrolment Open", b: "Practical AI tools for more efficient, productive and profitable businesses. ₦10,000 → ₦1,000 launch price.", to: "/academy/courses/professionals-ai-edge", hash: "enrol" },
 ];
 const upcoming = [
   { t: "ICSS 2.0 Entrepreneurship Programme", b: "Practical entrepreneurship training for MSME growth, finance readiness and market access.", to: "/academy/courses/icss-2-0-entrepreneurship" },
@@ -37,7 +37,7 @@ function ProgrammesPage() {
                 <span className="mb-3 inline-flex rounded-full bg-vetiver/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-vetiver">{p.status}</span>
                 <h3 className="mb-2 font-serif text-2xl text-vetiver">{p.t}</h3>
                 <p className="mb-6 text-foreground/70">{p.b}</p>
-                <Link to={p.to} className="inline-flex rounded-sm bg-vetiver px-5 py-2.5 text-sm font-semibold text-bone">View Programme</Link>
+                <Link to={p.to} hash={p.hash} className="inline-flex rounded-sm bg-vetiver px-5 py-2.5 text-sm font-semibold text-bone">View Programme</Link>
               </article>
             ))}
           </div>

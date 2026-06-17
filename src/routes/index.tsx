@@ -173,7 +173,7 @@ function Home() {
               body="Practical AI tools for more efficient, productive and profitable businesses."
               priceRegular="₦10,000"
               priceLaunch="₦1,000"
-              to="/academy/courses/professionals-ai-edge"
+              to="/academy/courses/professionals-ai-edge" hash="enrol"
               cta="Enroll Now"
               featured
             />
@@ -270,7 +270,7 @@ function FeatureCard({ eyebrow, title, body, cta, to, image, tint }: { eyebrow: 
   );
 }
 
-function CourseCard({ status, title, body, priceRegular, priceLaunch, to, cta, featured }: { status: string; title: string; body: string; priceRegular?: string; priceLaunch?: string; to: string; cta: string; featured?: boolean }) {
+function CourseCard({ status, title, body, priceRegular, priceLaunch, to, hash, cta, featured }: { status: string; title: string; body: string; priceRegular?: string; priceLaunch?: string; to: string; hash?: string; cta: string; featured?: boolean }) {
   return (
     <article className={`flex flex-col rounded-2xl border p-6 ${featured ? "border-transparent bg-bone/5 ring-1" : "border-white/10 bg-white/5 opacity-90"}`} style={featured ? { boxShadow: "inset 0 0 0 1px var(--academy)" } : undefined}>
       <span className="mb-4 inline-flex w-fit rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider" style={featured ? { backgroundColor: "color-mix(in oklab, var(--academy) 20%, transparent)", color: "var(--bone)" } : undefined}>
@@ -284,7 +284,7 @@ function CourseCard({ status, title, body, priceRegular, priceLaunch, to, cta, f
           <span className="text-2xl font-bold text-ochre">{priceLaunch}</span>
         </div>
       )}
-      <Link to={to} className={`rounded-sm py-2.5 text-center text-sm font-semibold ${featured ? "text-white" : "border border-bone/20 text-bone hover:bg-bone/10"}`} style={featured ? { backgroundColor: "var(--academy)" } : undefined}>
+      <Link to={to} hash={hash} className={`rounded-sm py-2.5 text-center text-sm font-semibold ${featured ? "text-white" : "border border-bone/20 text-bone hover:bg-bone/10"}`} style={featured ? { backgroundColor: "var(--academy)" } : undefined}>
         {cta}
       </Link>
     </article>

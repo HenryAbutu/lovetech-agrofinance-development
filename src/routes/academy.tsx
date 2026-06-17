@@ -145,7 +145,7 @@ function Pillar({ icon, title, body }: { icon: React.ReactNode; title: string; b
   );
 }
 
-function CourseCard({ img, status, title, body, meta, priceOld, priceNew, to, cta, featured }: { img: string; status: string; title: string; body: string; meta?: string; priceOld?: string; priceNew?: string; to: string; cta: string; featured?: boolean }) {
+function CourseCard({ img, status, title, body, meta, priceOld, priceNew, to, hash, cta, featured }: { img: string; status: string; title: string; body: string; meta?: string; priceOld?: string; priceNew?: string; to: string; hash?: string; cta: string; featured?: boolean }) {
   return (
     <article className={`group flex flex-col overflow-hidden rounded-2xl border bg-card transition-shadow hover:shadow-xl ${featured ? "border-academy ring-1 ring-academy/30" : "border-border"}`}>
       <div className="relative aspect-[16/10] overflow-hidden bg-muted">

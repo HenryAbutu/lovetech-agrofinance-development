@@ -57,9 +57,9 @@ export function SiteFooter() {
             Helping Nigerian MSMEs, agribusinesses, and professionals build structured, fundable, and growth-ready enterprises.
           </p>
           <div className="mt-6 space-y-1 text-sm">
-            <p>Abuja, Nigeria</p>
+            <p>27, 3rd Avenue, Aldenco Estate, Galadimawa, Abuja, Nigeria</p>
             <p>+234 802 606 5189</p>
-            <p>info@lovetechagro.com</p>
+            <p>info@lovetechgroup.com.ng</p>
           </div>
         </div>
         <div>

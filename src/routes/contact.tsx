@@ -80,8 +80,8 @@ function ContactPage() {
             <ul className="space-y-5 text-sm">
               <li className="flex gap-3"><Phone className="mt-0.5 size-4 text-ochre" /><span>+234 802 606 5189</span></li>
               <li className="flex gap-3"><MessageCircle className="mt-0.5 size-4 text-ochre" /><a className="hover:text-ochre" href="https://wa.me/2348026065189">WhatsApp us</a></li>
-              <li className="flex gap-3"><Mail className="mt-0.5 size-4 text-ochre" /><span>info@lovetechagro.com</span></li>
-              <li className="flex gap-3"><MapPin className="mt-0.5 size-4 text-ochre" /><span>Abuja, Nigeria</span></li>
+              <li className="flex gap-3"><Mail className="mt-0.5 size-4 text-ochre" /><span>info@lovetechgroup.com.ng</span></li>
+              <li className="flex gap-3"><MapPin className="mt-0.5 size-4 text-ochre" /><span>27, 3rd Avenue, Aldenco Estate, Galadimawa, Abuja, Nigeria</span></li>
             </ul>
           </aside>
         </div>

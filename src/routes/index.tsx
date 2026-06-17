@@ -45,10 +45,10 @@ function Home() {
                 <Sparkles className="size-3.5" /> Nigerian MSMEs · Agribusiness · AI
               </div>
               <h1 className="text-balance font-serif text-5xl leading-[1.05] text-vetiver md:text-6xl lg:text-7xl">
-                Business Growth, Agrofinance and Digital Solutions for MSMEs
+                Capital, capacity, and a sharper way to get businesses funded.
               </h1>
               <p className="mt-6 max-w-xl text-lg text-foreground/75">
-                LoveTech Agrofinance & Development supports MSMEs, startups, professionals, agribusinesses and value chain actors with practical business development, finance-readiness, training, consulting and digital transformation.
+                LoveTech Agrofinance & Development Ltd supports agribusinesses, MSMEs, cooperatives, women- and youth-led enterprises, institutions, and development programmes to become finance-ready, investment-ready, and growth-ready.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link to="/contact" className="rounded-sm bg-vetiver px-7 py-3 text-base font-semibold text-bone shadow-sm transition-opacity hover:opacity-95">

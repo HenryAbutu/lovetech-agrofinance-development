@@ -10,9 +10,9 @@ export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
   head: () => ({
     meta: [
       { title: "Enroll · Professionals AI Edge — LoveTech Agro Academy" },
-      { name: "description", content: "Practical AI tools for more efficient, productive and profitable businesses. Launch price ₦1,000. Deadline 15 June 2026." },
+      { name: "description", content: "Practical AI tools for more efficient, productive and profitable businesses. Launch price ₦5,000." },
       { property: "og:title", content: "Professionals AI Edge" },
-      { property: "og:description", content: "Practical AI tools for Nigerian professionals and founders. Launch price ₦1,000." },
+      { property: "og:description", content: "Practical AI tools for Nigerian professionals and founders. Launch price ₦5,000." },
       { property: "og:image", content: courseImg },
     ],
   }),
@@ -76,13 +76,13 @@ function Page() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[1.4fr_1fr] lg:px-8 lg:py-28">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--ochre)" }}>
-              <Sparkles className="size-3.5" /> Enrolment Open · Deadline 15 June 2026
+              <Sparkles className="size-3.5" /> Enrolment Open
             </p>
             <h1 className="font-serif text-5xl text-bone md:text-6xl">Professionals AI Edge</h1>
             <p className="mt-5 max-w-2xl text-lg text-bone/75">Practical AI tools for more efficient, productive and profitable businesses. Built for Nigerian professionals, founders and operators.</p>
             <div className="mt-8 flex items-baseline gap-3">
               <span className="text-lg text-bone/40 line-through">₦10,000</span>
-              <span className="font-serif text-5xl text-ochre">₦1,000</span>
+              <span className="font-serif text-5xl text-ochre">₦5,000</span>
               <span className="text-sm text-bone/60">launch price</span>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -93,7 +93,7 @@ function Page() {
           <aside className="self-end rounded-2xl border border-bone/15 bg-bone/5 p-6 backdrop-blur">
             <h3 className="mb-4 font-serif text-xl text-bone">Course details</h3>
             <ul className="space-y-3 text-sm text-bone/80">
-              <li className="flex items-center gap-3"><Calendar className="size-4 text-ochre" /> Deadline: 15 June 2026</li>
+              <li className="flex items-center gap-3"><Calendar className="size-4 text-ochre" /> Rolling enrolment</li>
               <li className="flex items-center gap-3"><Clock className="size-4 text-ochre" /> ~6 weeks · self-paced + Zoom</li>
               <li className="flex items-center gap-3"><MessageCircle className="size-4 text-ochre" /> WhatsApp cohort support</li>
               <li className="flex items-center gap-3"><Phone className="size-4 text-ochre" /> 08026065189</li>
@@ -126,8 +126,8 @@ function Page() {
           <aside className="h-fit space-y-4">
             <div className="rounded-2xl border border-academy/30 bg-academy/5 p-6">
               <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-academy">Launch cohort</p>
-              <p className="font-serif text-3xl text-vetiver">₦1,000</p>
-              <p className="mt-1 text-sm text-foreground/60">90% off until 15 June 2026.</p>
+              <p className="font-serif text-3xl text-vetiver">₦5,000</p>
+              <p className="mt-1 text-sm text-foreground/60">50% off launch price.</p>
               <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Reserve my seat</a>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
@@ -143,7 +143,7 @@ function Page() {
         <div className="mx-auto max-w-3xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Step 2 · Enrolment</p>
           <h2 className="mb-2 font-serif text-4xl text-vetiver">Enroll in Professionals AI Edge</h2>
-          <p className="mb-8 text-foreground/70">Complete the form below and proceed to secure payment of ₦1,000.</p>
+          <p className="mb-8 text-foreground/70">Complete the form below and proceed to secure payment of ₦5,000.</p>
           {authed === false && (
             <div className="mb-6 rounded-md border border-ochre/30 bg-ochre/5 p-4 text-sm">
               You need to <Link to="/login" className="font-semibold text-vetiver underline">sign in</Link> or <Link to="/signup" className="font-semibold text-vetiver underline">create an account</Link> to enroll.
@@ -176,7 +176,7 @@ function Page() {
               <Field name="referral_source" label="How did you hear about us?" />
               {err && <p className="text-sm text-destructive">{err}</p>}
               <button disabled={state === "loading" || !authed} className="rounded-sm px-6 py-3 font-semibold text-white disabled:opacity-60" style={{ backgroundColor: "var(--academy)" }}>
-                {state === "loading" ? "Processing…" : authed ? "Enroll & Pay ₦1,000" : "Sign in to enroll"}
+                {state === "loading" ? "Processing…" : authed ? "Enroll & Pay ₦5,000" : "Sign in to enroll"}
               </button>
               <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
             </form>

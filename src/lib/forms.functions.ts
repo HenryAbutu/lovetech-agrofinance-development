@@ -1,6 +1,21 @@
 import { createServerFn } from "@tanstack/react-start";
+import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import type { Database } from "@/integrations/supabase/types";
+
+function getPublicServerClient() {
+  const url = process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL;
+  const key =
+    process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  if (!url || !key) {
+    throw new Error(
+      "Supabase is not configured on the server. Please contact the site administrator.",
+    );
+  }
+  return createClient<Database>(url, key, {
+    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+  });
+}
 
 const EnquirySchema = z.object({
   full_name: z.string().min(1).max(200),
@@ -14,7 +29,8 @@ const EnquirySchema = z.object({
 export const submitEnquiry = createServerFn({ method: "POST" })
   .inputValidator((input) => EnquirySchema.parse(input))
   .handler(async ({ data }) => {
-    const { error } = await supabaseAdmin.from("enquiries").insert(data);
+    const supabase = getPublicServerClient();
+    const { error } = await supabase.from("enquiries").insert(data);
     if (error) throw new Error(error.message);
 
     // Send notification email via Resend (non-blocking on failure)
@@ -85,7 +101,8 @@ const DiagnosticSchema = z.object({
 export const submitDiagnostic = createServerFn({ method: "POST" })
   .inputValidator((input) => DiagnosticSchema.parse(input))
   .handler(async ({ data }) => {
-    const { error } = await supabaseAdmin.from("diagnostic_requests").insert(data);
+    const supabase = getPublicServerClient();
+    const { error } = await supabase.from("diagnostic_requests").insert(data);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -106,9 +123,10 @@ const WaitlistSchema = z.object({
 export const submitWaitlist = createServerFn({ method: "POST" })
   .inputValidator((input) => WaitlistSchema.parse(input))
   .handler(async ({ data }) => {
+    const supabase = getPublicServerClient();
     let course_id: string | null = null;
     if (data.course_slug) {
-      const { data: c } = await supabaseAdmin
+      const { data: c } = await supabase
         .from("academy_courses")
         .select("id")
         .eq("slug", data.course_slug)
@@ -117,7 +135,9 @@ export const submitWaitlist = createServerFn({ method: "POST" })
     }
     const { course_slug, ...rest } = data;
     void course_slug;
-    const { error } = await supabaseAdmin.from("academy_waitlist").insert({ ...rest, course_id });
+    const { error } = await supabase
+      .from("academy_waitlist")
+      .insert({ ...rest, course_id });
     if (error) throw new Error(error.message);
     return { ok: true };
   });

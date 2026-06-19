@@ -19,10 +19,10 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcademyIndexRouteImport } from './routes/academy.index'
 import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
 import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
@@ -82,11 +82,6 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AcademyRoute = AcademyRouteImport.update({
-  id: '/academy',
-  path: '/academy',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -101,23 +96,28 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademyIndexRoute = AcademyIndexRouteImport.update({
+  id: '/academy/',
+  path: '/academy/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcademyCoursesProfessionalsAiEdgeRoute =
   AcademyCoursesProfessionalsAiEdgeRouteImport.update({
-    id: '/courses/professionals-ai-edge',
-    path: '/courses/professionals-ai-edge',
-    getParentRoute: () => AcademyRoute,
+    id: '/academy/courses/professionals-ai-edge',
+    path: '/academy/courses/professionals-ai-edge',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const AcademyCoursesIcss20EntrepreneurshipRoute =
   AcademyCoursesIcss20EntrepreneurshipRouteImport.update({
-    id: '/courses/icss-2-0-entrepreneurship',
-    path: '/courses/icss-2-0-entrepreneurship',
-    getParentRoute: () => AcademyRoute,
+    id: '/academy/courses/icss-2-0-entrepreneurship',
+    path: '/academy/courses/icss-2-0-entrepreneurship',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const AcademyCoursesFinanceReadinessMsmesRoute =
   AcademyCoursesFinanceReadinessMsmesRouteImport.update({
-    id: '/courses/finance-readiness-msmes',
-    path: '/courses/finance-readiness-msmes',
-    getParentRoute: () => AcademyRoute,
+    id: '/academy/courses/finance-readiness-msmes',
+    path: '/academy/courses/finance-readiness-msmes',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const AuthenticatedAdminVideoStudioRoute =
   AuthenticatedAdminVideoStudioRouteImport.update({
@@ -152,7 +152,6 @@ const ApiPublicPaystackVerifyRoute = ApiPublicPaystackVerifyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/academy': typeof AcademyRouteWithChildren
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/insights': typeof InsightsRoute
@@ -163,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/academy/': typeof AcademyIndexRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
@@ -175,7 +175,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/academy': typeof AcademyRouteWithChildren
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/insights': typeof InsightsRoute
@@ -186,6 +185,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/academy': typeof AcademyIndexRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
@@ -200,7 +200,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
-  '/academy': typeof AcademyRouteWithChildren
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/insights': typeof InsightsRoute
@@ -211,6 +210,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/academy/': typeof AcademyIndexRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
@@ -225,7 +225,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/academy'
     | '/contact'
     | '/finance-readiness'
     | '/insights'
@@ -236,6 +235,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/academy/'
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/admin/video-studio'
@@ -248,7 +248,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/academy'
     | '/contact'
     | '/finance-readiness'
     | '/insights'
@@ -259,6 +258,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/academy'
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/admin/video-studio'
@@ -272,7 +272,6 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
-    | '/academy'
     | '/contact'
     | '/finance-readiness'
     | '/insights'
@@ -283,6 +282,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/academy/'
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
     | '/_authenticated/admin/video-studio'
@@ -297,7 +297,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AcademyRoute: typeof AcademyRouteWithChildren
   ContactRoute: typeof ContactRoute
   FinanceReadinessRoute: typeof FinanceReadinessRoute
   InsightsRoute: typeof InsightsRoute
@@ -308,6 +307,10 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
+  AcademyIndexRoute: typeof AcademyIndexRoute
+  AcademyCoursesFinanceReadinessMsmesRoute: typeof AcademyCoursesFinanceReadinessMsmesRoute
+  AcademyCoursesIcss20EntrepreneurshipRoute: typeof AcademyCoursesIcss20EntrepreneurshipRoute
+  AcademyCoursesProfessionalsAiEdgeRoute: typeof AcademyCoursesProfessionalsAiEdgeRoute
   ApiPublicPaystackVerifyRoute: typeof ApiPublicPaystackVerifyRoute
   ApiPublicPaystackWebhookRoute: typeof ApiPublicPaystackWebhookRoute
 }
@@ -384,13 +387,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/academy': {
-      id: '/academy'
-      path: '/academy'
-      fullPath: '/academy'
-      preLoaderRoute: typeof AcademyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -412,26 +408,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academy/': {
+      id: '/academy/'
+      path: '/academy'
+      fullPath: '/academy/'
+      preLoaderRoute: typeof AcademyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/academy/courses/professionals-ai-edge': {
       id: '/academy/courses/professionals-ai-edge'
-      path: '/courses/professionals-ai-edge'
+      path: '/academy/courses/professionals-ai-edge'
       fullPath: '/academy/courses/professionals-ai-edge'
       preLoaderRoute: typeof AcademyCoursesProfessionalsAiEdgeRouteImport
-      parentRoute: typeof AcademyRoute
+      parentRoute: typeof rootRouteImport
     }
     '/academy/courses/icss-2-0-entrepreneurship': {
       id: '/academy/courses/icss-2-0-entrepreneurship'
-      path: '/courses/icss-2-0-entrepreneurship'
+      path: '/academy/courses/icss-2-0-entrepreneurship'
       fullPath: '/academy/courses/icss-2-0-entrepreneurship'
       preLoaderRoute: typeof AcademyCoursesIcss20EntrepreneurshipRouteImport
-      parentRoute: typeof AcademyRoute
+      parentRoute: typeof rootRouteImport
     }
     '/academy/courses/finance-readiness-msmes': {
       id: '/academy/courses/finance-readiness-msmes'
-      path: '/courses/finance-readiness-msmes'
+      path: '/academy/courses/finance-readiness-msmes'
       fullPath: '/academy/courses/finance-readiness-msmes'
       preLoaderRoute: typeof AcademyCoursesFinanceReadinessMsmesRouteImport
-      parentRoute: typeof AcademyRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/video-studio': {
       id: '/_authenticated/admin/video-studio'
@@ -487,29 +490,10 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
-interface AcademyRouteChildren {
-  AcademyCoursesFinanceReadinessMsmesRoute: typeof AcademyCoursesFinanceReadinessMsmesRoute
-  AcademyCoursesIcss20EntrepreneurshipRoute: typeof AcademyCoursesIcss20EntrepreneurshipRoute
-  AcademyCoursesProfessionalsAiEdgeRoute: typeof AcademyCoursesProfessionalsAiEdgeRoute
-}
-
-const AcademyRouteChildren: AcademyRouteChildren = {
-  AcademyCoursesFinanceReadinessMsmesRoute:
-    AcademyCoursesFinanceReadinessMsmesRoute,
-  AcademyCoursesIcss20EntrepreneurshipRoute:
-    AcademyCoursesIcss20EntrepreneurshipRoute,
-  AcademyCoursesProfessionalsAiEdgeRoute:
-    AcademyCoursesProfessionalsAiEdgeRoute,
-}
-
-const AcademyRouteWithChildren =
-  AcademyRoute._addFileChildren(AcademyRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
-  AcademyRoute: AcademyRouteWithChildren,
   ContactRoute: ContactRoute,
   FinanceReadinessRoute: FinanceReadinessRoute,
   InsightsRoute: InsightsRoute,
@@ -520,6 +504,13 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
+  AcademyIndexRoute: AcademyIndexRoute,
+  AcademyCoursesFinanceReadinessMsmesRoute:
+    AcademyCoursesFinanceReadinessMsmesRoute,
+  AcademyCoursesIcss20EntrepreneurshipRoute:
+    AcademyCoursesIcss20EntrepreneurshipRoute,
+  AcademyCoursesProfessionalsAiEdgeRoute:
+    AcademyCoursesProfessionalsAiEdgeRoute,
   ApiPublicPaystackVerifyRoute: ApiPublicPaystackVerifyRoute,
   ApiPublicPaystackWebhookRoute: ApiPublicPaystackWebhookRoute,
 }

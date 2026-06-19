@@ -5,7 +5,7 @@ import aiEdgeImg from "@/assets/course-ai-edge.jpg";
 import icssImg from "@/assets/course-icss.jpg";
 import financeImg from "@/assets/course-finance.jpg";
 
-export const Route = createFileRoute("/academy")({
+export const Route = createFileRoute("/academy/")({
   head: () => ({
     meta: [
       { title: "LoveTech Agro Academy — Practical courses for entrepreneurs" },

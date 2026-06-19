@@ -1,7 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
+import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import type { Database } from "@/integrations/supabase/types";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const EnrolSchema = z.object({
@@ -16,12 +17,28 @@ const EnrolSchema = z.object({
   referral_source: z.string().max(200).optional().nullable(),
 });
 
+function getPublicClient() {
+  const url = process.env.SUPABASE_URL;
+  const key =
+    process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.SUPABASE_ANON_KEY;
+  if (!url || !key) {
+    throw new Error(
+      "Missing Supabase environment variable(s): SUPABASE_URL and/or SUPABASE_PUBLISHABLE_KEY (anon key).",
+    );
+  }
+  return createClient<Database>(url, key, {
+    auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+  });
+}
+
 export const enrolInCourse = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => EnrolSchema.parse(input))
   .handler(async ({ data, context }) => {
-    const { userId } = context;
-    const { data: course, error: cErr } = await supabaseAdmin
+    const { userId, supabase: userClient } = context;
+    // Public read for course (anon-readable via RLS)
+    const publicClient = getPublicClient();
+    const { data: course, error: cErr } = await publicClient
       .from("academy_courses")
       .select("id, title, discount_price, regular_price")
       .eq("slug", data.course_slug)
@@ -31,7 +48,9 @@ export const enrolInCourse = createServerFn({ method: "POST" })
 
     const { course_slug, ...rest } = data;
     void course_slug;
-    const { data: enrol, error } = await supabaseAdmin
+
+    // Insert enrolment as the authenticated user (RLS-scoped)
+    const { data: enrol, error } = await userClient
       .from("academy_enrolments")
       .insert({
         ...rest,
@@ -45,7 +64,7 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
 
     const amount = Number(course.discount_price ?? course.regular_price ?? 0);
-    await supabaseAdmin.from("academy_payments").insert({
+    await userClient.from("academy_payments").insert({
       enrolment_id: enrol.id,
       course_id: course.id,
       user_email: data.email,
@@ -66,7 +85,7 @@ export const enrolInCourse = createServerFn({ method: "POST" })
       };
     }
 
-    // Live Paystack init (once key is added)
+    // Live Paystack init
     const req = getRequest();
     const origin = new URL(req.url).origin;
     const callbackUrl = `${origin}/api/public/paystack/verify`;
@@ -87,7 +106,7 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     });
     const json = (await res.json()) as { data?: { authorization_url?: string; reference?: string } };
     if (json.data?.reference) {
-      await supabaseAdmin
+      await userClient
         .from("academy_payments")
         .update({ paystack_reference: json.data.reference })
         .eq("enrolment_id", enrol.id);

@@ -181,7 +181,7 @@ function Page() {
                 onClick={(e) => {
                   if (!authed) {
                     e.preventDefault();
-                    nav({ to: "/login", search: { redirect: "/academy/courses/professionals-ai-edge#enrol" } as never });
+                    nav({ to: "/login" });
                   }
                 }}
                 className="rounded-sm px-6 py-3 font-semibold text-white disabled:opacity-60"

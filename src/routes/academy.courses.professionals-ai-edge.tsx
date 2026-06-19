@@ -175,7 +175,18 @@ function Page() {
               </div>
               <Field name="referral_source" label="How did you hear about us?" />
               {err && <p className="text-sm text-destructive">{err}</p>}
-              <button disabled={state === "loading" || !authed} className="rounded-sm px-6 py-3 font-semibold text-white disabled:opacity-60" style={{ backgroundColor: "var(--academy)" }}>
+              <button
+                type={authed ? "submit" : "button"}
+                disabled={state === "loading"}
+                onClick={(e) => {
+                  if (!authed) {
+                    e.preventDefault();
+                    nav({ to: "/login", search: { redirect: "/academy/courses/professionals-ai-edge#enrol" } as never });
+                  }
+                }}
+                className="rounded-sm px-6 py-3 font-semibold text-white disabled:opacity-60"
+                style={{ backgroundColor: "var(--academy)" }}
+              >
                 {state === "loading" ? "Processing…" : authed ? "Enroll & Pay ₦5,000" : "Sign in to enroll"}
               </button>
               <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>

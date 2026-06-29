@@ -64,7 +64,10 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
 
     const amount = Number(course.discount_price ?? course.regular_price ?? 0);
-    await userClient.from("academy_payments").insert({
+    // Payment rows are written server-side only (service role) so learners
+    // cannot fabricate or modify payment records from the client.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin.from("academy_payments").insert({
       enrolment_id: enrol.id,
       course_id: course.id,
       user_email: data.email,
@@ -106,7 +109,7 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     });
     const json = (await res.json()) as { data?: { authorization_url?: string; reference?: string } };
     if (json.data?.reference) {
-      await userClient
+      await supabaseAdmin
         .from("academy_payments")
         .update({ paystack_reference: json.data.reference })
         .eq("enrolment_id", enrol.id);

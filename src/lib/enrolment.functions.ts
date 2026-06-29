@@ -109,7 +109,7 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     });
     const json = (await res.json()) as { data?: { authorization_url?: string; reference?: string } };
     if (json.data?.reference) {
-      await userClient
+      await supabaseAdmin
         .from("academy_payments")
         .update({ paystack_reference: json.data.reference })
         .eq("enrolment_id", enrol.id);

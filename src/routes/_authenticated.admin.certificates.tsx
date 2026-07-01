@@ -71,7 +71,7 @@ function CertificatesAdmin() {
                             if (!name) return;
                             setBusy(key); setErr("");
                             approveMut.mutate(
-                              { user_id: e.user_id, course_id: e.course_id, certificate_name: name },
+                              { user_id: e.user_id!, course_id: e.course_id!, certificate_name: name },
                               { onSettled: () => setBusy(null) },
                             );
                           }}

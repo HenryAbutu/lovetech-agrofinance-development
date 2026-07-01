@@ -10,7 +10,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        "@vercel/nft": "@vercel/nft/dist/index.js",
+        "@vercel/nft": "@vercel/nft/out/index.js",
       },
     },
   },

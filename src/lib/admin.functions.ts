@@ -63,7 +63,7 @@ const CourseSchema = z.object({
   slug: z.string().min(1).max(120),
   title: z.string().min(1).max(200),
   subtitle: z.string().max(500).optional().nullable(),
-  status: z.enum(["draft", "published", "coming_soon"]).default("draft"),
+  status: z.enum(["draft", "enrolment_open", "coming_soon", "closed", "archived"]).default("draft"),
   regular_price: z.coerce.number().nonnegative().optional().nullable(),
   discount_price: z.coerce.number().nonnegative().optional().nullable(),
   delivery_mode: z.string().max(120).optional().nullable(),

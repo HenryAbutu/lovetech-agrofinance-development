@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { CheckCircle2, Circle, PlayCircle, Download, FileText, Award, ExternalLink, MessageCircle } from "lucide-react";
 import { getMyCourseContent, markLessonComplete } from "@/lib/lms.functions";
+import { getMyCertificateSignedUrl } from "@/lib/certificate.functions";
 import { LMS_CONFIG, whatsappUrl } from "@/lib/lms-config";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug")({
@@ -167,10 +168,8 @@ function CoursePage() {
                   Status: <span className="font-semibold text-vetiver">{formatCertStatus(data.certificate?.status ?? "not_eligible")}</span>
                   {data.certificate?.certificate_id && <> · ID: <span className="font-mono text-xs">{data.certificate.certificate_id}</span></>}
                 </p>
-                {data.certificate?.certificate_pdf_url && data.certificate.status === "issued" && (
-                  <a href={data.certificate.certificate_pdf_url} target="_blank" rel="noreferrer noopener" className="mt-3 inline-flex items-center gap-2 rounded-sm bg-ochre px-4 py-2 text-sm font-semibold text-ink">
-                    <Download className="size-4" /> Download certificate
-                  </a>
+                {data.certificate?.status === "issued" && (
+                  <CertificateDownloadButton courseId={data.course.id} />
                 )}
               </div>
             </div>
@@ -246,6 +245,30 @@ function ActionCard({ icon, title, body, href, cta }: { icon: React.ReactNode; t
         </a>
       )}
     </div>
+  );
+}
+
+function CertificateDownloadButton({ courseId }: { courseId: string }) {
+  const getSigned = useServerFn(getMyCertificateSignedUrl);
+  const [loading, setLoading] = useState(false);
+  return (
+    <button
+      onClick={async () => {
+        setLoading(true);
+        try {
+          const { url } = await getSigned({ data: { course_id: courseId } });
+          window.open(url, "_blank", "noopener,noreferrer");
+        } catch (e) {
+          alert((e as Error).message);
+        } finally {
+          setLoading(false);
+        }
+      }}
+      className="mt-3 inline-flex items-center gap-2 rounded-sm bg-ochre px-4 py-2 text-sm font-semibold text-ink disabled:opacity-50"
+      disabled={loading}
+    >
+      <Download className="size-4" /> {loading ? "Preparing…" : "Download certificate"}
+    </button>
   );
 }
 

@@ -23,11 +23,18 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
 import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
 import { Route as AcademyCoursesAiToolsSmallBusinessesRouteImport } from './routes/academy.courses.ai-tools-small-businesses'
+import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
+import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
+import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_authenticated.admin.enrolments'
+import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated.admin.courses'
+import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated.admin.certificates'
 import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
 import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack.webhook'
@@ -103,6 +110,16 @@ const AcademyIndexRoute = AcademyIndexRouteImport.update({
   path: '/academy/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AcademyCoursesProfessionalsAiEdgeRoute =
   AcademyCoursesProfessionalsAiEdgeRouteImport.update({
     id: '/academy/courses/professionals-ai-edge',
@@ -127,11 +144,41 @@ const AcademyCoursesAiToolsSmallBusinessesRoute =
     path: '/academy/courses/ai-tools-small-businesses',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedAdminWaitlistRoute =
+  AuthenticatedAdminWaitlistRouteImport.update({
+    id: '/waitlist',
+    path: '/waitlist',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminVideoStudioRoute =
   AuthenticatedAdminVideoStudioRouteImport.update({
-    id: '/admin/video-studio',
-    path: '/admin/video-studio',
-    getParentRoute: () => AuthenticatedRoute,
+    id: '/video-studio',
+    path: '/video-studio',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPaymentsRoute =
+  AuthenticatedAdminPaymentsRouteImport.update({
+    id: '/payments',
+    path: '/payments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminEnrolmentsRoute =
+  AuthenticatedAdminEnrolmentsRouteImport.update({
+    id: '/enrolments',
+    path: '/enrolments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCoursesRoute =
+  AuthenticatedAdminCoursesRouteImport.update({
+    id: '/courses',
+    path: '/courses',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCertificatesRoute =
+  AuthenticatedAdminCertificatesRouteImport.update({
+    id: '/certificates',
+    path: '/certificates',
+    getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAcademyReceiptRoute =
   AuthenticatedAcademyReceiptRouteImport.update({
@@ -176,14 +223,21 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/academy/': typeof AcademyIndexRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
+  '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
   '/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRoute
@@ -204,11 +258,17 @@ export interface FileRoutesByTo {
   '/academy': typeof AcademyIndexRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
+  '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
   '/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRoute
@@ -228,14 +288,21 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/academy/': typeof AcademyIndexRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
+  '/_authenticated/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/_authenticated/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/_authenticated/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
   '/_authenticated/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRoute
@@ -255,14 +322,21 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/admin'
     | '/academy/'
     | '/academy/dashboard'
     | '/academy/receipt'
+    | '/admin/certificates'
+    | '/admin/courses'
+    | '/admin/enrolments'
+    | '/admin/payments'
     | '/admin/video-studio'
+    | '/admin/waitlist'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
+    | '/admin/'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
     | '/academy/dashboard/courses/$slug'
@@ -283,11 +357,17 @@ export interface FileRouteTypes {
     | '/academy'
     | '/academy/dashboard'
     | '/academy/receipt'
+    | '/admin/certificates'
+    | '/admin/courses'
+    | '/admin/enrolments'
+    | '/admin/payments'
     | '/admin/video-studio'
+    | '/admin/waitlist'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
+    | '/admin'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
     | '/academy/dashboard/courses/$slug'
@@ -306,14 +386,21 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/_authenticated/admin'
     | '/academy/'
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
+    | '/_authenticated/admin/certificates'
+    | '/_authenticated/admin/courses'
+    | '/_authenticated/admin/enrolments'
+    | '/_authenticated/admin/payments'
     | '/_authenticated/admin/video-studio'
+    | '/_authenticated/admin/waitlist'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
+    | '/_authenticated/admin/'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
     | '/_authenticated/academy/dashboard/courses/$slug'
@@ -442,6 +529,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/academy/courses/professionals-ai-edge': {
       id: '/academy/courses/professionals-ai-edge'
       path: '/academy/courses/professionals-ai-edge'
@@ -470,12 +571,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyCoursesAiToolsSmallBusinessesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/waitlist': {
+      id: '/_authenticated/admin/waitlist'
+      path: '/waitlist'
+      fullPath: '/admin/waitlist'
+      preLoaderRoute: typeof AuthenticatedAdminWaitlistRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/video-studio': {
       id: '/_authenticated/admin/video-studio'
-      path: '/admin/video-studio'
+      path: '/video-studio'
       fullPath: '/admin/video-studio'
       preLoaderRoute: typeof AuthenticatedAdminVideoStudioRouteImport
-      parentRoute: typeof AuthenticatedRoute
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/payments': {
+      id: '/_authenticated/admin/payments'
+      path: '/payments'
+      fullPath: '/admin/payments'
+      preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/enrolments': {
+      id: '/_authenticated/admin/enrolments'
+      path: '/enrolments'
+      fullPath: '/admin/enrolments'
+      preLoaderRoute: typeof AuthenticatedAdminEnrolmentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/courses': {
+      id: '/_authenticated/admin/courses'
+      path: '/courses'
+      fullPath: '/admin/courses'
+      preLoaderRoute: typeof AuthenticatedAdminCoursesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/certificates': {
+      id: '/_authenticated/admin/certificates'
+      path: '/certificates'
+      fullPath: '/admin/certificates'
+      preLoaderRoute: typeof AuthenticatedAdminCertificatesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/academy/receipt': {
       id: '/_authenticated/academy/receipt'
@@ -515,6 +651,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminCertificatesRoute: typeof AuthenticatedAdminCertificatesRoute
+  AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
+  AuthenticatedAdminEnrolmentsRoute: typeof AuthenticatedAdminEnrolmentsRoute
+  AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
+  AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
+  AuthenticatedAdminWaitlistRoute: typeof AuthenticatedAdminWaitlistRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminCertificatesRoute: AuthenticatedAdminCertificatesRoute,
+  AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
+  AuthenticatedAdminEnrolmentsRoute: AuthenticatedAdminEnrolmentsRoute,
+  AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
+  AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
+  AuthenticatedAdminWaitlistRoute: AuthenticatedAdminWaitlistRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedAcademyDashboardRouteChildren {
   AuthenticatedAcademyDashboardCoursesSlugRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRoute
 }
@@ -531,16 +690,16 @@ const AuthenticatedAcademyDashboardRouteWithChildren =
   )
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRouteWithChildren
   AuthenticatedAcademyReceiptRoute: typeof AuthenticatedAcademyReceiptRoute
-  AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedAcademyDashboardRoute:
     AuthenticatedAcademyDashboardRouteWithChildren,
   AuthenticatedAcademyReceiptRoute: AuthenticatedAcademyReceiptRoute,
-  AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -576,13 +735,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

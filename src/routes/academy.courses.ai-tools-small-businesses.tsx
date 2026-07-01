@@ -195,7 +195,7 @@ function Page() {
                 <p className="text-sm text-foreground/50 line-through">₦15,000</p>
               </div>
               <p className="mt-1 text-sm text-foreground/60">Save ₦10,000 during launch.</p>
-              <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol Now</a>
+              <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol in AI for Businesses</a>
               <Link to="/signup" className="mt-2 block rounded-sm border border-vetiver/20 py-2.5 text-center text-sm font-semibold text-vetiver hover:bg-vetiver/5">Create Learner Account</Link>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
@@ -213,7 +213,7 @@ function Page() {
       <section id="enrol" className="scroll-mt-20 border-t border-border bg-card px-6 py-20 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Enrolment</p>
-          <h2 className="mb-2 font-serif text-4xl text-vetiver">Enrol in AI Tools for Small Businesses</h2>
+          <h2 className="mb-2 font-serif text-4xl text-vetiver">Enrol in AI for Businesses</h2>
           <p className="mb-8 text-foreground/70">Complete the form below and proceed to secure payment of ₦5,000 via Paystack.</p>
           {authed === false && (
             <div className="mb-6 rounded-md border border-ochre/30 bg-ochre/5 p-4 text-sm">

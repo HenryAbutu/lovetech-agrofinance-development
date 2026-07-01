@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { CheckCircle2, Circle, PlayCircle, Download, FileText, Award, ExternalLink, MessageCircle } from "lucide-react";
+import { CheckCircle2, Circle, PlayCircle, Download, FileText, Award, ExternalLink, MessageCircle, ClipboardCheck, Trophy } from "lucide-react";
 import { getMyCourseContent, markLessonComplete } from "@/lib/lms.functions";
 import { getMyCertificateSignedUrl } from "@/lib/certificate.functions";
 import { LMS_CONFIG, whatsappUrl } from "@/lib/lms-config";
@@ -71,7 +71,11 @@ function CoursePage() {
           <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-ochre">Lovetech AI Business Academy</p>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h1 className="font-serif text-2xl text-vetiver md:text-3xl">{data.course.title}</h1>
-            <Link to="/academy/dashboard" className="text-sm text-vetiver hover:underline">← My Academy</Link>
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <Link to="/academy/dashboard/courses/$slug/assessments" params={{ slug }} className="inline-flex items-center gap-1 rounded-sm border border-vetiver/30 px-3 py-1.5 font-semibold text-vetiver hover:bg-vetiver/5"><ClipboardCheck className="size-4" /> Assessments</Link>
+              <Link to="/academy/dashboard/courses/$slug/leaderboard" params={{ slug }} className="inline-flex items-center gap-1 rounded-sm border border-ochre/40 px-3 py-1.5 font-semibold text-ochre hover:bg-ochre/5"><Trophy className="size-4" /> Leaderboard</Link>
+              <Link to="/academy/dashboard" className="text-vetiver hover:underline">← My Academy</Link>
+            </div>
           </div>
           <div className="mt-4">
             <div className="mb-1 flex items-center justify-between text-xs text-foreground/70">

@@ -23,7 +23,7 @@ export const getCourseLeaderboard = createServerFn({ method: "GET" })
       .order("total_points", { ascending: false })
       .limit(data.limit);
 
-    const ids = (rows ?? []).map((r) => r.user_id);
+    const ids = (rows ?? []).map((r) => r.user_id).filter((v): v is string => !!v);
     const { data: profiles } = await supabaseAdmin
       .from("profiles")
       .select("id, display_name, full_name, leaderboard_opt_in")
@@ -31,7 +31,7 @@ export const getCourseLeaderboard = createServerFn({ method: "GET" })
     const profMap = new Map((profiles ?? []).map((p) => [p.id, p]));
 
     const entries = (rows ?? []).map((r, idx) => {
-      const p = profMap.get(r.user_id);
+      const p = r.user_id ? profMap.get(r.user_id) : undefined;
       const isMe = r.user_id === userId;
       const optIn = p?.leaderboard_opt_in !== false;
       const label = isMe ? "You" : optIn ? (p?.display_name || p?.full_name || "Learner") : "Anonymous learner";
@@ -57,7 +57,7 @@ export const updateLeaderboardPrefs = createServerFn({ method: "POST" })
   }).parse(input))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    const patch: Record<string, unknown> = {};
+    const patch: { leaderboard_opt_in?: boolean; display_name?: string } = {};
     if (typeof data.leaderboard_opt_in === "boolean") patch.leaderboard_opt_in = data.leaderboard_opt_in;
     if (data.display_name) patch.display_name = data.display_name;
     const { error } = await supabase.from("profiles").update(patch).eq("id", userId);

@@ -179,6 +179,13 @@ function Page() {
                 </li>
               ))}
             </ol>
+            <h2 className="mb-6 mt-12 font-serif text-3xl text-vetiver">Final outputs</h2>
+            <p className="mb-4 text-sm text-foreground/70">By the end of the course, you will have produced:</p>
+            <ul className="grid gap-3 md:grid-cols-2">
+              {finalOutputs.map((o) => (
+                <li key={o} className="flex gap-3 rounded-md border border-ochre/25 bg-ochre/5 p-4 text-sm text-foreground/80"><Sparkles className="mt-0.5 size-4 shrink-0 text-ochre" />{o}</li>
+              ))}
+            </ul>
           </div>
           <aside className="h-fit space-y-4">
             <div className="rounded-2xl border border-academy/30 bg-academy/5 p-6">

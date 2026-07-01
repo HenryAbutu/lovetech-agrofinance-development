@@ -7,6 +7,13 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import netlify from "@netlify/vite-plugin-tanstack-start";
 
 export default defineConfig({
+  vite: {
+    resolve: {
+      alias: {
+        "@vercel/nft": "@vercel/nft/out/index.js",
+      },
+    },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     server: { entry: "server" },

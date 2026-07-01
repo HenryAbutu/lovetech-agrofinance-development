@@ -21,9 +21,9 @@ export default defineConfig({
   // Build for Netlify Functions. Override with NITRO_PRESET env var if needed.
   nitro: {
     preset: process.env.NITRO_PRESET ?? "netlify",
-    rollupConfig: {
-      external: ["@vercel/nft"],
-    },
+    // Tell Rollup to treat @vercel/nft as external so the CJS/ESM interop
+    // mismatch (missing named export `nodeFileTrace`) doesn't break the build.
+    ...({ rollupConfig: { external: ["@vercel/nft"] } } as Record<string, unknown>),
   },
   plugins: [netlify()],
 });

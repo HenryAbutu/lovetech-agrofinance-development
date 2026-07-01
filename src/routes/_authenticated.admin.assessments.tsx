@@ -90,7 +90,7 @@ function QuizzesTab({ courses, quizzes, refetch, presetCourseId }: any) {
         </table>
       </div>
 
-      {editing && <QuizForm courses={courses} initial={editing} onCancel={() => setEditing(null)} onSave={(p) => save.mutate(p)} saving={save.isPending} />}
+      {editing && <QuizForm courses={courses} initial={editing} onCancel={() => setEditing(null)} onSave={(p: any) => save.mutate(p: any)} saving={save.isPending} />}
       {questionsFor && <QuestionsManager quiz={questionsFor} onClose={() => setQuestionsFor(null)} />}
     </div>
   );
@@ -167,7 +167,7 @@ function QuestionsManager({ quiz, onClose }: { quiz: any; onClose: () => void })
         {(data?.questions ?? []).length === 0 && <p className="text-center text-sm text-foreground/60">No questions yet.</p>}
       </ol>
 
-      {editing && <QuestionForm initial={editing} onCancel={() => setEditing(null)} onSave={(p) => save.mutate(p, { onSuccess: () => setEditing(null) })} saving={save.isPending} />}
+      {editing && <QuestionForm initial={editing} onCancel={() => setEditing(null)} onSave={(p: any) => save.mutate(p, { onSuccess: () => setEditing(null) })} saving={save.isPending} />}
     </Modal>
   );
 }
@@ -361,7 +361,7 @@ function GradingTab({ courses, presetCourseId }: any) {
               <a href={grading.submission_url} target="_blank" rel="noopener noreferrer" className="text-sm text-vetiver underline">Open link submission →</a>
             </div>
           )}
-          <GradeForm initial={grading} maxPoints={grading.assignment?.max_points ?? 100} onSave={(p) => save.mutate(p)} saving={save.isPending} />
+          <GradeForm initial={grading} maxPoints={grading.assignment?.max_points ?? 100} onSave={(p: any) => save.mutate(p: any)} saving={save.isPending} />
         </Modal>
       )}
     </div>

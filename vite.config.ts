@@ -7,9 +7,11 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import netlify from "@netlify/vite-plugin-tanstack-start";
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      "@vercel/nft": "@vercel/nft/dist/index.js",
+  vite: {
+    resolve: {
+      alias: {
+        "@vercel/nft": "@vercel/nft/dist/index.js",
+      },
     },
   },
   tanstackStart: {

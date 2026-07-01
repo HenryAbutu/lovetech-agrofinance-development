@@ -112,6 +112,33 @@ function AcademyPage() {
         </div>
       </section>
 
+      {/* How Learning Works */}
+      <section className="border-y border-border bg-bone px-6 py-20 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Learner journey</p>
+            <h2 className="font-serif text-4xl text-vetiver md:text-5xl">How Learning Works</h2>
+          </div>
+          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Create your learner account",
+              "Choose your course",
+              "Pay securely via Paystack",
+              "Access your videos and resources",
+              "Complete practical assignments",
+              "Submit your final task",
+              "Receive feedback and certificate eligibility",
+              "Continue with advisory support if needed",
+            ].map((step, i) => (
+              <li key={step} className="rounded-2xl border border-border bg-card p-5">
+                <div className="mb-3 font-mono text-xs font-semibold text-ochre">{String(i + 1).padStart(2, "0")}</div>
+                <p className="font-serif text-lg leading-snug text-vetiver">{step}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       {/* Why */}
       <section className="bg-card border-y border-border px-6 py-20 lg:px-8">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-3">

@@ -133,13 +133,12 @@ function Page() {
             </div>
           </div>
           <aside className="self-end rounded-2xl border border-bone/15 bg-bone/5 p-6 backdrop-blur">
-            <h3 className="mb-4 font-serif text-xl text-bone">This course includes</h3>
+            <h3 className="mb-4 font-serif text-xl text-bone">Course format</h3>
             <ul className="space-y-3 text-sm text-bone/85">
               {includes.map((i) => (
                 <li key={i.label} className="flex items-center gap-3"><i.icon className="size-4 text-ochre" /> {i.label}</li>
               ))}
               <li className="flex items-center gap-3 pt-2 border-t border-bone/10"><Clock className="size-4 text-ochre" /> Self-paced · lifetime access</li>
-              <li className="flex items-center gap-3"><Phone className="size-4 text-ochre" /> WhatsApp support</li>
             </ul>
           </aside>
         </div>

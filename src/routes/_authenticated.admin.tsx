@@ -11,6 +11,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
 const tabs = [
   { to: "/admin", label: "Overview", exact: true },
   { to: "/admin/courses", label: "Courses" },
+  { to: "/admin/assessments", label: "Assessments" },
   { to: "/admin/enrolments", label: "Enrolments" },
   { to: "/admin/payments", label: "Payments" },
   { to: "/admin/waitlist", label: "Waitlist" },

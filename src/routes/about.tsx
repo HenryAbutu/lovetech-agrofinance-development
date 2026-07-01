@@ -80,6 +80,9 @@ function AboutPage() {
             <p className="font-serif text-xl italic text-vetiver">Welcome to Lovetech Agrofinance &amp; Development.</p>
           </div>
         </div>
+      </section>
+
+
 
       <section className="bg-ink px-6 py-20 text-bone lg:px-8">
         <div className="mx-auto max-w-6xl">

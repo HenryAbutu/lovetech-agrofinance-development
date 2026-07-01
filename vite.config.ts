@@ -21,6 +21,9 @@ export default defineConfig({
   // Build for Netlify Functions. Override with NITRO_PRESET env var if needed.
   nitro: {
     preset: process.env.NITRO_PRESET ?? "netlify",
+    rollupConfig: {
+      external: ["@vercel/nft"],
+    },
   },
   plugins: [netlify()],
 });

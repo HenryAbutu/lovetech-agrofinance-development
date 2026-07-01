@@ -509,6 +509,67 @@ export type Database = {
           },
         ]
       }
+      academy_lesson_discussions: {
+        Row: {
+          body: string
+          course_id: string
+          created_at: string
+          id: string
+          is_deleted: boolean
+          is_pinned: boolean
+          lesson_id: string
+          parent_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          course_id: string
+          created_at?: string
+          id?: string
+          is_deleted?: boolean
+          is_pinned?: boolean
+          lesson_id: string
+          parent_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          course_id?: string
+          created_at?: string
+          id?: string
+          is_deleted?: boolean
+          is_pinned?: boolean
+          lesson_id?: string
+          parent_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "academy_lesson_discussions_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "academy_courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "academy_lesson_discussions_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "academy_lessons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "academy_lesson_discussions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "academy_lesson_discussions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       academy_lesson_progress: {
         Row: {
           completed: boolean
@@ -1186,40 +1247,94 @@ export type Database = {
       }
       profiles: {
         Row: {
+          avatar_url: string | null
+          bio: string | null
           business_name: string | null
           created_at: string
           display_name: string | null
           email: string | null
           full_name: string | null
+          headline: string | null
           id: string
+          is_public: boolean
           leaderboard_opt_in: boolean
+          location: string | null
           phone: string | null
+          public_slug: string | null
           referral_code: string | null
           updated_at: string
+          website_url: string | null
         }
         Insert: {
+          avatar_url?: string | null
+          bio?: string | null
           business_name?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
           full_name?: string | null
+          headline?: string | null
           id: string
+          is_public?: boolean
           leaderboard_opt_in?: boolean
+          location?: string | null
           phone?: string | null
+          public_slug?: string | null
           referral_code?: string | null
           updated_at?: string
+          website_url?: string | null
         }
         Update: {
+          avatar_url?: string | null
+          bio?: string | null
           business_name?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
           full_name?: string | null
+          headline?: string | null
           id?: string
+          is_public?: boolean
           leaderboard_opt_in?: boolean
+          location?: string | null
           phone?: string | null
+          public_slug?: string | null
           referral_code?: string | null
           updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          last_used_at: string
+          p256dh: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          last_used_at?: string
+          p256dh: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          last_used_at?: string
+          p256dh?: string
+          user_agent?: string | null
+          user_id?: string
         }
         Relationships: []
       }

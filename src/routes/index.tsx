@@ -118,6 +118,61 @@ function Home() {
         </div>
       </section>
 
+      {/* CEO MESSAGE */}
+      <CeoMessage />
+
+      {/* WHY LOVETECH — trust */}
+      <section className="px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Why us</p>
+            <h2 className="font-serif text-4xl text-vetiver md:text-5xl">Why Businesses Work With Lovetech</h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              "Nigerian market expertise",
+              "Practical finance-readiness support",
+              "Training that leads to action",
+              "Tools, templates, and implementation support",
+              "Digital and AI-enabled advisory",
+              "Support for MSMEs, agribusinesses, women, youth, and cooperatives",
+            ].map((t) => (
+              <div key={t} className="rounded-2xl border border-border bg-card p-6">
+                <div className="mb-3 size-2 rounded-full bg-ochre" />
+                <p className="font-serif text-xl leading-snug text-vetiver">{t}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHO WE SERVE */}
+      <section className="border-y border-border bg-bone px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Who we serve</p>
+            <h2 className="font-serif text-4xl text-vetiver md:text-5xl">Built for the people building Nigerian enterprise</h2>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              "MSMEs and startups",
+              "Agribusinesses and agro-processors",
+              "Cooperatives and farmer groups",
+              "Women and youth-led businesses",
+              "Development programmes and NGOs",
+              "BMOs and enterprise support organisations",
+              "Consultants and professionals",
+              "Institutions and donor-funded projects",
+            ].map((t) => (
+              <li key={t} className="flex items-start gap-3 rounded-lg border border-border bg-card p-5 text-foreground/80">
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-vetiver" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
 
       {/* FEATURED SOLUTIONS */}
       <section className="py-24">

@@ -28,7 +28,7 @@ function Dashboard() {
           </div>
           <div className="flex gap-3">
             {admin.data?.isAdmin && (
-              <Link to="/admin/video-studio" className="rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone">Video Studio</Link>
+              <Link to="/admin" className="rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone">Admin</Link>
             )}
             <button onClick={() => supabase.auth.signOut()} className="rounded-sm border border-border px-4 py-2 text-sm font-medium hover:bg-muted">Sign out</button>
           </div>

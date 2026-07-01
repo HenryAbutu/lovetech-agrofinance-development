@@ -44,7 +44,7 @@ function AcademyPage() {
           <p className="mt-6 max-w-2xl text-lg text-bone/75">Self-paced and cohort-based training in AI, entrepreneurship, finance readiness, agribusiness and digital tools — built for the realities of Nigerian business.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/academy/courses/ai-tools-small-businesses" hash="enrol" className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
-              <PlayCircle className="size-4" /> Enrol in AI Tools — ₦5,000
+              <PlayCircle className="size-4" /> Enrol in AI for Businesses — ₦5,000
             </Link>
             <Link to="/signup" className="rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">Create learner account</Link>
           </div>
@@ -69,46 +69,73 @@ function AcademyPage() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <CourseCard
               img={aiToolsImg}
-              status="Enrolment Open"
-              title="AI Tools for Small Businesses"
-              body="Practical beginner course: ChatGPT, Canva AI, CapCut & HeyGen for your small business."
-              meta="Self-paced · 9 modules"
+              status="Beginner · 30 min"
+              title="AI for Businesses"
+              body="Practical AI Skills for Nigerian SMEs. ChatGPT, Canva AI, CapCut & HeyGen — applied to your real business."
+              meta="Self-paced · 30 minutes"
               priceOld="₦15,000"
               priceNew="₦5,000"
               to="/academy/courses/ai-tools-small-businesses" hash="enrol"
-              cta="Enrol Now"
+              cta="Enrol in AI for Businesses"
               featured
             />
             <CourseCard
               img={aiEdgeImg}
-              status="Enrolment Open"
-              title="Professionals AI Edge"
-              body="Practical AI tools for more efficient, productive and profitable businesses."
+              status="Advanced"
+              title="Advanced AI Modules"
+              body="Deeper AI workflows for professionals — automations, tooling, prompt systems and profitability plays."
               meta="Self-paced + Zoom cohort"
               priceOld="₦10,000"
               priceNew="₦5,000"
               to={ENROL_LINK} hash={ENROL_HASH}
-              cta="Enrol Now"
-            />
-            <CourseCard
-              img={icssImg}
-              status="Coming Soon"
-              title="ICSS 2.0 Entrepreneurship"
-              body="Entrepreneurship training for MSME growth, finance readiness and market access."
-              meta="Cohort opens soon"
-              to="/academy/courses/icss-2-0-entrepreneurship"
-              cta="Join Waitlist"
+              cta="View Course"
             />
             <CourseCard
               img={financeImg}
-              status="Coming Soon"
+              status="Finance Readiness"
               title="Finance Readiness for MSMEs"
               body="Prepare your business for loans, grants, investments and partnership funding."
               meta="Cohort opens soon"
               to="/academy/courses/finance-readiness-msmes"
-              cta="Join Waitlist"
+              cta="Join a Programme Waitlist"
+            />
+            <CourseCard
+              img={icssImg}
+              status="Entrepreneurship"
+              title="ICSS 2.0 Entrepreneurship Programme"
+              body="Entrepreneurship training for MSME growth, finance readiness and market access."
+              meta="Cohort opens soon"
+              to="/academy/courses/icss-2-0-entrepreneurship"
+              cta="Join a Programme Waitlist"
             />
           </div>
+        </div>
+      </section>
+
+      {/* How Learning Works */}
+      <section className="border-y border-border bg-bone px-6 py-20 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Learner journey</p>
+            <h2 className="font-serif text-4xl text-vetiver md:text-5xl">How Learning Works</h2>
+          </div>
+          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Create your learner account",
+              "Choose your course",
+              "Pay securely via Paystack",
+              "Access your videos and resources",
+              "Complete practical assignments",
+              "Submit your final task",
+              "Receive feedback and certificate eligibility",
+              "Continue with advisory support if needed",
+            ].map((step, i) => (
+              <li key={step} className="rounded-2xl border border-border bg-card p-5">
+                <div className="mb-3 font-mono text-xs font-semibold text-ochre">{String(i + 1).padStart(2, "0")}</div>
+                <p className="font-serif text-lg leading-snug text-vetiver">{step}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

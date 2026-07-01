@@ -118,6 +118,61 @@ function Home() {
         </div>
       </section>
 
+      {/* CEO MESSAGE */}
+      <CeoMessage />
+
+      {/* WHY LOVETECH — trust */}
+      <section className="px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Why us</p>
+            <h2 className="font-serif text-4xl text-vetiver md:text-5xl">Why Businesses Work With Lovetech</h2>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              "Nigerian market expertise",
+              "Practical finance-readiness support",
+              "Training that leads to action",
+              "Tools, templates, and implementation support",
+              "Digital and AI-enabled advisory",
+              "Support for MSMEs, agribusinesses, women, youth, and cooperatives",
+            ].map((t) => (
+              <div key={t} className="rounded-2xl border border-border bg-card p-6">
+                <div className="mb-3 size-2 rounded-full bg-ochre" />
+                <p className="font-serif text-xl leading-snug text-vetiver">{t}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHO WE SERVE */}
+      <section className="border-y border-border bg-bone px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Who we serve</p>
+            <h2 className="font-serif text-4xl text-vetiver md:text-5xl">Built for the people building Nigerian enterprise</h2>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              "MSMEs and startups",
+              "Agribusinesses and agro-processors",
+              "Cooperatives and farmer groups",
+              "Women and youth-led businesses",
+              "Development programmes and NGOs",
+              "BMOs and enterprise support organisations",
+              "Consultants and professionals",
+              "Institutions and donor-funded projects",
+            ].map((t) => (
+              <li key={t} className="flex items-start gap-3 rounded-lg border border-border bg-card p-5 text-foreground/80">
+                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-vetiver" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
 
       {/* FEATURED SOLUTIONS */}
       <section className="py-24">
@@ -169,27 +224,27 @@ function Home() {
           <div className="grid gap-6 md:grid-cols-3">
             <CourseCard
               status="Enrolment Open"
-              title="Professionals AI Edge"
-              body="Practical AI tools for more efficient, productive and profitable businesses."
-              priceRegular="₦10,000"
+              title="AI for Businesses"
+              body="Practical AI skills for Nigerian SMEs — 30-minute beginner course covering ChatGPT, Canva AI, video tools & more."
+              priceRegular="₦15,000"
               priceLaunch="₦5,000"
-              to="/academy/courses/professionals-ai-edge" hash="enrol"
-              cta="Enroll Now"
+              to="/academy/courses/ai-tools-small-businesses" hash="enrol"
+              cta="Enrol in AI for Businesses"
               featured
             />
             <CourseCard
-              status="Coming Soon"
-              title="ICSS 2.0 Entrepreneurship Programme"
-              body="Practical entrepreneurship training for MSME growth, finance readiness and market access."
-              to="/academy/courses/icss-2-0-entrepreneurship"
-              cta="Join Waitlist"
+              status="Advanced"
+              title="Advanced AI Modules"
+              body="Deeper AI workflows for professionals — automations, tooling, prompt systems and profitability plays."
+              to="/academy/courses/professionals-ai-edge"
+              cta="View Course"
             />
             <CourseCard
               status="Coming Soon"
               title="Finance Readiness for MSMEs"
-              body="Learn how to prepare your business for loans, grants, investments and partnership funding."
+              body="Prepare your business for loans, grants, investments and partnership funding."
               to="/academy/courses/finance-readiness-msmes"
-              cta="Join Waitlist"
+              cta="Join a Programme Waitlist"
             />
           </div>
         </div>
@@ -238,18 +293,44 @@ function Home() {
           <div className="relative grid items-center gap-8 md:grid-cols-[2fr_1fr]">
             <div>
               <h2 className="mb-4 text-balance font-serif text-4xl md:text-5xl">Ready to build a more structured and growth-ready business?</h2>
-              <p className="max-w-xl text-bone/75">Book a consultation, start your finance readiness diagnostic, or join the Academy.</p>
+              <p className="max-w-xl text-bone/75">Book a consultation, start your finance readiness diagnostic, or enrol in the Academy.</p>
             </div>
             <div className="flex flex-col gap-3 md:items-end">
               <Link to="/contact" className="rounded-sm bg-ochre px-6 py-3 text-center font-semibold text-white">Book a Consultation</Link>
-              <Link to="/finance-readiness" className="rounded-sm border border-bone/30 px-6 py-3 text-center font-semibold text-bone hover:bg-bone/10">Start Diagnostic</Link>
-              <Link to="/academy" className="text-center text-sm text-bone/80 hover:text-ochre">Explore the Academy →</Link>
+              <Link to="/finance-readiness" className="rounded-sm border border-bone/30 px-6 py-3 text-center font-semibold text-bone hover:bg-bone/10">Start Finance Readiness Diagnostic</Link>
+              <Link to="/academy/courses/ai-tools-small-businesses" hash="enrol" className="rounded-sm bg-bone/10 px-6 py-3 text-center font-semibold text-bone hover:bg-bone/20">Enrol in AI for Businesses</Link>
             </div>
           </div>
         </div>
       </section>
 
     </main>
+  );
+}
+
+function CeoMessage() {
+  return (
+    <section className="relative bg-bone px-6 py-24 lg:px-8">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.6fr]">
+        <div>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Message from the CEO</p>
+          <h2 className="font-serif text-4xl leading-tight text-vetiver md:text-5xl">Development must be practical.</h2>
+          <div className="mt-8 rounded-2xl border border-border bg-card p-6">
+            <p className="font-serif text-2xl text-vetiver">Avess Abutu</p>
+            <p className="mt-1 text-sm text-foreground/60">Founder / CEO</p>
+            <p className="mt-1 text-sm text-foreground/60">Lovetech Agrofinance &amp; Development</p>
+          </div>
+        </div>
+        <div className="space-y-5 text-[15px] leading-relaxed text-foreground/80">
+          <p>At Lovetech Agrofinance &amp; Development, our vision is simple: to help businesses, entrepreneurs, cooperatives, and development-focused institutions become more structured, finance-ready, and future-ready.</p>
+          <p>Across Nigeria and Africa, many businesses have strong ideas, hardworking founders, and real market potential. However, they often struggle with structure, access to finance, digital systems, compliance, business planning, and the practical tools needed to grow sustainably. Lovetech Agro was created to close that gap.</p>
+          <p>We combine business development, agrofinance advisory, training, technology, and practical consulting to support small businesses, agribusinesses, SMEs, cooperatives, and institutions. Our work is rooted in real business needs: helping entrepreneurs organise their operations, prepare for funding, improve their records, strengthen their market positioning, and use digital and AI tools to work smarter.</p>
+          <p>Through our consulting services, academy programmes, finance readiness tools, and business support solutions, we are building a platform that does more than advise. We equip, guide, and walk with our clients from idea to structure, from structure to growth, and from growth to sustainable impact.</p>
+          <p>As CEO, I believe that development must be practical. Training must lead to action. Finance must meet readiness. Technology must solve real problems. And every business we support should leave better organised, more confident, and more prepared for opportunity.</p>
+          <p className="font-serif text-xl italic text-vetiver">Welcome to Lovetech Agrofinance &amp; Development.</p>
+        </div>
+      </div>
+    </section>
   );
 }
 

@@ -42,9 +42,28 @@ export function SiteHeader() {
   );
 }
 
+export function NextStepBand() {
+  return (
+    <section className="border-t border-border bg-card px-6 py-20 lg:px-8">
+      <div className="mx-auto max-w-5xl text-center">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Next Step</p>
+        <h2 className="mb-4 font-serif text-4xl text-vetiver md:text-5xl">Ready to move from hustle to structure?</h2>
+        <p className="mx-auto mb-8 max-w-2xl text-foreground/70">
+          Whether you need training, finance readiness, business planning, digital tools, or implementation support, Lovetech Agrofinance & Development can help you take the next practical step.
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link to="/contact" className="rounded-sm bg-vetiver px-6 py-3 text-sm font-semibold text-bone hover:opacity-95">Book a Consultation</Link>
+          <Link to="/finance-readiness" className="rounded-sm bg-ochre px-6 py-3 text-sm font-semibold text-white hover:opacity-95">Start Diagnostic</Link>
+          <Link to="/academy" className="rounded-sm border border-vetiver/25 px-6 py-3 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Explore Academy</Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function SiteFooter() {
   return (
-    <footer className="mt-24 bg-ink text-bone/80">
+    <footer className="bg-ink text-bone/80">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="mb-4 flex items-center gap-2">

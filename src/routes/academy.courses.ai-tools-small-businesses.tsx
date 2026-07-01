@@ -10,10 +10,10 @@ import courseImg from "@/assets/course-ai-tools.jpg";
 export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses")({
   head: () => ({
     meta: [
-      { title: "AI Tools for Small Businesses — Lovetech AI Business Academy" },
-      { name: "description", content: "Practical beginner course: use ChatGPT, Canva AI, CapCut and more to grow your Nigerian small business. Launch price ₦5,000." },
-      { property: "og:title", content: "AI Tools for Small Businesses: Practical Beginner Course" },
-      { property: "og:description", content: "Learn to use AI to create content, flyers, adverts and business documents. Launch price ₦5,000." },
+      { title: "AI for Businesses: Practical AI Skills for Nigerian SMEs — Lovetech Business Academy" },
+      { name: "description", content: "30-minute beginner course: use ChatGPT, Canva AI, CapCut & HeyGen to grow your Nigerian small business. Launch price ₦5,000." },
+      { property: "og:title", content: "AI for Businesses: Practical AI Skills for Nigerian SMEs" },
+      { property: "og:description", content: "Practical 30-minute beginner course. Launch price ₦5,000." },
       { property: "og:image", content: courseImg },
     ],
   }),
@@ -23,12 +23,13 @@ export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses
 const outcomes = [
   "Explain AI in simple business language",
   "Identify business tasks AI can improve",
-  "Write effective prompts",
+  "Write effective prompts using the Role + Task + Context formula",
   "Create a 7-day content plan",
   "Design a Canva flyer with AI",
   "Write a 30-second advert script",
+  "Use AI for customer messages & business planning",
   "Build a 7-day AI action plan",
-  "Submit an AI Business Action Pack",
+  "Submit a final AI Business Action Pack",
 ];
 
 const audience = [
@@ -40,23 +41,33 @@ const audience = [
 ];
 
 const modules = [
-  { n: 1, title: "Course Introduction" },
+  { n: 1, title: "Welcome & Course Introduction" },
   { n: 2, title: "What AI Can Do for Your Business" },
   { n: 3, title: "Prompt Writing for Business Owners" },
-  { n: 4, title: "AI for Content and Social Media" },
-  { n: 5, title: "Canva AI for Flyers and Branding" },
-  { n: 6, title: "AI for Short Videos and Adverts" },
-  { n: 7, title: "AI Action Plan and Next Steps" },
-  { n: 8, title: "Demo Videos" },
-  { n: 9, title: "Assignment, Assessment and Certificate" },
+  { n: 4, title: "AI for Content & Social Media" },
+  { n: 5, title: "Canva AI for Flyers & Branding" },
+  { n: 6, title: "AI for Short Videos & Adverts" },
+  { n: 7, title: "AI for Customer Messages, Planning & Productivity" },
+  { n: 8, title: "Your 7-Day AI Action Plan" },
+  { n: 9, title: "Final Assignment, Assessment & Certificate" },
+];
+
+const finalOutputs = [
+  "A list of business tasks where AI can help you",
+  "A personal prompt bank",
+  "A 7-day content plan",
+  "A Canva flyer idea or design",
+  "A 30-second business video script",
+  "A simple 7-day AI action plan",
+  "A final AI Business Action Pack",
 ];
 
 const includes = [
-  { icon: PlayCircle, label: "Full course video" },
-  { icon: PlayCircle, label: "5 demo videos" },
-  { icon: Download, label: "Downloadable participant handbook" },
-  { icon: Check, label: "Assignment submission form" },
-  { icon: Check, label: "Assessment and feedback form" },
+  { icon: PlayCircle, label: "Video lessons & practical demonstrations" },
+  { icon: Download, label: "Downloadable participant handbook & templates" },
+  { icon: Check, label: "Practical assignments" },
+  { icon: Phone, label: "WhatsApp support" },
+  { icon: Sparkles, label: "Final AI Business Action Pack" },
   { icon: ShieldCheck, label: "Certificate eligibility" },
 ];
 
@@ -97,34 +108,37 @@ function Page() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[1.4fr_1fr] lg:px-8 lg:py-28">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--ochre)" }}>
-              <Sparkles className="size-3.5" /> Lovetech AI Business Academy · Enrolment Open
+              <Sparkles className="size-3.5" /> Lovetech Business Academy · Beginner · 30 minutes
             </p>
-            <h1 className="font-serif text-4xl text-bone md:text-6xl">AI Tools for Small Businesses</h1>
-            <p className="mt-3 font-serif text-xl text-ochre md:text-2xl">Practical Beginner Course</p>
+            <h1 className="font-serif text-4xl text-bone md:text-6xl">AI for Businesses</h1>
+            <p className="mt-3 font-serif text-xl text-ochre md:text-2xl">Practical AI Skills for Nigerian SMEs</p>
             <p className="mt-5 max-w-2xl text-base text-bone/80 md:text-lg">
-              Learn how to use ChatGPT, Canva AI, and video tools to create content, flyers, customer messages, business documents, and simple adverts for your small business.
+              A focused 30-minute beginner course. Use ChatGPT, Canva AI, CapCut and HeyGen to create content, flyers, customer messages, video adverts and a simple AI action plan for your business.
             </p>
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-bone/75">
+              <span className="inline-flex items-center gap-2"><Clock className="size-4 text-ochre" /> Duration: 30 minutes</span>
+              <span className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-ochre" /> Certificate eligible</span>
+            </div>
             <div className="mt-8 flex items-baseline gap-3">
               <span className="text-lg text-bone/40 line-through">₦15,000</span>
               <span className="font-serif text-5xl text-ochre">₦5,000</span>
               <span className="text-sm text-bone/60">launch price</span>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#enrol" className="inline-flex rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol Now</a>
+              <a href="#enrol" className="inline-flex rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol in AI for Businesses</a>
               <Link to="/signup" className="inline-flex rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">Create Learner Account</Link>
-              <a href={whatsappUrl("Hi, I have questions about the AI Tools course.")} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 text-sm font-semibold text-white">
-                <MessageCircle className="size-4" /> Ask on WhatsApp
+              <a href={whatsappUrl("Hi, I have questions about the AI for Businesses course.")} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 text-sm font-semibold text-white">
+                <MessageCircle className="size-4" /> Chat on WhatsApp
               </a>
             </div>
           </div>
           <aside className="self-end rounded-2xl border border-bone/15 bg-bone/5 p-6 backdrop-blur">
-            <h3 className="mb-4 font-serif text-xl text-bone">This course includes</h3>
+            <h3 className="mb-4 font-serif text-xl text-bone">Course format</h3>
             <ul className="space-y-3 text-sm text-bone/85">
               {includes.map((i) => (
                 <li key={i.label} className="flex items-center gap-3"><i.icon className="size-4 text-ochre" /> {i.label}</li>
               ))}
               <li className="flex items-center gap-3 pt-2 border-t border-bone/10"><Clock className="size-4 text-ochre" /> Self-paced · lifetime access</li>
-              <li className="flex items-center gap-3"><Phone className="size-4 text-ochre" /> WhatsApp support</li>
             </ul>
           </aside>
         </div>
@@ -135,7 +149,7 @@ function Page() {
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-6 font-serif text-3xl text-vetiver">About this course</h2>
           <p className="mb-6 text-foreground/75 leading-relaxed">
-            This beginner-friendly online course by <strong>Lovetech AI Business Academy</strong> under Lovetech Agrofinance & Development helps Nigerian and African small business owners use AI tools practically. Learners will use ChatGPT or Claude, Canva AI, CapCut, HeyGen, and Canva Video to create useful business outputs such as social media captions, content plans, flyers, customer replies, video scripts, business documents, and a simple AI action plan.
+            <strong>AI for Businesses: Practical AI Skills for Nigerian SMEs</strong> is a focused 30-minute beginner course by <strong>Lovetech Business Academy</strong> under Lovetech Agrofinance &amp; Development. It helps Nigerian and African small business owners use AI tools practically — ChatGPT or Claude, Canva AI, CapCut, HeyGen, and Canva Video — to create captions, content plans, flyers, customer replies, video scripts, business documents and a simple AI action plan they can start using immediately.
           </p>
           <h3 className="mb-3 mt-8 font-serif text-xl text-vetiver">Who this is for</h3>
           <ul className="grid gap-2 md:grid-cols-2">
@@ -165,6 +179,13 @@ function Page() {
                 </li>
               ))}
             </ol>
+            <h2 className="mb-6 mt-12 font-serif text-3xl text-vetiver">Final outputs</h2>
+            <p className="mb-4 text-sm text-foreground/70">By the end of the course, you will have produced:</p>
+            <ul className="grid gap-3 md:grid-cols-2">
+              {finalOutputs.map((o) => (
+                <li key={o} className="flex gap-3 rounded-md border border-ochre/25 bg-ochre/5 p-4 text-sm text-foreground/80"><Sparkles className="mt-0.5 size-4 shrink-0 text-ochre" />{o}</li>
+              ))}
+            </ul>
           </div>
           <aside className="h-fit space-y-4">
             <div className="rounded-2xl border border-academy/30 bg-academy/5 p-6">
@@ -174,7 +195,7 @@ function Page() {
                 <p className="text-sm text-foreground/50 line-through">₦15,000</p>
               </div>
               <p className="mt-1 text-sm text-foreground/60">Save ₦10,000 during launch.</p>
-              <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol Now</a>
+              <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol in AI for Businesses</a>
               <Link to="/signup" className="mt-2 block rounded-sm border border-vetiver/20 py-2.5 text-center text-sm font-semibold text-vetiver hover:bg-vetiver/5">Create Learner Account</Link>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
@@ -192,7 +213,7 @@ function Page() {
       <section id="enrol" className="scroll-mt-20 border-t border-border bg-card px-6 py-20 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Enrolment</p>
-          <h2 className="mb-2 font-serif text-4xl text-vetiver">Enrol in AI Tools for Small Businesses</h2>
+          <h2 className="mb-2 font-serif text-4xl text-vetiver">Enrol in AI for Businesses</h2>
           <p className="mb-8 text-foreground/70">Complete the form below and proceed to secure payment of ₦5,000 via Paystack.</p>
           {authed === false && (
             <div className="mb-6 rounded-md border border-ochre/30 bg-ochre/5 p-4 text-sm">

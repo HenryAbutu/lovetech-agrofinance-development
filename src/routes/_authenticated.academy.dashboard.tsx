@@ -1,11 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { getMyEnrolments, checkIsAdmin } from "@/lib/learner.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { whatsappUrl } from "@/lib/lms-config";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard")({
-  head: () => ({ meta: [{ title: "My Dashboard — LoveTech Academy" }] }),
+  head: () => ({ meta: [{ title: "My Dashboard — LoveTech Agro Academy" }] }),
   component: Dashboard,
 });
 
@@ -22,6 +24,7 @@ function Dashboard() {
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Dashboard</p>
             <h1 className="font-serif text-4xl text-vetiver md:text-5xl">My Academy</h1>
+            <p className="mt-2 text-sm text-foreground/60">Continue learning, download resources, and track your certificates.</p>
           </div>
           <div className="flex gap-3">
             {admin.data?.isAdmin && (
@@ -43,19 +46,44 @@ function Dashboard() {
           <div className="grid gap-4">
             {enrolments.data?.enrolments.map((e) => {
               const course = Array.isArray(e.course) ? e.course[0] : e.course;
+              const active = e.access_status === "active";
               return (
                 <article key={e.id} className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-6">
-                  <div>
+                  <div className="flex-1">
                     <h3 className="font-serif text-xl text-vetiver">{course?.title}</h3>
                     <p className="text-sm text-foreground/60">{course?.subtitle}</p>
+                    <div className="mt-2 flex items-center gap-2 text-xs">
+                      <Badge label={e.payment_status} kind={e.payment_status === "paid" ? "ok" : "muted"} />
+                      <Badge label={e.access_status} kind={active ? "ok" : "muted"} />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3 text-xs">
-                    <Badge label={e.payment_status} kind={e.payment_status === "paid" ? "ok" : "muted"} />
-                    <Badge label={e.access_status} kind={e.access_status === "active" ? "ok" : "muted"} />
-                  </div>
+                  {active && course?.slug ? (
+                    <Link
+                      to="/academy/dashboard/courses/$slug"
+                      params={{ slug: course.slug }}
+                      className="inline-flex items-center gap-2 rounded-sm bg-academy px-4 py-2 text-sm font-semibold text-white"
+                    >
+                      Continue learning <ArrowRight className="size-4" />
+                    </Link>
+                  ) : (
+                    <span className="text-xs text-foreground/50">Complete payment to unlock</span>
+                  )}
                 </article>
               );
             })}
+          </div>
+        </section>
+
+        <section className="mt-12 rounded-2xl border border-border bg-card p-6">
+          <div className="flex items-start gap-3">
+            <MessageCircle className="size-5 text-vetiver" />
+            <div className="flex-1">
+              <h3 className="font-serif text-lg text-vetiver">Need help?</h3>
+              <p className="text-sm text-foreground/70">Chat with Lovetech support about enrolment, payment, course access or certificates.</p>
+              <a href={whatsappUrl()} target="_blank" rel="noreferrer noopener" className="mt-3 inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-4 py-2 text-sm font-semibold text-white">
+                WhatsApp support
+              </a>
+            </div>
           </div>
         </section>
       </div>
@@ -68,3 +96,4 @@ function Badge({ label, kind }: { label: string; kind: "ok" | "muted" }) {
     <span className={`rounded-full px-2 py-0.5 font-semibold uppercase tracking-wider ${kind === "ok" ? "bg-vetiver/10 text-vetiver" : "bg-muted text-foreground/60"}`}>{label.replaceAll("_", " ")}</span>
   );
 }
+

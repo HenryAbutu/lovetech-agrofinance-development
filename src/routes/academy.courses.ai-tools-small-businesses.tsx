@@ -10,10 +10,10 @@ import courseImg from "@/assets/course-ai-tools.jpg";
 export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses")({
   head: () => ({
     meta: [
-      { title: "AI Tools for Small Businesses — Lovetech AI Business Academy" },
-      { name: "description", content: "Practical beginner course: use ChatGPT, Canva AI, CapCut and more to grow your Nigerian small business. Launch price ₦5,000." },
-      { property: "og:title", content: "AI Tools for Small Businesses: Practical Beginner Course" },
-      { property: "og:description", content: "Learn to use AI to create content, flyers, adverts and business documents. Launch price ₦5,000." },
+      { title: "AI for Businesses: Practical AI Skills for Nigerian SMEs — Lovetech Business Academy" },
+      { name: "description", content: "30-minute beginner course: use ChatGPT, Canva AI, CapCut & HeyGen to grow your Nigerian small business. Launch price ₦5,000." },
+      { property: "og:title", content: "AI for Businesses: Practical AI Skills for Nigerian SMEs" },
+      { property: "og:description", content: "Practical 30-minute beginner course. Launch price ₦5,000." },
       { property: "og:image", content: courseImg },
     ],
   }),
@@ -23,12 +23,13 @@ export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses
 const outcomes = [
   "Explain AI in simple business language",
   "Identify business tasks AI can improve",
-  "Write effective prompts",
+  "Write effective prompts using the Role + Task + Context formula",
   "Create a 7-day content plan",
   "Design a Canva flyer with AI",
   "Write a 30-second advert script",
+  "Use AI for customer messages & business planning",
   "Build a 7-day AI action plan",
-  "Submit an AI Business Action Pack",
+  "Submit a final AI Business Action Pack",
 ];
 
 const audience = [
@@ -40,23 +41,33 @@ const audience = [
 ];
 
 const modules = [
-  { n: 1, title: "Course Introduction" },
+  { n: 1, title: "Welcome & Course Introduction" },
   { n: 2, title: "What AI Can Do for Your Business" },
   { n: 3, title: "Prompt Writing for Business Owners" },
-  { n: 4, title: "AI for Content and Social Media" },
-  { n: 5, title: "Canva AI for Flyers and Branding" },
-  { n: 6, title: "AI for Short Videos and Adverts" },
-  { n: 7, title: "AI Action Plan and Next Steps" },
-  { n: 8, title: "Demo Videos" },
-  { n: 9, title: "Assignment, Assessment and Certificate" },
+  { n: 4, title: "AI for Content & Social Media" },
+  { n: 5, title: "Canva AI for Flyers & Branding" },
+  { n: 6, title: "AI for Short Videos & Adverts" },
+  { n: 7, title: "AI for Customer Messages, Planning & Productivity" },
+  { n: 8, title: "Your 7-Day AI Action Plan" },
+  { n: 9, title: "Final Assignment, Assessment & Certificate" },
+];
+
+const finalOutputs = [
+  "A list of business tasks where AI can help you",
+  "A personal prompt bank",
+  "A 7-day content plan",
+  "A Canva flyer idea or design",
+  "A 30-second business video script",
+  "A simple 7-day AI action plan",
+  "A final AI Business Action Pack",
 ];
 
 const includes = [
-  { icon: PlayCircle, label: "Full course video" },
-  { icon: PlayCircle, label: "5 demo videos" },
-  { icon: Download, label: "Downloadable participant handbook" },
-  { icon: Check, label: "Assignment submission form" },
-  { icon: Check, label: "Assessment and feedback form" },
+  { icon: PlayCircle, label: "Video lessons & practical demonstrations" },
+  { icon: Download, label: "Downloadable participant handbook & templates" },
+  { icon: Check, label: "Practical assignments" },
+  { icon: Phone, label: "WhatsApp support" },
+  { icon: Sparkles, label: "Final AI Business Action Pack" },
   { icon: ShieldCheck, label: "Certificate eligibility" },
 ];
 

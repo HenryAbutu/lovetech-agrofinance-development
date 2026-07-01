@@ -69,44 +69,44 @@ function AcademyPage() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <CourseCard
               img={aiToolsImg}
-              status="Enrolment Open"
-              title="AI Tools for Small Businesses"
-              body="Practical beginner course: ChatGPT, Canva AI, CapCut & HeyGen for your small business."
-              meta="Self-paced · 9 modules"
+              status="Beginner · 30 min"
+              title="AI for Businesses"
+              body="Practical AI Skills for Nigerian SMEs. ChatGPT, Canva AI, CapCut & HeyGen — applied to your real business."
+              meta="Self-paced · 30 minutes"
               priceOld="₦15,000"
               priceNew="₦5,000"
               to="/academy/courses/ai-tools-small-businesses" hash="enrol"
-              cta="Enrol Now"
+              cta="Enrol in AI for Businesses"
               featured
             />
             <CourseCard
               img={aiEdgeImg}
-              status="Enrolment Open"
-              title="Professionals AI Edge"
-              body="Practical AI tools for more efficient, productive and profitable businesses."
+              status="Advanced"
+              title="Advanced AI Modules"
+              body="Deeper AI workflows for professionals — automations, tooling, prompt systems and profitability plays."
               meta="Self-paced + Zoom cohort"
               priceOld="₦10,000"
               priceNew="₦5,000"
               to={ENROL_LINK} hash={ENROL_HASH}
-              cta="Enrol Now"
-            />
-            <CourseCard
-              img={icssImg}
-              status="Coming Soon"
-              title="ICSS 2.0 Entrepreneurship"
-              body="Entrepreneurship training for MSME growth, finance readiness and market access."
-              meta="Cohort opens soon"
-              to="/academy/courses/icss-2-0-entrepreneurship"
-              cta="Join Waitlist"
+              cta="View Course"
             />
             <CourseCard
               img={financeImg}
-              status="Coming Soon"
+              status="Finance Readiness"
               title="Finance Readiness for MSMEs"
               body="Prepare your business for loans, grants, investments and partnership funding."
               meta="Cohort opens soon"
               to="/academy/courses/finance-readiness-msmes"
-              cta="Join Waitlist"
+              cta="Join a Programme Waitlist"
+            />
+            <CourseCard
+              img={icssImg}
+              status="Entrepreneurship"
+              title="ICSS 2.0 Entrepreneurship Programme"
+              body="Entrepreneurship training for MSME growth, finance readiness and market access."
+              meta="Cohort opens soon"
+              to="/academy/courses/icss-2-0-entrepreneurship"
+              cta="Join a Programme Waitlist"
             />
           </div>
         </div>

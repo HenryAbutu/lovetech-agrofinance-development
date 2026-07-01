@@ -108,23 +108,27 @@ function Page() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[1.4fr_1fr] lg:px-8 lg:py-28">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--ochre)" }}>
-              <Sparkles className="size-3.5" /> Lovetech AI Business Academy · Enrolment Open
+              <Sparkles className="size-3.5" /> Lovetech Business Academy · Beginner · 30 minutes
             </p>
-            <h1 className="font-serif text-4xl text-bone md:text-6xl">AI Tools for Small Businesses</h1>
-            <p className="mt-3 font-serif text-xl text-ochre md:text-2xl">Practical Beginner Course</p>
+            <h1 className="font-serif text-4xl text-bone md:text-6xl">AI for Businesses</h1>
+            <p className="mt-3 font-serif text-xl text-ochre md:text-2xl">Practical AI Skills for Nigerian SMEs</p>
             <p className="mt-5 max-w-2xl text-base text-bone/80 md:text-lg">
-              Learn how to use ChatGPT, Canva AI, and video tools to create content, flyers, customer messages, business documents, and simple adverts for your small business.
+              A focused 30-minute beginner course. Use ChatGPT, Canva AI, CapCut and HeyGen to create content, flyers, customer messages, video adverts and a simple AI action plan for your business.
             </p>
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-bone/75">
+              <span className="inline-flex items-center gap-2"><Clock className="size-4 text-ochre" /> Duration: 30 minutes</span>
+              <span className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-ochre" /> Certificate eligible</span>
+            </div>
             <div className="mt-8 flex items-baseline gap-3">
               <span className="text-lg text-bone/40 line-through">₦15,000</span>
               <span className="font-serif text-5xl text-ochre">₦5,000</span>
               <span className="text-sm text-bone/60">launch price</span>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#enrol" className="inline-flex rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol Now</a>
+              <a href="#enrol" className="inline-flex rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol in AI for Businesses</a>
               <Link to="/signup" className="inline-flex rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">Create Learner Account</Link>
-              <a href={whatsappUrl("Hi, I have questions about the AI Tools course.")} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 text-sm font-semibold text-white">
-                <MessageCircle className="size-4" /> Ask on WhatsApp
+              <a href={whatsappUrl("Hi, I have questions about the AI for Businesses course.")} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-6 py-3 text-sm font-semibold text-white">
+                <MessageCircle className="size-4" /> Chat on WhatsApp
               </a>
             </div>
           </div>

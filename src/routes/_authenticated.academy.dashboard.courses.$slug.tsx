@@ -248,6 +248,30 @@ function ActionCard({ icon, title, body, href, cta }: { icon: React.ReactNode; t
   );
 }
 
+function CertificateDownloadButton({ courseId }: { courseId: string }) {
+  const getSigned = useServerFn(getMyCertificateSignedUrl);
+  const [loading, setLoading] = useState(false);
+  return (
+    <button
+      onClick={async () => {
+        setLoading(true);
+        try {
+          const { url } = await getSigned({ data: { course_id: courseId } });
+          window.open(url, "_blank", "noopener,noreferrer");
+        } catch (e) {
+          alert((e as Error).message);
+        } finally {
+          setLoading(false);
+        }
+      }}
+      className="mt-3 inline-flex items-center gap-2 rounded-sm bg-ochre px-4 py-2 text-sm font-semibold text-ink disabled:opacity-50"
+      disabled={loading}
+    >
+      <Download className="size-4" /> {loading ? "Preparing…" : "Download certificate"}
+    </button>
+  );
+}
+
 function formatCertStatus(s: string) {
   const map: Record<string, string> = {
     not_eligible: "Not eligible yet",

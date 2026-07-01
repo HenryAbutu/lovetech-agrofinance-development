@@ -4,6 +4,7 @@ import academyHero from "@/assets/academy-hero-v3.jpg";
 import aiEdgeImg from "@/assets/course-ai-edge.jpg";
 import icssImg from "@/assets/course-icss.jpg";
 import financeImg from "@/assets/course-finance.jpg";
+import aiToolsImg from "@/assets/course-ai-tools.jpg";
 
 export const Route = createFileRoute("/academy/")({
   head: () => ({
@@ -42,15 +43,15 @@ function AcademyPage() {
           <h1 className="max-w-3xl font-serif text-5xl text-bone md:text-7xl">Practical courses for entrepreneurs, professionals and value chain actors.</h1>
           <p className="mt-6 max-w-2xl text-lg text-bone/75">Self-paced and cohort-based training in AI, entrepreneurship, finance readiness, agribusiness and digital tools — built for the realities of Nigerian business.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to={ENROL_LINK} hash={ENROL_HASH} className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
-              <PlayCircle className="size-4" /> Enroll in AI Edge — ₦5,000
+            <Link to="/academy/courses/ai-tools-small-businesses" hash="enrol" className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
+              <PlayCircle className="size-4" /> Enrol in AI Tools — ₦5,000
             </Link>
             <Link to="/signup" className="rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">Create learner account</Link>
           </div>
           <dl className="mt-12 grid max-w-2xl grid-cols-3 gap-6 border-t border-bone/15 pt-6 text-bone/85">
             <Stat icon={<Users className="size-4" />} k="500+" v="Learners trained" />
-            <Stat icon={<BookOpen className="size-4" />} k="3" v="Live programmes" />
-            <Stat icon={<GraduationCap className="size-4" />} k="6 wks" v="Average duration" />
+            <Stat icon={<BookOpen className="size-4" />} k="4" v="Live programmes" />
+            <Stat icon={<GraduationCap className="size-4" />} k="Self-paced" v="+ live cohorts" />
           </dl>
         </div>
       </section>
@@ -65,7 +66,19 @@ function AcademyPage() {
             </div>
             <Link to={ENROL_LINK} hash={ENROL_HASH} className="hidden text-sm font-semibold text-vetiver underline-offset-4 hover:underline md:inline">Skip to enrolment →</Link>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <CourseCard
+              img={aiToolsImg}
+              status="Enrolment Open"
+              title="AI Tools for Small Businesses"
+              body="Practical beginner course: ChatGPT, Canva AI, CapCut & HeyGen for your small business."
+              meta="Self-paced · 9 modules"
+              priceOld="₦15,000"
+              priceNew="₦5,000"
+              to="/academy/courses/ai-tools-small-businesses" hash="enrol"
+              cta="Enrol Now"
+              featured
+            />
             <CourseCard
               img={aiEdgeImg}
               status="Enrolment Open"
@@ -75,8 +88,7 @@ function AcademyPage() {
               priceOld="₦10,000"
               priceNew="₦5,000"
               to={ENROL_LINK} hash={ENROL_HASH}
-              cta="Enroll Now"
-              featured
+              cta="Enrol Now"
             />
             <CourseCard
               img={icssImg}

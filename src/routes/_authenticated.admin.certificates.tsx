@@ -67,7 +67,7 @@ function CertificatesAdmin() {
                       ) : (
                         <button
                           onClick={() => {
-                            const name = window.prompt("Name to appear on the certificate:", e.full_name);
+                            const name = window.prompt("Name to appear on the certificate:", e.full_name ?? "");
                             if (!name) return;
                             setBusy(key); setErr("");
                             approveMut.mutate(

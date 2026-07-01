@@ -140,8 +140,8 @@ function CourseContent({ courseId }: { courseId: string }) {
         {mods.data?.modules.length === 0 && <p className="text-xs text-foreground/60">No modules yet.</p>}
       </div>
 
-      {editingMod && <ModuleEditor initial={editingMod} onCancel={() => setEditingMod(null)} onSave={(m) => modMut.mutate(m)} busy={modMut.isPending} />}
-      {editingLes && <LessonEditor initial={editingLes} onCancel={() => setEditingLes(null)} onSave={(l) => lesMut.mutate(l)} busy={lesMut.isPending} />}
+      {editingMod && <ModuleEditor initial={editingMod} onCancel={() => setEditingMod(null)} onSave={(m: any) => modMut.mutate(m)} busy={modMut.isPending} />}
+      {editingLes && <LessonEditor initial={editingLes} onCancel={() => setEditingLes(null)} onSave={(l: any) => lesMut.mutate(l)} busy={lesMut.isPending} />}
     </div>
   );
 }

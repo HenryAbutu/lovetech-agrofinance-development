@@ -1,12 +1,17 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { Check, Calendar, Clock, MessageCircle, Phone, ShieldCheck, Sparkles } from "lucide-react";
+import { Check, Calendar, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, Tag } from "lucide-react";
+import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { enrolInCourse } from "@/lib/enrolment.functions";
+import { validateCoupon } from "@/lib/coupons.functions";
 import courseImg from "@/assets/course-ai-edge.jpg";
 
+const SearchSchema = z.object({ ref: z.string().max(60).optional() });
+
 export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
+  validateSearch: (s) => SearchSchema.parse(s),
   head: () => ({
     meta: [
       { title: "Enroll · Professionals AI Edge — LoveTech Agro Academy" },
@@ -42,23 +47,44 @@ const modules = [
 
 function Page() {
   const enrol = useServerFn(enrolInCourse);
+  const validate = useServerFn(validateCoupon);
   const nav = useNavigate();
+  const { ref: refFromUrl } = useSearch({ from: "/academy/courses/professionals-ai-edge" });
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [msg, setMsg] = useState(""); const [err, setErr] = useState("");
+  const [coupon, setCoupon] = useState("");
+  const [couponInfo, setCouponInfo] = useState<{ ok: boolean; message: string; final?: number } | null>(null);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setAuthed(!!data.user));
   }, []);
+
+  async function applyCoupon() {
+    if (!coupon.trim()) return;
+    setCouponInfo({ ok: false, message: "Checking…" });
+    try {
+      const r = await validate({ data: { code: coupon.trim(), course_slug: "professionals-ai-edge" } });
+      if (r.valid) setCouponInfo({ ok: true, message: `Applied — you pay ₦${r.final_amount.toLocaleString()}`, final: r.final_amount });
+      else setCouponInfo({ ok: false, message: r.reason });
+    } catch (e) {
+      setCouponInfo({ ok: false, message: e instanceof Error ? e.message : "Could not check coupon" });
+    }
+  }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!authed) { nav({ to: "/login" }); return; }
     setState("loading"); setErr("");
     const fd = new FormData(e.currentTarget);
-    const data = { course_slug: "professionals-ai-edge", ...Object.fromEntries(fd.entries()) } as Record<string, string>;
+    const data = {
+      course_slug: "professionals-ai-edge",
+      ...Object.fromEntries(fd.entries()),
+      referral_code: refFromUrl ?? null,
+    } as Record<string, string | null>;
     try {
       const r = await enrol({ data: data as never });
+      if ("redirect_to" in r && r.redirect_to) { window.location.href = r.redirect_to; return; }
       if (r.stubbed) { setMsg(r.message ?? "You're registered."); setState("done"); }
       else if (r.authorization_url) { window.location.href = r.authorization_url; }
       else { setMsg("You're registered."); setState("done"); }
@@ -174,6 +200,29 @@ function Page() {
                 <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
               </div>
               <Field name="referral_source" label="How did you hear about us?" />
+
+              <div className="rounded-md border border-dashed border-ochre/40 bg-ochre/5 p-4">
+                <label className="mb-2 flex items-center gap-2 text-sm font-medium text-vetiver">
+                  <Tag className="size-4 text-ochre" /> Discount coupon (optional)
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    name="coupon_code"
+                    value={coupon}
+                    onChange={(e) => { setCoupon(e.target.value); setCouponInfo(null); }}
+                    placeholder="Enter code"
+                    className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm uppercase"
+                  />
+                  <button type="button" onClick={applyCoupon} className="rounded-md border border-vetiver/40 bg-background px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Apply</button>
+                </div>
+                {couponInfo && (
+                  <p className={`mt-2 text-sm ${couponInfo.ok ? "text-vetiver" : "text-destructive"}`}>{couponInfo.message}</p>
+                )}
+                {refFromUrl && (
+                  <p className="mt-3 text-xs text-foreground/60">Referred by code <span className="font-mono font-semibold text-vetiver">{refFromUrl.toUpperCase()}</span> — they'll earn a reward when your payment succeeds.</p>
+                )}
+              </div>
+
               {err && <p className="text-sm text-destructive">{err}</p>}
               <button
                 type={authed ? "submit" : "button"}

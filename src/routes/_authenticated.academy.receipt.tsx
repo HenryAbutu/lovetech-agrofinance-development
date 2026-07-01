@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
-import { CheckCircle2, Download, Printer, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import { CheckCircle2, Printer, AlertCircle, FileText } from "lucide-react";
 import { z } from "zod";
 import { getReceipt } from "@/lib/receipt.functions";
+import { getMyInvoiceUrl } from "@/lib/invoice.functions";
 
 const SearchSchema = z.object({
   ref: z.string().optional(),
@@ -33,7 +35,11 @@ function Page() {
 
   const { payment, enrolment, course } = data;
   const isSuccess = payment.status === "success";
-  const amountStr = new Intl.NumberFormat("en-NG", { style: "currency", currency: payment.currency || "NGN", maximumFractionDigits: 0 }).format(Number(payment.amount));
+  const fmt = (n: number) => new Intl.NumberFormat("en-NG", { style: "currency", currency: payment.currency || "NGN", maximumFractionDigits: 0 }).format(n);
+  const paidAmount = Number(payment.amount);
+  const discount = Number(enrolment?.discount_amount ?? 0);
+  const subtotal = paidAmount + discount;
+  const amountStr = fmt(paidAmount);
   const paidAt = payment.paid_at ? new Date(payment.paid_at) : null;
 
   return (
@@ -105,8 +111,14 @@ function Page() {
                     <p className="font-medium text-vetiver">{course?.title ?? "Course enrolment"}</p>
                     <p className="text-xs text-foreground/60">Launch cohort · self-paced + Zoom · WhatsApp cohort support</p>
                   </td>
-                  <td className="py-4 text-right font-medium text-vetiver">{amountStr}</td>
+                  <td className="py-4 text-right font-medium text-vetiver">{fmt(subtotal)}</td>
                 </tr>
+                {discount > 0 && (
+                  <tr className="border-b border-border">
+                    <td className="py-3 text-sm text-foreground/70">Discount{enrolment?.coupon_code ? ` (${enrolment.coupon_code})` : ""}</td>
+                    <td className="py-3 text-right text-sm font-medium text-ochre">-{fmt(discount)}</td>
+                  </tr>
+                )}
               </tbody>
               <tfoot>
                 <tr>
@@ -138,15 +150,36 @@ function Page() {
           {isSuccess && (
             <Link to="/academy/dashboard" className="rounded-sm bg-vetiver px-5 py-2.5 text-sm font-semibold text-bone">Go to dashboard</Link>
           )}
+          {isSuccess && payment.invoice_pdf_url && <InvoiceDownload paymentId={payment.id} />}
           <button onClick={() => window.print()} className="inline-flex items-center gap-2 rounded-sm border border-border bg-background px-5 py-2.5 text-sm font-semibold text-vetiver hover:bg-card">
             <Printer className="size-4" /> Print
-          </button>
-          <button onClick={() => window.print()} className="inline-flex items-center gap-2 rounded-sm border border-border bg-background px-5 py-2.5 text-sm font-semibold text-vetiver hover:bg-card">
-            <Download className="size-4" /> Save as PDF
           </button>
         </div>
       </div>
     </main>
+  );
+}
+
+function InvoiceDownload({ paymentId }: { paymentId: string }) {
+  const fn = useServerFn(getMyInvoiceUrl);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
+  async function open() {
+    setLoading(true); setErr("");
+    try {
+      const r = await fn({ data: { payment_id: paymentId } });
+      if (r.url) window.open(r.url, "_blank", "noopener");
+      else setErr("Invoice not ready yet — refresh in a moment.");
+    } catch (e) { setErr(e instanceof Error ? e.message : "Failed"); }
+    finally { setLoading(false); }
+  }
+  return (
+    <>
+      <button onClick={open} disabled={loading} className="inline-flex items-center gap-2 rounded-sm border border-vetiver/40 bg-background px-5 py-2.5 text-sm font-semibold text-vetiver hover:bg-card disabled:opacity-60">
+        <FileText className="size-4" /> {loading ? "Preparing…" : "Download invoice (PDF)"}
+      </button>
+      {err && <span className="self-center text-xs text-destructive">{err}</span>}
+    </>
   );
 }
 

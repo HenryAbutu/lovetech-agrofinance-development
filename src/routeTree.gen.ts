@@ -34,8 +34,10 @@ import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_aut
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
 import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_authenticated.admin.enrolments'
 import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated.admin.courses'
+import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated.admin.coupons'
 import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated.admin.certificates'
 import { Route as AuthenticatedAdminAssessmentsRouteImport } from './routes/_authenticated.admin.assessments'
+import { Route as AuthenticatedAcademyReferralsRouteImport } from './routes/_authenticated.academy.referrals'
 import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
 import { Route as AuthenticatedAcademyBadgesRouteImport } from './routes/_authenticated.academy.badges'
@@ -180,6 +182,12 @@ const AuthenticatedAdminCoursesRoute =
     path: '/courses',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminCouponsRoute =
+  AuthenticatedAdminCouponsRouteImport.update({
+    id: '/coupons',
+    path: '/coupons',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCertificatesRoute =
   AuthenticatedAdminCertificatesRouteImport.update({
     id: '/certificates',
@@ -191,6 +199,12 @@ const AuthenticatedAdminAssessmentsRoute =
     id: '/assessments',
     path: '/assessments',
     getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAcademyReferralsRoute =
+  AuthenticatedAcademyReferralsRouteImport.update({
+    id: '/academy/referrals',
+    path: '/academy/referrals',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAcademyReceiptRoute =
   AuthenticatedAcademyReceiptRouteImport.update({
@@ -272,8 +286,10 @@ export interface FileRoutesByFullPath {
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
+  '/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
   '/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
@@ -309,8 +325,10 @@ export interface FileRoutesByTo {
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
+  '/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
   '/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
@@ -349,8 +367,10 @@ export interface FileRoutesById {
   '/_authenticated/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
+  '/_authenticated/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
   '/_authenticated/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
   '/_authenticated/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/_authenticated/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/_authenticated/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
@@ -389,8 +409,10 @@ export interface FileRouteTypes {
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
+    | '/academy/referrals'
     | '/admin/assessments'
     | '/admin/certificates'
+    | '/admin/coupons'
     | '/admin/courses'
     | '/admin/enrolments'
     | '/admin/payments'
@@ -426,8 +448,10 @@ export interface FileRouteTypes {
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
+    | '/academy/referrals'
     | '/admin/assessments'
     | '/admin/certificates'
+    | '/admin/coupons'
     | '/admin/courses'
     | '/admin/enrolments'
     | '/admin/payments'
@@ -465,8 +489,10 @@ export interface FileRouteTypes {
     | '/_authenticated/academy/badges'
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
+    | '/_authenticated/academy/referrals'
     | '/_authenticated/admin/assessments'
     | '/_authenticated/admin/certificates'
+    | '/_authenticated/admin/coupons'
     | '/_authenticated/admin/courses'
     | '/_authenticated/admin/enrolments'
     | '/_authenticated/admin/payments'
@@ -686,6 +712,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCoursesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/coupons': {
+      id: '/_authenticated/admin/coupons'
+      path: '/coupons'
+      fullPath: '/admin/coupons'
+      preLoaderRoute: typeof AuthenticatedAdminCouponsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/certificates': {
       id: '/_authenticated/admin/certificates'
       path: '/certificates'
@@ -699,6 +732,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/assessments'
       preLoaderRoute: typeof AuthenticatedAdminAssessmentsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/academy/referrals': {
+      id: '/_authenticated/academy/referrals'
+      path: '/academy/referrals'
+      fullPath: '/academy/referrals'
+      preLoaderRoute: typeof AuthenticatedAcademyReferralsRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/academy/receipt': {
       id: '/_authenticated/academy/receipt'
@@ -776,6 +816,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAssessmentsRoute: typeof AuthenticatedAdminAssessmentsRoute
   AuthenticatedAdminCertificatesRoute: typeof AuthenticatedAdminCertificatesRoute
+  AuthenticatedAdminCouponsRoute: typeof AuthenticatedAdminCouponsRoute
   AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
   AuthenticatedAdminEnrolmentsRoute: typeof AuthenticatedAdminEnrolmentsRoute
   AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
@@ -787,6 +828,7 @@ interface AuthenticatedAdminRouteChildren {
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAssessmentsRoute: AuthenticatedAdminAssessmentsRoute,
   AuthenticatedAdminCertificatesRoute: AuthenticatedAdminCertificatesRoute,
+  AuthenticatedAdminCouponsRoute: AuthenticatedAdminCouponsRoute,
   AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
   AuthenticatedAdminEnrolmentsRoute: AuthenticatedAdminEnrolmentsRoute,
   AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
@@ -842,6 +884,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAcademyBadgesRoute: typeof AuthenticatedAcademyBadgesRoute
   AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRouteWithChildren
   AuthenticatedAcademyReceiptRoute: typeof AuthenticatedAcademyReceiptRoute
+  AuthenticatedAcademyReferralsRoute: typeof AuthenticatedAcademyReferralsRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -850,6 +893,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAcademyDashboardRoute:
     AuthenticatedAcademyDashboardRouteWithChildren,
   AuthenticatedAcademyReceiptRoute: AuthenticatedAcademyReceiptRoute,
+  AuthenticatedAcademyReferralsRoute: AuthenticatedAcademyReferralsRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

@@ -44,7 +44,7 @@ function AcademyPage() {
           <p className="mt-6 max-w-2xl text-lg text-bone/75">Self-paced and cohort-based training in AI, entrepreneurship, finance readiness, agribusiness and digital tools — built for the realities of Nigerian business.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/academy/courses/ai-tools-small-businesses" hash="enrol" className="inline-flex items-center gap-2 rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>
-              <PlayCircle className="size-4" /> Enrol in AI Tools — ₦5,000
+              <PlayCircle className="size-4" /> Enrol in AI for Businesses — ₦5,000
             </Link>
             <Link to="/signup" className="rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">Create learner account</Link>
           </div>

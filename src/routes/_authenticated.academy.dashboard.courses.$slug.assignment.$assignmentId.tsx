@@ -29,9 +29,7 @@ function AssignmentPage() {
   const sub = data?.submissions.find((s) => s.assignment_id === assignmentId);
 
   useEffect(() => {
-    if (sub) {
-      setText(sub.submission_text ?? "" as any);
-    }
+    // submission body isn't returned by the list endpoint; learner can edit fresh.
   }, [sub?.id]);
 
   const mut = useMutation({

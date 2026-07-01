@@ -14,6 +14,7 @@ const tabs = [
   { to: "/admin/assessments", label: "Assessments" },
   { to: "/admin/enrolments", label: "Enrolments" },
   { to: "/admin/payments", label: "Payments" },
+  { to: "/admin/coupons", label: "Coupons" },
   { to: "/admin/waitlist", label: "Waitlist" },
   { to: "/admin/certificates", label: "Certificates" },
   { to: "/admin/video-studio", label: "Video Studio" },

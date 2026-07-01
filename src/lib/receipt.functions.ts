@@ -9,7 +9,7 @@ export const getReceipt = createServerFn({ method: "GET" })
     const { supabase } = context;
     const { data: payment, error } = await supabase
       .from("academy_payments")
-      .select("id, amount, currency, status, paid_at, paystack_reference, enrolment_id, course_id, user_email")
+      .select("id, amount, currency, status, paid_at, paystack_reference, enrolment_id, course_id, user_email, invoice_number, invoice_pdf_url")
       .eq("paystack_reference", data.reference)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -18,7 +18,7 @@ export const getReceipt = createServerFn({ method: "GET" })
     const [{ data: enrolment }, { data: course }] = await Promise.all([
       supabase
         .from("academy_enrolments")
-        .select("id, full_name, email, payment_status, access_status, created_at")
+        .select("id, full_name, email, payment_status, access_status, created_at, coupon_code, discount_amount")
         .eq("id", payment.enrolment_id)
         .maybeSingle(),
       supabase

@@ -38,6 +38,8 @@ export const Route = createFileRoute("/api/public/paystack/webhook")({
               .update({ payment_status: "paid", access_status: "active" })
               .eq("id", enrolmentId);
           }
+          const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
+          await fulfilPayment(reference);
         }
 
         return new Response("ok");

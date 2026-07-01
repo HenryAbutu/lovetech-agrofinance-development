@@ -41,6 +41,8 @@ export const Route = createFileRoute("/api/public/paystack/verify")({
             .from("academy_enrolments")
             .update({ payment_status: "paid", access_status: "active" })
             .eq("id", enrolmentId);
+          const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
+          await fulfilPayment(reference);
         }
 
         throw redirect({

@@ -15,6 +15,8 @@ const EnrolSchema = z.object({
   location: z.string().max(200).optional().nullable(),
   main_challenge: z.string().max(2000).optional().nullable(),
   referral_source: z.string().max(200).optional().nullable(),
+  coupon_code: z.string().max(60).optional().nullable(),
+  referral_code: z.string().max(60).optional().nullable(),
 });
 
 function getPublicClient() {
@@ -46,8 +48,53 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     if (cErr) throw new Error(cErr.message);
     if (!course) throw new Error("Course not found");
 
-    const { course_slug, ...rest } = data;
+    const { course_slug, coupon_code, referral_code, ...rest } = data;
     void course_slug;
+
+    const basePrice = Number(course.discount_price ?? course.regular_price ?? 0);
+
+    // ---- Apply coupon (server-side re-validation) ----
+    let discountAmount = 0;
+    let appliedCoupon: string | null = null;
+    if (coupon_code && coupon_code.trim().length > 0) {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const code = coupon_code.trim().toUpperCase();
+      const { data: coupon } = await supabaseAdmin
+        .from("academy_coupons")
+        .select("id, kind, value, max_uses, used_count, expires_at, min_amount, course_id, active, issued_to_user_id")
+        .eq("code", code)
+        .maybeSingle();
+      const now = new Date();
+      const usable =
+        coupon &&
+        coupon.active &&
+        (!coupon.expires_at || new Date(coupon.expires_at) >= now) &&
+        (coupon.max_uses === null || (coupon.used_count ?? 0) < coupon.max_uses) &&
+        (!coupon.course_id || coupon.course_id === course.id) &&
+        (coupon.min_amount === null || basePrice >= Number(coupon.min_amount)) &&
+        (!coupon.issued_to_user_id || coupon.issued_to_user_id === userId);
+      if (usable && coupon) {
+        discountAmount =
+          coupon.kind === "percent"
+            ? Math.min(basePrice, Math.round((basePrice * Number(coupon.value)) / 100))
+            : Math.min(basePrice, Number(coupon.value));
+        appliedCoupon = code;
+      }
+    }
+    const amount = Math.max(0, basePrice - discountAmount);
+
+    // ---- Referral code (must not be self) ----
+    let appliedReferral: string | null = null;
+    if (referral_code && referral_code.trim().length > 0) {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const refCode = referral_code.trim().toUpperCase();
+      const { data: refProfile } = await supabaseAdmin
+        .from("profiles")
+        .select("id")
+        .eq("referral_code", refCode)
+        .maybeSingle();
+      if (refProfile && refProfile.id !== userId) appliedReferral = refCode;
+    }
 
     // Insert enrolment as the authenticated user (RLS-scoped)
     const { data: enrol, error } = await userClient
@@ -58,14 +105,15 @@ export const enrolInCourse = createServerFn({ method: "POST" })
         user_id: userId,
         payment_status: "pending_payment",
         access_status: "inactive",
+        coupon_code: appliedCoupon,
+        discount_amount: discountAmount,
+        referral_code: appliedReferral,
       })
       .select()
       .single();
     if (error) throw new Error(error.message);
 
-    const amount = Number(course.discount_price ?? course.regular_price ?? 0);
-    // Payment rows are written server-side only (service role) so learners
-    // cannot fabricate or modify payment records from the client.
+    // Payment rows are written server-side only (service role)
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     await supabaseAdmin.from("academy_payments").insert({
       enrolment_id: enrol.id,
@@ -78,6 +126,23 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     });
 
     const paystackKey = process.env.PAYSTACK_SECRET_KEY;
+
+    // Free enrolment (100% coupon) — mark paid immediately and run fulfilment.
+    if (amount <= 0) {
+      const ref = `FREE-${enrol.id.slice(0, 8).toUpperCase()}-${Date.now()}`;
+      await supabaseAdmin
+        .from("academy_payments")
+        .update({ status: "success", paid_at: new Date().toISOString(), paystack_reference: ref })
+        .eq("enrolment_id", enrol.id);
+      await supabaseAdmin
+        .from("academy_enrolments")
+        .update({ payment_status: "paid", access_status: "active" })
+        .eq("id", enrol.id);
+      const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
+      await fulfilPayment(ref);
+      return { ok: true, stubbed: false, free: true, authorization_url: null, enrolment_id: enrol.id, redirect_to: `/academy/receipt?payment=success&ref=${encodeURIComponent(ref)}` };
+    }
+
     if (!paystackKey) {
       return {
         ok: true,

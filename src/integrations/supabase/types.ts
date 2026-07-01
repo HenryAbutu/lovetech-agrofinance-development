@@ -223,6 +223,110 @@ export type Database = {
           },
         ]
       }
+      academy_coupon_redemptions: {
+        Row: {
+          coupon_id: string
+          created_at: string
+          discount_amount: number
+          enrolment_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          coupon_id: string
+          created_at?: string
+          discount_amount: number
+          enrolment_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          coupon_id?: string
+          created_at?: string
+          discount_amount?: number
+          enrolment_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "academy_coupon_redemptions_coupon_id_fkey"
+            columns: ["coupon_id"]
+            isOneToOne: false
+            referencedRelation: "academy_coupons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "academy_coupon_redemptions_enrolment_id_fkey"
+            columns: ["enrolment_id"]
+            isOneToOne: false
+            referencedRelation: "academy_enrolments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      academy_coupons: {
+        Row: {
+          active: boolean
+          code: string
+          course_id: string | null
+          created_at: string
+          expires_at: string | null
+          id: string
+          issued_to_user_id: string | null
+          kind: string
+          max_uses: number | null
+          min_amount: number | null
+          notes: string | null
+          source: string | null
+          updated_at: string
+          used_count: number
+          value: number
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          course_id?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          issued_to_user_id?: string | null
+          kind: string
+          max_uses?: number | null
+          min_amount?: number | null
+          notes?: string | null
+          source?: string | null
+          updated_at?: string
+          used_count?: number
+          value: number
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          course_id?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          issued_to_user_id?: string | null
+          kind?: string
+          max_uses?: number | null
+          min_amount?: number | null
+          notes?: string | null
+          source?: string | null
+          updated_at?: string
+          used_count?: number
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "academy_coupons_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "academy_courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       academy_course_access_links: {
         Row: {
           course_id: string
@@ -303,8 +407,10 @@ export type Database = {
           access_status: Database["public"]["Enums"]["enrolment_access_status"]
           business_name: string | null
           business_sector: string | null
+          coupon_code: string | null
           course_id: string
           created_at: string
+          discount_amount: number
           email: string
           full_name: string
           id: string
@@ -312,6 +418,7 @@ export type Database = {
           main_challenge: string | null
           payment_status: Database["public"]["Enums"]["enrolment_payment_status"]
           phone: string | null
+          referral_code: string | null
           referral_source: string | null
           user_id: string | null
         }
@@ -319,8 +426,10 @@ export type Database = {
           access_status?: Database["public"]["Enums"]["enrolment_access_status"]
           business_name?: string | null
           business_sector?: string | null
+          coupon_code?: string | null
           course_id: string
           created_at?: string
+          discount_amount?: number
           email: string
           full_name: string
           id?: string
@@ -328,6 +437,7 @@ export type Database = {
           main_challenge?: string | null
           payment_status?: Database["public"]["Enums"]["enrolment_payment_status"]
           phone?: string | null
+          referral_code?: string | null
           referral_source?: string | null
           user_id?: string | null
         }
@@ -335,8 +445,10 @@ export type Database = {
           access_status?: Database["public"]["Enums"]["enrolment_access_status"]
           business_name?: string | null
           business_sector?: string | null
+          coupon_code?: string | null
           course_id?: string
           created_at?: string
+          discount_amount?: number
           email?: string
           full_name?: string
           id?: string
@@ -344,6 +456,7 @@ export type Database = {
           main_challenge?: string | null
           payment_status?: Database["public"]["Enums"]["enrolment_payment_status"]
           phone?: string | null
+          referral_code?: string | null
           referral_source?: string | null
           user_id?: string | null
         }
@@ -565,6 +678,8 @@ export type Database = {
           currency: string
           enrolment_id: string
           id: string
+          invoice_number: string | null
+          invoice_pdf_url: string | null
           paid_at: string | null
           payment_provider: string
           paystack_reference: string | null
@@ -578,6 +693,8 @@ export type Database = {
           currency?: string
           enrolment_id: string
           id?: string
+          invoice_number?: string | null
+          invoice_pdf_url?: string | null
           paid_at?: string | null
           payment_provider?: string
           paystack_reference?: string | null
@@ -591,6 +708,8 @@ export type Database = {
           currency?: string
           enrolment_id?: string
           id?: string
+          invoice_number?: string | null
+          invoice_pdf_url?: string | null
           paid_at?: string | null
           payment_provider?: string
           paystack_reference?: string | null
@@ -777,6 +896,57 @@ export type Database = {
             columns: ["module_id"]
             isOneToOne: false
             referencedRelation: "academy_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      academy_referrals: {
+        Row: {
+          created_at: string
+          id: string
+          referral_code: string
+          referred_enrolment_id: string | null
+          referred_user_id: string | null
+          referrer_user_id: string
+          reward_coupon_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          referral_code: string
+          referred_enrolment_id?: string | null
+          referred_user_id?: string | null
+          referrer_user_id: string
+          reward_coupon_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          referral_code?: string
+          referred_enrolment_id?: string | null
+          referred_user_id?: string | null
+          referrer_user_id?: string
+          reward_coupon_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "academy_referrals_referred_enrolment_id_fkey"
+            columns: ["referred_enrolment_id"]
+            isOneToOne: false
+            referencedRelation: "academy_enrolments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "academy_referrals_reward_coupon_id_fkey"
+            columns: ["reward_coupon_id"]
+            isOneToOne: false
+            referencedRelation: "academy_coupons"
             referencedColumns: ["id"]
           },
         ]
@@ -1024,6 +1194,7 @@ export type Database = {
           id: string
           leaderboard_opt_in: boolean
           phone: string | null
+          referral_code: string | null
           updated_at: string
         }
         Insert: {
@@ -1035,6 +1206,7 @@ export type Database = {
           id: string
           leaderboard_opt_in?: boolean
           phone?: string | null
+          referral_code?: string | null
           updated_at?: string
         }
         Update: {
@@ -1046,6 +1218,7 @@ export type Database = {
           id?: string
           leaderboard_opt_in?: boolean
           phone?: string | null
+          referral_code?: string | null
           updated_at?: string
         }
         Relationships: []

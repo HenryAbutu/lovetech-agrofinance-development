@@ -26,11 +26,13 @@ import { Route as AcademyIndexRouteImport } from './routes/academy.index'
 import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
 import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
+import { Route as AcademyCoursesAiToolsSmallBusinessesRouteImport } from './routes/academy.courses.ai-tools-small-businesses'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
 import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack.webhook'
 import { Route as ApiPublicPaystackVerifyRouteImport } from './routes/api/public/paystack.verify'
+import { Route as AuthenticatedAcademyDashboardCoursesSlugRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -119,6 +121,12 @@ const AcademyCoursesFinanceReadinessMsmesRoute =
     path: '/academy/courses/finance-readiness-msmes',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AcademyCoursesAiToolsSmallBusinessesRoute =
+  AcademyCoursesAiToolsSmallBusinessesRouteImport.update({
+    id: '/academy/courses/ai-tools-small-businesses',
+    path: '/academy/courses/ai-tools-small-businesses',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminVideoStudioRoute =
   AuthenticatedAdminVideoStudioRouteImport.update({
     id: '/admin/video-studio',
@@ -148,6 +156,12 @@ const ApiPublicPaystackVerifyRoute = ApiPublicPaystackVerifyRouteImport.update({
   path: '/api/public/paystack/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAcademyDashboardCoursesSlugRoute =
+  AuthenticatedAcademyDashboardCoursesSlugRouteImport.update({
+    id: '/courses/$slug',
+    path: '/courses/$slug',
+    getParentRoute: () => AuthenticatedAcademyDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -163,14 +177,16 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/academy/': typeof AcademyIndexRoute
-  '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
+  '/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -186,14 +202,16 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/academy': typeof AcademyIndexRoute
-  '/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
+  '/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -211,14 +229,16 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/academy/': typeof AcademyIndexRoute
-  '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRoute
+  '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
+  '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
+  '/_authenticated/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -239,11 +259,13 @@ export interface FileRouteTypes {
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/admin/video-studio'
+    | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
+    | '/academy/dashboard/courses/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -262,11 +284,13 @@ export interface FileRouteTypes {
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/admin/video-studio'
+    | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
+    | '/academy/dashboard/courses/$slug'
   id:
     | '__root__'
     | '/'
@@ -286,11 +310,13 @@ export interface FileRouteTypes {
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
     | '/_authenticated/admin/video-studio'
+    | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
+    | '/_authenticated/academy/dashboard/courses/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -308,6 +334,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
+  AcademyCoursesAiToolsSmallBusinessesRoute: typeof AcademyCoursesAiToolsSmallBusinessesRoute
   AcademyCoursesFinanceReadinessMsmesRoute: typeof AcademyCoursesFinanceReadinessMsmesRoute
   AcademyCoursesIcss20EntrepreneurshipRoute: typeof AcademyCoursesIcss20EntrepreneurshipRoute
   AcademyCoursesProfessionalsAiEdgeRoute: typeof AcademyCoursesProfessionalsAiEdgeRoute
@@ -436,6 +463,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyCoursesFinanceReadinessMsmesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academy/courses/ai-tools-small-businesses': {
+      id: '/academy/courses/ai-tools-small-businesses'
+      path: '/academy/courses/ai-tools-small-businesses'
+      fullPath: '/academy/courses/ai-tools-small-businesses'
+      preLoaderRoute: typeof AcademyCoursesAiToolsSmallBusinessesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/video-studio': {
       id: '/_authenticated/admin/video-studio'
       path: '/admin/video-studio'
@@ -471,17 +505,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaystackVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/academy/dashboard/courses/$slug': {
+      id: '/_authenticated/academy/dashboard/courses/$slug'
+      path: '/courses/$slug'
+      fullPath: '/academy/dashboard/courses/$slug'
+      preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRouteImport
+      parentRoute: typeof AuthenticatedAcademyDashboardRoute
+    }
   }
 }
 
+interface AuthenticatedAcademyDashboardRouteChildren {
+  AuthenticatedAcademyDashboardCoursesSlugRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRoute
+}
+
+const AuthenticatedAcademyDashboardRouteChildren: AuthenticatedAcademyDashboardRouteChildren =
+  {
+    AuthenticatedAcademyDashboardCoursesSlugRoute:
+      AuthenticatedAcademyDashboardCoursesSlugRoute,
+  }
+
+const AuthenticatedAcademyDashboardRouteWithChildren =
+  AuthenticatedAcademyDashboardRoute._addFileChildren(
+    AuthenticatedAcademyDashboardRouteChildren,
+  )
+
 interface AuthenticatedRouteChildren {
-  AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRoute
+  AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRouteWithChildren
   AuthenticatedAcademyReceiptRoute: typeof AuthenticatedAcademyReceiptRoute
   AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAcademyDashboardRoute: AuthenticatedAcademyDashboardRoute,
+  AuthenticatedAcademyDashboardRoute:
+    AuthenticatedAcademyDashboardRouteWithChildren,
   AuthenticatedAcademyReceiptRoute: AuthenticatedAcademyReceiptRoute,
   AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
 }
@@ -505,6 +562,8 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
   AcademyIndexRoute: AcademyIndexRoute,
+  AcademyCoursesAiToolsSmallBusinessesRoute:
+    AcademyCoursesAiToolsSmallBusinessesRoute,
   AcademyCoursesFinanceReadinessMsmesRoute:
     AcademyCoursesFinanceReadinessMsmesRoute,
   AcademyCoursesIcss20EntrepreneurshipRoute:

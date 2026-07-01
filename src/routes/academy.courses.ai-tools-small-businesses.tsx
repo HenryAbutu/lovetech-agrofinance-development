@@ -149,7 +149,7 @@ function Page() {
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-6 font-serif text-3xl text-vetiver">About this course</h2>
           <p className="mb-6 text-foreground/75 leading-relaxed">
-            This beginner-friendly online course by <strong>Lovetech AI Business Academy</strong> under Lovetech Agrofinance & Development helps Nigerian and African small business owners use AI tools practically. Learners will use ChatGPT or Claude, Canva AI, CapCut, HeyGen, and Canva Video to create useful business outputs such as social media captions, content plans, flyers, customer replies, video scripts, business documents, and a simple AI action plan.
+            <strong>AI for Businesses: Practical AI Skills for Nigerian SMEs</strong> is a focused 30-minute beginner course by <strong>Lovetech Business Academy</strong> under Lovetech Agrofinance &amp; Development. It helps Nigerian and African small business owners use AI tools practically — ChatGPT or Claude, Canva AI, CapCut, HeyGen, and Canva Video — to create captions, content plans, flyers, customer replies, video scripts, business documents and a simple AI action plan they can start using immediately.
           </p>
           <h3 className="mb-3 mt-8 font-serif text-xl text-vetiver">Who this is for</h3>
           <ul className="grid gap-2 md:grid-cols-2">

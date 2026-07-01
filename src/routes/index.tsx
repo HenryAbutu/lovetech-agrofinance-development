@@ -224,27 +224,27 @@ function Home() {
           <div className="grid gap-6 md:grid-cols-3">
             <CourseCard
               status="Enrolment Open"
-              title="Professionals AI Edge"
-              body="Practical AI tools for more efficient, productive and profitable businesses."
-              priceRegular="₦10,000"
+              title="AI for Businesses"
+              body="Practical AI skills for Nigerian SMEs — 30-minute beginner course covering ChatGPT, Canva AI, video tools & more."
+              priceRegular="₦15,000"
               priceLaunch="₦5,000"
-              to="/academy/courses/professionals-ai-edge" hash="enrol"
-              cta="Enroll Now"
+              to="/academy/courses/ai-tools-small-businesses" hash="enrol"
+              cta="Enrol in AI for Businesses"
               featured
             />
             <CourseCard
-              status="Coming Soon"
-              title="ICSS 2.0 Entrepreneurship Programme"
-              body="Practical entrepreneurship training for MSME growth, finance readiness and market access."
-              to="/academy/courses/icss-2-0-entrepreneurship"
-              cta="Join Waitlist"
+              status="Advanced"
+              title="Advanced AI Modules"
+              body="Deeper AI workflows for professionals — automations, tooling, prompt systems and profitability plays."
+              to="/academy/courses/professionals-ai-edge"
+              cta="View Course"
             />
             <CourseCard
               status="Coming Soon"
               title="Finance Readiness for MSMEs"
-              body="Learn how to prepare your business for loans, grants, investments and partnership funding."
+              body="Prepare your business for loans, grants, investments and partnership funding."
               to="/academy/courses/finance-readiness-msmes"
-              cta="Join Waitlist"
+              cta="Join a Programme Waitlist"
             />
           </div>
         </div>

@@ -90,7 +90,7 @@ function QuizzesTab({ courses, quizzes, refetch, presetCourseId }: any) {
         </table>
       </div>
 
-      {editing && <QuizForm courses={courses} initial={editing} onCancel={() => setEditing(null)} onSave={(p: any) => save.mutate(p: any)} saving={save.isPending} />}
+      {editing && <QuizForm courses={courses} initial={editing} onCancel={() => setEditing(null)} onSave={(p: any) => save.mutate(p)} saving={save.isPending} />}
       {questionsFor && <QuestionsManager quiz={questionsFor} onClose={() => setQuestionsFor(null)} />}
     </div>
   );
@@ -361,7 +361,7 @@ function GradingTab({ courses, presetCourseId }: any) {
               <a href={grading.submission_url} target="_blank" rel="noopener noreferrer" className="text-sm text-vetiver underline">Open link submission →</a>
             </div>
           )}
-          <GradeForm initial={grading} maxPoints={grading.assignment?.max_points ?? 100} onSave={(p: any) => save.mutate(p: any)} saving={save.isPending} />
+          <GradeForm initial={grading} maxPoints={grading.assignment?.max_points ?? 100} onSave={(p: any) => save.mutate(p)} saving={save.isPending} />
         </Modal>
       )}
     </div>

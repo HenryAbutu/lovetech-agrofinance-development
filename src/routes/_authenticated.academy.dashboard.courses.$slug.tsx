@@ -25,7 +25,12 @@ function CoursePage() {
     queryFn: () => fetchContent({ data: { slug } }),
   });
 
+  const [userId, setUserId] = useState<string | null>(null);
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
+  }, []);
   const [activeLessonId, setActiveLessonId] = useState<string | null>(null);
+
 
   const mutate = useMutation({
     mutationFn: (payload: { lesson_id: string; course_id: string; completed: boolean }) =>

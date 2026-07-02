@@ -6,6 +6,8 @@ import { CheckCircle2, Circle, PlayCircle, Download, FileText, Award, ExternalLi
 import { getMyCourseContent, markLessonComplete } from "@/lib/lms.functions";
 import { getMyCertificateSignedUrl } from "@/lib/certificate.functions";
 import { LMS_CONFIG, whatsappUrl } from "@/lib/lms-config";
+import { LessonDiscussion } from "@/components/lesson-discussion";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug")({
   head: () => ({ meta: [{ title: "Course · LoveTech Agro Academy" }] }),

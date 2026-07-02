@@ -67,12 +67,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "LoveTech Agrofinance & Development Ltd" },
       { property: "og:description", content: "Capital, capacity, and tech-enabled advisory for agribusinesses, MSMEs, and development programmes across Nigeria and West Africa." },
       { name: "twitter:description", content: "Capital, capacity, and tech-enabled advisory for agribusinesses, MSMEs, and development programmes across Nigeria and West Africa." },
+      { name: "theme-color", content: "#1F4D3C" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59ca814c-8eab-4263-9e5f-89ff2fcf5f35/id-preview-4386e8df--c3f7334e-7be8-4b3d-9020-76b04111d033.lovable.app-1780686818950.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59ca814c-8eab-4263-9e5f-89ff2fcf5f35/id-preview-4386e8df--c3f7334e-7be8-4b3d-9020-76b04111d033.lovable.app-1780686818950.png" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "icon", href: "/icon-512.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/icon-512.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" },
@@ -106,11 +110,19 @@ function AuthSync() {
   return null;
 }
 
+function ServiceWorkerBoot() {
+  useEffect(() => {
+    import("../pwa/register").then((m) => m.registerServiceWorker());
+  }, []);
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
       <AuthSync />
+      <ServiceWorkerBoot />
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
         <div className="flex-1">

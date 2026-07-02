@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, Circle, PlayCircle, Download, FileText, Award, ExternalLink, MessageCircle, ClipboardCheck, Trophy } from "lucide-react";
 import { getMyCourseContent, markLessonComplete } from "@/lib/lms.functions";
 import { getMyCertificateSignedUrl } from "@/lib/certificate.functions";

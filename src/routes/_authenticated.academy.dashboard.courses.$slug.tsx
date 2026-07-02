@@ -185,7 +185,12 @@ function CoursePage() {
               </div>
             </div>
           </section>
+
+          {activeLesson && (
+            <LessonDiscussion lessonId={activeLesson.id} courseId={data.course.id} currentUserId={userId} />
+          )}
         </div>
+
 
         {/* Sidebar: modules + lessons */}
         <aside className="lg:sticky lg:top-6 lg:h-fit">

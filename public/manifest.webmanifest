@@ -1,0 +1,16 @@
+{
+  "name": "LoveTech Agrofinance & Development",
+  "short_name": "LoveTech",
+  "description": "Capital, capacity and code for Nigerian MSMEs and agribusinesses.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0F2A22",
+  "theme_color": "#1F4D3C",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "categories": ["education", "business", "finance"]
+}

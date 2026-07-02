@@ -14,7 +14,8 @@ export const Route = createFileRoute("/_authenticated/admin/announcements")({
 function AnnouncementsPage() {
   const send = useServerFn(adminSendPush);
   const listCourses = useServerFn(listCoursesAdmin);
-  const { data: courses } = useQuery({ queryKey: ["admin-courses"], queryFn: () => listCourses() });
+  const { data: coursesRes } = useQuery({ queryKey: ["admin-courses"], queryFn: () => listCourses() });
+  const courses = coursesRes?.courses ?? [];
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -56,7 +57,7 @@ function AnnouncementsPage() {
             <span className="mb-1 block text-xs font-semibold uppercase tracking-wider text-foreground/60">Target course (optional)</span>
             <select value={courseId} onChange={(e) => setCourseId(e.target.value)} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
               <option value="">All subscribers</option>
-              {courses?.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
+              {courses.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
             </select>
           </label>
         </div>

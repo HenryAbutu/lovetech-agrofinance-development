@@ -43,7 +43,7 @@ export const getPublicProfile = createServerFn({ method: "GET" })
     const [{ data: badges }, { data: certs }] = await Promise.all([
       supabase
         .from("academy_learner_badges")
-        .select("badge:academy_badges(id, name, description, icon_url)")
+        .select("badge:academy_badges(id, name, description)")
         .eq("user_id", prof.id),
       supabase
         .from("academy_certificates")

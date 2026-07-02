@@ -16,6 +16,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ProgrammesRouteImport } from './routes/programmes'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as LearnersRouteImport } from './routes/learners'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -23,12 +24,14 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
+import { Route as LearnersSlugRouteImport } from './routes/learners.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
 import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
 import { Route as AcademyCoursesAiToolsSmallBusinessesRouteImport } from './routes/academy.courses.ai-tools-small-businesses'
+import { Route as AuthenticatedSettingsProfileRouteImport } from './routes/_authenticated.settings.profile'
 import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
@@ -37,6 +40,7 @@ import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated.admin.coupons'
 import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated.admin.certificates'
 import { Route as AuthenticatedAdminAssessmentsRouteImport } from './routes/_authenticated.admin.assessments'
+import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated.admin.announcements'
 import { Route as AuthenticatedAcademyReferralsRouteImport } from './routes/_authenticated.academy.referrals'
 import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
@@ -84,6 +88,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnersRoute = LearnersRouteImport.update({
+  id: '/learners',
+  path: '/learners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InsightsRoute = InsightsRouteImport.update({
   id: '/insights',
   path: '/insights',
@@ -118,6 +127,11 @@ const AcademyIndexRoute = AcademyIndexRouteImport.update({
   path: '/academy/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnersSlugRoute = LearnersSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => LearnersRoute,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -151,6 +165,12 @@ const AcademyCoursesAiToolsSmallBusinessesRoute =
     id: '/academy/courses/ai-tools-small-businesses',
     path: '/academy/courses/ai-tools-small-businesses',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedSettingsProfileRoute =
+  AuthenticatedSettingsProfileRouteImport.update({
+    id: '/settings/profile',
+    path: '/settings/profile',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAdminWaitlistRoute =
   AuthenticatedAdminWaitlistRouteImport.update({
@@ -198,6 +218,12 @@ const AuthenticatedAdminAssessmentsRoute =
   AuthenticatedAdminAssessmentsRouteImport.update({
     id: '/assessments',
     path: '/assessments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminAnnouncementsRoute =
+  AuthenticatedAdminAnnouncementsRouteImport.update({
+    id: '/announcements',
+    path: '/announcements',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAcademyReferralsRoute =
@@ -274,6 +300,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/insights': typeof InsightsRoute
+  '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/programmes': typeof ProgrammesRoute
@@ -282,11 +309,13 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
@@ -295,6 +324,7 @@ export interface FileRoutesByFullPath {
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
+  '/settings/profile': typeof AuthenticatedSettingsProfileRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -314,6 +344,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/insights': typeof InsightsRoute
+  '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/programmes': typeof ProgrammesRoute
@@ -321,11 +352,13 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/learners/$slug': typeof LearnersSlugRoute
   '/academy': typeof AcademyIndexRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
@@ -334,6 +367,7 @@ export interface FileRoutesByTo {
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
+  '/settings/profile': typeof AuthenticatedSettingsProfileRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -355,6 +389,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/insights': typeof InsightsRoute
+  '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/programmes': typeof ProgrammesRoute
@@ -363,11 +398,13 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/_authenticated/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/_authenticated/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
+  '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/_authenticated/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
   '/_authenticated/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
   '/_authenticated/admin/coupons': typeof AuthenticatedAdminCouponsRoute
@@ -376,6 +413,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/_authenticated/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
+  '/_authenticated/settings/profile': typeof AuthenticatedSettingsProfileRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -397,6 +435,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/finance-readiness'
     | '/insights'
+    | '/learners'
     | '/login'
     | '/privacy'
     | '/programmes'
@@ -405,11 +444,13 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/admin'
+    | '/learners/$slug'
     | '/academy/'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/academy/referrals'
+    | '/admin/announcements'
     | '/admin/assessments'
     | '/admin/certificates'
     | '/admin/coupons'
@@ -418,6 +459,7 @@ export interface FileRouteTypes {
     | '/admin/payments'
     | '/admin/video-studio'
     | '/admin/waitlist'
+    | '/settings/profile'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -437,6 +479,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/finance-readiness'
     | '/insights'
+    | '/learners'
     | '/login'
     | '/privacy'
     | '/programmes'
@@ -444,11 +487,13 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/learners/$slug'
     | '/academy'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/academy/referrals'
+    | '/admin/announcements'
     | '/admin/assessments'
     | '/admin/certificates'
     | '/admin/coupons'
@@ -457,6 +502,7 @@ export interface FileRouteTypes {
     | '/admin/payments'
     | '/admin/video-studio'
     | '/admin/waitlist'
+    | '/settings/profile'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -477,6 +523,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/finance-readiness'
     | '/insights'
+    | '/learners'
     | '/login'
     | '/privacy'
     | '/programmes'
@@ -485,11 +532,13 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/admin'
+    | '/learners/$slug'
     | '/academy/'
     | '/_authenticated/academy/badges'
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
     | '/_authenticated/academy/referrals'
+    | '/_authenticated/admin/announcements'
     | '/_authenticated/admin/assessments'
     | '/_authenticated/admin/certificates'
     | '/_authenticated/admin/coupons'
@@ -498,6 +547,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/payments'
     | '/_authenticated/admin/video-studio'
     | '/_authenticated/admin/waitlist'
+    | '/_authenticated/settings/profile'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -519,6 +569,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FinanceReadinessRoute: typeof FinanceReadinessRoute
   InsightsRoute: typeof InsightsRoute
+  LearnersRoute: typeof LearnersRouteWithChildren
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   ProgrammesRoute: typeof ProgrammesRoute
@@ -586,6 +637,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learners': {
+      id: '/learners'
+      path: '/learners'
+      fullPath: '/learners'
+      preLoaderRoute: typeof LearnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/insights': {
       id: '/insights'
       path: '/insights'
@@ -635,6 +693,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learners/$slug': {
+      id: '/learners/$slug'
+      path: '/$slug'
+      fullPath: '/learners/$slug'
+      preLoaderRoute: typeof LearnersSlugRouteImport
+      parentRoute: typeof LearnersRoute
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -676,6 +741,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/academy/courses/ai-tools-small-businesses'
       preLoaderRoute: typeof AcademyCoursesAiToolsSmallBusinessesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/settings/profile': {
+      id: '/_authenticated/settings/profile'
+      path: '/settings/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof AuthenticatedSettingsProfileRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/admin/waitlist': {
       id: '/_authenticated/admin/waitlist'
@@ -731,6 +803,13 @@ declare module '@tanstack/react-router' {
       path: '/assessments'
       fullPath: '/admin/assessments'
       preLoaderRoute: typeof AuthenticatedAdminAssessmentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/announcements': {
+      id: '/_authenticated/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AuthenticatedAdminAnnouncementsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/academy/referrals': {
@@ -814,6 +893,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
   AuthenticatedAdminAssessmentsRoute: typeof AuthenticatedAdminAssessmentsRoute
   AuthenticatedAdminCertificatesRoute: typeof AuthenticatedAdminCertificatesRoute
   AuthenticatedAdminCouponsRoute: typeof AuthenticatedAdminCouponsRoute
@@ -826,6 +906,7 @@ interface AuthenticatedAdminRouteChildren {
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
   AuthenticatedAdminAssessmentsRoute: AuthenticatedAdminAssessmentsRoute,
   AuthenticatedAdminCertificatesRoute: AuthenticatedAdminCertificatesRoute,
   AuthenticatedAdminCouponsRoute: AuthenticatedAdminCouponsRoute,
@@ -885,6 +966,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRouteWithChildren
   AuthenticatedAcademyReceiptRoute: typeof AuthenticatedAcademyReceiptRoute
   AuthenticatedAcademyReferralsRoute: typeof AuthenticatedAcademyReferralsRoute
+  AuthenticatedSettingsProfileRoute: typeof AuthenticatedSettingsProfileRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -894,10 +976,23 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedAcademyDashboardRouteWithChildren,
   AuthenticatedAcademyReceiptRoute: AuthenticatedAcademyReceiptRoute,
   AuthenticatedAcademyReferralsRoute: AuthenticatedAcademyReferralsRoute,
+  AuthenticatedSettingsProfileRoute: AuthenticatedSettingsProfileRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
+)
+
+interface LearnersRouteChildren {
+  LearnersSlugRoute: typeof LearnersSlugRoute
+}
+
+const LearnersRouteChildren: LearnersRouteChildren = {
+  LearnersSlugRoute: LearnersSlugRoute,
+}
+
+const LearnersRouteWithChildren = LearnersRoute._addFileChildren(
+  LearnersRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
@@ -907,6 +1002,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   FinanceReadinessRoute: FinanceReadinessRoute,
   InsightsRoute: InsightsRoute,
+  LearnersRoute: LearnersRouteWithChildren,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   ProgrammesRoute: ProgrammesRoute,
@@ -929,3 +1025,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

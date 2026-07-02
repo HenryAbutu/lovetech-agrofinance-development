@@ -1,11 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, Circle, PlayCircle, Download, FileText, Award, ExternalLink, MessageCircle, ClipboardCheck, Trophy } from "lucide-react";
 import { getMyCourseContent, markLessonComplete } from "@/lib/lms.functions";
 import { getMyCertificateSignedUrl } from "@/lib/certificate.functions";
 import { LMS_CONFIG, whatsappUrl } from "@/lib/lms-config";
+import { LessonDiscussion } from "@/components/lesson-discussion";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug")({
   head: () => ({ meta: [{ title: "Course · LoveTech Agro Academy" }] }),
@@ -23,7 +25,12 @@ function CoursePage() {
     queryFn: () => fetchContent({ data: { slug } }),
   });
 
+  const [userId, setUserId] = useState<string | null>(null);
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
+  }, []);
   const [activeLessonId, setActiveLessonId] = useState<string | null>(null);
+
 
   const mutate = useMutation({
     mutationFn: (payload: { lesson_id: string; course_id: string; completed: boolean }) =>
@@ -178,7 +185,12 @@ function CoursePage() {
               </div>
             </div>
           </section>
+
+          {activeLesson && (
+            <LessonDiscussion lessonId={activeLesson.id} courseId={data.course.id} currentUserId={userId} />
+          )}
         </div>
+
 
         {/* Sidebar: modules + lessons */}
         <aside className="lg:sticky lg:top-6 lg:h-fit">

@@ -27,6 +27,7 @@ function Dashboard() {
             <p className="mt-2 text-sm text-foreground/60">Continue learning, download resources, and track your certificates.</p>
           </div>
           <div className="flex gap-3">
+            <Link to="/settings/profile" className="rounded-sm border border-vetiver/30 px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Profile & notifications</Link>
             <Link to="/academy/referrals" className="rounded-sm border border-ochre/40 px-4 py-2 text-sm font-semibold text-ochre hover:bg-ochre/5">Refer & earn</Link>
             <Link to="/academy/badges" className="rounded-sm border border-ochre/40 px-4 py-2 text-sm font-semibold text-ochre hover:bg-ochre/5">My badges</Link>
             {admin.data?.isAdmin && (

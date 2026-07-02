@@ -17,6 +17,7 @@ const tabs = [
   { to: "/admin/coupons", label: "Coupons" },
   { to: "/admin/waitlist", label: "Waitlist" },
   { to: "/admin/certificates", label: "Certificates" },
+  { to: "/admin/announcements", label: "Announcements" },
   { to: "/admin/video-studio", label: "Video Studio" },
 ];
 

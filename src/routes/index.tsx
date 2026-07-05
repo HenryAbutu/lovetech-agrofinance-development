@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-lovetech.jpg";
 import academyImg from "@/assets/academy.jpg";
 import diagnosticImg from "@/assets/diagnostic.jpg";
-import { ArrowRight, Sparkles, TrendingUp, GraduationCap, Cpu, Sprout, ClipboardCheck, Users } from "lucide-react";
+import avessAsset from "@/assets/avess-abutu.png.asset.json";
+import { ArrowRight, Sparkles, TrendingUp, GraduationCap, Cpu, Sprout, ClipboardCheck, Users, ShieldCheck } from "lucide-react";
 import { FloatingLeaves, GrowthChart, OrbitingNodes, SproutMark } from "@/components/motion-graphics";
 
 
@@ -63,6 +64,9 @@ function Home() {
                 </Link>
                 <Link to="/academy" className="inline-flex items-center gap-2 rounded-sm border border-vetiver/20 bg-transparent px-7 py-3 text-base font-semibold text-vetiver transition-colors hover:bg-vetiver/5">
                   Explore the Academy <ArrowRight className="size-4" />
+                </Link>
+                <Link to="/signup" className="inline-flex items-center gap-2 rounded-sm border border-ochre/40 bg-ochre/10 px-7 py-3 text-base font-semibold text-ochre transition-colors hover:bg-ochre/20">
+                  <ShieldCheck className="size-4" /> Admin Sign Up
                 </Link>
               </div>
               <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2 text-xs font-medium uppercase tracking-wider text-foreground/60">
@@ -317,10 +321,20 @@ function CeoMessage() {
         <div>
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Message from the CEO</p>
           <h2 className="font-serif text-4xl leading-tight text-vetiver md:text-5xl">Development must be practical.</h2>
-          <div className="mt-8 rounded-2xl border border-border bg-card p-6">
-            <p className="font-serif text-2xl text-vetiver">Avess Abutu</p>
-            <p className="mt-1 text-sm text-foreground/60">Founder / CEO</p>
-            <p className="mt-1 text-sm text-foreground/60">Lovetech Agrofinance &amp; Development</p>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-card">
+            <img
+              src={avessAsset.url}
+              alt="Avess Abutu, Founder & CEO of LoveTech Agrofinance & Development"
+              width={904}
+              height={1131}
+              className="aspect-[4/5] w-full object-cover object-top"
+              loading="lazy"
+            />
+            <div className="p-6">
+              <p className="font-serif text-2xl text-vetiver">Avess Abutu</p>
+              <p className="mt-1 text-sm text-foreground/60">Founder / CEO</p>
+              <p className="text-sm text-foreground/60">Lovetech Agrofinance &amp; Development</p>
+            </div>
           </div>
         </div>
         <div className="space-y-5 text-[15px] leading-relaxed text-foreground/80">

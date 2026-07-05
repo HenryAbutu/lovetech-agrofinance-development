@@ -13,9 +13,9 @@ export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses
   head: () => ({
     meta: [
       { title: "AI for Businesses: Practical AI Skills for Nigerian SMEs — Lovetech Business Academy" },
-      { name: "description", content: "30-minute beginner course: use ChatGPT, Canva AI, CapCut & HeyGen to grow your Nigerian small business. Launch price ₦5,000." },
+      { name: "description", content: "60-minute beginner course: use ChatGPT, Canva AI, CapCut & HeyGen to grow your Nigerian small business. Launch price ₦8,900." },
       { property: "og:title", content: "AI for Businesses: Practical AI Skills for Nigerian SMEs" },
-      { property: "og:description", content: "Practical 30-minute beginner course. Launch price ₦5,000." },
+      { property: "og:description", content: "Practical 60-minute beginner course. Launch price ₦8,900." },
       { property: "og:image", content: courseImg },
     ],
   }),
@@ -135,7 +135,7 @@ function Page() {
 
   const priceLabel = couponInfo?.ok && typeof couponInfo.final === "number"
     ? `Enrol & Pay ₦${couponInfo.final.toLocaleString()}`
-    : "Enrol & Pay ₦5,000";
+    : "Enrol & Pay ₦8,900";
 
 
   return (
@@ -149,20 +149,20 @@ function Page() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[1.4fr_1fr] lg:px-8 lg:py-28">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--ochre)" }}>
-              <Sparkles className="size-3.5" /> Lovetech Business Academy · Beginner · 30 minutes
+              <Sparkles className="size-3.5" /> Lovetech Business Academy · Beginner · 60 minutes
             </p>
             <h1 className="font-serif text-4xl text-bone md:text-6xl">AI for Businesses</h1>
             <p className="mt-3 font-serif text-xl text-ochre md:text-2xl">Practical AI Skills for Nigerian SMEs</p>
             <p className="mt-5 max-w-2xl text-base text-bone/80 md:text-lg">
-              A focused 30-minute beginner course. Use ChatGPT, Canva AI, CapCut and HeyGen to create content, flyers, customer messages, video adverts and a simple AI action plan for your business.
+              A focused 60-minute beginner course. Use ChatGPT, Canva AI, CapCut and HeyGen to create content, flyers, customer messages, video adverts and a simple AI action plan for your business.
             </p>
             <div className="mt-6 flex flex-wrap gap-4 text-sm text-bone/75">
-              <span className="inline-flex items-center gap-2"><Clock className="size-4 text-ochre" /> Duration: 30 minutes</span>
+              <span className="inline-flex items-center gap-2"><Clock className="size-4 text-ochre" /> Duration: 60 minutes</span>
               <span className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-ochre" /> Certificate eligible</span>
             </div>
             <div className="mt-8 flex items-baseline gap-3">
               <span className="text-lg text-bone/40 line-through">₦15,000</span>
-              <span className="font-serif text-5xl text-ochre">₦5,000</span>
+              <span className="font-serif text-5xl text-ochre">₦8,900</span>
               <span className="text-sm text-bone/60">launch price</span>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -190,7 +190,7 @@ function Page() {
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-6 font-serif text-3xl text-vetiver">About this course</h2>
           <p className="mb-6 text-foreground/75 leading-relaxed">
-            <strong>AI for Businesses: Practical AI Skills for Nigerian SMEs</strong> is a focused 30-minute beginner course by <strong>Lovetech Business Academy</strong> under Lovetech Agrofinance &amp; Development. It helps Nigerian and African small business owners use AI tools practically — ChatGPT or Claude, Canva AI, CapCut, HeyGen, and Canva Video — to create captions, content plans, flyers, customer replies, video scripts, business documents and a simple AI action plan they can start using immediately.
+            <strong>AI for Businesses: Practical AI Skills for Nigerian SMEs</strong> is a focused 60-minute beginner course by <strong>Lovetech Business Academy</strong> under Lovetech Agrofinance &amp; Development. It helps Nigerian and African small business owners use AI tools practically — ChatGPT or Claude, Canva AI, CapCut, HeyGen, and Canva Video — to create captions, content plans, flyers, customer replies, video scripts, business documents and a simple AI action plan they can start using immediately.
           </p>
           <h3 className="mb-3 mt-8 font-serif text-xl text-vetiver">Who this is for</h3>
           <ul className="grid gap-2 md:grid-cols-2">
@@ -232,10 +232,10 @@ function Page() {
             <div className="rounded-2xl border border-academy/30 bg-academy/5 p-6">
               <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-academy">Launch price</p>
               <div className="flex items-baseline gap-2">
-                <p className="font-serif text-4xl text-vetiver">₦5,000</p>
+                <p className="font-serif text-4xl text-vetiver">₦8,900</p>
                 <p className="text-sm text-foreground/50 line-through">₦15,000</p>
               </div>
-              <p className="mt-1 text-sm text-foreground/60">Save ₦10,000 during launch.</p>
+              <p className="mt-1 text-sm text-foreground/60">Save ₦6,100 during launch.</p>
               <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enrol in AI for Businesses</a>
               <Link to="/signup" className="mt-2 block rounded-sm border border-vetiver/20 py-2.5 text-center text-sm font-semibold text-vetiver hover:bg-vetiver/5">Create Learner Account</Link>
             </div>
@@ -255,7 +255,7 @@ function Page() {
         <div className="mx-auto max-w-3xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Enrolment</p>
           <h2 className="mb-2 font-serif text-4xl text-vetiver">Enrol in AI for Businesses</h2>
-          <p className="mb-8 text-foreground/70">Complete the form below and proceed to secure payment of ₦5,000 via Paystack.</p>
+          <p className="mb-8 text-foreground/70">Complete the form below and proceed to secure payment of ₦8,900 via Paystack.</p>
           {authed === false && (
             <div className="mb-6 rounded-md border border-ochre/30 bg-ochre/5 p-4 text-sm">
               You need to <Link to="/login" className="font-semibold text-vetiver underline">sign in</Link> or <Link to="/signup" className="font-semibold text-vetiver underline">create an account</Link> to enrol.

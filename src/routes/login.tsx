@@ -16,8 +16,9 @@ export const Route = createFileRoute("/login")({
 function safeRedirectPath(value?: string) {
   if (!value) return "/academy/dashboard";
   try {
-    const url = new URL(value, window.location.origin);
-    if (url.origin !== window.location.origin) return "/academy/dashboard";
+    const origin = typeof window !== "undefined" ? window.location.origin : "http://localhost";
+    const url = new URL(value, origin);
+    if (url.origin !== origin) return "/academy/dashboard";
     return `${url.pathname}${url.search}${url.hash}` || "/academy/dashboard";
   } catch {
     return "/academy/dashboard";

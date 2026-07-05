@@ -283,6 +283,28 @@ function Page() {
                 <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
               </div>
               <Field name="referral_source" label="How did you hear about us?" />
+
+              <div className="rounded-md border border-dashed border-ochre/40 bg-ochre/5 p-4">
+                <label className="mb-2 flex items-center gap-2 text-sm font-medium text-vetiver">
+                  <Tag className="size-4 text-ochre" /> Discount coupon (optional)
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    name="coupon_code"
+                    value={coupon}
+                    onChange={(e) => { setCoupon(e.target.value); setCouponInfo(null); }}
+                    placeholder="Enter code"
+                    className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm uppercase"
+                  />
+                  <button type="button" onClick={applyCoupon} disabled={checking || !coupon.trim()} className="rounded-md border border-vetiver/40 bg-background px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5 disabled:opacity-50">
+                    {checking ? "Checking…" : "Apply"}
+                  </button>
+                </div>
+                {couponInfo && (
+                  <p className={`mt-2 text-sm ${couponInfo.ok ? "text-vetiver" : "text-destructive"}`}>{couponInfo.message}</p>
+                )}
+              </div>
+
               {err && <p className="text-sm text-destructive">{err}</p>}
               <button
                 type={authed ? "submit" : "button"}
@@ -291,7 +313,7 @@ function Page() {
                 className="rounded-sm px-6 py-3 font-semibold text-white disabled:opacity-60"
                 style={{ backgroundColor: "var(--academy)" }}
               >
-                {state === "loading" ? "Processing…" : authed ? "Enrol & Pay ₦5,000" : "Sign in to enrol"}
+                {state === "loading" ? "Processing…" : authed ? priceLabel : "Sign in to enrol"}
               </button>
               <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
             </form>

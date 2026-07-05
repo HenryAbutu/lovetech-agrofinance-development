@@ -88,6 +88,15 @@ export function SiteHeader() {
                 {l.label}
               </Link>
             ))}
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg border border-ochre/40 bg-ochre/10 px-4 py-2.5 text-center text-sm font-semibold text-ochre"
+                onClick={() => setOpen(false)}
+              >
+                <ShieldCheck className="size-4" /> Admin
+              </Link>
+            )}
             <Link
               to="/contact"
               className="mt-2 rounded-lg bg-vetiver px-4 py-2.5 text-center text-sm font-semibold text-white"

@@ -78,7 +78,7 @@ function Home() {
               </div>
             </div>
             <div className="relative">
-              <img src={heroImg} alt="Nigerian agribusiness entrepreneur reviewing a finance dashboard in a thriving farm" width={1280} height={1600} className="aspect-[4/5] w-full rounded-2xl object-cover ring-1 ring-black/5" />
+              <img src={heroImg} alt="Nigerian woman agribusiness entrepreneur reviewing a finance dashboard on a tablet in her thriving farm" width={1024} height={1280} className="aspect-[4/5] w-full rounded-2xl object-cover ring-1 ring-black/5" />
               {/* animated chart card overlay */}
               <div className="absolute -right-4 top-8 hidden w-56 rounded-xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur sm:block">
                 <div className="mb-2 flex items-center justify-between text-[10px] font-semibold uppercase tracking-widest text-foreground/60">

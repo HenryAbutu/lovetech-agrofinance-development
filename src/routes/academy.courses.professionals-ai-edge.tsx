@@ -62,14 +62,22 @@ function Page() {
   }, []);
 
   async function applyCoupon() {
-    if (!coupon.trim()) return;
+    const code = coupon.trim();
+    if (!code) return;
     setCouponInfo({ ok: false, message: "Checking…" });
     try {
-      const r = await validate({ data: { code: coupon.trim(), course_slug: "professionals-ai-edge" } });
-      if (r.valid) setCouponInfo({ ok: true, message: `Applied — you pay ₦${r.final_amount.toLocaleString()}`, final: r.final_amount });
-      else setCouponInfo({ ok: false, message: r.reason });
+      const r = await validate({ data: { code, course_slug: "professionals-ai-edge" } });
+      if (r.valid) {
+        setCouponInfo({ ok: true, message: `Applied — you pay ₦${r.final_amount.toLocaleString()}`, final: r.final_amount });
+        toast.success(`Coupon applied — new price ₦${r.final_amount.toLocaleString()}`);
+      } else {
+        setCouponInfo({ ok: false, message: r.reason });
+        toast.error(r.reason);
+      }
     } catch (e) {
-      setCouponInfo({ ok: false, message: e instanceof Error ? e.message : "Could not check coupon" });
+      const m = e instanceof Error ? e.message : "Could not check coupon";
+      setCouponInfo({ ok: false, message: m });
+      toast.error(m);
     }
   }
 
@@ -85,12 +93,19 @@ function Page() {
     } as Record<string, string | null>;
     try {
       const r = await enrol({ data: data as never });
-      if ("redirect_to" in r && r.redirect_to) { window.location.href = r.redirect_to; return; }
-      if (r.stubbed) { setMsg(r.message ?? "You're registered."); setState("done"); }
-      else if (r.authorization_url) { window.location.href = r.authorization_url; }
+      if ("redirect_to" in r && r.redirect_to) { toast.success("Enrolment confirmed"); window.location.href = r.redirect_to; return; }
+      if (r.stubbed) { setMsg(r.message ?? "You're registered."); setState("done"); toast.success("You're registered"); }
+      else if (r.authorization_url) { toast.message("Redirecting to Paystack…"); window.location.href = r.authorization_url; }
       else { setMsg("You're registered."); setState("done"); }
-    } catch (e2) { setErr(e2 instanceof Error ? e2.message : "Failed"); setState("error"); }
+    } catch (e2) {
+      const m = e2 instanceof Error ? e2.message : "Failed";
+      setErr(m); setState("error"); toast.error(m);
+    }
   }
+
+  const priceLabel = couponInfo?.ok && typeof couponInfo.final === "number"
+    ? `Enroll & Pay ₦${couponInfo.final.toLocaleString()}`
+    : "Enroll & Pay ₦5,000";
 
   return (
     <main>

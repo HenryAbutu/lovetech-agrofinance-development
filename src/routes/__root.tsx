@@ -133,6 +133,7 @@ function RootComponent() {
         <SiteFooter />
         <WhatsAppSupportButton />
       </div>
+      <Toaster richColors position="top-center" />
     </QueryClientProvider>
   );
 }

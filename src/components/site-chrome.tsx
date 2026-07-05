@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Menu, X, ShieldCheck } from "lucide-react";
 import logoAsset from "@/assets/LoveTech_Logo_Option1.png.asset.json";
+import { supabase } from "@/integrations/supabase/client";
+import { checkIsAdmin } from "@/lib/learner.functions";
 
 const navLinks = [
   { to: "/about", label: "About" },
@@ -13,6 +15,23 @@ const navLinks = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    async function check() {
+      const { data } = await supabase.auth.getUser();
+      if (!active) return;
+      if (!data.user) { setIsAdmin(false); return; }
+      try {
+        const r = await checkIsAdmin();
+        if (active) setIsAdmin(!!r.isAdmin);
+      } catch { if (active) setIsAdmin(false); }
+    }
+    check();
+    const { data: sub } = supabase.auth.onAuthStateChange(() => check());
+    return () => { active = false; sub.subscription.unsubscribe(); };
+  }, []);
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">

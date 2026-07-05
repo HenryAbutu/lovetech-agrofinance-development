@@ -2,11 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, ChevronRight, Plus, Trash2, Upload } from "lucide-react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import {
   listCoursesAdmin, upsertCourse,
   listModulesAdmin, upsertModule, deleteModule,
   listLessonsAdmin, upsertLesson, deleteLesson,
+  createCourseMaterialUploadUrl, createCourseMaterialSignedUrl,
 } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/courses")({
@@ -165,14 +168,55 @@ function LessonEditor({ initial, onCancel, onSave, busy }: any) {
     <Modal title={l.id ? "Edit lesson" : "New lesson"} onCancel={onCancel} onSave={() => onSave(l)} busy={busy}>
       <Field label="Title"><input value={l.title ?? ""} onChange={(e) => setL({ ...l, title: e.target.value })} className="input" /></Field>
       <Field label="Description"><textarea value={l.description ?? ""} onChange={(e) => setL({ ...l, description: e.target.value })} className="input min-h-[80px]" /></Field>
-      <Field label="Video URL (YouTube / Vimeo / MP4)"><input value={l.video_url ?? ""} onChange={(e) => setL({ ...l, video_url: e.target.value })} className="input" /></Field>
-      <Field label="Resource URL"><input value={l.resource_url ?? ""} onChange={(e) => setL({ ...l, resource_url: e.target.value })} className="input" /></Field>
+      <Field label="Video (URL or upload MP4)">
+        <input value={l.video_url ?? ""} onChange={(e) => setL({ ...l, video_url: e.target.value })} className="input" placeholder="https://... or upload below" />
+        <FileUploader courseId={l.course_id} kind="video" accept="video/*" onDone={(url) => setL((s: any) => ({ ...s, video_url: url }))} />
+      </Field>
+      <Field label="Resource (URL or upload PDF/file)">
+        <input value={l.resource_url ?? ""} onChange={(e) => setL({ ...l, resource_url: e.target.value })} className="input" placeholder="https://... or upload below" />
+        <FileUploader courseId={l.course_id} kind="resource" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,image/*" onDone={(url) => setL((s: any) => ({ ...s, resource_url: url }))} />
+      </Field>
       <div className="grid grid-cols-3 gap-3">
         <Field label="Sort order"><input type="number" value={l.sort_order ?? 0} onChange={(e) => setL({ ...l, sort_order: e.target.value })} className="input" /></Field>
         <Field label="Duration (min)"><input type="number" value={l.duration_minutes ?? ""} onChange={(e) => setL({ ...l, duration_minutes: e.target.value })} className="input" /></Field>
         <Field label="Preview"><select value={String(l.is_preview ?? false)} onChange={(e) => setL({ ...l, is_preview: e.target.value === "true" })} className="input"><option value="false">No</option><option value="true">Yes</option></select></Field>
       </div>
     </Modal>
+  );
+}
+
+function FileUploader({ courseId, kind, accept, onDone }: { courseId: string; kind: "video" | "resource"; accept: string; onDone: (url: string) => void }) {
+  const getUploadUrl = useServerFn(createCourseMaterialUploadUrl);
+  const getSignedUrl = useServerFn(createCourseMaterialSignedUrl);
+  const [busy, setBusy] = useState(false);
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true);
+    try {
+      const { path, token } = await getUploadUrl({ data: { course_id: courseId, filename: file.name, kind } });
+      const { error } = await supabase.storage.from("course-materials").uploadToSignedUrl(path, token, file, { contentType: file.type });
+      if (error) throw error;
+      const { signedUrl } = await getSignedUrl({ data: { path, expires_in: 60 * 60 * 24 * 365 } });
+      onDone(signedUrl);
+      toast.success(`${kind === "video" ? "Video" : "Resource"} uploaded`);
+    } catch (err: any) {
+      toast.error(err?.message ?? "Upload failed");
+    } finally {
+      setBusy(false);
+      e.target.value = "";
+    }
+  }
+
+  return (
+    <div className="mt-2 flex items-center gap-2">
+      <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-sm border border-border bg-background px-3 py-1.5 text-xs font-semibold text-vetiver hover:bg-muted/40">
+        <Upload className="size-3.5" /> {busy ? "Uploading…" : "Upload file"}
+        <input type="file" accept={accept} className="hidden" onChange={handleFile} disabled={busy} />
+      </label>
+      <span className="text-[11px] text-foreground/50">Stored privately; signed URL valid 1 year.</span>
+    </div>
   );
 }
 

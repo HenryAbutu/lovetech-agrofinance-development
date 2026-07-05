@@ -51,6 +51,14 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="hidden items-center gap-1.5 rounded-lg border border-ochre/40 bg-ochre/10 px-3 py-2 text-sm font-semibold text-ochre hover:bg-ochre/15 lg:inline-flex"
+            >
+              <ShieldCheck className="size-4" /> Admin
+            </Link>
+          )}
           <Link
             to="/contact"
             className="hidden rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90 lg:inline-flex"

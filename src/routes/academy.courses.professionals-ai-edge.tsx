@@ -252,7 +252,7 @@ function Page() {
                 className="rounded-sm px-6 py-3 font-semibold text-white disabled:opacity-60"
                 style={{ backgroundColor: "var(--academy)" }}
               >
-                {state === "loading" ? "Processing…" : authed ? "Enroll & Pay ₦5,000" : "Sign in to enroll"}
+                {state === "loading" ? "Processing…" : authed ? priceLabel : "Sign in to enroll"}
               </button>
               <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
             </form>

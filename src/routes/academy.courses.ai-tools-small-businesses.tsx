@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { Check, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, PlayCircle, Download } from "lucide-react";
+import { Check, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, PlayCircle, Download, Tag } from "lucide-react";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { enrolInCourse } from "@/lib/enrolment.functions";
+import { validateCoupon } from "@/lib/coupons.functions";
 import { whatsappUrl } from "@/lib/lms-config";
 import courseImg from "@/assets/course-ai-tools.jpg";
 

@@ -437,3 +437,39 @@ export const revokeCertificate = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+// ---------- course material uploads (private bucket, signed URLs) ----------
+const UploadUrlSchema = z.object({
+  course_id: z.string().uuid(),
+  filename: z.string().min(1).max(200),
+  kind: z.enum(["video", "resource"]).default("resource"),
+});
+
+export const createCourseMaterialUploadUrl = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((i) => UploadUrlSchema.parse(i))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const safe = data.filename.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const path = `${data.course_id}/${data.kind}/${Date.now()}-${safe}`;
+    const { data: signed, error } = await supabaseAdmin.storage
+      .from("course-materials")
+      .createSignedUploadUrl(path);
+    if (error) throw new Error(error.message);
+    return { path, token: signed.token, signedUrl: signed.signedUrl };
+  });
+
+// Create a long-lived signed URL for playback / download after upload.
+export const createCourseMaterialSignedUrl = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((i) => z.object({ path: z.string().min(1).max(500), expires_in: z.coerce.number().int().positive().max(60 * 60 * 24 * 365).default(60 * 60 * 24 * 180) }).parse(i))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: signed, error } = await supabaseAdmin.storage
+      .from("course-materials")
+      .createSignedUrl(data.path, data.expires_in);
+    if (error) throw new Error(error.message);
+    return { signedUrl: signed.signedUrl };
+  });

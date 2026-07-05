@@ -65,7 +65,7 @@ function Home() {
                 <Link to="/academy" className="inline-flex items-center gap-2 rounded-sm border border-vetiver/20 bg-transparent px-7 py-3 text-base font-semibold text-vetiver transition-colors hover:bg-vetiver/5">
                   Explore the Academy <ArrowRight className="size-4" />
                 </Link>
-                <Link to="/signup" search={{ role: "admin" } as never} className="inline-flex items-center gap-2 rounded-sm border border-ochre/40 bg-ochre/10 px-7 py-3 text-base font-semibold text-ochre transition-colors hover:bg-ochre/20">
+                <Link to="/signup" className="inline-flex items-center gap-2 rounded-sm border border-ochre/40 bg-ochre/10 px-7 py-3 text-base font-semibold text-ochre transition-colors hover:bg-ochre/20">
                   <ShieldCheck className="size-4" /> Admin Sign Up
                 </Link>
               </div>

@@ -25,13 +25,27 @@ function Page() {
     queryKey: ["receipt", ref],
     queryFn: () => fetchReceipt({ data: { reference: ref! } }),
     enabled: !!ref,
-    retry: 1,
+    retry: 2,
+    // While payment is still processing (initiated/pending) or not yet visible,
+    // poll every 3s until it flips to success/failed. Stops automatically once
+    // the payment row shows a terminal status.
+    refetchInterval: (query) => {
+      const d = query.state.data as { found?: boolean; payment?: { status?: string } } | undefined;
+      if (!d) return 3000;
+      if (!d.found) return 3000;
+      const s = d.payment?.status;
+      return s === "success" || s === "failed" || s === "abandoned" ? false : 3000;
+    },
+    refetchIntervalInBackground: false,
   });
 
   if (!ref) return <Empty title="No reference" body="We couldn't find a transaction reference in the link." />;
   if (paymentStatus === "failed") return <Failed reference={ref} />;
-  if (isLoading) return <Empty title="Loading receipt…" body="Fetching your payment details." />;
+  if (isLoading || (!error && data && !data.found)) return <Empty title="Confirming payment…" body="Waiting for confirmation from Paystack. This usually takes a few seconds." />;
   if (error || !data || !data.found) return <Empty title="Receipt not found" body="We couldn't find a payment for this reference. If you were just charged, please refresh in a moment or contact support." />;
+  if (data.payment.status !== "success" && data.payment.status !== "failed" && data.payment.status !== "abandoned") {
+    return <Empty title="Confirming payment…" body={`Current status: ${data.payment.status}. Auto-refreshing…`} />;
+  }
 
   const { payment, enrolment, course } = data;
   const isSuccess = payment.status === "success";

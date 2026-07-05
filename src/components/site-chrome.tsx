@@ -1,60 +1,93 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import logoAsset from "@/assets/LoveTech_Logo_Option1.png.asset.json";
 
 const navLinks = [
-  { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   { to: "/services", label: "Services" },
-  { to: "/programmes", label: "Programmes" },
   { to: "/finance-readiness", label: "Finance Readiness" },
   { to: "/academy", label: "Academy" },
   { to: "/insights", label: "Insights" },
-  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function SiteHeader() {
+  const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
           <img src={logoAsset.url} alt="LoveTech Agrofinance & Development Ltd" className="h-10 w-auto" />
         </Link>
-        <nav className="hidden items-center gap-7 text-sm font-medium text-foreground/70 lg:flex">
-          {navLinks.slice(1, -1).map((l) => (
+        <nav className="hidden items-center gap-7 text-sm font-medium text-foreground/75 lg:flex">
+          {navLinks.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               className="transition-colors hover:text-vetiver"
-              activeProps={{ className: "text-vetiver" }}
+              activeProps={{ className: "text-vetiver font-semibold" }}
             >
               {l.label}
             </Link>
           ))}
         </nav>
-        <Link
-          to="/contact"
-          className="rounded-sm bg-ochre px-4 py-2 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
-        >
-          Book a Consultation
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            to="/contact"
+            className="hidden rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90 lg:inline-flex"
+          >
+            Book a Consultation
+          </Link>
+          <button
+            aria-label="Toggle menu"
+            className="grid size-10 place-items-center rounded-lg border border-border text-vetiver lg:hidden"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
+      {open && (
+        <div className="border-t border-border bg-white lg:hidden">
+          <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4 text-sm font-medium">
+            {navLinks.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="rounded-md px-3 py-2 text-foreground/75 hover:bg-muted hover:text-vetiver"
+                activeProps={{ className: "text-vetiver font-semibold bg-vetiver/5" }}
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              to="/contact"
+              className="mt-2 rounded-lg bg-vetiver px-4 py-2.5 text-center text-sm font-semibold text-white"
+              onClick={() => setOpen(false)}
+            >
+              Book a Consultation
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
 
 export function NextStepBand() {
   return (
-    <section className="border-t border-border bg-card px-6 py-20 lg:px-8">
+    <section className="border-t border-border bg-[#FFF8E7] px-6 py-20 lg:px-8">
       <div className="mx-auto max-w-5xl text-center">
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Next Step</p>
         <h2 className="mb-4 font-serif text-4xl text-vetiver md:text-5xl">Ready to move from hustle to structure?</h2>
         <p className="mx-auto mb-8 max-w-2xl text-foreground/70">
-          Whether you need training, finance readiness, business planning, digital tools, or implementation support, Lovetech Agrofinance & Development can help you take the next practical step.
+          Whether you need training, finance readiness, business planning, digital tools, or implementation support, LoveTech Agrofinance & Development can help you take the next practical step.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
-          <Link to="/contact" className="rounded-sm bg-vetiver px-6 py-3 text-sm font-semibold text-bone hover:opacity-95">Book a Consultation</Link>
-          <Link to="/finance-readiness" className="rounded-sm bg-ochre px-6 py-3 text-sm font-semibold text-white hover:opacity-95">Start Diagnostic</Link>
-          <Link to="/academy" className="rounded-sm border border-vetiver/25 px-6 py-3 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Explore Academy</Link>
+          <Link to="/contact" className="rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-95">Book a Consultation</Link>
+          <Link to="/finance-readiness" className="rounded-lg bg-ochre px-6 py-3 text-sm font-semibold text-ink shadow-sm hover:opacity-95">Start Diagnostic</Link>
+          <Link to="/academy" className="rounded-lg border border-vetiver/25 bg-white px-6 py-3 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Explore Academy</Link>
         </div>
       </div>
     </section>
@@ -63,11 +96,11 @@ export function NextStepBand() {
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink text-bone/80">
+    <footer className="bg-[#1F2933] text-white/80">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="mb-4 flex items-center gap-2">
-            <img src={logoAsset.url} alt="LoveTech" className="h-8 w-auto rounded-sm bg-bone px-2 py-1" />
+            <img src={logoAsset.url} alt="LoveTech" className="h-8 w-auto rounded-sm bg-white px-2 py-1" />
           </div>
           <p className="max-w-md text-sm leading-relaxed">
             Helping Nigerian MSMEs, agribusinesses, and professionals build structured, fundable, and growth-ready enterprises.
@@ -79,7 +112,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div>
-          <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-bone">Explore</h4>
+          <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Explore</h4>
           <ul className="space-y-3 text-sm">
             {navLinks.map((l) => (
               <li key={l.to}>
@@ -88,17 +121,20 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link to="/contact" className="transition-colors hover:text-ochre">Book a Consultation</Link>
+            </li>
           </ul>
         </div>
         <div>
-          <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-bone">Legal</h4>
+          <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Legal</h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/privacy" className="hover:text-ochre">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-ochre">Terms & Conditions</Link></li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/5 px-6 py-6 text-center text-xs text-bone/50 lg:px-8">
+      <div className="border-t border-white/10 px-6 py-6 text-center text-xs text-white/50 lg:px-8">
         © {new Date().getFullYear()} LoveTech Agrofinance & Development Ltd. All rights reserved.
       </div>
     </footer>

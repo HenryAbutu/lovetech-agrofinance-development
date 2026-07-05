@@ -43,18 +43,22 @@ async function sendEnquiryEmail(data: z.infer<typeof EnquirySchema>) {
     value ? `<tr><td style="padding:6px 12px;color:#666;font-weight:600">${label}</td><td style="padding:6px 12px">${escape(value)}</td></tr>` : "";
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto">
-      <h2 style="color:#2d4a3e">New Contact Enquiry — LoveTech Agrofinance</h2>
+      <h2 style="color:#0F8A5F">New Consultation Request — LoveTech Agrofinance</h2>
       <table style="width:100%;border-collapse:collapse;background:#fafafa;border:1px solid #eee;border-radius:8px">
         ${row("Full name", data.full_name)}
         ${row("Email", data.email)}
         ${row("Phone", data.phone)}
         ${row("Business", data.business_name)}
-        ${row("Service interest", data.service_interest)}
+        ${row("Service area", data.service_area ?? data.service_interest)}
+        ${row("Support needed", data.support_needed)}
+        ${row("Urgency", data.urgency)}
+        ${row("Budget range", data.budget_range)}
       </table>
-      <h3 style="margin-top:24px;color:#2d4a3e">Message</h3>
+      <h3 style="margin-top:24px;color:#0F8A5F">Message</h3>
       <p style="white-space:pre-wrap;background:#fafafa;border:1px solid #eee;padding:16px;border-radius:8px">${escape(data.message)}</p>
-      <p style="color:#999;font-size:12px;margin-top:24px">Submitted via lovetechgroup.com.ng contact form</p>
+      <p style="color:#999;font-size:12px;margin-top:24px">Submitted via lovetechgroup.com.ng consultation form</p>
     </div>`;
+
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -83,6 +87,10 @@ const EnquirySchema = z.object({
   phone: z.string().max(50).optional().nullable(),
   business_name: z.string().max(200).optional().nullable(),
   service_interest: z.string().max(200).optional().nullable(),
+  service_area: z.string().max(200).optional().nullable(),
+  support_needed: z.string().max(200).optional().nullable(),
+  urgency: z.string().max(80).optional().nullable(),
+  budget_range: z.string().max(80).optional().nullable(),
   message: z.string().min(5).max(4000),
 });
 
@@ -93,12 +101,16 @@ export const submitEnquiry = createServerFn({ method: "POST" })
 
     const supabase = tryGetPublicServerClient();
     if (supabase) {
-      const { error } = await supabase.from("enquiries").insert(data);
+      // Keep persistence tolerant of schema drift — insert only known columns
+      const { service_area, support_needed, urgency, budget_range, ...core } = data;
+      void service_area; void support_needed; void urgency; void budget_range;
+      const { error } = await supabase.from("enquiries").insert(core);
       if (error) console.error("Contact enquiry persistence failed:", error.message);
     }
 
     return { ok: true };
   });
+
 
 const DiagnosticSchema = z.object({
   full_name: z.string().min(1).max(200),

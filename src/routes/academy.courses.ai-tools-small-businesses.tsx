@@ -75,15 +75,42 @@ const includes = [
 
 function Page() {
   const enrol = useServerFn(enrolInCourse);
+  const validate = useServerFn(validateCoupon);
   const nav = useNavigate();
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
+  const [coupon, setCoupon] = useState("");
+  const [couponInfo, setCouponInfo] = useState<{ ok: boolean; message: string; final?: number } | null>(null);
+  const [checking, setChecking] = useState(false);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setAuthed(!!data.user));
   }, []);
+
+  async function applyCoupon() {
+    const code = coupon.trim();
+    if (!code) return;
+    setChecking(true);
+    setCouponInfo({ ok: false, message: "Checking…" });
+    try {
+      const r = await validate({ data: { code, course_slug: "ai-tools-small-businesses" } });
+      if (r.valid) {
+        setCouponInfo({ ok: true, message: `Applied — you pay ₦${r.final_amount.toLocaleString()}`, final: r.final_amount });
+        toast.success(`Coupon applied — new price ₦${r.final_amount.toLocaleString()}`);
+      } else {
+        setCouponInfo({ ok: false, message: r.reason });
+        toast.error(r.reason);
+      }
+    } catch (e) {
+      const m = e instanceof Error ? e.message : "Could not check coupon";
+      setCouponInfo({ ok: false, message: m });
+      toast.error(m);
+    } finally {
+      setChecking(false);
+    }
+  }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -93,11 +120,20 @@ function Page() {
     const data = { course_slug: "ai-tools-small-businesses", ...Object.fromEntries(fd.entries()) } as Record<string, string>;
     try {
       const r = await enrol({ data: data as never });
-      if (r.stubbed) { setMsg(r.message ?? "You're registered."); setState("done"); }
-      else if (r.authorization_url) { window.location.href = r.authorization_url; }
+      if ("redirect_to" in r && r.redirect_to) { toast.success("Enrolment confirmed"); window.location.href = r.redirect_to; return; }
+      if (r.stubbed) { setMsg(r.message ?? "You're registered."); setState("done"); toast.success("You're registered"); }
+      else if (r.authorization_url) { toast.message("Redirecting to Paystack…"); window.location.href = r.authorization_url; }
       else { setMsg("You're registered."); setState("done"); }
-    } catch (e2) { setErr(e2 instanceof Error ? e2.message : "Failed"); setState("error"); }
+    } catch (e2) {
+      const m = e2 instanceof Error ? e2.message : "Failed";
+      setErr(m); setState("error"); toast.error(m);
+    }
   }
+
+  const priceLabel = couponInfo?.ok && typeof couponInfo.final === "number"
+    ? `Enrol & Pay ₦${couponInfo.final.toLocaleString()}`
+    : "Enrol & Pay ₦5,000";
+
 
   return (
     <main>

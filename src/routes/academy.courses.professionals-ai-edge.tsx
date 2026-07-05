@@ -244,10 +244,10 @@ function Page() {
 
               {err && <p className="text-sm text-destructive">{err}</p>}
               <button
-                type={authed ? "submit" : "button"}
-                disabled={state === "loading"}
+                type={authed === true ? "submit" : "button"}
+                disabled={state === "loading" || authed === null}
                 onClick={(e) => {
-                  if (!authed) {
+                  if (authed === false) {
                     e.preventDefault();
                     nav({ to: "/login" });
                   }
@@ -255,7 +255,7 @@ function Page() {
                 className="rounded-sm px-6 py-3 font-semibold text-white disabled:opacity-60"
                 style={{ backgroundColor: "var(--academy)" }}
               >
-                {state === "loading" ? "Processing…" : authed ? priceLabel : "Sign in to enroll"}
+                {state === "loading" ? "Processing…" : authed === null ? "Checking…" : authed ? priceLabel : "Sign in to enroll"}
               </button>
               <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
             </form>

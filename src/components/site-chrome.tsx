@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import logoAsset from "@/assets/LoveTech_Logo.png.asset.json";
@@ -16,22 +17,23 @@ const navLinks = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const fetchAdmin = useServerFn(checkIsAdmin);
 
   useEffect(() => {
     let active = true;
     async function check() {
-      const { data } = await supabase.auth.getUser();
+      const { data } = await supabase.auth.getSession();
       if (!active) return;
-      if (!data.user) { setIsAdmin(false); return; }
+      if (!data.session?.user) { setIsAdmin(false); return; }
       try {
-        const r = await checkIsAdmin();
+        const r = await fetchAdmin();
         if (active) setIsAdmin(!!r.isAdmin);
       } catch { if (active) setIsAdmin(false); }
     }
     check();
     const { data: sub } = supabase.auth.onAuthStateChange(() => check());
     return () => { active = false; sub.subscription.unsubscribe(); };
-  }, []);
+  }, [fetchAdmin]);
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">

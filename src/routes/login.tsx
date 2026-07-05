@@ -3,29 +3,48 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 
+type LoginSearch = { redirect?: string };
+
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Sign in — LoveTech" }, { name: "description", content: "Sign in to your LoveTech account." }] }),
+  validateSearch: (search: Record<string, unknown>): LoginSearch => ({
+    redirect: typeof search.redirect === "string" ? search.redirect : undefined,
+  }),
   component: LoginPage,
 });
 
+function safeRedirectPath(value?: string) {
+  if (!value) return "/academy/dashboard";
+  try {
+    const url = new URL(value, window.location.origin);
+    if (url.origin !== window.location.origin) return "/academy/dashboard";
+    return `${url.pathname}${url.search}${url.hash}` || "/academy/dashboard";
+  } catch {
+    return "/academy/dashboard";
+  }
+}
+
 function LoginPage() {
   const nav = useNavigate();
+  const { redirect } = Route.useSearch();
   const [email, setEmail] = useState(""); const [password, setPassword] = useState("");
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
+  const redirectTo = safeRedirectPath(redirect);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true); setErr("");
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) setErr(error.message);
-    else nav({ to: "/academy/dashboard" });
+    else nav({ to: redirectTo as never });
   }
 
   async function googleSignIn() {
     setErr("");
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/academy/dashboard" });
+    window.sessionStorage.setItem("lovetech_post_auth_redirect", redirectTo);
+    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
     if (result.error) setErr(result.error.message);
-    else if (!result.redirected) nav({ to: "/academy/dashboard" });
+    else if (!result.redirected) nav({ to: redirectTo as never });
   }
 
   return (

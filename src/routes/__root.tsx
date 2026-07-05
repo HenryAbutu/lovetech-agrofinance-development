@@ -102,9 +102,17 @@ function AuthSync() {
   const router = useRouter();
   const qc = useQueryClient();
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
-      qc.invalidateQueries();
+      if (event !== "SIGNED_OUT") qc.invalidateQueries();
+      if (event === "SIGNED_IN") {
+        const redirectTo = window.sessionStorage.getItem("lovetech_post_auth_redirect");
+        if (redirectTo) {
+          window.sessionStorage.removeItem("lovetech_post_auth_redirect");
+          router.navigate({ to: redirectTo as never, replace: true });
+        }
+      }
     });
     return () => subscription.unsubscribe();
   }, [router, qc]);

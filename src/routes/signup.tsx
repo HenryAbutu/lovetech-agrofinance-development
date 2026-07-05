@@ -17,7 +17,7 @@ function SignupPage() {
     e.preventDefault(); setLoading(true); setErr("");
     const { error } = await supabase.auth.signUp({
       email, password,
-      options: { emailRedirectTo: window.location.origin + "/academy/dashboard", data: { full_name: fullName } },
+      options: { emailRedirectTo: window.location.origin, data: { full_name: fullName } },
     });
     setLoading(false);
     if (error) setErr(error.message);
@@ -25,7 +25,8 @@ function SignupPage() {
   }
 
   async function googleSignIn() {
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/academy/dashboard" });
+    window.sessionStorage.setItem("lovetech_post_auth_redirect", "/academy/dashboard");
+    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
     if (result.error) setErr(result.error.message);
     else if (!result.redirected) nav({ to: "/academy/dashboard" });
   }

@@ -41,13 +41,14 @@ function DiagnosticPage() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
     setState("loading"); setErr("");
-    const fd = new FormData(e.currentTarget);
+    const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries()) as Record<string, string>;
     try {
       await submit({ data: data as never });
       setState("done");
-      e.currentTarget.reset();
+      form.reset();
     } catch (e2) {
       setErr(e2 instanceof Error ? e2.message : "Failed to submit");
       setState("error");

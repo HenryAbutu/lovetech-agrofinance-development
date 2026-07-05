@@ -224,8 +224,9 @@ export async function fulfilPayment(reference: string) {
     }
   }
 
-  // ------- Invoice PDF -------
-  if (!payment.invoice_pdf_url) {
+  // ------- Invoice PDF (idempotent) -------
+  const firstFulfilment = !payment.invoice_pdf_url;
+  if (firstFulfilment) {
     const invoiceNumber = "INV-" + paidAt.getFullYear() + "-" + payment.id.slice(0, 8).toUpperCase();
     const bytes = await generateInvoicePdf({
       invoiceNumber,
@@ -246,6 +247,37 @@ export async function fulfilPayment(reference: string) {
         .from("academy_payments")
         .update({ invoice_pdf_url: path, invoice_number: invoiceNumber })
         .eq("id", payment.id);
+    }
+  }
+
+  // ------- Email confirmations (once, gated by first fulfilment) -------
+  if (firstFulfilment) {
+    try {
+      const { sendLearnerReceiptEmail, sendAdminNewEnrolmentEmail } = await import("@/lib/emails.server");
+      const siteOrigin = process.env.SITE_ORIGIN ?? "https://lovetechgroup.lovable.app";
+      const learnerEmail = enrolment.email ?? payment.user_email ?? "";
+      if (learnerEmail) {
+        await sendLearnerReceiptEmail({
+          learnerEmail,
+          learnerName: enrolment.full_name ?? "there",
+          courseTitle: course?.title ?? "Course enrolment",
+          amountPaid: Number(payment.amount),
+          discount: Number(enrolment.discount_amount ?? 0),
+          couponCode: enrolment.coupon_code,
+          reference,
+          dashboardUrl: `${siteOrigin}/academy/dashboard`,
+          receiptUrl: `${siteOrigin}/academy/receipt?payment=success&ref=${encodeURIComponent(reference)}`,
+        });
+      }
+      await sendAdminNewEnrolmentEmail({
+        learnerName: enrolment.full_name ?? "Learner",
+        learnerEmail,
+        courseTitle: course?.title ?? "Course enrolment",
+        amountPaid: Number(payment.amount),
+        reference,
+      });
+    } catch (e) {
+      console.warn("[fulfilment] email send failed:", e instanceof Error ? e.message : e);
     }
   }
 

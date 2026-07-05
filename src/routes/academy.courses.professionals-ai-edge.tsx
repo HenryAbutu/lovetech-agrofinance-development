@@ -85,7 +85,8 @@ function Page() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!authed) { nav({ to: "/login" }); return; }
+    if (authed === false) { nav({ to: "/login" }); return; }
+    if (!authed) return;
     setState("loading"); setErr("");
     const fd = new FormData(e.currentTarget);
     const data = {

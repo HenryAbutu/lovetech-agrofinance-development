@@ -224,28 +224,29 @@ function Home() {
           <div className="grid gap-6 md:grid-cols-3">
             <CourseCard
               status="Enrolment Open"
-              title="AI for Businesses"
-              body="Practical AI skills for Nigerian SMEs — 30-minute beginner course covering ChatGPT, Canva AI, video tools & more."
-              priceRegular="₦15,000"
-              priceLaunch="₦5,000"
-              to="/academy/courses/ai-tools-small-businesses" hash="enrol"
-              cta="Enrol in AI for Businesses"
+              title="AI for Business — Basic"
+              body="A practical beginner course helping Nigerian entrepreneurs and small teams use AI to save time and grow their business."
+              priceLaunch="₦8,900"
+              to="/academy"
+              cta="View Course"
               featured
             />
             <CourseCard
-              status="Advanced"
+              status="Enrolment Open"
               title="Advanced AI Modules"
-              body="Deeper AI workflows for professionals — automations, tooling, prompt systems and profitability plays."
-              to="/academy/courses/professionals-ai-edge"
-              cta="View Course"
+              body="Advanced AI for marketing, service, finance, admin and research — all 5 modules for ₦25,000 or ₦15,000 each."
+              priceLaunch="₦25,000"
+              to="/academy"
+              cta="View Bundle"
             />
             <CourseCard
-              status="Coming Soon"
+              status="Waiting List"
               title="Finance Readiness for MSMEs"
               body="Prepare your business for loans, grants, investments and partnership funding."
-              to="/academy/courses/finance-readiness-msmes"
-              cta="Join a Programme Waitlist"
+              to="/academy"
+              cta="Join Waiting List"
             />
+
           </div>
         </div>
       </section>
@@ -296,9 +297,10 @@ function Home() {
               <p className="max-w-xl text-bone/75">Book a consultation, start your finance readiness diagnostic, or enrol in the Academy.</p>
             </div>
             <div className="flex flex-col gap-3 md:items-end">
-              <Link to="/contact" className="rounded-sm bg-ochre px-6 py-3 text-center font-semibold text-white">Book a Consultation</Link>
-              <Link to="/finance-readiness" className="rounded-sm border border-bone/30 px-6 py-3 text-center font-semibold text-bone hover:bg-bone/10">Start Finance Readiness Diagnostic</Link>
-              <Link to="/academy/courses/ai-tools-small-businesses" hash="enrol" className="rounded-sm bg-bone/10 px-6 py-3 text-center font-semibold text-bone hover:bg-bone/20">Enrol in AI for Businesses</Link>
+              <Link to="/contact" className="rounded-lg bg-ochre px-6 py-3 text-center font-semibold text-ink shadow-sm hover:opacity-95">Book a Consultation</Link>
+              <Link to="/finance-readiness" className="rounded-lg border border-white/30 px-6 py-3 text-center font-semibold text-white hover:bg-white/10">Start Finance Readiness Diagnostic</Link>
+              <Link to="/academy" className="rounded-lg bg-white/10 px-6 py-3 text-center font-semibold text-white hover:bg-white/20">Explore Academy</Link>
+
             </div>
           </div>
         </div>
@@ -353,21 +355,22 @@ function FeatureCard({ eyebrow, title, body, cta, to, image, tint }: { eyebrow: 
 
 function CourseCard({ status, title, body, priceRegular, priceLaunch, to, hash, cta, featured }: { status: string; title: string; body: string; priceRegular?: string; priceLaunch?: string; to: string; hash?: string; cta: string; featured?: boolean }) {
   return (
-    <article className={`flex flex-col rounded-2xl border p-6 ${featured ? "border-transparent bg-bone/5 ring-1" : "border-white/10 bg-white/5 opacity-90"}`} style={featured ? { boxShadow: "inset 0 0 0 1px var(--academy)" } : undefined}>
-      <span className="mb-4 inline-flex w-fit rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider" style={featured ? { backgroundColor: "color-mix(in oklab, var(--academy) 20%, transparent)", color: "var(--bone)" } : undefined}>
+    <article className={`flex flex-col rounded-2xl border p-6 ${featured ? "border-transparent bg-white/10 ring-1 ring-white/20" : "border-white/10 bg-white/5"}`}>
+      <span className={`mb-4 inline-flex w-fit rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${featured ? "bg-ochre text-ink" : "bg-white/10 text-white/80"}`}>
         {status}
       </span>
-      <h3 className="mb-2 font-serif text-2xl">{title}</h3>
-      <p className="mb-6 flex-1 text-sm text-bone/65">{body}</p>
-      {priceRegular && (
+      <h3 className="mb-2 font-serif text-2xl text-white">{title}</h3>
+      <p className="mb-6 flex-1 text-sm text-white/70">{body}</p>
+      {priceLaunch && (
         <div className="mb-6 flex items-baseline gap-2">
-          <span className="text-sm text-bone/40 line-through">{priceRegular}</span>
+          {priceRegular && <span className="text-sm text-white/40 line-through">{priceRegular}</span>}
           <span className="text-2xl font-bold text-ochre">{priceLaunch}</span>
         </div>
       )}
-      <Link to={to} hash={hash} className={`rounded-sm py-2.5 text-center text-sm font-semibold ${featured ? "text-white" : "border border-bone/20 text-bone hover:bg-bone/10"}`} style={featured ? { backgroundColor: "var(--academy)" } : undefined}>
+      <Link to={to} hash={hash} className={`rounded-lg py-2.5 text-center text-sm font-semibold ${featured ? "bg-ochre text-ink hover:opacity-95" : "border border-white/30 text-white hover:bg-white/10"}`}>
         {cta}
       </Link>
     </article>
   );
 }
+

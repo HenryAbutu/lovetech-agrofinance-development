@@ -420,7 +420,7 @@ export type Database = {
           phone: string | null
           referral_code: string | null
           referral_source: string | null
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           access_status?: Database["public"]["Enums"]["enrolment_access_status"]
@@ -439,7 +439,7 @@ export type Database = {
           phone?: string | null
           referral_code?: string | null
           referral_source?: string | null
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           access_status?: Database["public"]["Enums"]["enrolment_access_status"]
@@ -458,7 +458,7 @@ export type Database = {
           phone?: string | null
           referral_code?: string | null
           referral_source?: string | null
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: [
           {
@@ -1124,6 +1124,7 @@ export type Database = {
           excerpt: string | null
           featured_image: string | null
           id: string
+          published_at: string | null
           slug: string
           status: Database["public"]["Enums"]["post_status"]
           title: string
@@ -1136,6 +1137,7 @@ export type Database = {
           excerpt?: string | null
           featured_image?: string | null
           id?: string
+          published_at?: string | null
           slug: string
           status?: Database["public"]["Enums"]["post_status"]
           title: string
@@ -1148,6 +1150,7 @@ export type Database = {
           excerpt?: string | null
           featured_image?: string | null
           id?: string
+          published_at?: string | null
           slug?: string
           status?: Database["public"]["Enums"]["post_status"]
           title?: string

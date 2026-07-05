@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck } from "lucide-react";
-import logoAsset from "@/assets/LoveTech_Logo_Option1.png.asset.json";
+import logoAsset from "@/assets/LoveTech_Logo.png.asset.json";
 import { supabase } from "@/integrations/supabase/client";
 import { checkIsAdmin } from "@/lib/learner.functions";
 

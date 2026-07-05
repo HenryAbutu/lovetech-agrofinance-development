@@ -34,70 +34,83 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* LoveTech brand tokens (semantic aliases) */
+  /* LoveTech brand tokens (semantic aliases)
+     Note: legacy names retained (vetiver / ochre / bone / ink)
+     but remapped to the new brighter LoveTech palette. */
   --color-vetiver: var(--vetiver);
   --color-ochre: var(--ochre);
   --color-teal: var(--teal);
   --color-bone: var(--bone);
   --color-ink: var(--ink);
   --color-academy: var(--academy);
+  --color-deep-green: var(--deep-green);
+  --color-ivory: var(--bone);
 
-  /* Typography */
-  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  /* Typography — Poppins (headings), Inter (body) */
+  --font-serif: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 
-  /* LoveTech palette in oklch (closest to spec hex) */
-  --vetiver: oklch(0.36 0.06 154);     /* #1F4D3C */
-  --ochre: oklch(0.70 0.13 75);        /* #C8941F */
-  --teal: oklch(0.50 0.08 195);        /* #2B7A78 */
-  --bone: oklch(0.95 0.018 85);        /* #F5F1E8 */
-  --ink: oklch(0.20 0.012 150);        /* #1A1F1C */
-  --academy: oklch(0.40 0.22 295);     /* #5B2BBF */
+  /* LoveTech brighter palette
+     Primary Green   #0F8A5F  -> vetiver
+     Deep Green      #064E3B  -> deep-green
+     Digital Teal    #14B8A6  -> teal / academy
+     Opportunity Gold#F2B705  -> ochre
+     White BG        #FFFFFF
+     Soft Ivory      #FFF8E7  -> bone
+     Charcoal Text   #1F2933  -> ink
+  */
+  --vetiver: #0F8A5F;
+  --deep-green: #064E3B;
+  --teal: #14B8A6;
+  --ochre: #F2B705;
+  --bone: #FFF8E7;
+  --ink: #1F2933;
+  --academy: #14B8A6;
 
-  /* Map semantic to brand */
-  --background: var(--bone);
+  /* Map semantic → brand */
+  --background: #FFFFFF;
   --foreground: var(--ink);
-  --card: oklch(1 0 0);
+  --card: #FFFFFF;
   --card-foreground: var(--ink);
-  --popover: oklch(1 0 0);
+  --popover: #FFFFFF;
   --popover-foreground: var(--ink);
   --primary: var(--vetiver);
-  --primary-foreground: var(--bone);
-  --secondary: oklch(0.97 0.013 85);
-  --secondary-foreground: var(--vetiver);
-  --muted: oklch(0.94 0.012 85);
-  --muted-foreground: oklch(0.45 0.015 150);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--bone);
+  --secondary-foreground: var(--deep-green);
+  --muted: #F5F7FA;
+  --muted-foreground: #52606D;
   --accent: var(--ochre);
-  --accent-foreground: oklch(1 0 0);
-  --destructive: oklch(0.58 0.22 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.88 0.012 85);
-  --input: oklch(0.88 0.012 85);
+  --accent-foreground: var(--ink);
+  --destructive: #D64545;
+  --destructive-foreground: #FFFFFF;
+  --border: #E4E7EB;
+  --input: #E4E7EB;
   --ring: var(--vetiver);
 }
 
 .dark {
   --background: var(--ink);
-  --foreground: var(--bone);
-  --card: oklch(0.25 0.012 150);
-  --card-foreground: var(--bone);
-  --popover: oklch(0.25 0.012 150);
-  --popover-foreground: var(--bone);
-  --primary: var(--bone);
+  --foreground: #F5F7FA;
+  --card: #2A343F;
+  --card-foreground: #F5F7FA;
+  --popover: #2A343F;
+  --popover-foreground: #F5F7FA;
+  --primary: var(--teal);
   --primary-foreground: var(--ink);
-  --secondary: oklch(0.30 0.012 150);
-  --secondary-foreground: var(--bone);
-  --muted: oklch(0.30 0.012 150);
-  --muted-foreground: oklch(0.70 0.012 85);
+  --secondary: #323F4B;
+  --secondary-foreground: #F5F7FA;
+  --muted: #323F4B;
+  --muted-foreground: #CBD2D9;
   --accent: var(--ochre);
   --accent-foreground: var(--ink);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: var(--ochre);
+  --border: rgba(255, 255, 255, 0.10);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: var(--teal);
 }
 
 @layer base {
@@ -116,7 +129,8 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    letter-spacing: -0.015em;
   }
 }
 
@@ -174,14 +188,13 @@
   }
 }
 
-
 .input {
   width: 100%;
-  border-radius: 0.375rem;
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--background));
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--background);
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
-  color: hsl(var(--foreground));
+  color: var(--foreground);
 }
 .input:focus { outline: 2px solid var(--vetiver); outline-offset: -1px; }

@@ -15,10 +15,10 @@ export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
   validateSearch: (s) => SearchSchema.parse(s),
   head: () => ({
     meta: [
-      { title: "Enroll · Professionals AI Edge — LoveTech Agro Academy" },
-      { name: "description", content: "Practical AI tools for more efficient, productive and profitable businesses. Launch price ₦5,000." },
-      { property: "og:title", content: "Professionals AI Edge" },
-      { property: "og:description", content: "Practical AI tools for Nigerian professionals and founders. Launch price ₦5,000." },
+      { title: "Enroll · AI for Work & Business — LoveTech Agro Academy" },
+      { name: "description", content: "Practical AI skills to work smarter, grow your business, and stay ahead. Launch price ₦5,000." },
+      { property: "og:title", content: "AI for Work & Business" },
+      { property: "og:description", content: "Practical AI skills for professionals, teams and business owners. Launch price ₦5,000." },
       { property: "og:image", content: courseImg },
     ],
   }),
@@ -26,24 +26,24 @@ export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
 });
 
 const outcomes = [
-  "Use AI to write proposals, emails, marketing and reports in minutes.",
-  "Automate routine tasks across sales, ops and admin.",
-  "Build a simple AI-powered customer support and lead system.",
-  "Use AI to analyse business data and spot opportunities.",
-  "Apply AI ethically and safely in a Nigerian business context.",
+  "Use AI to write, plan and communicate faster and better.",
+  "Automate everyday tasks across work, admin and operations.",
+  "Apply AI to marketing, sales, service and customer support.",
+  "Make smarter decisions using AI-assisted data analysis.",
+  "Use AI responsibly, safely and confidently in your context.",
 ];
 
 const modules = [
-  "Foundations: what AI can and can't do for your business",
-  "Productivity stack: writing, research, summarisation",
+  "Foundations: what AI is and how to use it well",
+  "Productivity: writing, research, summarising and planning",
   "Marketing & content with AI",
-  "Sales, leads and customer support automation",
-  "Operations: SOPs, workflows and document handling",
-  "Data: analysing your business numbers with AI",
+  "Sales, leads and customer engagement",
+  "Operations, workflows and document handling",
+  "Working with data and simple analysis",
   "Building simple AI assistants (no-code)",
-  "Ethics, safety and compliance",
-  "Putting it together: your AI operating system",
-  "Capstone: ship one AI workflow that saves you a day per week",
+  "Ethics, safety and responsible use",
+  "Putting it together: your personal AI workflow",
+  "Capstone: apply AI to a real task in your work or business",
 ];
 
 function Page() {
@@ -115,16 +115,16 @@ function Page() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-ink text-bone">
         <div className="absolute inset-0">
-          <img src={courseImg} alt="Professional using AI tools" className="h-full w-full object-cover opacity-35" width={1280} height={832} />
+          <img src={courseImg} alt="People using AI tools at work" className="h-full w-full object-cover opacity-35" width={1280} height={832} />
           <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
         </div>
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[1.4fr_1fr] lg:px-8 lg:py-28">
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1.4fr_1fr] lg:px-8 lg:py-20">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--ochre)" }}>
               <Sparkles className="size-3.5" /> Enrolment Open
             </p>
-            <h1 className="font-serif text-5xl text-bone md:text-6xl">Professionals AI Edge</h1>
-            <p className="mt-5 max-w-2xl text-lg text-bone/75">Practical AI tools for more efficient, productive and profitable businesses. Built for Nigerian professionals, founders and operators.</p>
+            <h1 className="font-serif text-5xl text-bone md:text-6xl">AI for Work & Business</h1>
+            <p className="mt-5 max-w-2xl text-lg text-bone/75">A practical, beginner-friendly course to help you use AI to work smarter, save time, and grow — whether you're a professional, team member, founder or business owner.</p>
             <div className="mt-8 flex items-baseline gap-3">
               <span className="text-lg text-bone/40 line-through">₦10,000</span>
               <span className="font-serif text-5xl text-ochre">₦5,000</span>
@@ -132,7 +132,7 @@ function Page() {
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#enrol" className="inline-flex rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enroll Now</a>
-              <a href="#modules" className="inline-flex rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">See modules</a>
+              <a href="#modules" className="inline-flex rounded-sm border border-bone/20 px-6 py-3 text-sm font-semibold text-bone hover:bg-bone/10">See what you'll learn</a>
             </div>
           </div>
           <aside className="self-end rounded-2xl border border-bone/15 bg-bone/5 p-6 backdrop-blur">
@@ -148,47 +148,12 @@ function Page() {
         </div>
       </section>
 
-      {/* Outcomes + modules */}
-      <section id="modules" className="px-6 py-16 lg:px-8">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[2fr_1fr]">
-          <div>
-            <h2 className="mb-6 font-serif text-3xl text-vetiver">What you'll be able to do</h2>
-            <ul className="mb-12 grid gap-3 md:grid-cols-2">
-              {outcomes.map((o) => (
-                <li key={o} className="flex gap-3 rounded-md border border-border bg-card p-4 text-sm text-foreground/80"><Check className="mt-0.5 size-4 shrink-0 text-ochre" />{o}</li>
-              ))}
-            </ul>
-            <h2 className="mb-6 font-serif text-3xl text-vetiver">Course modules</h2>
-            <ol className="grid gap-2 md:grid-cols-2">
-              {modules.map((m, i) => (
-                <li key={m} className="flex gap-4 rounded-md border border-border bg-card p-4">
-                  <span className="font-mono text-xs text-ochre">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="text-sm text-foreground/80">{m}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <aside className="h-fit space-y-4">
-            <div className="rounded-2xl border border-academy/30 bg-academy/5 p-6">
-              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-academy">Launch cohort</p>
-              <p className="font-serif text-3xl text-vetiver">₦5,000</p>
-              <p className="mt-1 text-sm text-foreground/60">50% off launch price.</p>
-              <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Reserve my seat</a>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h4 className="mb-2 font-serif text-lg text-vetiver">Who it's for</h4>
-              <p className="text-sm text-foreground/70">Founders, consultants, sales & ops teams, accountants, marketers, agribusiness operators — anyone who wants to use AI to do more, faster.</p>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      {/* Enrolment form */}
-      <section id="enrol" className="bg-card border-t border-border px-6 py-20 lg:px-8 scroll-mt-20">
+      {/* Enrolment form — placed first for easy access */}
+      <section id="enrol" className="bg-card border-b border-border px-6 py-16 lg:px-8 scroll-mt-20">
         <div className="mx-auto max-w-3xl">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Step 2 · Enrolment</p>
-          <h2 className="mb-2 font-serif text-4xl text-vetiver">Enroll in Professionals AI Edge</h2>
-          <p className="mb-8 text-foreground/70">Complete the form below and proceed to secure payment of ₦5,000.</p>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Enrol now</p>
+          <h2 className="mb-2 font-serif text-4xl text-vetiver">Reserve your seat</h2>
+          <p className="mb-8 text-foreground/70">Complete the short form below and proceed to secure payment of ₦5,000.</p>
           {authed === false && (
             <div className="mb-6 rounded-md border border-ochre/30 bg-ochre/5 p-4 text-sm">
               You need to <Link to="/login" className="font-semibold text-vetiver underline">sign in</Link> or <Link to="/signup" className="font-semibold text-vetiver underline">create an account</Link> to enroll.
@@ -260,6 +225,41 @@ function Page() {
               <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
             </form>
           )}
+        </div>
+      </section>
+
+      {/* Outcomes + modules */}
+      <section id="modules" className="px-6 py-16 lg:px-8">
+        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[2fr_1fr]">
+          <div>
+            <h2 className="mb-6 font-serif text-3xl text-vetiver">What you'll be able to do</h2>
+            <ul className="mb-12 grid gap-3 md:grid-cols-2">
+              {outcomes.map((o) => (
+                <li key={o} className="flex gap-3 rounded-md border border-border bg-card p-4 text-sm text-foreground/80"><Check className="mt-0.5 size-4 shrink-0 text-ochre" />{o}</li>
+              ))}
+            </ul>
+            <h2 className="mb-6 font-serif text-3xl text-vetiver">Course modules</h2>
+            <ol className="grid gap-2 md:grid-cols-2">
+              {modules.map((m, i) => (
+                <li key={m} className="flex gap-4 rounded-md border border-border bg-card p-4">
+                  <span className="font-mono text-xs text-ochre">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-sm text-foreground/80">{m}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <aside className="h-fit space-y-4">
+            <div className="rounded-2xl border border-academy/30 bg-academy/5 p-6">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-academy">Launch cohort</p>
+              <p className="font-serif text-3xl text-vetiver">₦5,000</p>
+              <p className="mt-1 text-sm text-foreground/60">50% off launch price.</p>
+              <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Reserve my seat</a>
+            </div>
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <h4 className="mb-2 font-serif text-lg text-vetiver">Who it's for</h4>
+              <p className="text-sm text-foreground/70">Professionals, founders, teams, entrepreneurs, students and anyone who wants practical AI skills — no technical background needed.</p>
+            </div>
+          </aside>
         </div>
       </section>
     </main>

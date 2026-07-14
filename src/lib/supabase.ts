@@ -32,7 +32,25 @@ function readCookie(key: string) {
 
 export function getAuthStorageValue(key = AUTH_STORAGE_KEY) {
   if (!isBrowser()) return null;
-  return readCookie(key) || window.localStorage.getItem(key);
+  const direct = readCookie(key) || window.localStorage.getItem(key);
+  if (direct || key !== AUTH_STORAGE_KEY) return direct;
+
+  const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+  const fallbackKeys = new Set<string>();
+  if (projectId) fallbackKeys.add(`sb-${projectId}-auth-token`);
+  for (let i = 0; i < window.localStorage.length; i += 1) {
+    const storageKey = window.localStorage.key(i);
+    if (storageKey?.startsWith("sb-") && storageKey.endsWith("-auth-token")) {
+      fallbackKeys.add(storageKey);
+    }
+  }
+
+  for (const fallbackKey of fallbackKeys) {
+    const value = readCookie(fallbackKey) || window.localStorage.getItem(fallbackKey);
+    if (value) return value;
+  }
+
+  return null;
 }
 
 export function expireAuthCookie(key = AUTH_STORAGE_KEY) {
@@ -49,10 +67,12 @@ export function clearSupabaseAuthStorage() {
   const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
   if (projectId) keys.add(`sb-${projectId}-auth-token`);
 
+  const localStorageKeys: string[] = [];
   for (let i = 0; i < window.localStorage.length; i += 1) {
     const key = window.localStorage.key(i);
-    if (key?.startsWith("sb-") && key.endsWith("-auth-token")) keys.add(key);
+    if (key?.startsWith("sb-") && key.endsWith("-auth-token")) localStorageKeys.push(key);
   }
+  localStorageKeys.forEach((key) => keys.add(key));
 
   keys.forEach((key) => {
     expireAuthCookie(key);

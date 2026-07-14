@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { getMyEnrolments, checkIsAdmin } from "@/lib/learner.functions";
 import { supabase } from "@/integrations/supabase/client";
@@ -14,8 +15,45 @@ export const Route = createFileRoute("/_authenticated/academy/dashboard")({
 function Dashboard() {
   const fetchEnrolments = useServerFn(getMyEnrolments);
   const fetchAdmin = useServerFn(checkIsAdmin);
-  const enrolments = useQuery({ queryKey: ["enrolments"], queryFn: () => fetchEnrolments() });
-  const admin = useQuery({ queryKey: ["isAdmin"], queryFn: () => fetchAdmin() });
+  const qc = useQueryClient();
+  const [sessionReady, setSessionReady] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (mounted) setSessionReady(!!data.session?.access_token);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setSessionReady(!!session?.access_token);
+    });
+    return () => { mounted = false; sub.subscription.unsubscribe(); };
+  }, []);
+
+  const enrolments = useQuery({
+    queryKey: ["enrolments"],
+    queryFn: () => fetchEnrolments(),
+    enabled: sessionReady,
+  });
+  const admin = useQuery({
+    queryKey: ["isAdmin"],
+    queryFn: () => fetchAdmin(),
+    enabled: sessionReady,
+  });
+
+  async function handleSignOut() {
+    if (signingOut) return;
+    setSigningOut(true);
+    try {
+      await qc.cancelQueries();
+      qc.clear();
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.error("Sign out failed", e);
+    } finally {
+      window.location.assign("/login");
+    }
+  }
 
   return (
     <main className="px-6 py-16 lg:px-8">
@@ -33,7 +71,7 @@ function Dashboard() {
             {admin.data?.isAdmin && (
               <Link to="/admin" className="rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone">Admin</Link>
             )}
-            <button onClick={() => supabase.auth.signOut()} className="rounded-sm border border-border px-4 py-2 text-sm font-medium hover:bg-muted">Sign out</button>
+            <button type="button" onClick={handleSignOut} disabled={signingOut} className="rounded-sm border border-border px-4 py-2 text-sm font-medium hover:bg-muted disabled:opacity-60">{signingOut ? "Signing out…" : "Sign out"}</button>
           </div>
         </div>
 

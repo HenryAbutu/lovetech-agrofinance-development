@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { getMyEnrolments, checkIsAdmin } from "@/lib/learner.functions";
-import { supabase } from "@/integrations/supabase/client";
+import { AUTH_STORAGE_KEY, clearSupabaseAuthStorage, expireAuthCookie, getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { whatsappUrl } from "@/lib/lms-config";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard")({
@@ -16,16 +16,20 @@ function Dashboard() {
   const fetchEnrolments = useServerFn(getMyEnrolments);
   const fetchAdmin = useServerFn(checkIsAdmin);
   const qc = useQueryClient();
+  const [sessionResolved, setSessionResolved] = useState(false);
   const [sessionReady, setSessionReady] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
 
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getSession().then(({ data }) => {
-      if (mounted) setSessionReady(!!data.session?.access_token);
+    getActiveSupabaseSession().then((session) => {
+      if (!mounted) return;
+      setSessionReady(!!session?.access_token);
+      setSessionResolved(true);
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       setSessionReady(!!session?.access_token);
+      setSessionResolved(true);
     });
     return () => { mounted = false; sub.subscription.unsubscribe(); };
   }, []);
@@ -47,9 +51,10 @@ function Dashboard() {
     try {
       await qc.cancelQueries();
       qc.clear();
-      try { window.localStorage.clear(); } catch { /* noop */ }
-      try { window.sessionStorage.clear(); } catch { /* noop */ }
-      await supabase.auth.signOut();
+      expireAuthCookie(AUTH_STORAGE_KEY);
+      clearSupabaseAuthStorage();
+      try { window.sessionStorage.removeItem("lovetech_post_auth_redirect"); } catch { /* noop */ }
+      await supabase.auth.signOut({ scope: "local" });
     } catch (e) {
       console.error("Sign out failed", e);
     } finally {
@@ -79,7 +84,14 @@ function Dashboard() {
 
         <section>
           <h2 className="mb-4 font-serif text-2xl text-vetiver">My courses</h2>
-          {enrolments.isLoading && <p className="text-sm text-foreground/60">Loading…</p>}
+          {!sessionResolved && <p className="text-sm text-foreground/60">Checking your session…</p>}
+          {sessionResolved && !sessionReady && (
+            <div className="rounded-2xl border border-border bg-card p-8 text-center">
+              <p className="mb-4 text-foreground/70">Your session could not be verified. Please sign in again to view courses.</p>
+              <Link to="/login" className="inline-flex rounded-sm bg-vetiver px-5 py-2.5 text-sm font-semibold text-bone">Sign in</Link>
+            </div>
+          )}
+          {sessionReady && enrolments.isLoading && <p className="text-sm text-foreground/60">Loading…</p>}
           {enrolments.data?.enrolments.length === 0 && (
             <div className="rounded-2xl border border-border bg-card p-10 text-center">
               <p className="mb-4 text-foreground/70">You haven't enrolled in a course yet.</p>

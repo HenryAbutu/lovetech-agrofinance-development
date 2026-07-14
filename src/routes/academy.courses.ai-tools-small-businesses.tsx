@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { Check, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, PlayCircle, Download, Tag } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { enrolInCourse } from "@/lib/enrolment.functions";
 import { validateCoupon } from "@/lib/coupons.functions";
 import { whatsappUrl } from "@/lib/lms-config";
@@ -86,7 +86,7 @@ function Page() {
   const [checking, setChecking] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setAuthed(!!data.user));
+    getActiveSupabaseSession().then((session) => setAuthed(!!session?.user));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => setAuthed(!!session?.user));
     return () => sub.subscription.unsubscribe();
   }, []);

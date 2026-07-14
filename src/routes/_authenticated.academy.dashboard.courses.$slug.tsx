@@ -7,7 +7,7 @@ import { getMyCourseContent, markLessonComplete } from "@/lib/lms.functions";
 import { getMyCertificateSignedUrl } from "@/lib/certificate.functions";
 import { LMS_CONFIG, whatsappUrl } from "@/lib/lms-config";
 import { LessonDiscussion } from "@/components/lesson-discussion";
-import { supabase } from "@/integrations/supabase/client";
+import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug")({
   head: () => ({ meta: [{ title: "Course · LoveTech Agro Academy" }] }),
@@ -21,17 +21,20 @@ function CoursePage() {
   const qc = useQueryClient();
 
   const [userId, setUserId] = useState<string | null>(null);
+  const [sessionResolved, setSessionResolved] = useState(false);
   const [sessionReady, setSessionReady] = useState(false);
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getSession().then(({ data }) => {
+    getActiveSupabaseSession().then((session) => {
       if (!mounted) return;
-      setUserId(data.session?.user?.id ?? null);
-      setSessionReady(!!data.session?.access_token);
+      setUserId(session?.user?.id ?? null);
+      setSessionReady(!!session?.access_token);
+      setSessionResolved(true);
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       setUserId(session?.user?.id ?? null);
       setSessionReady(!!session?.access_token);
+      setSessionResolved(true);
     });
     return () => { mounted = false; sub.subscription.unsubscribe(); };
   }, []);
@@ -61,6 +64,16 @@ function CoursePage() {
     return { activeLesson: active, completionSet: set, totalLessons: data.lessons.length, completedCount: set.size };
   }, [data, activeLessonId]);
 
+  if (!sessionResolved) return <main className="grid min-h-[50vh] place-items-center text-sm text-foreground/60">Checking your session…</main>;
+  if (!sessionReady) {
+    return (
+      <main className="mx-auto max-w-2xl px-6 py-24 text-center">
+        <h1 className="mb-3 font-serif text-3xl text-vetiver">Sign in required</h1>
+        <p className="mb-6 text-foreground/70">Please sign in again to view your enrolled course content.</p>
+        <Link to="/login" className="inline-flex rounded-sm bg-vetiver px-5 py-2.5 text-sm font-semibold text-bone">Sign in</Link>
+      </main>
+    );
+  }
   if (isLoading) return <main className="grid min-h-[50vh] place-items-center text-sm text-foreground/60">Loading your course…</main>;
   if (error) throw notFound();
   if (!data) return null;

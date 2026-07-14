@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Check, Calendar, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, Tag } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
+import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { enrolInCourse } from "@/lib/enrolment.functions";
 import { validateCoupon } from "@/lib/coupons.functions";
 import courseImg from "@/assets/course-ai-edge.jpg";
@@ -58,7 +58,7 @@ function Page() {
   const [couponInfo, setCouponInfo] = useState<{ ok: boolean; message: string; final?: number } | null>(null);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setAuthed(!!data.user));
+    getActiveSupabaseSession().then((session) => setAuthed(!!session?.user));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => setAuthed(!!session?.user));
     return () => sub.subscription.unsubscribe();
   }, []);

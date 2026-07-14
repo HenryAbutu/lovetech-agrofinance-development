@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import logoAsset from "@/assets/LoveTech_Logo.png.asset.json";
-import { supabase } from "@/integrations/supabase/client";
+import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { checkIsAdmin } from "@/lib/learner.functions";
 
 const navLinks = [
@@ -22,9 +22,9 @@ export function SiteHeader() {
   useEffect(() => {
     let active = true;
     async function check() {
-      const { data } = await supabase.auth.getSession();
+      const session = await getActiveSupabaseSession();
       if (!active) return;
-      if (!data.session?.user) { setIsAdmin(false); return; }
+      if (!session?.user) { setIsAdmin(false); return; }
       try {
         const r = await fetchAdmin();
         if (active) setIsAdmin(!!r.isAdmin);

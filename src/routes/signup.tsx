@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/lib/supabase";
+import { lovable } from "@/lib/lovable-auth";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({ meta: [{ title: "Create account — LoveTech" }, { name: "description", content: "Create your LoveTech account." }] }),

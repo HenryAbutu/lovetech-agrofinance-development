@@ -103,10 +103,23 @@ function AuthSync() {
   const qc = useQueryClient();
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      const hasValidSession = Boolean(session?.user);
-      const shouldRefreshRouter =
-        hasValidSession || event === "SIGNED_OUT" || event === "USER_UPDATED";
+      if (event === "SIGNED_OUT") {
+        // Hard reset: purge every cached auth artefact and force a fresh
+        // navigation to /login so no stale session lingers in memory.
+        try {
+          void qc.cancelQueries();
+          qc.clear();
+        } catch { /* noop */ }
+        try { window.localStorage.clear(); } catch { /* noop */ }
+        try { window.sessionStorage.clear(); } catch { /* noop */ }
+        if (window.location.pathname !== "/login") {
+          window.location.assign("/login");
+        }
+        return;
+      }
 
+      const hasValidSession = Boolean(session?.user);
+      const shouldRefreshRouter = hasValidSession || event === "USER_UPDATED";
       if (!shouldRefreshRouter) return;
 
       window.setTimeout(() => {

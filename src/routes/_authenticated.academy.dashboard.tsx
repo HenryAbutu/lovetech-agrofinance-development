@@ -47,6 +47,8 @@ function Dashboard() {
     try {
       await qc.cancelQueries();
       qc.clear();
+      try { window.localStorage.clear(); } catch { /* noop */ }
+      try { window.sessionStorage.clear(); } catch { /* noop */ }
       await supabase.auth.signOut();
     } catch (e) {
       console.error("Sign out failed", e);

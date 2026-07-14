@@ -14,7 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter, NextStepBand } from "../components/site-chrome";
 import { WhatsAppSupportButton } from "../components/whatsapp-support";
 import { Toaster } from "../components/ui/sonner";
-import { supabase } from "../integrations/supabase/client";
+import { clearSupabaseAuthStorage, supabase } from "../lib/supabase";
 
 function NotFoundComponent() {
   return (
@@ -110,8 +110,8 @@ function AuthSync() {
           void qc.cancelQueries();
           qc.clear();
         } catch { /* noop */ }
-        try { window.localStorage.clear(); } catch { /* noop */ }
-        try { window.sessionStorage.clear(); } catch { /* noop */ }
+        try { clearSupabaseAuthStorage(); } catch { /* noop */ }
+        try { window.sessionStorage.removeItem("lovetech_post_auth_redirect"); } catch { /* noop */ }
         if (window.location.pathname !== "/login") {
           window.location.assign("/login");
         }

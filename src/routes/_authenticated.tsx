@@ -1,9 +1,11 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { supabase } from "@/integrations/supabase/client";
+import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
   beforeLoad: async ({ location }) => {
+    const restoredSession = await getActiveSupabaseSession();
+    if (restoredSession?.user) return { user: restoredSession.user };
     // Prefer getUser() — it revalidates with the auth server and avoids
     // race conditions where getSession() returns null immediately after
     // signInWithPassword resolves on some browsers/hosts.

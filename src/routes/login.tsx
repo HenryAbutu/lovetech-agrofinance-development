@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { useEffect, useState } from "react";
+import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { lovable } from "@/lib/lovable-auth";
 
 type LoginSearch = { redirect?: string };

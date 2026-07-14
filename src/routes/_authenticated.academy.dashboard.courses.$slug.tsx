@@ -20,15 +20,28 @@ function CoursePage() {
   const complete = useServerFn(markLessonComplete);
   const qc = useQueryClient();
 
+  const [userId, setUserId] = useState<string | null>(null);
+  const [sessionReady, setSessionReady] = useState(false);
+  useEffect(() => {
+    let mounted = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
+      setUserId(data.session?.user?.id ?? null);
+      setSessionReady(!!data.session?.access_token);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUserId(session?.user?.id ?? null);
+      setSessionReady(!!session?.access_token);
+    });
+    return () => { mounted = false; sub.subscription.unsubscribe(); };
+  }, []);
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["course-content", slug],
     queryFn: () => fetchContent({ data: { slug } }),
+    enabled: sessionReady,
   });
 
-  const [userId, setUserId] = useState<string | null>(null);
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
-  }, []);
   const [activeLessonId, setActiveLessonId] = useState<string | null>(null);
 
 

@@ -116,7 +116,23 @@ export function SiteHeader() {
               >
                 <ShieldCheck className="size-4" /> Admin
               </Link>
-            )}
+            {authed ? (
+              <Link
+                to="/academy/dashboard"
+                className="mt-2 rounded-lg border border-vetiver/30 bg-white px-4 py-2.5 text-center text-sm font-semibold text-vetiver"
+                onClick={() => setOpen(false)}
+              >
+                My Academy
+              </Link>
+            ) : authed === false ? (
+              <Link
+                to="/login"
+                className="mt-2 rounded-lg border border-vetiver/30 bg-white px-4 py-2.5 text-center text-sm font-semibold text-vetiver"
+                onClick={() => setOpen(false)}
+              >
+                Sign in
+              </Link>
+            ) : null}
             <Link
               to="/contact"
               className="mt-2 rounded-lg bg-vetiver px-4 py-2.5 text-center text-sm font-semibold text-white"

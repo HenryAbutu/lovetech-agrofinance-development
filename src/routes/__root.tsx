@@ -102,17 +102,25 @@ function AuthSync() {
   const router = useRouter();
   const qc = useQueryClient();
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
-      router.invalidate();
-      if (event !== "SIGNED_OUT") qc.invalidateQueries();
-      if (event === "SIGNED_IN") {
-        const redirectTo = window.sessionStorage.getItem("lovetech_post_auth_redirect");
-        if (redirectTo) {
-          window.sessionStorage.removeItem("lovetech_post_auth_redirect");
-          router.navigate({ to: redirectTo as never, replace: true });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      const hasValidSession = Boolean(session?.user);
+      const shouldRefreshRouter =
+        hasValidSession || event === "SIGNED_OUT" || event === "USER_UPDATED";
+
+      if (!shouldRefreshRouter) return;
+
+      window.setTimeout(() => {
+        void router.invalidate();
+        if (hasValidSession) void qc.invalidateQueries();
+
+        if (hasValidSession && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
+          const redirectTo = window.sessionStorage.getItem("lovetech_post_auth_redirect");
+          if (redirectTo) {
+            window.sessionStorage.removeItem("lovetech_post_auth_redirect");
+            void router.navigate({ to: redirectTo as never, replace: true });
+          }
         }
-      }
+      }, 0);
     });
     return () => subscription.unsubscribe();
   }, [router, qc]);

@@ -71,7 +71,7 @@ function Dashboard() {
             {admin.data?.isAdmin && (
               <Link to="/admin" className="rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone">Admin</Link>
             )}
-            <button onClick={() => supabase.auth.signOut()} className="rounded-sm border border-border px-4 py-2 text-sm font-medium hover:bg-muted">Sign out</button>
+            <button type="button" onClick={handleSignOut} disabled={signingOut} className="rounded-sm border border-border px-4 py-2 text-sm font-medium hover:bg-muted disabled:opacity-60">{signingOut ? "Signing out…" : "Sign out"}</button>
           </div>
         </div>
 

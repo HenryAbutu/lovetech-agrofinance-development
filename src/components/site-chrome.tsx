@@ -64,6 +64,21 @@ export function SiteHeader() {
               <ShieldCheck className="size-4" /> Admin
             </Link>
           )}
+          {authed ? (
+            <Link
+              to="/academy/dashboard"
+              className="hidden rounded-lg border border-vetiver/30 bg-white px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5 lg:inline-flex"
+            >
+              My Academy
+            </Link>
+          ) : authed === false ? (
+            <Link
+              to="/login"
+              className="hidden rounded-lg border border-vetiver/30 bg-white px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5 lg:inline-flex"
+            >
+              Sign in
+            </Link>
+          ) : null}
           <Link
             to="/contact"
             className="hidden rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90 lg:inline-flex"

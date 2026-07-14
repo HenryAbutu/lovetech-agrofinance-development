@@ -201,23 +201,38 @@ function Page() {
             </div>
           ) : (
             <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-background p-8 shadow-sm">
-              <div className="grid gap-5 md:grid-cols-2">
-                <Field name="full_name" label="Full name" required />
-                <Field name="email" type="email" label="Email" required />
-              </div>
-              <div className="grid gap-5 md:grid-cols-2">
-                <Field name="phone" label="Phone (WhatsApp)" />
-                <Field name="business_name" label="Business / role" />
-              </div>
-              <div className="grid gap-5 md:grid-cols-2">
-                <Field name="business_sector" label="Sector / industry" />
-                <Field name="location" label="Location" />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-medium text-foreground/80">Main challenge you want AI to solve</label>
-                <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
-              </div>
-              <Field name="referral_source" label="How did you hear about us?" />
+              {authed ? (
+                <div className="rounded-md border border-vetiver/25 bg-vetiver/5 p-4 text-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-vetiver/70">Enrolling as</p>
+                  <p className="mt-1 font-serif text-lg text-vetiver">{profile?.full_name || "Your profile"}</p>
+                  <p className="text-foreground/70">{profile?.email || "—"}{profile?.phone ? ` · ${profile.phone}` : ""}</p>
+                  <p className="mt-2 text-xs text-foreground/55">Details are taken from your account. <Link to="/settings/profile" className="underline">Update profile</Link>.</p>
+                  <div className="mt-4">
+                    <label className="mb-1 block text-sm font-medium text-foreground/80">Main challenge you want AI to solve (optional)</label>
+                    <textarea name="main_challenge" rows={3} value={mainChallenge} onChange={(e) => setMainChallenge(e.target.value)} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <Field name="full_name" label="Full name" required />
+                    <Field name="email" type="email" label="Email" required />
+                  </div>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <Field name="phone" label="Phone (WhatsApp)" />
+                    <Field name="business_name" label="Business / role" />
+                  </div>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <Field name="business_sector" label="Sector / industry" />
+                    <Field name="location" label="Location" />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-foreground/80">Main challenge you want AI to solve</label>
+                    <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+                  </div>
+                  <Field name="referral_source" label="How did you hear about us?" />
+                </>
+              )}
 
               <div className="rounded-md border border-dashed border-ochre/40 bg-ochre/5 p-4">
                 <label className="mb-2 flex items-center gap-2 text-sm font-medium text-vetiver">

@@ -78,16 +78,35 @@ function Page() {
   const validate = useServerFn(validateCoupon);
   const nav = useNavigate();
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const [profile, setProfile] = useState<{ full_name: string; email: string; phone: string; business_name: string; location: string } | null>(null);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
   const [coupon, setCoupon] = useState("");
   const [couponInfo, setCouponInfo] = useState<{ ok: boolean; message: string; final?: number } | null>(null);
   const [checking, setChecking] = useState(false);
+  const [mainChallenge, setMainChallenge] = useState("");
 
   useEffect(() => {
-    getActiveSupabaseSession().then((session) => setAuthed(!!session?.user));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => setAuthed(!!session?.user));
+    async function loadProfile(userId: string, email: string) {
+      const { data } = await supabase.from("profiles").select("full_name, email, phone, business_name, location").eq("id", userId).maybeSingle();
+      setProfile({
+        full_name: data?.full_name ?? "",
+        email: data?.email ?? email,
+        phone: data?.phone ?? "",
+        business_name: data?.business_name ?? "",
+        location: data?.location ?? "",
+      });
+    }
+    getActiveSupabaseSession().then((session) => {
+      setAuthed(!!session?.user);
+      if (session?.user) loadProfile(session.user.id, session.user.email ?? "");
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setAuthed(!!session?.user);
+      if (session?.user) loadProfile(session.user.id, session.user.email ?? "");
+      else setProfile(null);
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
@@ -120,7 +139,22 @@ function Page() {
     if (!authed) return;
     setState("loading"); setErr("");
     const fd = new FormData(e.currentTarget);
-    const data = { course_slug: "ai-tools-small-businesses", ...Object.fromEntries(fd.entries()) } as Record<string, string>;
+    const formEntries = Object.fromEntries(fd.entries()) as Record<string, string>;
+    const data: Record<string, string> = { course_slug: "ai-tools-small-businesses", ...formEntries };
+    if (profile) {
+      data.full_name = data.full_name || profile.full_name;
+      data.email = data.email || profile.email;
+      data.phone = data.phone || profile.phone;
+      data.business_name = data.business_name || profile.business_name;
+      data.location = data.location || profile.location;
+      if (!data.main_challenge) data.main_challenge = mainChallenge;
+    }
+    if (!data.full_name || !data.email) {
+      setState("error");
+      setErr("Your profile is missing a name or email. Please update your profile before enrolling.");
+      toast.error("Please complete your profile first.");
+      return;
+    }
     try {
       const r = await enrol({ data: data as never });
       if ("redirect_to" in r && r.redirect_to) { toast.success("Enrolment confirmed"); window.location.href = r.redirect_to; return; }
@@ -133,9 +167,9 @@ function Page() {
     }
   }
 
-  const priceLabel = couponInfo?.ok && typeof couponInfo.final === "number"
-    ? `Enrol & Pay ₦${couponInfo.final.toLocaleString()}`
-    : "Enrol & Pay ₦8,900";
+  const finalAmount = couponInfo?.ok && typeof couponInfo.final === "number" ? couponInfo.final : 8900;
+  const isFree = finalAmount <= 0;
+  const priceLabel = isFree ? "Enrol Now (Free)" : `Enrol & Pay ₦${finalAmount.toLocaleString()}`;
 
 
   return (
@@ -269,23 +303,38 @@ function Page() {
             </div>
           ) : (
             <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-background p-8 shadow-sm">
-              <div className="grid gap-5 md:grid-cols-2">
-                <Field name="full_name" label="Full name" required />
-                <Field name="email" type="email" label="Email" required />
-              </div>
-              <div className="grid gap-5 md:grid-cols-2">
-                <Field name="phone" label="Phone (WhatsApp)" />
-                <Field name="business_name" label="Business name" />
-              </div>
-              <div className="grid gap-5 md:grid-cols-2">
-                <Field name="business_sector" label="Business sector" />
-                <Field name="location" label="Location" />
-              </div>
-              <div>
-                <label className="mb-1 block text-sm font-medium text-foreground/80">What do you want AI to help you with?</label>
-                <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
-              </div>
-              <Field name="referral_source" label="How did you hear about us?" />
+              {authed ? (
+                <div className="rounded-md border border-vetiver/25 bg-vetiver/5 p-4 text-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-vetiver/70">Enrolling as</p>
+                  <p className="mt-1 font-serif text-lg text-vetiver">{profile?.full_name || "Your profile"}</p>
+                  <p className="text-foreground/70">{profile?.email || "—"}{profile?.phone ? ` · ${profile.phone}` : ""}</p>
+                  <p className="mt-2 text-xs text-foreground/55">Details are taken from your account. <Link to="/settings/profile" className="underline">Update profile</Link>.</p>
+                  <div className="mt-4">
+                    <label className="mb-1 block text-sm font-medium text-foreground/80">What do you want AI to help you with? (optional)</label>
+                    <textarea name="main_challenge" rows={3} value={mainChallenge} onChange={(e) => setMainChallenge(e.target.value)} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <Field name="full_name" label="Full name" required />
+                    <Field name="email" type="email" label="Email" required />
+                  </div>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <Field name="phone" label="Phone (WhatsApp)" />
+                    <Field name="business_name" label="Business name" />
+                  </div>
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <Field name="business_sector" label="Business sector" />
+                    <Field name="location" label="Location" />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-foreground/80">What do you want AI to help you with?</label>
+                    <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+                  </div>
+                  <Field name="referral_source" label="How did you hear about us?" />
+                </>
+              )}
 
               <div className="rounded-md border border-dashed border-ochre/40 bg-ochre/5 p-4">
                 <label className="mb-2 flex items-center gap-2 text-sm font-medium text-vetiver">

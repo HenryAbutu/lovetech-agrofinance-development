@@ -26,7 +26,6 @@ function safeRedirectPath(value?: string) {
 }
 
 function LoginPage() {
-  const nav = useNavigate();
   const { redirect } = Route.useSearch();
   const [email, setEmail] = useState(""); const [password, setPassword] = useState("");
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);

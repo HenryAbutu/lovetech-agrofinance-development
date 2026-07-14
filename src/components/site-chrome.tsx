@@ -17,6 +17,7 @@ const navLinks = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [authed, setAuthed] = useState<boolean | null>(null);
   const fetchAdmin = useServerFn(checkIsAdmin);
 
   useEffect(() => {
@@ -24,7 +25,9 @@ export function SiteHeader() {
     async function check() {
       const session = await getActiveSupabaseSession();
       if (!active) return;
-      if (!session?.user) { setIsAdmin(false); return; }
+      const signedIn = !!session?.user;
+      setAuthed(signedIn);
+      if (!signedIn) { setIsAdmin(false); return; }
       try {
         const r = await fetchAdmin();
         if (active) setIsAdmin(!!r.isAdmin);
@@ -61,6 +64,21 @@ export function SiteHeader() {
               <ShieldCheck className="size-4" /> Admin
             </Link>
           )}
+          {authed ? (
+            <Link
+              to="/academy/dashboard"
+              className="hidden rounded-lg border border-vetiver/30 bg-white px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5 lg:inline-flex"
+            >
+              My Academy
+            </Link>
+          ) : authed === false ? (
+            <Link
+              to="/login"
+              className="hidden rounded-lg border border-vetiver/30 bg-white px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5 lg:inline-flex"
+            >
+              Sign in
+            </Link>
+          ) : null}
           <Link
             to="/contact"
             className="hidden rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90 lg:inline-flex"
@@ -99,6 +117,23 @@ export function SiteHeader() {
                 <ShieldCheck className="size-4" /> Admin
               </Link>
             )}
+            {authed ? (
+              <Link
+                to="/academy/dashboard"
+                className="mt-2 rounded-lg border border-vetiver/30 bg-white px-4 py-2.5 text-center text-sm font-semibold text-vetiver"
+                onClick={() => setOpen(false)}
+              >
+                My Academy
+              </Link>
+            ) : authed === false ? (
+              <Link
+                to="/login"
+                className="mt-2 rounded-lg border border-vetiver/30 bg-white px-4 py-2.5 text-center text-sm font-semibold text-vetiver"
+                onClick={() => setOpen(false)}
+              >
+                Sign in
+              </Link>
+            ) : null}
             <Link
               to="/contact"
               className="mt-2 rounded-lg bg-vetiver px-4 py-2.5 text-center text-sm font-semibold text-white"

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { useEffect, useState } from "react";
+import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { lovable } from "@/lib/lovable-auth";
 
 type LoginSearch = { redirect?: string };
@@ -31,16 +31,25 @@ function LoginPage() {
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
   const redirectTo = safeRedirectPath(redirect);
 
+  useEffect(() => {
+    let active = true;
+    getActiveSupabaseSession().then((session) => {
+      if (active && session?.user) window.location.replace(redirectTo);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (session?.user) window.location.replace(redirectTo);
+    });
+    return () => { active = false; sub.subscription.unsubscribe(); };
+  }, [redirectTo]);
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true); setErr("");
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) { setLoading(false); setErr(error.message); return; }
     if (!data.session) { setLoading(false); setErr("Sign-in failed. Please try again."); return; }
-    // Session is set in memory + localStorage synchronously by the client.
-    // Use a hard navigation to guarantee the new session is picked up by
-    // the target route's beforeLoad on the production domain.
-    window.location.assign(redirectTo);
+    window.location.replace(redirectTo);
   }
+
 
   async function googleSignIn() {
     setErr("");

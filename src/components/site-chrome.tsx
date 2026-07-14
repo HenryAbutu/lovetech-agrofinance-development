@@ -116,6 +116,7 @@ export function SiteHeader() {
               >
                 <ShieldCheck className="size-4" /> Admin
               </Link>
+            )}
             {authed ? (
               <Link
                 to="/academy/dashboard"

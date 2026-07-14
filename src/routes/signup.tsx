@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
@@ -9,18 +9,20 @@ export const Route = createFileRoute("/signup")({
 });
 
 function SignupPage() {
-  const nav = useNavigate();
   const [fullName, setFullName] = useState(""); const [email, setEmail] = useState(""); const [password, setPassword] = useState("");
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false); const [done, setDone] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true); setErr("");
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email, password,
       options: { emailRedirectTo: window.location.origin, data: { full_name: fullName } },
     });
     setLoading(false);
-    if (error) setErr(error.message);
+    if (error) { setErr(error.message); return; }
+    // If email confirmation is required, session is null — show "check email".
+    // If auto-confirm is on, session exists — send to dashboard.
+    if (data.session) window.location.assign("/academy/dashboard");
     else setDone(true);
   }
 
@@ -28,7 +30,7 @@ function SignupPage() {
     window.sessionStorage.setItem("lovetech_post_auth_redirect", "/academy/dashboard");
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
     if (result.error) setErr(result.error.message);
-    else if (!result.redirected) nav({ to: "/academy/dashboard" });
+    else if (!result.redirected) window.location.assign("/academy/dashboard");
   }
 
   return (

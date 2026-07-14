@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
@@ -26,7 +26,6 @@ function safeRedirectPath(value?: string) {
 }
 
 function LoginPage() {
-  const nav = useNavigate();
   const { redirect } = Route.useSearch();
   const [email, setEmail] = useState(""); const [password, setPassword] = useState("");
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
@@ -34,10 +33,13 @@ function LoginPage() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true); setErr("");
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (error) setErr(error.message);
-    else nav({ to: redirectTo as never });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) { setLoading(false); setErr(error.message); return; }
+    if (!data.session) { setLoading(false); setErr("Sign-in failed. Please try again."); return; }
+    // Session is set in memory + localStorage synchronously by the client.
+    // Use a hard navigation to guarantee the new session is picked up by
+    // the target route's beforeLoad on the production domain.
+    window.location.assign(redirectTo);
   }
 
   async function googleSignIn() {
@@ -45,7 +47,7 @@ function LoginPage() {
     window.sessionStorage.setItem("lovetech_post_auth_redirect", redirectTo);
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
     if (result.error) setErr(result.error.message);
-    else if (!result.redirected) nav({ to: redirectTo as never });
+    else if (!result.redirected) window.location.assign(redirectTo);
   }
 
   return (

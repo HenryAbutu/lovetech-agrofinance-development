@@ -50,16 +50,6 @@ function LoginPage() {
     window.location.replace(redirectTo);
   }
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault(); setLoading(true); setErr("");
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) { setLoading(false); setErr(error.message); return; }
-    if (!data.session) { setLoading(false); setErr("Sign-in failed. Please try again."); return; }
-    // Session is set in memory + localStorage synchronously by the client.
-    // Use a hard navigation to guarantee the new session is picked up by
-    // the target route's beforeLoad on the production domain.
-    window.location.assign(redirectTo);
-  }
 
   async function googleSignIn() {
     setErr("");

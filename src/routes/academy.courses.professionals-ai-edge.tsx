@@ -52,14 +52,33 @@ function Page() {
   const nav = useNavigate();
   const { ref: refFromUrl } = useSearch({ from: "/academy/courses/professionals-ai-edge" });
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const [profile, setProfile] = useState<{ full_name: string; email: string; phone: string; business_name: string; location: string } | null>(null);
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [msg, setMsg] = useState(""); const [err, setErr] = useState("");
   const [coupon, setCoupon] = useState("");
   const [couponInfo, setCouponInfo] = useState<{ ok: boolean; message: string; final?: number } | null>(null);
+  const [mainChallenge, setMainChallenge] = useState("");
 
   useEffect(() => {
-    getActiveSupabaseSession().then((session) => setAuthed(!!session?.user));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => setAuthed(!!session?.user));
+    async function loadProfile(userId: string, email: string) {
+      const { data } = await supabase.from("profiles").select("full_name, email, phone, business_name, location").eq("id", userId).maybeSingle();
+      setProfile({
+        full_name: data?.full_name ?? "",
+        email: data?.email ?? email,
+        phone: data?.phone ?? "",
+        business_name: data?.business_name ?? "",
+        location: data?.location ?? "",
+      });
+    }
+    getActiveSupabaseSession().then((session) => {
+      setAuthed(!!session?.user);
+      if (session?.user) loadProfile(session.user.id, session.user.email ?? "");
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setAuthed(!!session?.user);
+      if (session?.user) loadProfile(session.user.id, session.user.email ?? "");
+      else setProfile(null);
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
@@ -89,11 +108,26 @@ function Page() {
     if (!authed) return;
     setState("loading"); setErr("");
     const fd = new FormData(e.currentTarget);
-    const data = {
+    const formEntries = Object.fromEntries(fd.entries()) as Record<string, string>;
+    const data: Record<string, string | null> = {
       course_slug: "professionals-ai-edge",
-      ...Object.fromEntries(fd.entries()),
+      ...formEntries,
       referral_code: refFromUrl ?? null,
-    } as Record<string, string | null>;
+    };
+    if (profile) {
+      data.full_name = (data.full_name as string) || profile.full_name;
+      data.email = (data.email as string) || profile.email;
+      data.phone = (data.phone as string) || profile.phone;
+      data.business_name = (data.business_name as string) || profile.business_name;
+      data.location = (data.location as string) || profile.location;
+      if (!data.main_challenge) data.main_challenge = mainChallenge;
+    }
+    if (!data.full_name || !data.email) {
+      setState("error");
+      setErr("Your profile is missing a name or email. Please update your profile before enrolling.");
+      toast.error("Please complete your profile first.");
+      return;
+    }
     try {
       const r = await enrol({ data: data as never });
       if ("redirect_to" in r && r.redirect_to) { toast.success("Enrolment confirmed"); window.location.href = r.redirect_to; return; }
@@ -106,9 +140,9 @@ function Page() {
     }
   }
 
-  const priceLabel = couponInfo?.ok && typeof couponInfo.final === "number"
-    ? `Enroll & Pay ₦${couponInfo.final.toLocaleString()}`
-    : "Enroll & Pay ₦5,000";
+  const finalAmount = couponInfo?.ok && typeof couponInfo.final === "number" ? couponInfo.final : 5000;
+  const isFree = finalAmount <= 0;
+  const priceLabel = isFree ? "Enroll Now (Free)" : `Enroll & Pay ₦${finalAmount.toLocaleString()}`;
 
   return (
     <main>

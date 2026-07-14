@@ -17,6 +17,7 @@ const navLinks = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [authed, setAuthed] = useState<boolean | null>(null);
   const fetchAdmin = useServerFn(checkIsAdmin);
 
   useEffect(() => {
@@ -24,7 +25,9 @@ export function SiteHeader() {
     async function check() {
       const session = await getActiveSupabaseSession();
       if (!active) return;
-      if (!session?.user) { setIsAdmin(false); return; }
+      const signedIn = !!session?.user;
+      setAuthed(signedIn);
+      if (!signedIn) { setIsAdmin(false); return; }
       try {
         const r = await fetchAdmin();
         if (active) setIsAdmin(!!r.isAdmin);

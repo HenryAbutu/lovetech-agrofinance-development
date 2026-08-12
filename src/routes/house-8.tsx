@@ -226,7 +226,7 @@ function BookingForm() {
           full_name: raw.full_name,
           email: raw.email,
           phone: raw.phone,
-          apartment_type: raw.apartment_type || null,
+          room: raw.room || null,
           check_in: raw.check_in || null,
           check_out: raw.check_out || null,
           guests: raw.guests ? Number(raw.guests) : null,
@@ -257,17 +257,18 @@ function BookingForm() {
           <input id="h8-out" name="check_out" type="date" className={field} />
         </div>
         <div>
-          <label className={label} htmlFor="h8-apt">Apartment type</label>
-          <select id="h8-apt" name="apartment_type" className={field} defaultValue="1-bedroom apartment">
-            <option>Studio apartment</option>
-            <option>1-bedroom apartment</option>
-            <option>2-bedroom apartment</option>
-            <option>Not sure yet</option>
+          <label className={label} htmlFor="h8-room">Preferred room</label>
+          <select id="h8-room" name="room" className={field} defaultValue="Any room">
+            <option>Any room</option>
+            {rooms.map((r) => (
+              <option key={r.name}>{r.name} Room</option>
+            ))}
+            <option>Full house (5 rooms)</option>
           </select>
         </div>
         <div>
           <label className={label} htmlFor="h8-guests">Guests</label>
-          <input id="h8-guests" name="guests" type="number" min={1} max={20} defaultValue={2} className={field} />
+          <input id="h8-guests" name="guests" type="number" min={1} max={30} defaultValue={2} className={field} />
         </div>
         <div className="sm:col-span-2">
           <label className={label} htmlFor="h8-purpose">Purpose of stay</label>
@@ -275,6 +276,7 @@ function BookingForm() {
             <option>Business trip</option>
             <option>Family visit</option>
             <option>Staycation</option>
+            <option>Small event / get-together</option>
             <option>Relocation / long stay</option>
             <option>Other</option>
           </select>

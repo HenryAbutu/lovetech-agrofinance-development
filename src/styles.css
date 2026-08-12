@@ -64,22 +64,31 @@
 :root {
   --radius: 0.75rem;
 
-  /* LoveTech brighter palette
-     Primary Green   #0F8A5F  -> vetiver
-     Deep Green      #064E3B  -> deep-green
-     Digital Teal    #14B8A6  -> teal / academy
-     Opportunity Gold#F2B705  -> ochre
-     White BG        #FFFFFF
-     Soft Ivory      #FFF8E7  -> bone
-     Charcoal Text   #1F2933  -> ink
+  /* LoveTech Group palette
+     Executive Navy    #102A43 -> navy (legacy alias: vetiver)
+     Deep Navy         #0A1B2D -> navy-deep (legacy alias: deep-green)
+     Innovation Teal   #00A6A6 -> teal / academy
+     Prosperity Gold   #F2B134 -> gold (legacy alias: ochre)
+     Soft Cloud Grey   #F5F7FA -> cloud
+     Soft Ivory        #FFF8E7 -> bone
+     Charcoal Text     #1F2933 -> ink
+     House 8 Burgundy  #7B2233 | Ruby Chai Rose #C2506A
   */
-  --vetiver: #0F8A5F;
-  --deep-green: #064E3B;
-  --teal: #14B8A6;
-  --ochre: #F2B705;
+  --navy: #102A43;
+  --navy-deep: #0A1B2D;
+  --gold: #F2B134;
+  --cloud: #F5F7FA;
+  --burgundy: #7B2233;
+  --rose: #C2506A;
+
+  --vetiver: var(--navy);
+  --deep-green: var(--navy-deep);
+  --teal: #00A6A6;
+  --ochre: var(--gold);
   --bone: #FFF8E7;
   --ink: #1F2933;
-  --academy: #14B8A6;
+  --academy: #00A6A6;
+
 
   /* Map semantic → brand */
   --background: #FFFFFF;

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Building2, GraduationCap, Leaf, Target, Eye, ShieldCheck, Users, Sparkles } from "lucide-react";
-import ceoImg from "@/assets/avess-abutu.png";
+import ceoAsset from "@/assets/avess-abutu.png.asset.json";
+const ceoImg = ceoAsset.url;
 import advisoryImg from "@/assets/group/hero-advisory-session.jpg";
 
 const URL = "https://lovetechgroup.lovable.app/about";

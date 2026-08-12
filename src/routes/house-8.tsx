@@ -75,9 +75,19 @@ function House8Page() {
         </div>
       </section>
 
+      <section className="px-6 pb-20 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-6 md:grid-cols-2">
+            <img src={poolImg} alt="House 8 swimming pool and thatched lounge area" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
+            <img src={exteriorImg} alt="House 8 landscaped courtyard entrance" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
+          </div>
+          <p className="mt-4 text-sm text-foreground/60">On-site pool, outdoor lounge and landscaped grounds for guests.</p>
+        </div>
+      </section>
+
       <section className="bg-cloud px-6 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-          <img src={bedroomImg} alt="House 8 apartment bedroom with premium bedding" loading="lazy" width={1600} height={1200} className="rounded-2xl object-cover shadow-lg" />
+          <img src={bedroomImg} alt="House 8 apartment bedroom with premium bedding" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-burgundy">Stay options</p>
             <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Nightly, weekly and monthly stays</h2>

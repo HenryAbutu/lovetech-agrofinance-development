@@ -27,10 +27,13 @@ export const Route = createFileRoute("/ruby-chai")({
 });
 
 const blends = [
-  { icon: Leaf, t: "Hibiscus Bloom", b: "Zobo-inspired hibiscus and rose — antioxidant-rich and caffeine free.", note: "Everyday" },
-  { icon: HeartPulse, t: "Ginger Reset", b: "Warming ginger, lemongrass and turmeric for digestion and immunity.", note: "Morning" },
-  { icon: Moon, t: "Calm Nights", b: "Chamomile, mint and lavender to wind the day down gently.", note: "Evening" },
+  { sku: "hibiscus-bloom", icon: Leaf, t: "Hibiscus Bloom", b: "Zobo-inspired hibiscus and rose — antioxidant-rich and caffeine free.", note: "Everyday", size: "20 tea bags", price: 6500 },
+  { sku: "ginger-reset", icon: HeartPulse, t: "Ginger Reset", b: "Warming ginger, lemongrass and turmeric for digestion and immunity.", note: "Morning", size: "20 tea bags", price: 7000 },
+  { sku: "calm-nights", icon: Moon, t: "Calm Nights", b: "Chamomile, mint and lavender to wind the day down gently.", note: "Evening", size: "20 tea bags", price: 7500 },
+  { sku: "ritual-trio", icon: Sparkles, t: "Ritual Trio Gift Box", b: "All three blends in a gift-ready box — perfect for gifting or trying everything.", note: "Bestseller", size: "3 × 20 bags", price: 19500 },
 ];
+
+const ngn = (n: number) => `₦${n.toLocaleString()}`;
 
 function RubyChaiPage() {
   return (

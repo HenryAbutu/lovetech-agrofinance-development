@@ -38,6 +38,7 @@ import { Route as AuthenticatedSettingsProfileRouteImport } from './routes/_auth
 import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
+import { Route as AuthenticatedAdminHouse8RouteImport } from './routes/_authenticated.admin.house-8'
 import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_authenticated.admin.enrolments'
 import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated.admin.courses'
 import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated.admin.coupons'
@@ -208,6 +209,12 @@ const AuthenticatedAdminPaymentsRoute =
     path: '/payments',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminHouse8Route =
+  AuthenticatedAdminHouse8RouteImport.update({
+    id: '/house-8',
+    path: '/house-8',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminEnrolmentsRoute =
   AuthenticatedAdminEnrolmentsRouteImport.update({
     id: '/enrolments',
@@ -342,6 +349,7 @@ export interface FileRoutesByFullPath {
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
@@ -388,6 +396,7 @@ export interface FileRoutesByTo {
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
@@ -437,6 +446,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/_authenticated/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/_authenticated/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/_authenticated/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
@@ -486,6 +496,7 @@ export interface FileRouteTypes {
     | '/admin/coupons'
     | '/admin/courses'
     | '/admin/enrolments'
+    | '/admin/house-8'
     | '/admin/payments'
     | '/admin/video-studio'
     | '/admin/waitlist'
@@ -532,6 +543,7 @@ export interface FileRouteTypes {
     | '/admin/coupons'
     | '/admin/courses'
     | '/admin/enrolments'
+    | '/admin/house-8'
     | '/admin/payments'
     | '/admin/video-studio'
     | '/admin/waitlist'
@@ -580,6 +592,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/coupons'
     | '/_authenticated/admin/courses'
     | '/_authenticated/admin/enrolments'
+    | '/_authenticated/admin/house-8'
     | '/_authenticated/admin/payments'
     | '/_authenticated/admin/video-studio'
     | '/_authenticated/admin/waitlist'
@@ -830,6 +843,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/house-8': {
+      id: '/_authenticated/admin/house-8'
+      path: '/house-8'
+      fullPath: '/admin/house-8'
+      preLoaderRoute: typeof AuthenticatedAdminHouse8RouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/enrolments': {
       id: '/_authenticated/admin/enrolments'
       path: '/enrolments'
@@ -959,6 +979,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminCouponsRoute: typeof AuthenticatedAdminCouponsRoute
   AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
   AuthenticatedAdminEnrolmentsRoute: typeof AuthenticatedAdminEnrolmentsRoute
+  AuthenticatedAdminHouse8Route: typeof AuthenticatedAdminHouse8Route
   AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
   AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
   AuthenticatedAdminWaitlistRoute: typeof AuthenticatedAdminWaitlistRoute
@@ -972,6 +993,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminCouponsRoute: AuthenticatedAdminCouponsRoute,
   AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
   AuthenticatedAdminEnrolmentsRoute: AuthenticatedAdminEnrolmentsRoute,
+  AuthenticatedAdminHouse8Route: AuthenticatedAdminHouse8Route,
   AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
   AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
   AuthenticatedAdminWaitlistRoute: AuthenticatedAdminWaitlistRoute,

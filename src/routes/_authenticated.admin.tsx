@@ -19,6 +19,7 @@ const tabs = [
   { to: "/admin/certificates", label: "Certificates" },
   { to: "/admin/announcements", label: "Announcements" },
   { to: "/admin/video-studio", label: "Video Studio" },
+  { to: "/admin/house-8", label: "House 8 Bookings" },
 ];
 
 function AdminLayout() {

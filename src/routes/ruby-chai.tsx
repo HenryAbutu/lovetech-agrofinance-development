@@ -47,7 +47,8 @@ function RubyChaiPage() {
               Ruby Chai blends herbal teas that fit into real Nigerian days — a calm morning, a busy workday, a slow evening. Clean ingredients, honest flavour, no complicated routines.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="https://wa.me/2348026065189" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-rose px-6 py-3 text-sm font-semibold text-white hover:opacity-95">Order on WhatsApp <ArrowRight className="size-4" /></a>
+              <a href="#shop" className="inline-flex items-center gap-2 rounded-lg bg-rose px-6 py-3 text-sm font-semibold text-white hover:opacity-95">Shop the blends <ShoppingBag className="size-4" /></a>
+              <a href="https://wa.me/2348026065189" target="_blank" rel="noreferrer" className="rounded-lg border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy hover:bg-cloud">Order on WhatsApp</a>
               <Link to="/contact" className="rounded-lg border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy hover:bg-cloud">Wholesale enquiry</Link>
             </div>
           </div>

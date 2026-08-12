@@ -1389,6 +1389,51 @@ export type Database = {
         }
         Relationships: []
       }
+      rubychai_orders: {
+        Row: {
+          city: string | null
+          created_at: string
+          delivery_address: string | null
+          email: string
+          estimated_total: number
+          full_name: string
+          id: string
+          items: Json
+          notes: string | null
+          phone: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          delivery_address?: string | null
+          email: string
+          estimated_total?: number
+          full_name: string
+          id?: string
+          items?: Json
+          notes?: string | null
+          phone: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          delivery_address?: string | null
+          email?: string
+          estimated_total?: number
+          full_name?: string
+          id?: string
+          items?: Json
+          notes?: string | null
+          phone?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

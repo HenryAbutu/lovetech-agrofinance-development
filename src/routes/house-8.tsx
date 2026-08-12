@@ -147,7 +147,7 @@ function House8Page() {
         </div>
       </section>
 
-      <section id="book" className="scroll-mt-24 px-6 py-20 lg:px-8">
+      <section id="book" className="scroll-mt-24 bg-cloud px-6 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1.1fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-burgundy">Booking enquiry</p>
@@ -157,9 +157,9 @@ function House8Page() {
             </p>
             <div className="mt-8 space-y-4">
               {[
-                { icon: BedDouble, t: "Studio & 1-bedroom", b: "Ideal for solo travellers and couples" },
-                { icon: Users, t: "2-bedroom apartment", b: "Families, small teams and longer stays" },
-                { icon: ShieldCheck, t: "Verified & secure", b: "Gated estate, 24/7 security, direct host support" },
+                { icon: BedDouble, t: "5 named rooms", b: "Diamond, Ruby, Jasmine, Emerald, Pearl — book individually or as a group" },
+                { icon: Users, t: "2 lounges + dining", b: "Upstairs and downstairs lounges, dining area and fully equipped kitchen" },
+                { icon: Flame, t: "Bush bar, grills & games", b: "Perfect for small gatherings, celebrations and relaxed evenings" },
               ].map((x) => (
                 <div key={x.t} className="flex gap-4 rounded-xl border border-border bg-white p-4">
                   <x.icon className="mt-0.5 size-5 shrink-0 text-burgundy" />

@@ -56,9 +56,9 @@ function RubyChaiPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div>
             <p className="mb-4 inline-flex rounded-full bg-rose/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-rose">Ruby Chai Wellness</p>
-            <h1 className="font-serif text-4xl font-bold leading-tight text-navy md:text-5xl">Small rituals. Real wellness.</h1>
+            <h1 className="font-serif text-4xl font-bold leading-tight text-navy md:text-5xl">Bold spice. Bright hibiscus. Made in Nigeria.</h1>
             <p className="mt-5 max-w-xl text-foreground/70">
-              Ruby Chai blends herbal teas that fit into real Nigerian days — a calm morning, a busy workday, a slow evening. Clean ingredients, honest flavour, no complicated routines.
+              Sourced from the savannahs of Northern Nigeria, our deep-red hibiscus is blended with fiery local ginger and a chorus of global spices for a bold, aromatic infusion with Arabian-inspired warmth. Now in 150g tea powder — Original and Date.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#shop" className="inline-flex items-center gap-2 rounded-lg bg-rose px-6 py-3 text-sm font-semibold text-white hover:opacity-95">Shop the blends <ShoppingBag className="size-4" /></a>
@@ -66,7 +66,7 @@ function RubyChaiPage() {
               <Link to="/contact" className="rounded-lg border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy hover:bg-cloud">Wholesale enquiry</Link>
             </div>
           </div>
-          <img src={teaImg} alt="Ruby Chai herbal tea blend with hibiscus and botanicals" width={1600} height={1200} className="rounded-2xl object-cover shadow-xl" />
+          <img src={heroAsset.url} alt="Ruby Chai Original and Date 120g sachets with hibiscus, ginger, cinnamon and dates" width={1256} height={1256} className="rounded-2xl object-cover shadow-xl" />
         </div>
       </section>
 

@@ -41,8 +41,8 @@ const gateways = [
     img: house8Img,
     icon: Building2,
     name: "House 8 Shortlet Apartments",
-    body: "Premium, secure and fully serviced short-stay apartments in Abuja for business travel, family visits and staycations.",
-    cta: "View apartments",
+    body: "A 5-bedroom luxury apartment in Dawaki, Abuja with five named rooms, two lounges, bush bar, grills and games.",
+    cta: "View House 8",
     tint: "text-burgundy",
   },
   {

@@ -5,8 +5,13 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowRight, BedDouble, Wifi, ShieldCheck, Sparkles, MapPin, Car, Users } from "lucide-react";
 import { submitHouse8Booking } from "@/lib/house8.functions";
-import livingImg from "@/assets/group/house8-living.jpg";
-import bedroomImg from "@/assets/group/house8-bedroom.jpg";
+import exteriorAsset from "@/assets/group/house8-exterior.png.asset.json";
+import poolAsset from "@/assets/group/house8-pool.png.asset.json";
+import roomAsset from "@/assets/group/house8-room.png.asset.json";
+
+const exteriorImg = exteriorAsset.url;
+const poolImg = poolAsset.url;
+const bedroomImg = roomAsset.url;
 
 const URL = "https://lovetechgroup.lovable.app/house-8";
 

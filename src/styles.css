@@ -46,9 +46,19 @@
   --color-deep-green: var(--deep-green);
   --color-ivory: var(--bone);
 
-  /* Typography — Poppins (headings), Inter (body) */
-  --font-serif: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  /* LoveTech Group brand */
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-gold: var(--gold);
+  --color-cloud: var(--cloud);
+  --color-burgundy: var(--burgundy);
+  --color-rose: var(--rose);
+
+  /* Typography — Manrope (headings), Inter (body) */
+  --font-serif: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
 }
 
 :root {

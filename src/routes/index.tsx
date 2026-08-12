@@ -142,7 +142,7 @@ function Home() {
             {[
               { t: "Free Finance Readiness Diagnostic", b: "Find out in minutes how fundable your business looks to lenders and grant providers.", to: "/finance-readiness" as const, cta: "Start diagnostic" },
               { t: "AI for Work & Business", b: "A focused, practical course on using AI and digital tools to sell more and work faster.", to: "/academy" as const, cta: "View course" },
-              { t: "Book a stay at House 8", b: "Check availability for nightly, weekly or monthly stays in Abuja.", to: "/house-8" as const, cta: "Check availability" },
+              { t: "Book a stay at House 8", b: "Check availability for a 5-bedroom luxury stay in Dawaki, Abuja.", to: "/house-8" as const, cta: "Check availability" },
             ].map((c) => (
               <div key={c.t} className="flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm">
                 <h3 className="font-serif text-lg font-semibold text-navy">{c.t}</h3>

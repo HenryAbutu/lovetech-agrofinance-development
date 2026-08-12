@@ -27,10 +27,24 @@ export const Route = createFileRoute("/ruby-chai")({
 });
 
 const blends = [
-  { sku: "hibiscus-bloom", icon: Leaf, t: "Hibiscus Bloom", b: "Zobo-inspired hibiscus and rose — antioxidant-rich and caffeine free.", note: "Everyday", size: "20 tea bags", price: 6500 },
-  { sku: "ginger-reset", icon: HeartPulse, t: "Ginger Reset", b: "Warming ginger, lemongrass and turmeric for digestion and immunity.", note: "Morning", size: "20 tea bags", price: 7000 },
-  { sku: "calm-nights", icon: Moon, t: "Calm Nights", b: "Chamomile, mint and lavender to wind the day down gently.", note: "Evening", size: "20 tea bags", price: 7500 },
-  { sku: "ritual-trio", icon: Sparkles, t: "Ritual Trio Gift Box", b: "All three blends in a gift-ready box — perfect for gifting or trying everything.", note: "Bestseller", size: "3 × 20 bags", price: 19500 },
+  {
+    sku: "ruby-chai-original-150g",
+    icon: Leaf,
+    t: "Ruby Chai Original",
+    b: "Hibiscus & Arabian spice infusion — deep-red hibiscus from Northern Nigeria with ginger, cinnamon, cardamom, clove and star anise.",
+    note: "Original",
+    size: "150g tea powder",
+    price: 10000,
+  },
+  {
+    sku: "ruby-chai-date-150g",
+    icon: Sparkles,
+    t: "Ruby Chai Date",
+    b: "Hibiscus, date & Arabian spice infusion — naturally sweetened with dates for a rounder, warmer cup.",
+    note: "Date",
+    size: "150g tea powder",
+    price: 10000,
+  },
 ];
 
 const ngn = (n: number) => `₦${n.toLocaleString()}`;

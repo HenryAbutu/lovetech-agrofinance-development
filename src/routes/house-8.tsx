@@ -47,7 +47,7 @@ function House8Page() {
               Fully serviced, secure and beautifully finished apartments for business travellers, families and weekend staycations — booked directly, priced fairly.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/contact" className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-navy hover:opacity-95">Enquire & book <ArrowRight className="size-4" /></Link>
+              <a href="#book" className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-navy hover:opacity-95">Enquire &amp; book <ArrowRight className="size-4" /></a>
               <a href="https://wa.me/2348026065189" target="_blank" rel="noreferrer" className="rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">Chat on WhatsApp</a>
             </div>
           </div>

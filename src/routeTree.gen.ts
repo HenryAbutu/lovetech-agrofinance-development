@@ -18,7 +18,6 @@ import { Route as ProgrammesRouteImport } from './routes/programmes'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LearnersRouteImport } from './routes/learners'
-import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as House8RouteImport } from './routes/house-8'
 import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -26,8 +25,10 @@ import { Route as AdvisoryRouteImport } from './routes/advisory'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
 import { Route as LearnersSlugRouteImport } from './routes/learners.$slug'
+import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
@@ -39,6 +40,7 @@ import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAdminRubyChaiRouteImport } from './routes/_authenticated.admin.ruby-chai'
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
+import { Route as AuthenticatedAdminInsightsRouteImport } from './routes/_authenticated.admin.insights'
 import { Route as AuthenticatedAdminHouse8RouteImport } from './routes/_authenticated.admin.house-8'
 import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_authenticated.admin.enrolments'
 import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated.admin.courses'
@@ -103,11 +105,6 @@ const LearnersRoute = LearnersRouteImport.update({
   path: '/learners',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InsightsRoute = InsightsRouteImport.update({
-  id: '/insights',
-  path: '/insights',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const House8Route = House8RouteImport.update({
   id: '/house-8',
   path: '/house-8',
@@ -142,6 +139,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/insights/',
+  path: '/insights/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcademyIndexRoute = AcademyIndexRouteImport.update({
   id: '/academy/',
   path: '/academy/',
@@ -151,6 +153,11 @@ const LearnersSlugRoute = LearnersSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => LearnersRoute,
+} as any)
+const InsightsSlugRoute = InsightsSlugRouteImport.update({
+  id: '/insights/$slug',
+  path: '/insights/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
@@ -214,6 +221,12 @@ const AuthenticatedAdminPaymentsRoute =
   AuthenticatedAdminPaymentsRouteImport.update({
     id: '/payments',
     path: '/payments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInsightsRoute =
+  AuthenticatedAdminInsightsRouteImport.update({
+    id: '/insights',
+    path: '/insights',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminHouse8Route =
@@ -333,7 +346,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/house-8': typeof House8Route
-  '/insights': typeof InsightsRoute
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
@@ -344,8 +356,10 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/insights/$slug': typeof InsightsSlugRoute
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
+  '/insights/': typeof InsightsIndexRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -357,6 +371,7 @@ export interface FileRoutesByFullPath {
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
   '/admin/house-8': typeof AuthenticatedAdminHouse8Route
+  '/admin/insights': typeof AuthenticatedAdminInsightsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
@@ -382,7 +397,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/house-8': typeof House8Route
-  '/insights': typeof InsightsRoute
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
@@ -392,8 +406,10 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/insights/$slug': typeof InsightsSlugRoute
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy': typeof AcademyIndexRoute
+  '/insights': typeof InsightsIndexRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -405,6 +421,7 @@ export interface FileRoutesByTo {
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
   '/admin/house-8': typeof AuthenticatedAdminHouse8Route
+  '/admin/insights': typeof AuthenticatedAdminInsightsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
@@ -432,7 +449,6 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/house-8': typeof House8Route
-  '/insights': typeof InsightsRoute
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
@@ -443,8 +459,10 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/insights/$slug': typeof InsightsSlugRoute
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
+  '/insights/': typeof InsightsIndexRoute
   '/_authenticated/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -456,6 +474,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/_authenticated/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
   '/_authenticated/admin/house-8': typeof AuthenticatedAdminHouse8Route
+  '/_authenticated/admin/insights': typeof AuthenticatedAdminInsightsRoute
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
@@ -483,7 +502,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/finance-readiness'
     | '/house-8'
-    | '/insights'
     | '/learners'
     | '/login'
     | '/privacy'
@@ -494,8 +512,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/admin'
+    | '/insights/$slug'
     | '/learners/$slug'
     | '/academy/'
+    | '/insights/'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
@@ -507,6 +527,7 @@ export interface FileRouteTypes {
     | '/admin/courses'
     | '/admin/enrolments'
     | '/admin/house-8'
+    | '/admin/insights'
     | '/admin/payments'
     | '/admin/ruby-chai'
     | '/admin/video-studio'
@@ -532,7 +553,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/finance-readiness'
     | '/house-8'
-    | '/insights'
     | '/learners'
     | '/login'
     | '/privacy'
@@ -542,8 +562,10 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/insights/$slug'
     | '/learners/$slug'
     | '/academy'
+    | '/insights'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
@@ -555,6 +577,7 @@ export interface FileRouteTypes {
     | '/admin/courses'
     | '/admin/enrolments'
     | '/admin/house-8'
+    | '/admin/insights'
     | '/admin/payments'
     | '/admin/ruby-chai'
     | '/admin/video-studio'
@@ -581,7 +604,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/finance-readiness'
     | '/house-8'
-    | '/insights'
     | '/learners'
     | '/login'
     | '/privacy'
@@ -592,8 +614,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/admin'
+    | '/insights/$slug'
     | '/learners/$slug'
     | '/academy/'
+    | '/insights/'
     | '/_authenticated/academy/badges'
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
@@ -605,6 +629,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/courses'
     | '/_authenticated/admin/enrolments'
     | '/_authenticated/admin/house-8'
+    | '/_authenticated/admin/insights'
     | '/_authenticated/admin/payments'
     | '/_authenticated/admin/ruby-chai'
     | '/_authenticated/admin/video-studio'
@@ -632,7 +657,6 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FinanceReadinessRoute: typeof FinanceReadinessRoute
   House8Route: typeof House8Route
-  InsightsRoute: typeof InsightsRoute
   LearnersRoute: typeof LearnersRouteWithChildren
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -642,7 +666,9 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
+  InsightsSlugRoute: typeof InsightsSlugRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
   AcademyCoursesAiToolsSmallBusinessesRoute: typeof AcademyCoursesAiToolsSmallBusinessesRoute
   AcademyCoursesFinanceReadinessMsmesRoute: typeof AcademyCoursesFinanceReadinessMsmesRoute
   AcademyCoursesIcss20EntrepreneurshipRoute: typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -716,13 +742,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/insights': {
-      id: '/insights'
-      path: '/insights'
-      fullPath: '/insights'
-      preLoaderRoute: typeof InsightsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/house-8': {
       id: '/house-8'
       path: '/house-8'
@@ -772,6 +791,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/insights/': {
+      id: '/insights/'
+      path: '/insights'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/academy/': {
       id: '/academy/'
       path: '/academy'
@@ -785,6 +811,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/learners/$slug'
       preLoaderRoute: typeof LearnersSlugRouteImport
       parentRoute: typeof LearnersRoute
+    }
+    '/insights/$slug': {
+      id: '/insights/$slug'
+      path: '/insights/$slug'
+      fullPath: '/insights/$slug'
+      preLoaderRoute: typeof InsightsSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
@@ -861,6 +894,13 @@ declare module '@tanstack/react-router' {
       path: '/payments'
       fullPath: '/admin/payments'
       preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/insights': {
+      id: '/_authenticated/admin/insights'
+      path: '/insights'
+      fullPath: '/admin/insights'
+      preLoaderRoute: typeof AuthenticatedAdminInsightsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/house-8': {
@@ -1000,6 +1040,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
   AuthenticatedAdminEnrolmentsRoute: typeof AuthenticatedAdminEnrolmentsRoute
   AuthenticatedAdminHouse8Route: typeof AuthenticatedAdminHouse8Route
+  AuthenticatedAdminInsightsRoute: typeof AuthenticatedAdminInsightsRoute
   AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
   AuthenticatedAdminRubyChaiRoute: typeof AuthenticatedAdminRubyChaiRoute
   AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
@@ -1015,6 +1056,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
   AuthenticatedAdminEnrolmentsRoute: AuthenticatedAdminEnrolmentsRoute,
   AuthenticatedAdminHouse8Route: AuthenticatedAdminHouse8Route,
+  AuthenticatedAdminInsightsRoute: AuthenticatedAdminInsightsRoute,
   AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
   AuthenticatedAdminRubyChaiRoute: AuthenticatedAdminRubyChaiRoute,
   AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
@@ -1107,7 +1149,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   FinanceReadinessRoute: FinanceReadinessRoute,
   House8Route: House8Route,
-  InsightsRoute: InsightsRoute,
   LearnersRoute: LearnersRouteWithChildren,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
@@ -1117,7 +1158,9 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
+  InsightsSlugRoute: InsightsSlugRoute,
   AcademyIndexRoute: AcademyIndexRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
   AcademyCoursesAiToolsSmallBusinessesRoute:
     AcademyCoursesAiToolsSmallBusinessesRoute,
   AcademyCoursesFinanceReadinessMsmesRoute:

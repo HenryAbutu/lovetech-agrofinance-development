@@ -21,6 +21,7 @@ const tabs = [
   { to: "/admin/video-studio", label: "Video Studio" },
   { to: "/admin/house-8", label: "House 8 Bookings" },
   { to: "/admin/ruby-chai", label: "Ruby Chai Orders" },
+  { to: "/admin/insights", label: "Insights" },
 ];
 
 function AdminLayout() {

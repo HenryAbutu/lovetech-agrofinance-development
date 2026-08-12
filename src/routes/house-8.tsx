@@ -56,7 +56,7 @@ function House8Page() {
               <a href="https://wa.me/2348026065189" target="_blank" rel="noreferrer" className="rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">Chat on WhatsApp</a>
             </div>
           </div>
-          <img src={livingImg} alt="House 8 shortlet apartment living room in Abuja" width={1600} height={1200} className="rounded-2xl object-cover shadow-2xl" />
+          <img src={exteriorImg} alt="House 8 shortlet apartments exterior in Abuja" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-2xl" />
         </div>
       </section>
 

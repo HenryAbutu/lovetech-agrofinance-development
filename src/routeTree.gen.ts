@@ -12,14 +12,17 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as RubyChaiRouteImport } from './routes/ruby-chai'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ProgrammesRouteImport } from './routes/programmes'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LearnersRouteImport } from './routes/learners'
 import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as House8RouteImport } from './routes/house-8'
 import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdvisoryRouteImport } from './routes/advisory'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
@@ -68,6 +71,11 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RubyChaiRoute = RubyChaiRouteImport.update({
+  id: '/ruby-chai',
+  path: '/ruby-chai',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -98,6 +106,11 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
+const House8Route = House8RouteImport.update({
+  id: '/house-8',
+  path: '/house-8',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FinanceReadinessRoute = FinanceReadinessRouteImport.update({
   id: '/finance-readiness',
   path: '/finance-readiness',
@@ -106,6 +119,11 @@ const FinanceReadinessRoute = FinanceReadinessRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdvisoryRoute = AdvisoryRouteImport.update({
+  id: '/advisory',
+  path: '/advisory',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -297,14 +315,17 @@ const AuthenticatedAcademyDashboardCoursesSlugAssignmentAssignmentIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/advisory': typeof AdvisoryRoute
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
+  '/house-8': typeof House8Route
   '/insights': typeof InsightsRoute
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/ruby-chai': typeof RubyChaiRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
@@ -341,14 +362,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/advisory': typeof AdvisoryRoute
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
+  '/house-8': typeof House8Route
   '/insights': typeof InsightsRoute
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/ruby-chai': typeof RubyChaiRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
@@ -386,14 +410,17 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
+  '/advisory': typeof AdvisoryRoute
   '/contact': typeof ContactRoute
   '/finance-readiness': typeof FinanceReadinessRoute
+  '/house-8': typeof House8Route
   '/insights': typeof InsightsRoute
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/ruby-chai': typeof RubyChaiRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
@@ -432,14 +459,17 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/advisory'
     | '/contact'
     | '/finance-readiness'
+    | '/house-8'
     | '/insights'
     | '/learners'
     | '/login'
     | '/privacy'
     | '/programmes'
     | '/reset-password'
+    | '/ruby-chai'
     | '/services'
     | '/signup'
     | '/terms'
@@ -476,14 +506,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/advisory'
     | '/contact'
     | '/finance-readiness'
+    | '/house-8'
     | '/insights'
     | '/learners'
     | '/login'
     | '/privacy'
     | '/programmes'
     | '/reset-password'
+    | '/ruby-chai'
     | '/services'
     | '/signup'
     | '/terms'
@@ -520,14 +553,17 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/advisory'
     | '/contact'
     | '/finance-readiness'
+    | '/house-8'
     | '/insights'
     | '/learners'
     | '/login'
     | '/privacy'
     | '/programmes'
     | '/reset-password'
+    | '/ruby-chai'
     | '/services'
     | '/signup'
     | '/terms'
@@ -566,14 +602,17 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AdvisoryRoute: typeof AdvisoryRoute
   ContactRoute: typeof ContactRoute
   FinanceReadinessRoute: typeof FinanceReadinessRoute
+  House8Route: typeof House8Route
   InsightsRoute: typeof InsightsRoute
   LearnersRoute: typeof LearnersRouteWithChildren
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   ProgrammesRoute: typeof ProgrammesRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  RubyChaiRoute: typeof RubyChaiRoute
   ServicesRoute: typeof ServicesRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
@@ -607,6 +646,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ruby-chai': {
+      id: '/ruby-chai'
+      path: '/ruby-chai'
+      fullPath: '/ruby-chai'
+      preLoaderRoute: typeof RubyChaiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -651,6 +697,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/house-8': {
+      id: '/house-8'
+      path: '/house-8'
+      fullPath: '/house-8'
+      preLoaderRoute: typeof House8RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/finance-readiness': {
       id: '/finance-readiness'
       path: '/finance-readiness'
@@ -663,6 +716,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/advisory': {
+      id: '/advisory'
+      path: '/advisory'
+      fullPath: '/advisory'
+      preLoaderRoute: typeof AdvisoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -999,14 +1059,17 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
+  AdvisoryRoute: AdvisoryRoute,
   ContactRoute: ContactRoute,
   FinanceReadinessRoute: FinanceReadinessRoute,
+  House8Route: House8Route,
   InsightsRoute: InsightsRoute,
   LearnersRoute: LearnersRouteWithChildren,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   ProgrammesRoute: ProgrammesRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  RubyChaiRoute: RubyChaiRoute,
   ServicesRoute: ServicesRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,

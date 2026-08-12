@@ -6,10 +6,10 @@ const BookingSchema = z.object({
   full_name: z.string().min(2).max(200),
   email: z.string().email().max(200),
   phone: z.string().min(6).max(50),
-  apartment_type: z.string().max(120).optional().nullable(),
+  room: z.string().max(120).optional().nullable(),
   check_in: z.string().max(20).optional().nullable(),
   check_out: z.string().max(20).optional().nullable(),
-  guests: z.coerce.number().int().min(1).max(20).optional().nullable(),
+  guests: z.coerce.number().int().min(1).max(50).optional().nullable(),
   purpose: z.string().max(120).optional().nullable(),
   notes: z.string().max(2000).optional().nullable(),
 });
@@ -25,7 +25,7 @@ export const submitHouse8Booking = createServerFn({ method: "POST" })
       full_name: data.full_name,
       email: data.email,
       phone: data.phone,
-      apartment_type: data.apartment_type ?? null,
+      room: data.room ?? null,
       check_in: data.check_in || null,
       check_out: data.check_out || null,
       guests: data.guests ?? null,
@@ -46,7 +46,7 @@ export const submitHouse8Booking = createServerFn({ method: "POST" })
           ${row("Guest", data.full_name)}
           ${row("Email", data.email)}
           ${row("Phone", data.phone)}
-          ${row("Apartment", data.apartment_type)}
+          ${row("Room", data.room)}
           ${row("Check-in", data.check_in)}
           ${row("Check-out", data.check_out)}
           ${row("Guests", data.guests)}

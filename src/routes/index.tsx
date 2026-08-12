@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Building2, GraduationCap, Leaf, ShieldCheck, LineChart, Users } from "lucide-react";
 import heroImg from "@/assets/group/hero-advisory-session.jpg";
-import house8Img from "@/assets/group/house8-living.jpg";
+import house8Asset from "@/assets/group/house8-pool.png.asset.json";
+
+const house8Img = house8Asset.url;
 import rubyImg from "@/assets/group/rubychai-tea.jpg";
 import academyImg from "@/assets/group/academy-workshop.jpg";
 import avessAsset from "@/assets/avess-abutu.png.asset.json";

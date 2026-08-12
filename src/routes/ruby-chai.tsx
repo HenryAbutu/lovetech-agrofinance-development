@@ -74,12 +74,12 @@ function RubyChaiPage() {
 
       <section className="bg-cloud px-6 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-          <img src={lifestyleImg} alt="Woman enjoying a cup of Ruby Chai herbal tea" loading="lazy" width={1600} height={1200} className="rounded-2xl object-cover shadow-lg" />
+          <img src={packagingAsset.url} alt="Ruby Chai packaging range — pouch, tea box, slim box and individual sachets" loading="lazy" width={1470} height={1080} className="rounded-2xl object-contain shadow-lg" />
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-rose">Why Ruby Chai</p>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Wellness that fits your day, not the other way round</h2>
+            <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">From our fields to your cup</h2>
             <ul className="mt-6 space-y-3 text-sm text-foreground/75">
-              {["Naturally caffeine-free herbal blends", "Locally sourced botanicals where possible", "Hand-blended in small, fresh batches", "Gifting and corporate packs available"].map((x) => (
+              {["Vibrant hibiscus from Northern Nigeria", "Arabian spices — cinnamon, cardamom, star anise, clove", "Natural ingredients, no artificial flavouring", "Crafted for everyday rituals, warm or iced", "Retail, gifting and wholesale packs available"].map((x) => (
                 <li key={x} className="flex gap-2"><Sparkles className="mt-0.5 size-4 shrink-0 text-rose" />{x}</li>
               ))}
             </ul>

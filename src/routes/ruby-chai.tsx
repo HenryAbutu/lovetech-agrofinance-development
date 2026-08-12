@@ -3,10 +3,10 @@ import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowRight, Leaf, HeartPulse, Moon, Sparkles, Minus, Plus, ShoppingBag } from "lucide-react";
+import { ArrowRight, Leaf, Sparkles, Minus, Plus, ShoppingBag } from "lucide-react";
 import { submitRubyChaiOrder } from "@/lib/rubychai.functions";
-import teaImg from "@/assets/group/rubychai-tea.jpg";
-import lifestyleImg from "@/assets/group/rubychai-lifestyle.jpg";
+import heroAsset from "@/assets/group/rubychai-hero.png.asset.json";
+import packagingAsset from "@/assets/group/rubychai-packaging.png.asset.json";
 
 const URL = "https://lovetechgroup.lovable.app/ruby-chai";
 
@@ -27,10 +27,24 @@ export const Route = createFileRoute("/ruby-chai")({
 });
 
 const blends = [
-  { sku: "hibiscus-bloom", icon: Leaf, t: "Hibiscus Bloom", b: "Zobo-inspired hibiscus and rose — antioxidant-rich and caffeine free.", note: "Everyday", size: "20 tea bags", price: 6500 },
-  { sku: "ginger-reset", icon: HeartPulse, t: "Ginger Reset", b: "Warming ginger, lemongrass and turmeric for digestion and immunity.", note: "Morning", size: "20 tea bags", price: 7000 },
-  { sku: "calm-nights", icon: Moon, t: "Calm Nights", b: "Chamomile, mint and lavender to wind the day down gently.", note: "Evening", size: "20 tea bags", price: 7500 },
-  { sku: "ritual-trio", icon: Sparkles, t: "Ritual Trio Gift Box", b: "All three blends in a gift-ready box — perfect for gifting or trying everything.", note: "Bestseller", size: "3 × 20 bags", price: 19500 },
+  {
+    sku: "ruby-chai-original-150g",
+    icon: Leaf,
+    t: "Ruby Chai Original",
+    b: "Hibiscus & Arabian spice infusion — deep-red hibiscus from Northern Nigeria with ginger, cinnamon, cardamom, clove and star anise.",
+    note: "Original",
+    size: "150g tea powder",
+    price: 10000,
+  },
+  {
+    sku: "ruby-chai-date-150g",
+    icon: Sparkles,
+    t: "Ruby Chai Date",
+    b: "Hibiscus, date & Arabian spice infusion — naturally sweetened with dates for a rounder, warmer cup.",
+    note: "Date",
+    size: "150g tea powder",
+    price: 10000,
+  },
 ];
 
 const ngn = (n: number) => `₦${n.toLocaleString()}`;
@@ -42,9 +56,9 @@ function RubyChaiPage() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div>
             <p className="mb-4 inline-flex rounded-full bg-rose/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-rose">Ruby Chai Wellness</p>
-            <h1 className="font-serif text-4xl font-bold leading-tight text-navy md:text-5xl">Small rituals. Real wellness.</h1>
+            <h1 className="font-serif text-4xl font-bold leading-tight text-navy md:text-5xl">Bold spice. Bright hibiscus. Made in Nigeria.</h1>
             <p className="mt-5 max-w-xl text-foreground/70">
-              Ruby Chai blends herbal teas that fit into real Nigerian days — a calm morning, a busy workday, a slow evening. Clean ingredients, honest flavour, no complicated routines.
+              Sourced from the savannahs of Northern Nigeria, our deep-red hibiscus is blended with fiery local ginger and a chorus of global spices for a bold, aromatic infusion with Arabian-inspired warmth. Now in 150g tea powder — Original and Date.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#shop" className="inline-flex items-center gap-2 rounded-lg bg-rose px-6 py-3 text-sm font-semibold text-white hover:opacity-95">Shop the blends <ShoppingBag className="size-4" /></a>
@@ -52,7 +66,7 @@ function RubyChaiPage() {
               <Link to="/contact" className="rounded-lg border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy hover:bg-cloud">Wholesale enquiry</Link>
             </div>
           </div>
-          <img src={teaImg} alt="Ruby Chai herbal tea blend with hibiscus and botanicals" width={1600} height={1200} className="rounded-2xl object-cover shadow-xl" />
+          <img src={heroAsset.url} alt="Ruby Chai Original and Date 120g sachets with hibiscus, ginger, cinnamon and dates" width={1256} height={1256} className="rounded-2xl object-cover shadow-xl" />
         </div>
       </section>
 
@@ -60,12 +74,12 @@ function RubyChaiPage() {
 
       <section className="bg-cloud px-6 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-          <img src={lifestyleImg} alt="Woman enjoying a cup of Ruby Chai herbal tea" loading="lazy" width={1600} height={1200} className="rounded-2xl object-cover shadow-lg" />
+          <img src={packagingAsset.url} alt="Ruby Chai packaging range — pouch, tea box, slim box and individual sachets" loading="lazy" width={1470} height={1080} className="rounded-2xl object-contain shadow-lg" />
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-rose">Why Ruby Chai</p>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Wellness that fits your day, not the other way round</h2>
+            <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">From our fields to your cup</h2>
             <ul className="mt-6 space-y-3 text-sm text-foreground/75">
-              {["Naturally caffeine-free herbal blends", "Locally sourced botanicals where possible", "Hand-blended in small, fresh batches", "Gifting and corporate packs available"].map((x) => (
+              {["Vibrant hibiscus from Northern Nigeria", "Arabian spices — cinnamon, cardamom, star anise, clove", "Natural ingredients, no artificial flavouring", "Crafted for everyday rituals, warm or iced", "Retail, gifting and wholesale packs available"].map((x) => (
                 <li key={x} className="flex gap-2"><Sparkles className="mt-0.5 size-4 shrink-0 text-rose" />{x}</li>
               ))}
             </ul>

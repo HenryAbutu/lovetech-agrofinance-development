@@ -5,8 +5,13 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowRight, BedDouble, Wifi, ShieldCheck, Sparkles, MapPin, Car, Users } from "lucide-react";
 import { submitHouse8Booking } from "@/lib/house8.functions";
-import livingImg from "@/assets/group/house8-living.jpg";
-import bedroomImg from "@/assets/group/house8-bedroom.jpg";
+import exteriorAsset from "@/assets/group/house8-exterior.png.asset.json";
+import poolAsset from "@/assets/group/house8-pool.png.asset.json";
+import roomAsset from "@/assets/group/house8-room.png.asset.json";
+
+const exteriorImg = exteriorAsset.url;
+const poolImg = poolAsset.url;
+const bedroomImg = roomAsset.url;
 
 const URL = "https://lovetechgroup.lovable.app/house-8";
 
@@ -51,7 +56,7 @@ function House8Page() {
               <a href="https://wa.me/2348026065189" target="_blank" rel="noreferrer" className="rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">Chat on WhatsApp</a>
             </div>
           </div>
-          <img src={livingImg} alt="House 8 shortlet apartment living room in Abuja" width={1600} height={1200} className="rounded-2xl object-cover shadow-2xl" />
+          <img src={exteriorImg} alt="House 8 shortlet apartments exterior in Abuja" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-2xl" />
         </div>
       </section>
 
@@ -70,9 +75,19 @@ function House8Page() {
         </div>
       </section>
 
+      <section className="px-6 pb-20 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-6 md:grid-cols-2">
+            <img src={poolImg} alt="House 8 swimming pool and thatched lounge area" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
+            <img src={exteriorImg} alt="House 8 landscaped courtyard entrance" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
+          </div>
+          <p className="mt-4 text-sm text-foreground/60">On-site pool, outdoor lounge and landscaped grounds for guests.</p>
+        </div>
+      </section>
+
       <section className="bg-cloud px-6 py-20 lg:px-8">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-          <img src={bedroomImg} alt="House 8 apartment bedroom with premium bedding" loading="lazy" width={1600} height={1200} className="rounded-2xl object-cover shadow-lg" />
+          <img src={bedroomImg} alt="House 8 apartment bedroom with premium bedding" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-burgundy">Stay options</p>
             <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Nightly, weekly and monthly stays</h2>

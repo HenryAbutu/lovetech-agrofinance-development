@@ -24,7 +24,7 @@ export const businesses = [
   {
     to: "/house-8",
     name: "House 8 Shortlet Apartments",
-    tagline: "Premium short-stay apartments in Abuja",
+    tagline: "5-bedroom luxury apartment in Dawaki, Abuja",
     accent: "text-burgundy",
     dot: "bg-burgundy",
   },

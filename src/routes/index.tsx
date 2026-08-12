@@ -4,7 +4,8 @@ import heroImg from "@/assets/group/hero-advisory-session.jpg";
 import house8Asset from "@/assets/group/house8-pool.png.asset.json";
 
 const house8Img = house8Asset.url;
-import rubyImg from "@/assets/group/rubychai-tea.jpg";
+import rubyAsset from "@/assets/group/rubychai-hero.png.asset.json";
+const rubyImg = rubyAsset.url;
 import academyImg from "@/assets/group/academy-workshop.jpg";
 import avessAsset from "@/assets/avess-abutu.png.asset.json";
 

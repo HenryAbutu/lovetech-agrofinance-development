@@ -35,7 +35,7 @@ function House8BookingsAdmin() {
             <th className="p-3">Guest</th>
             <th className="p-3">Contact</th>
             <th className="p-3">Stay</th>
-            <th className="p-3">Apartment</th>
+            <th className="p-3">Room</th>
             <th className="p-3">Notes</th>
             <th className="p-3">Status</th>
           </tr>
@@ -55,7 +55,7 @@ function House8BookingsAdmin() {
                 {b.check_in ?? "—"} → {b.check_out ?? "—"}
                 <div className="text-foreground/60">{b.guests ? `${b.guests} guest(s)` : ""} {b.purpose ?? ""}</div>
               </td>
-              <td className="p-3 text-xs">{b.apartment_type ?? "—"}</td>
+              <td className="p-3 text-xs">{b.room ?? b.apartment_type ?? "—"}</td>
               <td className="p-3 max-w-[240px] text-xs text-foreground/70">{b.notes ?? "—"}</td>
               <td className="p-3">
                 <select

@@ -1248,6 +1248,54 @@ export type Database = {
         }
         Relationships: []
       }
+      house8_bookings: {
+        Row: {
+          apartment_type: string | null
+          check_in: string | null
+          check_out: string | null
+          created_at: string
+          email: string
+          full_name: string
+          guests: number | null
+          id: string
+          notes: string | null
+          phone: string | null
+          purpose: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          apartment_type?: string | null
+          check_in?: string | null
+          check_out?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          guests?: number | null
+          id?: string
+          notes?: string | null
+          phone?: string | null
+          purpose?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          apartment_type?: string | null
+          check_in?: string | null
+          check_out?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          guests?: number | null
+          id?: string
+          notes?: string | null
+          phone?: string | null
+          purpose?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

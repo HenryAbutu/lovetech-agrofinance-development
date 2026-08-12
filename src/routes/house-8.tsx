@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowRight, BedDouble, Wifi, ShieldCheck, Sparkles, MapPin, Car, Users } from "lucide-react";
+import { ArrowRight, BedDouble, Wifi, ShieldCheck, Sparkles, MapPin, Car, Users, Utensils, Gamepad2, Flame, Wine } from "lucide-react";
 import { submitHouse8Booking } from "@/lib/house8.functions";
 import exteriorAsset from "@/assets/group/house8-exterior.png.asset.json";
 import poolAsset from "@/assets/group/house8-pool.png.asset.json";
@@ -18,10 +18,10 @@ const URL = "https://lovetechgroup.lovable.app/house-8";
 export const Route = createFileRoute("/house-8")({
   head: () => ({
     meta: [
-      { title: "House 8 Shortlet Apartments — Premium Short Stays in Abuja" },
-      { name: "description", content: "House 8 Shortlet Apartments offers premium, secure and fully serviced short-stay apartments in Abuja for business travellers, families and staycations." },
-      { property: "og:title", content: "House 8 Shortlet Apartments — Abuja" },
-      { property: "og:description", content: "Premium, secure, fully serviced short-stay apartments in Abuja. Book directly with House 8." },
+      { title: "House 8 — 5-Bedroom Luxury Shortlet Apartment in Dawaki, Abuja" },
+      { name: "description", content: "House 8 is a 5-bedroom luxury shortlet apartment in Dawaki, Abuja. Five named rooms, two lounges, bush bar, grills, games and premium hospitality for families, teams and events." },
+      { property: "og:title", content: "House 8 — Luxury Shortlet Apartment in Abuja" },
+      { property: "og:description", content: "Five named rooms, two lounges, bush bar, grills and games in a gated Dawaki home." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: URL },
       { name: "twitter:card", content: "summary_large_image" },
@@ -31,13 +31,25 @@ export const Route = createFileRoute("/house-8")({
   component: House8Page,
 });
 
+const rooms = [
+  { name: "Diamond", accent: "Spacious master-style suite" },
+  { name: "Ruby", accent: "Warm, executive comfort" },
+  { name: "Jasmine", accent: "Calm, airy retreat" },
+  { name: "Emerald", accent: "Fresh, modern finish" },
+  { name: "Pearl", accent: "Elegant and serene" },
+];
+
 const amenities = [
-  { icon: Wifi, t: "Fast Wi-Fi", b: "Work-ready connectivity in every apartment." },
+  { icon: BedDouble, t: "5 named rooms", b: "Diamond, Ruby, Jasmine, Emerald and Pearl — each uniquely styled." },
+  { icon: Users, t: "Two lounges", b: "Separate upstairs and downstairs lounges for relaxation and meetings." },
+  { icon: Utensils, t: "Dining & kitchen", b: "Fully equipped kitchen and dining area for home-style meals." },
+  { icon: Wine, t: "Bush bar services", b: "On-demand bar service for drinks and evening ambience." },
+  { icon: Flame, t: "Grills & games", b: "Outdoor grilling and in-house games for gatherings and events." },
+  { icon: Wifi, t: "Fast Wi-Fi", b: "Work-ready connectivity throughout the house." },
   { icon: ShieldCheck, t: "24/7 security", b: "Gated estate with round-the-clock security." },
-  { icon: BedDouble, t: "Hotel-grade bedding", b: "Fresh linens, quality mattresses, blackout curtains." },
   { icon: Sparkles, t: "Housekeeping", b: "Professional cleaning between and during stays." },
-  { icon: Car, t: "Secure parking", b: "On-site parking for guests." },
-  { icon: MapPin, t: "Great location", b: "Quiet residential comfort with easy city access." },
+  { icon: Car, t: "Secure parking", b: "On-site parking for guests and visitors." },
+  { icon: MapPin, t: "Prime location", b: "8 Abdulrahim Babaita St, News Engineering Layout, Dawaki, Abuja." },
 ];
 
 function House8Page() {

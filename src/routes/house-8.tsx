@@ -59,12 +59,18 @@ function House8Page() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div>
             <p className="mb-4 inline-flex rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-gold">House 8 Shortlet Apartments</p>
-            <h1 className="font-serif text-4xl font-bold leading-tight md:text-5xl">Premium short stays in Abuja that feel like home</h1>
+            <h1 className="font-serif text-4xl font-bold leading-tight md:text-5xl">
+              5-bedroom luxury shortlet apartment in the heart of Dawaki, Abuja
+            </h1>
             <p className="mt-5 max-w-xl text-white/80">
-              Fully serviced, secure and beautifully finished apartments for business travellers, families and weekend staycations — booked directly, priced fairly.
+              A fully serviced home with five named rooms — Diamond, Ruby, Jasmine, Emerald and Pearl — two lounges, dining, kitchen, bush bar services, grills and games. Ideal for families, teams, events and weekend stays.
             </p>
+            <div className="mt-6 flex items-start gap-2 text-sm text-white/80">
+              <MapPin className="mt-0.5 size-5 shrink-0 text-gold" />
+              <span>8 Abdulrahim Babaita Street, News Engineering Layout, Dawaki, Abuja</span>
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#book" className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-navy hover:opacity-95">Enquire &amp; book <ArrowRight className="size-4" /></a>
+              <a href="#book" className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-navy hover:opacity-95">Check availability <ArrowRight className="size-4" /></a>
               <a href="https://wa.me/2348026065189" target="_blank" rel="noreferrer" className="rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">Chat on WhatsApp</a>
             </div>
           </div>
@@ -73,6 +79,24 @@ function House8Page() {
       </section>
 
       <section className="px-6 py-20 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="font-serif text-3xl font-bold text-navy md:text-4xl">The rooms</h2>
+          <p className="mt-4 max-w-2xl text-foreground/70">
+            Every room at House 8 is named, freshly styled and furnished for comfort. Book a single room or reserve the entire house for your group.
+          </p>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {rooms.map((r) => (
+              <div key={r.name} className="rounded-2xl border border-border bg-white p-5 text-center shadow-sm">
+                <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-gold/20 text-lg font-bold text-navy">{r.name[0]}</div>
+                <h3 className="mt-4 font-serif text-lg font-semibold text-navy">{r.name}</h3>
+                <p className="mt-1 text-sm text-foreground/70">{r.accent}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-cloud px-6 py-20 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <h2 className="font-serif text-3xl font-bold text-navy md:text-4xl">Everything included</h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -93,18 +117,18 @@ function House8Page() {
             <img src={poolImg} alt="House 8 swimming pool and thatched lounge area" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
             <img src={exteriorImg} alt="House 8 landscaped courtyard entrance" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
           </div>
-          <p className="mt-4 text-sm text-foreground/60">On-site pool, outdoor lounge and landscaped grounds for guests.</p>
+          <p className="mt-4 text-sm text-foreground/60">On-site pool, outdoor lounge, grills and landscaped grounds for guests.</p>
         </div>
       </section>
 
-      <section className="bg-cloud px-6 py-20 lg:px-8">
+      <section className="bg-navy px-6 py-20 text-white lg:px-8">
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
           <img src={bedroomImg} alt="House 8 apartment bedroom with premium bedding" loading="lazy" width={1600} height={1200} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-burgundy">Stay options</p>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Nightly, weekly and monthly stays</h2>
-            <p className="mt-4 text-foreground/70">
-              Tell us your dates, number of guests and purpose of stay. We'll confirm availability and send you current rates and payment details — usually within a few hours.
+            <p className="text-xs font-semibold uppercase tracking-widest text-gold">Stay options</p>
+            <h2 className="mt-3 font-serif text-3xl font-bold md:text-4xl">Nightly, weekly and monthly stays</h2>
+            <p className="mt-4 text-white/80">
+              Tell us your dates, preferred rooms, number of guests and purpose of stay. We will confirm availability, rates and payment details — usually within a few hours.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {[
@@ -112,13 +136,13 @@ function House8Page() {
                 { t: "Weekly", b: "Extended work or family stays" },
                 { t: "Monthly", b: "Relocation and long assignments" },
               ].map((x) => (
-                <div key={x.t} className="rounded-xl border border-border bg-white p-4">
-                  <p className="font-serif font-semibold text-navy">{x.t}</p>
-                  <p className="mt-1 text-xs text-foreground/70">{x.b}</p>
+                <div key={x.t} className="rounded-xl border border-white/20 bg-white/5 p-4">
+                  <p className="font-serif font-semibold text-white">{x.t}</p>
+                  <p className="mt-1 text-xs text-white/70">{x.b}</p>
                 </div>
               ))}
             </div>
-            <a href="#book" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white hover:opacity-95">Check availability <ArrowRight className="size-4" /></a>
+            <a href="#book" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-navy hover:opacity-95">Request your dates <ArrowRight className="size-4" /></a>
           </div>
         </div>
       </section>

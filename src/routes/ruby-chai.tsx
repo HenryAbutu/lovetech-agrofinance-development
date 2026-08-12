@@ -3,10 +3,10 @@ import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowRight, Leaf, HeartPulse, Moon, Sparkles, Minus, Plus, ShoppingBag } from "lucide-react";
+import { ArrowRight, Leaf, Sparkles, Minus, Plus, ShoppingBag } from "lucide-react";
 import { submitRubyChaiOrder } from "@/lib/rubychai.functions";
-import teaImg from "@/assets/group/rubychai-tea.jpg";
-import lifestyleImg from "@/assets/group/rubychai-lifestyle.jpg";
+import heroAsset from "@/assets/group/rubychai-hero.png.asset.json";
+import packagingAsset from "@/assets/group/rubychai-packaging.png.asset.json";
 
 const URL = "https://lovetechgroup.lovable.app/ruby-chai";
 

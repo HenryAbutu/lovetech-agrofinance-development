@@ -1,13 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Building2, GraduationCap, Leaf, ShieldCheck, LineChart, Users } from "lucide-react";
 import heroImg from "@/assets/group/hero-advisory-session.jpg";
-import house8Asset from "@/assets/group/house8-pool.png.asset.json";
+import house8AssetSrc from "@/assets/group/house8-pool.png";
+const house8Asset = { url: house8AssetSrc };
 
 const house8Img = house8Asset.url;
-import rubyAsset from "@/assets/group/rubychai-hero.png.asset.json";
+import rubyAssetSrc from "@/assets/group/rubychai-hero.png";
+const rubyAsset = { url: rubyAssetSrc };
 const rubyImg = rubyAsset.url;
 import academyImg from "@/assets/group/academy-workshop.jpg";
-import avessAsset from "@/assets/avess-abutu.png.asset.json";
+import avessAssetSrc from "@/assets/avess-abutu.png";
+const avessAsset = { url: avessAssetSrc };
 
 const URL = "https://lovetechgroup.lovable.app/";
 

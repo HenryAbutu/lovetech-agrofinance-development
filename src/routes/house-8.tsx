@@ -5,9 +5,12 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowRight, BedDouble, Wifi, ShieldCheck, Sparkles, MapPin, Car, Users, Utensils, Gamepad2, Flame, Wine } from "lucide-react";
 import { submitHouse8Booking } from "@/lib/house8.functions";
-import exteriorAsset from "@/assets/group/house8-exterior.png.asset.json";
-import poolAsset from "@/assets/group/house8-pool.png.asset.json";
-import roomAsset from "@/assets/group/house8-room.png.asset.json";
+import exteriorAssetSrc from "@/assets/group/house8-exterior.png";
+const exteriorAsset = { url: exteriorAssetSrc };
+import poolAssetSrc from "@/assets/group/house8-pool.png";
+const poolAsset = { url: poolAssetSrc };
+import roomAssetSrc from "@/assets/group/house8-room.png";
+const roomAsset = { url: roomAssetSrc };
 
 const exteriorImg = exteriorAsset.url;
 const poolImg = poolAsset.url;

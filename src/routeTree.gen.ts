@@ -26,7 +26,9 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated.dashboard'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as LearnersSlugRouteImport } from './routes/learners.$slug'
@@ -144,9 +146,19 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AcademyIndexRoute = AcademyIndexRouteImport.update({
   id: '/academy/',
   path: '/academy/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsightsIndexRoute = InsightsIndexRouteImport.update({
@@ -356,6 +368,8 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
@@ -406,6 +420,8 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy': typeof AcademyIndexRoute
@@ -459,6 +475,8 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
@@ -512,6 +530,8 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/admin'
+    | '/dashboard'
+    | '/auth/callback'
     | '/insights/$slug'
     | '/learners/$slug'
     | '/academy/'
@@ -562,6 +582,8 @@ export interface FileRouteTypes {
     | '/services'
     | '/signup'
     | '/terms'
+    | '/dashboard'
+    | '/auth/callback'
     | '/insights/$slug'
     | '/learners/$slug'
     | '/academy'
@@ -614,6 +636,8 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/admin'
+    | '/_authenticated/dashboard'
+    | '/auth/callback'
     | '/insights/$slug'
     | '/learners/$slug'
     | '/academy/'
@@ -666,6 +690,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
   InsightsIndexRoute: typeof InsightsIndexRoute
@@ -798,11 +823,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/academy/': {
       id: '/academy/'
       path: '/academy'
       fullPath: '/academy/'
       preLoaderRoute: typeof AcademyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/insights/': {
@@ -1108,6 +1147,7 @@ const AuthenticatedAcademyDashboardRouteWithChildren =
 
 interface AuthenticatedRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedAcademyBadgesRoute: typeof AuthenticatedAcademyBadgesRoute
   AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRouteWithChildren
   AuthenticatedAcademyReceiptRoute: typeof AuthenticatedAcademyReceiptRoute
@@ -1117,6 +1157,7 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedAcademyBadgesRoute: AuthenticatedAcademyBadgesRoute,
   AuthenticatedAcademyDashboardRoute:
     AuthenticatedAcademyDashboardRouteWithChildren,
@@ -1158,6 +1199,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   AcademyIndexRoute: AcademyIndexRoute,
   InsightsIndexRoute: InsightsIndexRoute,

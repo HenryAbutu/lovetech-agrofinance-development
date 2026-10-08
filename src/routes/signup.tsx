@@ -28,7 +28,7 @@ function SignupPage() {
 
   async function googleSignIn() {
     window.sessionStorage.setItem("lovetech_post_auth_redirect", "/academy/dashboard");
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}/auth/callback` });
     if (result.error) setErr(result.error.message);
     else if (!result.redirected) window.location.assign("/academy/dashboard");
   }

@@ -1,8 +1,5 @@
-import { createLovableAuth } from "@lovable.dev/cloud-auth-js";
-
+// Direct Supabase Auth OAuth (no Lovable broker) — works on Netlify-hosted custom domains.
 import { supabase } from "@/lib/supabase";
-
-const lovableAuth = createLovableAuth();
 
 type SignInOptions = {
   redirect_uri?: string;
@@ -11,21 +8,14 @@ type SignInOptions = {
 
 export const lovable = {
   auth: {
-    signInWithOAuth: async (provider: "google" | "apple" | "microsoft" | "lovable", opts?: SignInOptions) => {
-      const result = await lovableAuth.signInWithOAuth(provider, {
-        redirect_uri: opts?.redirect_uri,
-        extraParams: { ...opts?.extraParams },
+    signInWithOAuth: async (provider: "google" | "apple", opts?: SignInOptions) => {
+      const redirectTo = opts?.redirect_uri ?? `${window.location.origin}/auth/callback`;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: { redirectTo, queryParams: opts?.extraParams },
       });
-
-      if (result.redirected || result.error) return result;
-
-      try {
-        await supabase.auth.setSession(result.tokens);
-      } catch (e) {
-        return { error: e instanceof Error ? e : new Error(String(e)) };
-      }
-
-      return result;
+      if (error) return { error, redirected: false as const };
+      return { error: null, redirected: true as const };
     },
   },
 };

@@ -30,7 +30,7 @@ export const Route = createFileRoute("/learners/$slug")({
     return data;
   },
   component: PublicProfilePage,
-  errorComponent: ({ error }) => <div role="alert" className="p-8 text-center text-red-600">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="p-8 text-center text-red-600">{error instanceof Error ? error.message : String(error)}</div>,
   notFoundComponent: () => (
     <main className="mx-auto max-w-xl px-6 py-24 text-center">
       <h1 className="font-serif text-3xl text-vetiver">Profile not found</h1>

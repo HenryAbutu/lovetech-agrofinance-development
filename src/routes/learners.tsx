@@ -19,7 +19,7 @@ export const Route = createFileRoute("/learners")({
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(learnersQuery),
   component: LearnersPage,
-  errorComponent: ({ error }) => <div role="alert" className="p-8 text-center text-red-600">{error.message}</div>,
+  errorComponent: ({ error }) => <div role="alert" className="p-8 text-center text-red-600">{error instanceof Error ? error.message : String(error)}</div>,
   notFoundComponent: () => <div className="p-8 text-center">No learners found.</div>,
 });
 

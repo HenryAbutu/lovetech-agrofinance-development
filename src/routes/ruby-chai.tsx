@@ -5,8 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowRight, Leaf, Sparkles, Minus, Plus, ShoppingBag } from "lucide-react";
 import { submitRubyChaiOrder } from "@/lib/rubychai.functions";
-import heroAsset from "@/assets/group/rubychai-hero.png.asset.json";
-import packagingAsset from "@/assets/group/rubychai-packaging.png.asset.json";
+import heroAssetSrc from "@/assets/group/rubychai-hero.png";
+const heroAsset = { url: heroAssetSrc };
+import packagingAssetSrc from "@/assets/group/rubychai-packaging.png";
+const packagingAsset = { url: packagingAssetSrc };
 
 const URL = "https://lovetechgroup.lovable.app/ruby-chai";
 

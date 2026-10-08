@@ -9,120 +9,64 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as ServicesRouteImport } from './routes/services'
-import { Route as RubyChaiRouteImport } from './routes/ruby-chai'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as ProgrammesRouteImport } from './routes/programmes'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as LearnersRouteImport } from './routes/learners'
-import { Route as House8RouteImport } from './routes/house-8'
-import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AdvisoryRouteImport } from './routes/advisory'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as InsightsIndexRouteImport } from './routes/insights.index'
-import { Route as AcademyIndexRouteImport } from './routes/academy.index'
-import { Route as LearnersSlugRouteImport } from './routes/learners.$slug'
-import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdvisoryRouteImport } from './routes/advisory'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
+import { Route as House8RouteImport } from './routes/house-8'
+import { Route as LearnersRouteImport } from './routes/learners'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ProgrammesRouteImport } from './routes/programmes'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RubyChaiRouteImport } from './routes/ruby-chai'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
-import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
-import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
-import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
-import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
-import { Route as AcademyCoursesAiToolsSmallBusinessesRouteImport } from './routes/academy.courses.ai-tools-small-businesses'
-import { Route as AuthenticatedSettingsProfileRouteImport } from './routes/_authenticated.settings.profile'
-import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
-import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
-import { Route as AuthenticatedAdminRubyChaiRouteImport } from './routes/_authenticated.admin.ruby-chai'
-import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
-import { Route as AuthenticatedAdminInsightsRouteImport } from './routes/_authenticated.admin.insights'
-import { Route as AuthenticatedAdminHouse8RouteImport } from './routes/_authenticated.admin.house-8'
-import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_authenticated.admin.enrolments'
-import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated.admin.courses'
-import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated.admin.coupons'
-import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated.admin.certificates'
-import { Route as AuthenticatedAdminAssessmentsRouteImport } from './routes/_authenticated.admin.assessments'
-import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated.admin.announcements'
-import { Route as AuthenticatedAcademyReferralsRouteImport } from './routes/_authenticated.academy.referrals'
-import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
-import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
+import { Route as AcademyIndexRouteImport } from './routes/academy.index'
+import { Route as InsightsIndexRouteImport } from './routes/insights.index'
+import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
+import { Route as LearnersSlugRouteImport } from './routes/learners.$slug'
 import { Route as AuthenticatedAcademyBadgesRouteImport } from './routes/_authenticated.academy.badges'
-import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack.webhook'
+import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
+import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
+import { Route as AuthenticatedAcademyReferralsRouteImport } from './routes/_authenticated.academy.referrals'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
+import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated.admin.announcements'
+import { Route as AuthenticatedAdminAssessmentsRouteImport } from './routes/_authenticated.admin.assessments'
+import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated.admin.certificates'
+import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated.admin.coupons'
+import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated.admin.courses'
+import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_authenticated.admin.enrolments'
+import { Route as AuthenticatedAdminHouse8RouteImport } from './routes/_authenticated.admin.house-8'
+import { Route as AuthenticatedAdminInsightsRouteImport } from './routes/_authenticated.admin.insights'
+import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
+import { Route as AuthenticatedAdminRubyChaiRouteImport } from './routes/_authenticated.admin.ruby-chai'
+import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
+import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
+import { Route as AuthenticatedSettingsProfileRouteImport } from './routes/_authenticated.settings.profile'
+import { Route as AcademyCoursesAiToolsSmallBusinessesRouteImport } from './routes/academy.courses.ai-tools-small-businesses'
+import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
+import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
+import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
 import { Route as ApiPublicPaystackVerifyRouteImport } from './routes/api/public/paystack.verify'
+import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack.webhook'
 import { Route as AuthenticatedAcademyDashboardCoursesSlugRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug'
-import { Route as AuthenticatedAcademyDashboardCoursesSlugLeaderboardRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug.leaderboard'
 import { Route as AuthenticatedAcademyDashboardCoursesSlugAssessmentsRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug.assessments'
-import { Route as AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug.quiz.$quizId'
+import { Route as AuthenticatedAcademyDashboardCoursesSlugLeaderboardRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug.leaderboard'
 import { Route as AuthenticatedAcademyDashboardCoursesSlugAssignmentAssignmentIdRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug.assignment.$assignmentId'
+import { Route as AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug.quiz.$quizId'
 
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RubyChaiRoute = RubyChaiRouteImport.update({
-  id: '/ruby-chai',
-  path: '/ruby-chai',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProgrammesRoute = ProgrammesRouteImport.update({
-  id: '/programmes',
-  path: '/programmes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LearnersRoute = LearnersRouteImport.update({
-  id: '/learners',
-  path: '/learners',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const House8Route = House8RouteImport.update({
-  id: '/house-8',
-  path: '/house-8',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FinanceReadinessRoute = FinanceReadinessRouteImport.update({
-  id: '/finance-readiness',
-  path: '/finance-readiness',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdvisoryRoute = AdvisoryRouteImport.update({
-  id: '/advisory',
-  path: '/advisory',
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -130,33 +74,69 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
+const AdvisoryRoute = AdvisoryRouteImport.update({
+  id: '/advisory',
+  path: '/advisory',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InsightsIndexRoute = InsightsIndexRouteImport.update({
-  id: '/insights/',
-  path: '/insights/',
+const FinanceReadinessRoute = FinanceReadinessRouteImport.update({
+  id: '/finance-readiness',
+  path: '/finance-readiness',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AcademyIndexRoute = AcademyIndexRouteImport.update({
-  id: '/academy/',
-  path: '/academy/',
+const House8Route = House8RouteImport.update({
+  id: '/house-8',
+  path: '/house-8',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LearnersSlugRoute = LearnersSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => LearnersRoute,
+const LearnersRoute = LearnersRouteImport.update({
+  id: '/learners',
+  path: '/learners',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const InsightsSlugRoute = InsightsSlugRouteImport.update({
-  id: '/insights/$slug',
-  path: '/insights/$slug',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammesRoute = ProgrammesRouteImport.update({
+  id: '/programmes',
+  path: '/programmes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RubyChaiRoute = RubyChaiRouteImport.update({
+  id: '/ruby-chai',
+  path: '/ruby-chai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -164,123 +144,30 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AuthenticatedAdminRoute,
+const AcademyIndexRoute = AcademyIndexRouteImport.update({
+  id: '/academy/',
+  path: '/academy/',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AcademyCoursesProfessionalsAiEdgeRoute =
-  AcademyCoursesProfessionalsAiEdgeRouteImport.update({
-    id: '/academy/courses/professionals-ai-edge',
-    path: '/academy/courses/professionals-ai-edge',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AcademyCoursesIcss20EntrepreneurshipRoute =
-  AcademyCoursesIcss20EntrepreneurshipRouteImport.update({
-    id: '/academy/courses/icss-2-0-entrepreneurship',
-    path: '/academy/courses/icss-2-0-entrepreneurship',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AcademyCoursesFinanceReadinessMsmesRoute =
-  AcademyCoursesFinanceReadinessMsmesRouteImport.update({
-    id: '/academy/courses/finance-readiness-msmes',
-    path: '/academy/courses/finance-readiness-msmes',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AcademyCoursesAiToolsSmallBusinessesRoute =
-  AcademyCoursesAiToolsSmallBusinessesRouteImport.update({
-    id: '/academy/courses/ai-tools-small-businesses',
-    path: '/academy/courses/ai-tools-small-businesses',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AuthenticatedSettingsProfileRoute =
-  AuthenticatedSettingsProfileRouteImport.update({
-    id: '/settings/profile',
-    path: '/settings/profile',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedAdminWaitlistRoute =
-  AuthenticatedAdminWaitlistRouteImport.update({
-    id: '/waitlist',
-    path: '/waitlist',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminVideoStudioRoute =
-  AuthenticatedAdminVideoStudioRouteImport.update({
-    id: '/video-studio',
-    path: '/video-studio',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminRubyChaiRoute =
-  AuthenticatedAdminRubyChaiRouteImport.update({
-    id: '/ruby-chai',
-    path: '/ruby-chai',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminPaymentsRoute =
-  AuthenticatedAdminPaymentsRouteImport.update({
-    id: '/payments',
-    path: '/payments',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminInsightsRoute =
-  AuthenticatedAdminInsightsRouteImport.update({
-    id: '/insights',
-    path: '/insights',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminHouse8Route =
-  AuthenticatedAdminHouse8RouteImport.update({
-    id: '/house-8',
-    path: '/house-8',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminEnrolmentsRoute =
-  AuthenticatedAdminEnrolmentsRouteImport.update({
-    id: '/enrolments',
-    path: '/enrolments',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminCoursesRoute =
-  AuthenticatedAdminCoursesRouteImport.update({
-    id: '/courses',
-    path: '/courses',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminCouponsRoute =
-  AuthenticatedAdminCouponsRouteImport.update({
-    id: '/coupons',
-    path: '/coupons',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminCertificatesRoute =
-  AuthenticatedAdminCertificatesRouteImport.update({
-    id: '/certificates',
-    path: '/certificates',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminAssessmentsRoute =
-  AuthenticatedAdminAssessmentsRouteImport.update({
-    id: '/assessments',
-    path: '/assessments',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAdminAnnouncementsRoute =
-  AuthenticatedAdminAnnouncementsRouteImport.update({
-    id: '/announcements',
-    path: '/announcements',
-    getParentRoute: () => AuthenticatedAdminRoute,
-  } as any)
-const AuthenticatedAcademyReferralsRoute =
-  AuthenticatedAcademyReferralsRouteImport.update({
-    id: '/academy/referrals',
-    path: '/academy/referrals',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedAcademyReceiptRoute =
-  AuthenticatedAcademyReceiptRouteImport.update({
-    id: '/academy/receipt',
-    path: '/academy/receipt',
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/insights/',
+  path: '/insights/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsSlugRoute = InsightsSlugRouteImport.update({
+  id: '/insights/$slug',
+  path: '/insights/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnersSlugRoute = LearnersSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => LearnersRoute,
+} as any)
+const AuthenticatedAcademyBadgesRoute =
+  AuthenticatedAcademyBadgesRouteImport.update({
+    id: '/academy/badges',
+    path: '/academy/badges',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAcademyDashboardRoute =
@@ -289,16 +176,123 @@ const AuthenticatedAcademyDashboardRoute =
     path: '/academy/dashboard',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedAcademyBadgesRoute =
-  AuthenticatedAcademyBadgesRouteImport.update({
-    id: '/academy/badges',
-    path: '/academy/badges',
+const AuthenticatedAcademyReceiptRoute =
+  AuthenticatedAcademyReceiptRouteImport.update({
+    id: '/academy/receipt',
+    path: '/academy/receipt',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const ApiPublicPaystackWebhookRoute =
-  ApiPublicPaystackWebhookRouteImport.update({
-    id: '/api/public/paystack/webhook',
-    path: '/api/public/paystack/webhook',
+const AuthenticatedAcademyReferralsRoute =
+  AuthenticatedAcademyReferralsRouteImport.update({
+    id: '/academy/referrals',
+    path: '/academy/referrals',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminAnnouncementsRoute =
+  AuthenticatedAdminAnnouncementsRouteImport.update({
+    id: '/announcements',
+    path: '/announcements',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminAssessmentsRoute =
+  AuthenticatedAdminAssessmentsRouteImport.update({
+    id: '/assessments',
+    path: '/assessments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCertificatesRoute =
+  AuthenticatedAdminCertificatesRouteImport.update({
+    id: '/certificates',
+    path: '/certificates',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCouponsRoute =
+  AuthenticatedAdminCouponsRouteImport.update({
+    id: '/coupons',
+    path: '/coupons',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCoursesRoute =
+  AuthenticatedAdminCoursesRouteImport.update({
+    id: '/courses',
+    path: '/courses',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminEnrolmentsRoute =
+  AuthenticatedAdminEnrolmentsRouteImport.update({
+    id: '/enrolments',
+    path: '/enrolments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminHouse8Route =
+  AuthenticatedAdminHouse8RouteImport.update({
+    id: '/house-8',
+    path: '/house-8',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminInsightsRoute =
+  AuthenticatedAdminInsightsRouteImport.update({
+    id: '/insights',
+    path: '/insights',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPaymentsRoute =
+  AuthenticatedAdminPaymentsRouteImport.update({
+    id: '/payments',
+    path: '/payments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminRubyChaiRoute =
+  AuthenticatedAdminRubyChaiRouteImport.update({
+    id: '/ruby-chai',
+    path: '/ruby-chai',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminVideoStudioRoute =
+  AuthenticatedAdminVideoStudioRouteImport.update({
+    id: '/video-studio',
+    path: '/video-studio',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminWaitlistRoute =
+  AuthenticatedAdminWaitlistRouteImport.update({
+    id: '/waitlist',
+    path: '/waitlist',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedSettingsProfileRoute =
+  AuthenticatedSettingsProfileRouteImport.update({
+    id: '/settings/profile',
+    path: '/settings/profile',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AcademyCoursesAiToolsSmallBusinessesRoute =
+  AcademyCoursesAiToolsSmallBusinessesRouteImport.update({
+    id: '/academy/courses/ai-tools-small-businesses',
+    path: '/academy/courses/ai-tools-small-businesses',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademyCoursesFinanceReadinessMsmesRoute =
+  AcademyCoursesFinanceReadinessMsmesRouteImport.update({
+    id: '/academy/courses/finance-readiness-msmes',
+    path: '/academy/courses/finance-readiness-msmes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademyCoursesIcss20EntrepreneurshipRoute =
+  AcademyCoursesIcss20EntrepreneurshipRouteImport.update({
+    id: '/academy/courses/icss-2-0-entrepreneurship',
+    path: '/academy/courses/icss-2-0-entrepreneurship',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AcademyCoursesProfessionalsAiEdgeRoute =
+  AcademyCoursesProfessionalsAiEdgeRouteImport.update({
+    id: '/academy/courses/professionals-ai-edge',
+    path: '/academy/courses/professionals-ai-edge',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicPaystackVerifyRoute = ApiPublicPaystackVerifyRouteImport.update({
@@ -306,17 +300,17 @@ const ApiPublicPaystackVerifyRoute = ApiPublicPaystackVerifyRouteImport.update({
   path: '/api/public/paystack/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPaystackWebhookRoute =
+  ApiPublicPaystackWebhookRouteImport.update({
+    id: '/api/public/paystack/webhook',
+    path: '/api/public/paystack/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAcademyDashboardCoursesSlugRoute =
   AuthenticatedAcademyDashboardCoursesSlugRouteImport.update({
     id: '/courses/$slug',
     path: '/courses/$slug',
     getParentRoute: () => AuthenticatedAcademyDashboardRoute,
-  } as any)
-const AuthenticatedAcademyDashboardCoursesSlugLeaderboardRoute =
-  AuthenticatedAcademyDashboardCoursesSlugLeaderboardRouteImport.update({
-    id: '/leaderboard',
-    path: '/leaderboard',
-    getParentRoute: () => AuthenticatedAcademyDashboardCoursesSlugRoute,
   } as any)
 const AuthenticatedAcademyDashboardCoursesSlugAssessmentsRoute =
   AuthenticatedAcademyDashboardCoursesSlugAssessmentsRouteImport.update({
@@ -324,10 +318,10 @@ const AuthenticatedAcademyDashboardCoursesSlugAssessmentsRoute =
     path: '/assessments',
     getParentRoute: () => AuthenticatedAcademyDashboardCoursesSlugRoute,
   } as any)
-const AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRoute =
-  AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRouteImport.update({
-    id: '/quiz/$quizId',
-    path: '/quiz/$quizId',
+const AuthenticatedAcademyDashboardCoursesSlugLeaderboardRoute =
+  AuthenticatedAcademyDashboardCoursesSlugLeaderboardRouteImport.update({
+    id: '/leaderboard',
+    path: '/leaderboard',
     getParentRoute: () => AuthenticatedAcademyDashboardCoursesSlugRoute,
   } as any)
 const AuthenticatedAcademyDashboardCoursesSlugAssignmentAssignmentIdRoute =
@@ -338,6 +332,12 @@ const AuthenticatedAcademyDashboardCoursesSlugAssignmentAssignmentIdRoute =
       getParentRoute: () => AuthenticatedAcademyDashboardCoursesSlugRoute,
     } as any,
   )
+const AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRoute =
+  AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRouteImport.update({
+    id: '/quiz/$quizId',
+    path: '/quiz/$quizId',
+    getParentRoute: () => AuthenticatedAcademyDashboardCoursesSlugRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -679,102 +679,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ruby-chai': {
-      id: '/ruby-chai'
-      path: '/ruby-chai'
-      fullPath: '/ruby-chai'
-      preLoaderRoute: typeof RubyChaiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/programmes': {
-      id: '/programmes'
-      path: '/programmes'
-      fullPath: '/programmes'
-      preLoaderRoute: typeof ProgrammesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/learners': {
-      id: '/learners'
-      path: '/learners'
-      fullPath: '/learners'
-      preLoaderRoute: typeof LearnersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/house-8': {
-      id: '/house-8'
-      path: '/house-8'
-      fullPath: '/house-8'
-      preLoaderRoute: typeof House8RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/finance-readiness': {
-      id: '/finance-readiness'
-      path: '/finance-readiness'
-      fullPath: '/finance-readiness'
-      preLoaderRoute: typeof FinanceReadinessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/advisory': {
-      id: '/advisory'
-      path: '/advisory'
-      fullPath: '/advisory'
-      preLoaderRoute: typeof AdvisoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -784,39 +693,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/insights/': {
-      id: '/insights/'
-      path: '/insights'
-      fullPath: '/insights/'
-      preLoaderRoute: typeof InsightsIndexRouteImport
+    '/advisory': {
+      id: '/advisory'
+      path: '/advisory'
+      fullPath: '/advisory'
+      preLoaderRoute: typeof AdvisoryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/academy/': {
-      id: '/academy/'
-      path: '/academy'
-      fullPath: '/academy/'
-      preLoaderRoute: typeof AcademyIndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/learners/$slug': {
-      id: '/learners/$slug'
-      path: '/$slug'
-      fullPath: '/learners/$slug'
-      preLoaderRoute: typeof LearnersSlugRouteImport
-      parentRoute: typeof LearnersRoute
+    '/finance-readiness': {
+      id: '/finance-readiness'
+      path: '/finance-readiness'
+      fullPath: '/finance-readiness'
+      preLoaderRoute: typeof FinanceReadinessRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/insights/$slug': {
-      id: '/insights/$slug'
-      path: '/insights/$slug'
-      fullPath: '/insights/$slug'
-      preLoaderRoute: typeof InsightsSlugRouteImport
+    '/house-8': {
+      id: '/house-8'
+      path: '/house-8'
+      fullPath: '/house-8'
+      preLoaderRoute: typeof House8RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learners': {
+      id: '/learners'
+      path: '/learners'
+      fullPath: '/learners'
+      preLoaderRoute: typeof LearnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programmes': {
+      id: '/programmes'
+      path: '/programmes'
+      fullPath: '/programmes'
+      preLoaderRoute: typeof ProgrammesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ruby-chai': {
+      id: '/ruby-chai'
+      path: '/ruby-chai'
+      fullPath: '/ruby-chai'
+      preLoaderRoute: typeof RubyChaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -826,144 +798,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/admin/': {
-      id: '/_authenticated/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/academy/courses/professionals-ai-edge': {
-      id: '/academy/courses/professionals-ai-edge'
-      path: '/academy/courses/professionals-ai-edge'
-      fullPath: '/academy/courses/professionals-ai-edge'
-      preLoaderRoute: typeof AcademyCoursesProfessionalsAiEdgeRouteImport
+    '/academy/': {
+      id: '/academy/'
+      path: '/academy'
+      fullPath: '/academy/'
+      preLoaderRoute: typeof AcademyIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/academy/courses/icss-2-0-entrepreneurship': {
-      id: '/academy/courses/icss-2-0-entrepreneurship'
-      path: '/academy/courses/icss-2-0-entrepreneurship'
-      fullPath: '/academy/courses/icss-2-0-entrepreneurship'
-      preLoaderRoute: typeof AcademyCoursesIcss20EntrepreneurshipRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/academy/courses/finance-readiness-msmes': {
-      id: '/academy/courses/finance-readiness-msmes'
-      path: '/academy/courses/finance-readiness-msmes'
-      fullPath: '/academy/courses/finance-readiness-msmes'
-      preLoaderRoute: typeof AcademyCoursesFinanceReadinessMsmesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/academy/courses/ai-tools-small-businesses': {
-      id: '/academy/courses/ai-tools-small-businesses'
-      path: '/academy/courses/ai-tools-small-businesses'
-      fullPath: '/academy/courses/ai-tools-small-businesses'
-      preLoaderRoute: typeof AcademyCoursesAiToolsSmallBusinessesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/settings/profile': {
-      id: '/_authenticated/settings/profile'
-      path: '/settings/profile'
-      fullPath: '/settings/profile'
-      preLoaderRoute: typeof AuthenticatedSettingsProfileRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/admin/waitlist': {
-      id: '/_authenticated/admin/waitlist'
-      path: '/waitlist'
-      fullPath: '/admin/waitlist'
-      preLoaderRoute: typeof AuthenticatedAdminWaitlistRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/video-studio': {
-      id: '/_authenticated/admin/video-studio'
-      path: '/video-studio'
-      fullPath: '/admin/video-studio'
-      preLoaderRoute: typeof AuthenticatedAdminVideoStudioRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/ruby-chai': {
-      id: '/_authenticated/admin/ruby-chai'
-      path: '/ruby-chai'
-      fullPath: '/admin/ruby-chai'
-      preLoaderRoute: typeof AuthenticatedAdminRubyChaiRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/payments': {
-      id: '/_authenticated/admin/payments'
-      path: '/payments'
-      fullPath: '/admin/payments'
-      preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/insights': {
-      id: '/_authenticated/admin/insights'
+    '/insights/': {
+      id: '/insights/'
       path: '/insights'
-      fullPath: '/admin/insights'
-      preLoaderRoute: typeof AuthenticatedAdminInsightsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin/house-8': {
-      id: '/_authenticated/admin/house-8'
-      path: '/house-8'
-      fullPath: '/admin/house-8'
-      preLoaderRoute: typeof AuthenticatedAdminHouse8RouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+    '/insights/$slug': {
+      id: '/insights/$slug'
+      path: '/insights/$slug'
+      fullPath: '/insights/$slug'
+      preLoaderRoute: typeof InsightsSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin/enrolments': {
-      id: '/_authenticated/admin/enrolments'
-      path: '/enrolments'
-      fullPath: '/admin/enrolments'
-      preLoaderRoute: typeof AuthenticatedAdminEnrolmentsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+    '/learners/$slug': {
+      id: '/learners/$slug'
+      path: '/$slug'
+      fullPath: '/learners/$slug'
+      preLoaderRoute: typeof LearnersSlugRouteImport
+      parentRoute: typeof LearnersRoute
     }
-    '/_authenticated/admin/courses': {
-      id: '/_authenticated/admin/courses'
-      path: '/courses'
-      fullPath: '/admin/courses'
-      preLoaderRoute: typeof AuthenticatedAdminCoursesRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/coupons': {
-      id: '/_authenticated/admin/coupons'
-      path: '/coupons'
-      fullPath: '/admin/coupons'
-      preLoaderRoute: typeof AuthenticatedAdminCouponsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/certificates': {
-      id: '/_authenticated/admin/certificates'
-      path: '/certificates'
-      fullPath: '/admin/certificates'
-      preLoaderRoute: typeof AuthenticatedAdminCertificatesRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/assessments': {
-      id: '/_authenticated/admin/assessments'
-      path: '/assessments'
-      fullPath: '/admin/assessments'
-      preLoaderRoute: typeof AuthenticatedAdminAssessmentsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/admin/announcements': {
-      id: '/_authenticated/admin/announcements'
-      path: '/announcements'
-      fullPath: '/admin/announcements'
-      preLoaderRoute: typeof AuthenticatedAdminAnnouncementsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
-    }
-    '/_authenticated/academy/referrals': {
-      id: '/_authenticated/academy/referrals'
-      path: '/academy/referrals'
-      fullPath: '/academy/referrals'
-      preLoaderRoute: typeof AuthenticatedAcademyReferralsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/academy/receipt': {
-      id: '/_authenticated/academy/receipt'
-      path: '/academy/receipt'
-      fullPath: '/academy/receipt'
-      preLoaderRoute: typeof AuthenticatedAcademyReceiptRouteImport
+    '/_authenticated/academy/badges': {
+      id: '/_authenticated/academy/badges'
+      path: '/academy/badges'
+      fullPath: '/academy/badges'
+      preLoaderRoute: typeof AuthenticatedAcademyBadgesRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/academy/dashboard': {
@@ -973,18 +840,144 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAcademyDashboardRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/academy/badges': {
-      id: '/_authenticated/academy/badges'
-      path: '/academy/badges'
-      fullPath: '/academy/badges'
-      preLoaderRoute: typeof AuthenticatedAcademyBadgesRouteImport
+    '/_authenticated/academy/receipt': {
+      id: '/_authenticated/academy/receipt'
+      path: '/academy/receipt'
+      fullPath: '/academy/receipt'
+      preLoaderRoute: typeof AuthenticatedAcademyReceiptRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/api/public/paystack/webhook': {
-      id: '/api/public/paystack/webhook'
-      path: '/api/public/paystack/webhook'
-      fullPath: '/api/public/paystack/webhook'
-      preLoaderRoute: typeof ApiPublicPaystackWebhookRouteImport
+    '/_authenticated/academy/referrals': {
+      id: '/_authenticated/academy/referrals'
+      path: '/academy/referrals'
+      fullPath: '/academy/referrals'
+      preLoaderRoute: typeof AuthenticatedAcademyReferralsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/announcements': {
+      id: '/_authenticated/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AuthenticatedAdminAnnouncementsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/assessments': {
+      id: '/_authenticated/admin/assessments'
+      path: '/assessments'
+      fullPath: '/admin/assessments'
+      preLoaderRoute: typeof AuthenticatedAdminAssessmentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/certificates': {
+      id: '/_authenticated/admin/certificates'
+      path: '/certificates'
+      fullPath: '/admin/certificates'
+      preLoaderRoute: typeof AuthenticatedAdminCertificatesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/coupons': {
+      id: '/_authenticated/admin/coupons'
+      path: '/coupons'
+      fullPath: '/admin/coupons'
+      preLoaderRoute: typeof AuthenticatedAdminCouponsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/courses': {
+      id: '/_authenticated/admin/courses'
+      path: '/courses'
+      fullPath: '/admin/courses'
+      preLoaderRoute: typeof AuthenticatedAdminCoursesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/enrolments': {
+      id: '/_authenticated/admin/enrolments'
+      path: '/enrolments'
+      fullPath: '/admin/enrolments'
+      preLoaderRoute: typeof AuthenticatedAdminEnrolmentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/house-8': {
+      id: '/_authenticated/admin/house-8'
+      path: '/house-8'
+      fullPath: '/admin/house-8'
+      preLoaderRoute: typeof AuthenticatedAdminHouse8RouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/insights': {
+      id: '/_authenticated/admin/insights'
+      path: '/insights'
+      fullPath: '/admin/insights'
+      preLoaderRoute: typeof AuthenticatedAdminInsightsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/payments': {
+      id: '/_authenticated/admin/payments'
+      path: '/payments'
+      fullPath: '/admin/payments'
+      preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/ruby-chai': {
+      id: '/_authenticated/admin/ruby-chai'
+      path: '/ruby-chai'
+      fullPath: '/admin/ruby-chai'
+      preLoaderRoute: typeof AuthenticatedAdminRubyChaiRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/video-studio': {
+      id: '/_authenticated/admin/video-studio'
+      path: '/video-studio'
+      fullPath: '/admin/video-studio'
+      preLoaderRoute: typeof AuthenticatedAdminVideoStudioRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/waitlist': {
+      id: '/_authenticated/admin/waitlist'
+      path: '/waitlist'
+      fullPath: '/admin/waitlist'
+      preLoaderRoute: typeof AuthenticatedAdminWaitlistRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/settings/profile': {
+      id: '/_authenticated/settings/profile'
+      path: '/settings/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof AuthenticatedSettingsProfileRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/academy/courses/ai-tools-small-businesses': {
+      id: '/academy/courses/ai-tools-small-businesses'
+      path: '/academy/courses/ai-tools-small-businesses'
+      fullPath: '/academy/courses/ai-tools-small-businesses'
+      preLoaderRoute: typeof AcademyCoursesAiToolsSmallBusinessesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy/courses/finance-readiness-msmes': {
+      id: '/academy/courses/finance-readiness-msmes'
+      path: '/academy/courses/finance-readiness-msmes'
+      fullPath: '/academy/courses/finance-readiness-msmes'
+      preLoaderRoute: typeof AcademyCoursesFinanceReadinessMsmesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy/courses/icss-2-0-entrepreneurship': {
+      id: '/academy/courses/icss-2-0-entrepreneurship'
+      path: '/academy/courses/icss-2-0-entrepreneurship'
+      fullPath: '/academy/courses/icss-2-0-entrepreneurship'
+      preLoaderRoute: typeof AcademyCoursesIcss20EntrepreneurshipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/academy/courses/professionals-ai-edge': {
+      id: '/academy/courses/professionals-ai-edge'
+      path: '/academy/courses/professionals-ai-edge'
+      fullPath: '/academy/courses/professionals-ai-edge'
+      preLoaderRoute: typeof AcademyCoursesProfessionalsAiEdgeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/paystack/verify': {
@@ -994,19 +987,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaystackVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/paystack/webhook': {
+      id: '/api/public/paystack/webhook'
+      path: '/api/public/paystack/webhook'
+      fullPath: '/api/public/paystack/webhook'
+      preLoaderRoute: typeof ApiPublicPaystackWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/academy/dashboard/courses/$slug': {
       id: '/_authenticated/academy/dashboard/courses/$slug'
       path: '/courses/$slug'
       fullPath: '/academy/dashboard/courses/$slug'
       preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRouteImport
       parentRoute: typeof AuthenticatedAcademyDashboardRoute
-    }
-    '/_authenticated/academy/dashboard/courses/$slug/leaderboard': {
-      id: '/_authenticated/academy/dashboard/courses/$slug/leaderboard'
-      path: '/leaderboard'
-      fullPath: '/academy/dashboard/courses/$slug/leaderboard'
-      preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugLeaderboardRouteImport
-      parentRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRoute
     }
     '/_authenticated/academy/dashboard/courses/$slug/assessments': {
       id: '/_authenticated/academy/dashboard/courses/$slug/assessments'
@@ -1015,11 +1008,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugAssessmentsRouteImport
       parentRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRoute
     }
-    '/_authenticated/academy/dashboard/courses/$slug/quiz/$quizId': {
-      id: '/_authenticated/academy/dashboard/courses/$slug/quiz/$quizId'
-      path: '/quiz/$quizId'
-      fullPath: '/academy/dashboard/courses/$slug/quiz/$quizId'
-      preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRouteImport
+    '/_authenticated/academy/dashboard/courses/$slug/leaderboard': {
+      id: '/_authenticated/academy/dashboard/courses/$slug/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/academy/dashboard/courses/$slug/leaderboard'
+      preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugLeaderboardRouteImport
       parentRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRoute
     }
     '/_authenticated/academy/dashboard/courses/$slug/assignment/$assignmentId': {
@@ -1027,6 +1020,13 @@ declare module '@tanstack/react-router' {
       path: '/assignment/$assignmentId'
       fullPath: '/academy/dashboard/courses/$slug/assignment/$assignmentId'
       preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugAssignmentAssignmentIdRouteImport
+      parentRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRoute
+    }
+    '/_authenticated/academy/dashboard/courses/$slug/quiz/$quizId': {
+      id: '/_authenticated/academy/dashboard/courses/$slug/quiz/$quizId'
+      path: '/quiz/$quizId'
+      fullPath: '/academy/dashboard/courses/$slug/quiz/$quizId'
+      preLoaderRoute: typeof AuthenticatedAcademyDashboardCoursesSlugQuizQuizIdRouteImport
       parentRoute: typeof AuthenticatedAcademyDashboardCoursesSlugRoute
     }
   }

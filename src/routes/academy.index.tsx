@@ -1,3 +1,4 @@
+import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -502,6 +503,7 @@ function Block({ title, items }: { title: string; items: string[] }) {
 
 function WaitlistInline({ course }: { course: Course }) {
   const submit = useServerFn(submitWaitlist);
+  const me = useSessionIdentity();
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [err, setErr] = useState("");
 
@@ -510,6 +512,7 @@ function WaitlistInline({ course }: { course: Course }) {
     setState("loading"); setErr("");
     const fd = new FormData(e.currentTarget);
     const data = {
+      ...(me ?? {}),
       course_slug: course.slug,
       interest_area: course.title,
       ...Object.fromEntries(fd.entries()),
@@ -532,10 +535,14 @@ function WaitlistInline({ course }: { course: Course }) {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-3">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <input name="full_name" required placeholder="Full name *" className="input" />
-        <input name="email" type="email" required placeholder="Email *" className="input" />
-      </div>
+      {me ? (
+        <p className="text-sm text-foreground/70">Joining as <span className="font-semibold text-navy">{me.full_name}</span> ({me.email})</p>
+      ) : (
+        <div className="grid gap-3 sm:grid-cols-2">
+          <input name="full_name" required placeholder="Full name *" className="input" />
+          <input name="email" type="email" required placeholder="Email *" className="input" />
+        </div>
+      )}
       <div className="grid gap-3 sm:grid-cols-2">
         <input name="phone" placeholder="Phone / WhatsApp" className="input" />
         <input name="business_name" placeholder="Business / organisation" className="input" />

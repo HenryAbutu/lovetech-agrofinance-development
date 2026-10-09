@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { submitWaitlist } from "@/lib/forms.functions";
+import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { LegalNotice } from "@/components/legal-notice";
 
 export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; courseLabel: string }) {
   const submit = useServerFn(submitWaitlist);
+  const me = useSessionIdentity();
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [err, setErr] = useState("");
 
@@ -12,7 +14,7 @@ export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; 
     e.preventDefault();
     setState("loading"); setErr("");
     const fd = new FormData(e.currentTarget);
-    const data = { course_slug: courseSlug, ...Object.fromEntries(fd.entries()) } as Record<string, string>;
+    const data = { ...(me ?? {}), course_slug: courseSlug, ...Object.fromEntries(fd.entries()) } as Record<string, string>;
     try { await submit({ data: data as never }); setState("done"); e.currentTarget.reset(); }
     catch (e2) { setErr(e2 instanceof Error ? e2.message : "Failed"); setState("error"); }
   }
@@ -28,10 +30,14 @@ export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; 
   return (
     <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-card p-8">
       <h2 className="font-serif text-3xl text-vetiver">Join the {courseLabel} waitlist</h2>
-      <div className="grid gap-5 md:grid-cols-2">
-        <Input name="full_name" label="Full name" required />
-        <Input name="email" type="email" label="Email" required />
-      </div>
+      {me ? (
+        <p className="text-sm text-foreground/70">Joining as <span className="font-semibold">{me.full_name}</span> ({me.email})</p>
+      ) : (
+        <div className="grid gap-5 md:grid-cols-2">
+          <Input name="full_name" label="Full name" required />
+          <Input name="email" type="email" label="Email" required />
+        </div>
+      )}
       <div className="grid gap-5 md:grid-cols-2">
         <Input name="phone" label="Phone (WhatsApp)" />
         <Input name="business_name" label="Business name" />

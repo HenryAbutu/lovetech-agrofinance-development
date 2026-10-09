@@ -19,12 +19,14 @@ import { Route as House8RouteImport } from './routes/house-8'
 import { Route as LearnersRouteImport } from './routes/learners'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProgrammesRouteImport } from './routes/programmes'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RubyChaiRouteImport } from './routes/ruby-chai'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated.dashboard'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
@@ -111,6 +113,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProgrammesRoute = ProgrammesRouteImport.update({
   id: '/programmes',
   path: '/programmes',
@@ -139,6 +146,11 @@ const SignupRoute = SignupRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -361,12 +373,14 @@ export interface FileRoutesByFullPath {
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ruby-chai': typeof RubyChaiRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -414,12 +428,14 @@ export interface FileRoutesByTo {
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ruby-chai': typeof RubyChaiRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -468,12 +484,14 @@ export interface FileRoutesById {
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ruby-chai': typeof RubyChaiRoute
   '/services': typeof ServicesRoute
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -523,12 +541,14 @@ export interface FileRouteTypes {
     | '/learners'
     | '/login'
     | '/privacy'
+    | '/privacy-policy'
     | '/programmes'
     | '/reset-password'
     | '/ruby-chai'
     | '/services'
     | '/signup'
     | '/terms'
+    | '/terms-of-service'
     | '/admin'
     | '/dashboard'
     | '/auth/callback'
@@ -576,12 +596,14 @@ export interface FileRouteTypes {
     | '/learners'
     | '/login'
     | '/privacy'
+    | '/privacy-policy'
     | '/programmes'
     | '/reset-password'
     | '/ruby-chai'
     | '/services'
     | '/signup'
     | '/terms'
+    | '/terms-of-service'
     | '/dashboard'
     | '/auth/callback'
     | '/insights/$slug'
@@ -629,12 +651,14 @@ export interface FileRouteTypes {
     | '/learners'
     | '/login'
     | '/privacy'
+    | '/privacy-policy'
     | '/programmes'
     | '/reset-password'
     | '/ruby-chai'
     | '/services'
     | '/signup'
     | '/terms'
+    | '/terms-of-service'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/auth/callback'
@@ -684,12 +708,14 @@ export interface RootRouteChildren {
   LearnersRoute: typeof LearnersRouteWithChildren
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProgrammesRoute: typeof ProgrammesRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RubyChaiRoute: typeof RubyChaiRoute
   ServicesRoute: typeof ServicesRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
@@ -774,6 +800,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/programmes': {
       id: '/programmes'
       path: '/programmes'
@@ -814,6 +847,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -1193,12 +1233,14 @@ const rootRouteChildren: RootRouteChildren = {
   LearnersRoute: LearnersRouteWithChildren,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProgrammesRoute: ProgrammesRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RubyChaiRoute: RubyChaiRoute,
   ServicesRoute: ServicesRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   AcademyIndexRoute: AcademyIndexRoute,

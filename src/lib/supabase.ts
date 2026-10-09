@@ -130,7 +130,27 @@ export const supabase = new Proxy({} as ReturnType<typeof createSupabaseClient>,
   },
 });
 
-export async function getActiveSupabaseSession() {
+export const SIGNED_OUT_FLAG = "lovetech_signed_out";
+
+/** Signs out, wipes every stored session copy, and hard-redirects to the login page. */
+export async function signOutAndRedirect(to = "/login") {
+  try {
+    await Promise.race([supabase.auth.signOut({ scope: "local" }), new Promise((r) => setTimeout(r, 3000))]);
+  } catch { /* noop */ }
+  clearSupabaseAuthStorage();
+  try { window.sessionStorage.setItem(SIGNED_OUT_FLAG, "1"); } catch { /* noop */ }
+  window.location.replace(to);
+}
+
+/** Never leaves callers pending: resolves to null after `ms` if the auth client stalls. */
+export function getActiveSupabaseSession(ms = 5000) {
+  return Promise.race([
+    readActiveSession(),
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), ms)),
+  ]).catch(() => null);
+}
+
+async function readActiveSession() {
   const { data } = await supabase.auth.getSession();
   if (data.session) return data.session;
 

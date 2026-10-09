@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
+import { getActiveSupabaseSession, supabase, SIGNED_OUT_FLAG } from "@/lib/supabase";
+import { toast } from "sonner";
 import { lovable } from "@/lib/lovable-auth";
 import { LegalNotice } from "@/components/legal-notice";
 
@@ -31,6 +32,15 @@ function LoginPage() {
   const [email, setEmail] = useState(""); const [password, setPassword] = useState("");
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
   const redirectTo = safeRedirectPath(redirect);
+
+  useEffect(() => {
+    try {
+      if (window.sessionStorage.getItem(SIGNED_OUT_FLAG)) {
+        window.sessionStorage.removeItem(SIGNED_OUT_FLAG);
+        toast.success("You have been signed out.");
+      }
+    } catch { /* noop */ }
+  }, []);
 
   useEffect(() => {
     let active = true;

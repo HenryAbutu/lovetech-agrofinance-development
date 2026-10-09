@@ -282,8 +282,8 @@ export function SiteFooter() {
               </li>
             ))}
             <li><Link to="/finance-readiness" className="transition-colors hover:text-gold">Finance Readiness</Link></li>
-            <li><Link to="/privacy" className="hover:text-gold">Privacy Policy</Link></li>
-            <li><Link to="/terms" className="hover:text-gold">Terms & Conditions</Link></li>
+            <li><Link to="/privacy-policy" className="hover:text-gold">Privacy Policy</Link></li>
+            <li><Link to="/terms-of-service" className="hover:text-gold">Terms of Service</Link></li>
           </ul>
         </div>
       </div>

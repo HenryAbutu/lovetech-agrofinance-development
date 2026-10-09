@@ -534,26 +534,28 @@ function WaitlistInline({ course }: { course: Course }) {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (state === "loading") return;
+    const form = e.currentTarget;
+    const entries = Object.fromEntries(
+      [...new FormData(form).entries()].map(([k, v]) => [k, String(v).trim()]).filter(([, v]) => v !== ""),
+    ) as Record<string, string>;
+    const data: Record<string, string> = { ...(me ?? {}), course_slug: course.slug, interest_area: course.title.slice(0, 200), ...entries };
+    if (!data.full_name || !data.email || !/^\S+@\S+\.\S+$/.test(data.email)) {
+      setErr("Please enter your full name and a valid email address."); setState("error"); return;
+    }
     setState("loading"); setErr("");
-    const fd = new FormData(e.currentTarget);
-    const data = {
-      ...(me ?? {}),
-      course_slug: course.slug,
-      interest_area: course.title,
-      ...Object.fromEntries(fd.entries()),
-    } as Record<string, string>;
-    try { await submit({ data: data as never }); setState("done"); }
-    catch (e2) { setErr(e2 instanceof Error ? e2.message : "Failed"); setState("error"); }
+    try { await submit({ data: data as never }); form.reset(); setState("done"); }
+    catch (e2) { setErr(e2 instanceof Error ? e2.message : "Something went wrong. Please try again."); setState("error"); }
   }
 
   if (state === "done") {
     return (
-      <div className="rounded-xl border border-vetiver/25 bg-vetiver/5 p-5 text-center">
+      <div role="status" className="rounded-xl border border-vetiver/25 bg-vetiver/5 p-5 text-center">
         <div className="mx-auto mb-2 grid size-10 place-items-center rounded-full bg-vetiver/10 text-vetiver">
           <CheckCircle2 className="size-5" />
         </div>
-        <p className="font-serif text-lg text-vetiver">Thank you.</p>
-        <p className="text-sm text-foreground/70">Your interest has been received. LoveTech will contact you when this programme opens.</p>
+        <p className="font-serif text-lg text-vetiver">Thank you. You have joined the waitlist.</p>
+        <p className="text-sm text-foreground/70">We will contact you with the next steps.</p>
       </div>
     );
   }

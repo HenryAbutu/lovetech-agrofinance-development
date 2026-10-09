@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck, ChevronDown, ArrowRight } from "lucide-react";
 import logoAssetSrc from "@/assets/LoveTech_Logo.png";
 const logoAsset = { url: logoAssetSrc };
-import { getActiveSupabaseSession, supabase , clearSupabaseAuthStorage } from "@/lib/supabase";
+import { getActiveSupabaseSession, supabase, signOutAndRedirect } from "@/lib/supabase";
 import { checkIsAdmin } from "@/lib/learner.functions";
 
 const navLinks = [
@@ -43,6 +43,7 @@ export function SiteHeader() {
   const [mega, setMega] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const [who, setWho] = useState("");
   const fetchAdmin = useServerFn(checkIsAdmin);
 
   useEffect(() => {
@@ -50,9 +51,11 @@ export function SiteHeader() {
     async function check() {
       const session = await getActiveSupabaseSession();
       if (!active) return;
-      const signedIn = !!session?.user;
-      setAuthed(signedIn);
-      if (!signedIn) { setIsAdmin(false); return; }
+      const user = session?.user;
+      setAuthed(!!user);
+      const meta = user?.user_metadata ?? {};
+      setWho(String(meta.full_name ?? meta.name ?? user?.email ?? ""));
+      if (!user) { setIsAdmin(false); return; }
       try {
         const r = await fetchAdmin();
         if (active) setIsAdmin(!!r.isAdmin);
@@ -63,11 +66,9 @@ export function SiteHeader() {
     return () => { active = false; sub.subscription.unsubscribe(); };
   }, [fetchAdmin]);
 
-  async function signOut() {
+  function signOut() {
     setOpen(false);
-    try { await supabase.auth.signOut(); } catch { /* noop */ }
-    try { clearSupabaseAuthStorage(); } catch { /* noop */ }
-    window.location.assign("/login");
+    void signOutAndRedirect("/login");
   }
 
   return (
@@ -136,6 +137,9 @@ export function SiteHeader() {
               <ShieldCheck className="size-4" /> Admin
             </Link>
           )}
+          {authed && who && (
+            <span className="hidden max-w-[10rem] truncate text-xs text-muted-foreground xl:inline" title={who}>{who}</span>
+          )}
           {authed ? (
             <Link
               to="/academy/dashboard"
@@ -146,6 +150,7 @@ export function SiteHeader() {
           ) : null}
           {authed && (
             <button
+              type="button"
               onClick={signOut}
               className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 hover:bg-cloud hover:text-navy lg:inline-flex"
             >
@@ -153,12 +158,17 @@ export function SiteHeader() {
             </button>
           )}
           {authed === false ? (
-            <Link
-              to="/login"
-              className="hidden rounded-lg border border-navy/20 bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-cloud lg:inline-flex"
-            >
-              Sign in
-            </Link>
+            <>
+              <Link
+                to="/login"
+                className="hidden rounded-lg border border-navy/20 bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-cloud lg:inline-flex"
+              >
+                Sign in
+              </Link>
+              <Link to="/signup" className="hidden px-2 py-2 text-sm font-semibold text-navy/80 hover:text-navy lg:inline-flex">
+                Register
+              </Link>
+            </>
           ) : null}
           <Link
             to="/contact"
@@ -222,6 +232,7 @@ export function SiteHeader() {
             ) : null}
             {authed && (
               <button
+                type="button"
                 onClick={signOut}
                 className="mt-2 rounded-lg border border-border bg-white px-4 py-2.5 text-center text-sm font-semibold text-navy"
               >
@@ -237,6 +248,12 @@ export function SiteHeader() {
                 Sign in
               </Link>
             ) : null}
+            {authed === false ? (
+              <Link to="/signup" className="mt-2 rounded-lg border border-border bg-white px-4 py-2.5 text-center text-sm font-semibold text-navy" onClick={() => setOpen(false)}>
+                Register
+              </Link>
+            ) : null}
+            {authed && who ? <p className="mt-2 truncate text-center text-xs text-muted-foreground">Signed in as {who}</p> : null}
             <Link
               to="/contact"
               className="mt-2 rounded-lg bg-navy px-4 py-2.5 text-center text-sm font-semibold text-white"

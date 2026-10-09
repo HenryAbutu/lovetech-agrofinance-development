@@ -58,7 +58,8 @@ function Dashboard() {
     } catch (e) {
       console.error("Sign out failed", e);
     } finally {
-      window.location.assign("/login");
+      try { window.sessionStorage.setItem("lovetech_signed_out", "1"); } catch { /* noop */ }
+      window.location.replace("/login");
     }
   }
 

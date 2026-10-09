@@ -12,18 +12,34 @@ export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; 
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (state === "loading") return;
+    const form = e.currentTarget; // capture before await — currentTarget is null afterwards
+    const entries = Object.fromEntries(
+      [...new FormData(form).entries()]
+        .map(([k, v]) => [k, String(v).trim()])
+        .filter(([, v]) => v !== ""),
+    ) as Record<string, string>;
+    const data: Record<string, string> = { ...(me ?? {}), course_slug: courseSlug, ...entries };
+    if (!data.interest_area) data.interest_area = courseLabel.slice(0, 200);
+    if (!data.full_name || !data.email || !/^\S+@\S+\.\S+$/.test(data.email)) {
+      setErr("Please enter your full name and a valid email address."); setState("error"); return;
+    }
     setState("loading"); setErr("");
-    const fd = new FormData(e.currentTarget);
-    const data = { ...(me ?? {}), course_slug: courseSlug, ...Object.fromEntries(fd.entries()) } as Record<string, string>;
-    try { await submit({ data: data as never }); setState("done"); e.currentTarget.reset(); }
-    catch (e2) { setErr(e2 instanceof Error ? e2.message : "Failed"); setState("error"); }
+    try {
+      await submit({ data: data as never });
+      form.reset();
+      setState("done");
+    } catch (e2) {
+      setErr(e2 instanceof Error ? e2.message : "Something went wrong. Please try again.");
+      setState("error");
+    }
   }
 
   if (state === "done") {
     return (
-      <div className="rounded-2xl border border-vetiver/30 bg-vetiver/5 p-8 text-center">
-        <h3 className="mb-2 font-serif text-3xl text-vetiver">You're on the {courseLabel} waitlist.</h3>
-        <p className="text-foreground/75">We'll email you the moment enrolment opens.</p>
+      <div role="status" className="rounded-2xl border border-vetiver/30 bg-vetiver/5 p-8 text-center">
+        <h3 className="mb-2 font-serif text-2xl text-vetiver">Thank you. You have joined the waitlist.</h3>
+        <p className="text-foreground/75">We will contact you with the next steps for {courseLabel}.</p>
       </div>
     );
   }

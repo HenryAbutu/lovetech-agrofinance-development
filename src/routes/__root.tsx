@@ -127,7 +127,7 @@ function AuthSync() {
         void router.invalidate();
         if (hasValidSession) void qc.invalidateQueries();
 
-        if (hasValidSession && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
+        if (hasValidSession && event === "SIGNED_IN") {
           const redirectTo = window.sessionStorage.getItem("lovetech_post_auth_redirect");
           if (redirectTo) {
             window.sessionStorage.removeItem("lovetech_post_auth_redirect");

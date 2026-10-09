@@ -69,8 +69,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "LoveTech Group builds structured, fundable, growth-ready enterprises and premium lifestyle experiences through LoveTech Advisory & Academy, House 8 Shortlet Apartments and Ruby Chai Wellness." },
       { name: "twitter:description", content: "LoveTech Group builds structured, fundable, growth-ready enterprises and premium lifestyle experiences through LoveTech Advisory & Academy, House 8 Shortlet Apartments and Ruby Chai Wellness." },
       { name: "theme-color", content: "#102A43" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59ca814c-8eab-4263-9e5f-89ff2fcf5f35/id-preview-4386e8df--c3f7334e-7be8-4b3d-9020-76b04111d033.lovable.app-1780686818950.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59ca814c-8eab-4263-9e5f-89ff2fcf5f35/id-preview-4386e8df--c3f7334e-7be8-4b3d-9020-76b04111d033.lovable.app-1780686818950.png" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

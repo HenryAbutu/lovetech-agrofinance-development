@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, Clock, GraduationCap, BedDouble, Leaf, Building2, ArrowRight } from "lucide-react";
 import { submitEnquiry } from "@/lib/forms.functions";
+import { LegalNotice } from "@/components/legal-notice";
 
 type ContactSearch = { service?: string; business?: string };
 
@@ -166,6 +167,7 @@ function ContactPage() {
               <button disabled={state === "loading"} className="rounded-lg bg-navy px-6 py-3 font-semibold text-white shadow-sm hover:opacity-95 disabled:opacity-60">
                 {state === "loading" ? "Sending…" : "Send enquiry"}
               </button>
+              <LegalNotice action="submitting this enquiry" />
               <p className="text-xs text-foreground/60">
                 Booking a stay? You can also use the <Link to="/house-8" className="font-semibold text-teal hover:underline">House 8 booking form</Link>. Ordering tea? Use the <Link to="/ruby-chai" className="font-semibold text-teal hover:underline">Ruby Chai shop</Link>.
               </p>

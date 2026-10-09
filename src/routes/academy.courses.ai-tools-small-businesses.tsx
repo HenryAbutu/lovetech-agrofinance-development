@@ -8,6 +8,7 @@ import { enrolInCourse } from "@/lib/enrolment.functions";
 import { validateCoupon } from "@/lib/coupons.functions";
 import { whatsappUrl } from "@/lib/lms-config";
 import courseImg from "@/assets/course-ai-tools.jpg";
+import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses")({
   head: () => ({
@@ -16,7 +17,8 @@ export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses
       { name: "description", content: "60-minute beginner course: use ChatGPT, Canva AI, CapCut & HeyGen to grow your Nigerian small business. Launch price ₦8,900." },
       { property: "og:title", content: "AI for Businesses: Practical AI Skills for Nigerian SMEs" },
       { property: "og:description", content: "Practical 60-minute beginner course. Launch price ₦8,900." },
-      { property: "og:image", content: courseImg },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Page,
@@ -367,7 +369,7 @@ function Page() {
               >
                 {state === "loading" ? "Processing…" : authed === null ? "Checking…" : authed ? priceLabel : "Sign in to enrol"}
               </button>
-              <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
+              <LegalNotice action="enrolling or proceeding to payment" />
             </form>
           )}
         </div>

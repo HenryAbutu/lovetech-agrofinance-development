@@ -2,11 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { lovable } from "@/lib/lovable-auth";
+import { LegalNotice } from "@/components/legal-notice";
 
 type LoginSearch = { redirect?: string };
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Sign in — LoveTech" }, { name: "description", content: "Sign in to your LoveTech account." }] }),
+  head: () => ({ meta: [{ title: "Sign in — LoveTech" }, { name: "description", content: "Sign in to your LoveTech account." }, { property: "og:title", content: "Sign in — LoveTech" }, { property: "og:description", content: "Access your LoveTech Academy account." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   validateSearch: (search: Record<string, unknown>): LoginSearch => ({
     redirect: typeof search.redirect === "string" ? search.redirect : undefined,
   }),
@@ -65,6 +66,7 @@ function LoginPage() {
         <h1 className="mb-2 font-serif text-4xl text-vetiver">Sign in</h1>
         <p className="mb-6 text-sm text-foreground/65">Welcome back to LoveTech.</p>
         <button onClick={googleSignIn} className="mb-5 flex w-full items-center justify-center gap-2 rounded-md border border-border bg-background py-2.5 text-sm font-medium hover:bg-muted">Continue with Google</button>
+        <LegalNotice className="mb-5" />
         <div className="my-4 flex items-center gap-3 text-xs text-foreground/40"><div className="h-px flex-1 bg-border" /><span>OR</span><div className="h-px flex-1 bg-border" /></div>
         <form onSubmit={onSubmit} className="grid gap-4">
           <input required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />

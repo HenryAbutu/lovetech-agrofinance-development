@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { FileCheck2, Building2, Receipt, TrendingUp, AlertTriangle, Target, ScrollText, ClipboardCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 import { submitDiagnostic } from "@/lib/forms.functions";
+import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/finance-readiness")({
   head: () => ({
@@ -11,6 +12,8 @@ export const Route = createFileRoute("/finance-readiness")({
       { name: "description", content: "Free diagnostic to assess your business's readiness for loans, grants and investment." },
       { property: "og:title", content: "Finance Readiness Diagnostic" },
       { property: "og:description", content: "A practical readiness assessment for MSMEs, agribusinesses and cooperatives seeking funding." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: DiagnosticPage,
@@ -154,6 +157,7 @@ function DiagnosticPage() {
               <button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 font-semibold text-white shadow-sm hover:opacity-95 disabled:opacity-60">
                 {state === "loading" ? "Submitting…" : "Submit Diagnostic Request"}
               </button>
+              <LegalNotice action="submitting this diagnostic request" />
             </form>
           )}
         </div>

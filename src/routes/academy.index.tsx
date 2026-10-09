@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ArrowRight, GraduationCap, Sparkles, CheckCircle2, X, Clock, BarChart3, Award, PlayCircle, Users } from "lucide-react";
 import { submitWaitlist } from "@/lib/forms.functions";
+import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/academy/")({
   head: () => ({
@@ -11,6 +12,8 @@ export const Route = createFileRoute("/academy/")({
       { name: "description", content: "Practical courses for business growth, finance readiness, AI, agribusiness, climate-smart enterprise, and digital transformation." },
       { property: "og:title", content: "LoveTech Agro Academy" },
       { property: "og:description", content: "AI, entrepreneurship, finance readiness and digital skills for Nigerian MSMEs, entrepreneurs and professionals." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: AcademyPage,
@@ -542,6 +545,7 @@ function WaitlistInline({ course }: { course: Course }) {
       <button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 text-sm font-bold text-white shadow-sm hover:opacity-95 disabled:opacity-60">
         {state === "loading" ? "Submitting…" : "Join Waiting List"}
       </button>
+      <LegalNotice action="joining the waiting list" />
     </form>
   );
 }

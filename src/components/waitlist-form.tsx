@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { submitWaitlist } from "@/lib/forms.functions";
+import { LegalNotice } from "@/components/legal-notice";
 
 export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; courseLabel: string }) {
   const submit = useServerFn(submitWaitlist);
@@ -53,6 +54,7 @@ export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; 
       </div>
       {err && <p className="text-sm text-destructive">{err}</p>}
       <button disabled={state === "loading"} className="rounded-sm bg-vetiver px-6 py-3 font-semibold text-bone disabled:opacity-60">{state === "loading" ? "Submitting…" : "Join Waitlist"}</button>
+      <LegalNotice action="joining the waitlist" />
     </form>
   );
 }

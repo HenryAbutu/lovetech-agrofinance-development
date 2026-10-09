@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck, ChevronDown, ArrowRight } from "lucide-react";
 import logoAssetSrc from "@/assets/LoveTech_Logo.png";
 const logoAsset = { url: logoAssetSrc };
-import { getActiveSupabaseSession, supabase , clearSupabaseAuthStorage } from "@/lib/supabase";
+import { getActiveSupabaseSession, supabase, signOutAndRedirect } from "@/lib/supabase";
 import { checkIsAdmin } from "@/lib/learner.functions";
 
 const navLinks = [
@@ -43,6 +43,7 @@ export function SiteHeader() {
   const [mega, setMega] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [authed, setAuthed] = useState<boolean | null>(null);
+  const [who, setWho] = useState("");
   const fetchAdmin = useServerFn(checkIsAdmin);
 
   useEffect(() => {
@@ -50,9 +51,11 @@ export function SiteHeader() {
     async function check() {
       const session = await getActiveSupabaseSession();
       if (!active) return;
-      const signedIn = !!session?.user;
-      setAuthed(signedIn);
-      if (!signedIn) { setIsAdmin(false); return; }
+      const user = session?.user;
+      setAuthed(!!user);
+      const meta = user?.user_metadata ?? {};
+      setWho(String(meta.full_name ?? meta.name ?? user?.email ?? ""));
+      if (!user) { setIsAdmin(false); return; }
       try {
         const r = await fetchAdmin();
         if (active) setIsAdmin(!!r.isAdmin);
@@ -63,11 +66,9 @@ export function SiteHeader() {
     return () => { active = false; sub.subscription.unsubscribe(); };
   }, [fetchAdmin]);
 
-  async function signOut() {
+  function signOut() {
     setOpen(false);
-    try { await supabase.auth.signOut(); } catch { /* noop */ }
-    try { clearSupabaseAuthStorage(); } catch { /* noop */ }
-    window.location.assign("/login");
+    void signOutAndRedirect("/login");
   }
 
   return (

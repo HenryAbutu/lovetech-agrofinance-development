@@ -8,6 +8,13 @@
       "when": 1791479649312,
       "tag": "0000_tighten_public_insert_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791569095645,
+      "tag": "0001_waitlist_user_tracking",
+      "breakpoints": true
     }
   ]
 }

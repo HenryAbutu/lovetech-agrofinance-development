@@ -1068,6 +1068,7 @@ export type Database = {
           business_name: string | null
           business_sector: string | null
           course_id: string | null
+          course_interest: string | null
           created_at: string
           email: string
           full_name: string
@@ -1077,11 +1078,15 @@ export type Database = {
           main_challenge: string | null
           phone: string | null
           preferred_training_mode: string | null
+          source_page: string | null
+          status: string
+          user_id: string | null
         }
         Insert: {
           business_name?: string | null
           business_sector?: string | null
           course_id?: string | null
+          course_interest?: string | null
           created_at?: string
           email: string
           full_name: string
@@ -1091,11 +1096,15 @@ export type Database = {
           main_challenge?: string | null
           phone?: string | null
           preferred_training_mode?: string | null
+          source_page?: string | null
+          status?: string
+          user_id?: string | null
         }
         Update: {
           business_name?: string | null
           business_sector?: string | null
           course_id?: string | null
+          course_interest?: string | null
           created_at?: string
           email?: string
           full_name?: string
@@ -1105,6 +1114,9 @@ export type Database = {
           main_challenge?: string | null
           phone?: string | null
           preferred_training_mode?: string | null
+          source_page?: string | null
+          status?: string
+          user_id?: string | null
         }
         Relationships: [
           {

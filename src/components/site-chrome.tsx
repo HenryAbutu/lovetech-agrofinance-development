@@ -137,6 +137,9 @@ export function SiteHeader() {
               <ShieldCheck className="size-4" /> Admin
             </Link>
           )}
+          {authed && who && (
+            <span className="hidden max-w-[10rem] truncate text-xs text-muted-foreground xl:inline" title={who}>{who}</span>
+          )}
           {authed ? (
             <Link
               to="/academy/dashboard"
@@ -147,6 +150,7 @@ export function SiteHeader() {
           ) : null}
           {authed && (
             <button
+              type="button"
               onClick={signOut}
               className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 hover:bg-cloud hover:text-navy lg:inline-flex"
             >
@@ -154,12 +158,17 @@ export function SiteHeader() {
             </button>
           )}
           {authed === false ? (
-            <Link
-              to="/login"
-              className="hidden rounded-lg border border-navy/20 bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-cloud lg:inline-flex"
-            >
-              Sign in
-            </Link>
+            <>
+              <Link
+                to="/login"
+                className="hidden rounded-lg border border-navy/20 bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-cloud lg:inline-flex"
+              >
+                Sign in
+              </Link>
+              <Link to="/signup" className="hidden px-2 py-2 text-sm font-semibold text-navy/80 hover:text-navy lg:inline-flex">
+                Register
+              </Link>
+            </>
           ) : null}
           <Link
             to="/contact"

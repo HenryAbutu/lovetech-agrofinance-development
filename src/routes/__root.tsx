@@ -118,15 +118,16 @@ function AuthSync() {
         return;
       }
 
+      // The OAuth callback page owns the post-sign-in redirect; don't race it.
+      if (window.location.pathname.startsWith("/auth/callback")) return;
+      if (event !== "SIGNED_IN" && event !== "USER_UPDATED") return;
       const hasValidSession = Boolean(session?.user);
-      const shouldRefreshRouter = hasValidSession || event === "USER_UPDATED";
-      if (!shouldRefreshRouter) return;
 
       window.setTimeout(() => {
         void router.invalidate();
         if (hasValidSession) void qc.invalidateQueries();
 
-        if (hasValidSession && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
+        if (hasValidSession && event === "SIGNED_IN") {
           const redirectTo = window.sessionStorage.getItem("lovetech_post_auth_redirect");
           if (redirectTo) {
             window.sessionStorage.removeItem("lovetech_post_auth_redirect");

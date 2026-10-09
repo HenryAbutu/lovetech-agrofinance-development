@@ -90,11 +90,11 @@ function Page() {
   const [mainChallenge, setMainChallenge] = useState("");
 
   useEffect(() => {
-    async function loadProfile(userId: string, email: string) {
+    async function loadProfile(userId: string, email: string, metaName = "") {
       const { data } = await supabase.from("profiles").select("full_name, email, phone, business_name, location").eq("id", userId).maybeSingle();
       setProfile({
-        full_name: data?.full_name ?? "",
-        email: data?.email ?? email,
+        full_name: data?.full_name || metaName || (email ? email.split("@")[0] : ""),
+        email: data?.email || email,
         phone: data?.phone ?? "",
         business_name: data?.business_name ?? "",
         location: data?.location ?? "",
@@ -102,11 +102,11 @@ function Page() {
     }
     getActiveSupabaseSession().then((session) => {
       setAuthed(!!session?.user);
-      if (session?.user) loadProfile(session.user.id, session.user.email ?? "");
+      if (session?.user) loadProfile(session.user.id, session.user.email ?? "", String(session.user.user_metadata?.full_name ?? session.user.user_metadata?.name ?? ""));
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       setAuthed(!!session?.user);
-      if (session?.user) loadProfile(session.user.id, session.user.email ?? "");
+      if (session?.user) loadProfile(session.user.id, session.user.email ?? "", String(session.user.user_metadata?.full_name ?? session.user.user_metadata?.name ?? ""));
       else setProfile(null);
     });
     return () => sub.subscription.unsubscribe();

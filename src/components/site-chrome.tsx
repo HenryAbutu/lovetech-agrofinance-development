@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck, ChevronDown, ArrowRight } from "lucide-react";
 import logoAssetSrc from "@/assets/LoveTech_Logo.png";
 const logoAsset = { url: logoAssetSrc };
-import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
+import { getActiveSupabaseSession, supabase , clearSupabaseAuthStorage } from "@/lib/supabase";
 import { checkIsAdmin } from "@/lib/learner.functions";
 
 const navLinks = [
@@ -62,6 +62,13 @@ export function SiteHeader() {
     const { data: sub } = supabase.auth.onAuthStateChange(() => check());
     return () => { active = false; sub.subscription.unsubscribe(); };
   }, [fetchAdmin]);
+
+  async function signOut() {
+    setOpen(false);
+    try { await supabase.auth.signOut(); } catch { /* noop */ }
+    try { clearSupabaseAuthStorage(); } catch { /* noop */ }
+    window.location.assign("/login");
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white/95 backdrop-blur-md">
@@ -136,7 +143,16 @@ export function SiteHeader() {
             >
               My Academy
             </Link>
-          ) : authed === false ? (
+          ) : null}
+          {authed && (
+            <button
+              onClick={signOut}
+              className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 hover:bg-cloud hover:text-navy lg:inline-flex"
+            >
+              Sign out
+            </button>
+          )}
+          {authed === false ? (
             <Link
               to="/login"
               className="hidden rounded-lg border border-navy/20 bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-cloud lg:inline-flex"
@@ -203,7 +219,16 @@ export function SiteHeader() {
               >
                 My Academy
               </Link>
-            ) : authed === false ? (
+            ) : null}
+            {authed && (
+              <button
+                onClick={signOut}
+                className="mt-2 rounded-lg border border-border bg-white px-4 py-2.5 text-center text-sm font-semibold text-navy"
+              >
+                Sign out
+              </button>
+            )}
+            {authed === false ? (
               <Link
                 to="/login"
                 className="mt-2 rounded-lg border border-navy/20 bg-white px-4 py-2.5 text-center text-sm font-semibold text-navy"

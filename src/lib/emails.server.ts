@@ -141,3 +141,44 @@ function escapeHtml(s: string) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
+
+export type WaitlistEmailInput = {
+  full_name: string;
+  email: string;
+  phone?: string | null;
+  business_name?: string | null;
+  business_sector?: string | null;
+  location?: string | null;
+  preferred_training_mode?: string | null;
+  main_challenge?: string | null;
+  course_interest?: string | null;
+};
+
+export async function sendWaitlistEmails(w: WaitlistEmailInput) {
+  const course = w.course_interest || "LoveTech Academy";
+  const learnerInner = `
+    <p style="font-size:15px;margin:0 0 12px;">Hi ${escapeHtml(w.full_name || "there")},</p>
+    <p style="font-size:15px;margin:0 0 16px;">Thank you for joining the waitlist for <strong>${escapeHtml(course)}</strong>.</p>
+    <p style="font-size:15px;margin:0 0 8px;"><strong>What happens next</strong></p>
+    <ul style="font-size:14px;color:#3a423a;margin:0 0 16px;padding-left:20px;line-height:1.6;">
+      <li>Our team will review your details.</li>
+      <li>We will contact you with cohort dates and enrolment steps.</li>
+      <li>You will be invited to our learner WhatsApp community.</li>
+    </ul>
+    <p style="margin:20px 0;">${btn("https://lovetechgroup.com.ng/academy", "Explore the Academy")}</p>
+    <p style="font-size:14px;color:#5a635a;margin:0;">Questions? Just reply to this email.</p>`;
+  const row = (k: string, v?: string | null) =>
+    `<tr><td style="padding:8px 14px;color:#5a635a;border-top:1px solid #eee;">${k}</td><td style="padding:8px 14px;text-align:right;border-top:1px solid #eee;">${escapeHtml(v || "—")}</td></tr>`;
+  const adminInner = `
+    <p style="font-size:15px;margin:0 0 12px;">A new person joined the waitlist.</p>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #eee;border-radius:8px;font-size:14px;">
+      ${row("Programme", course)}${row("Name", w.full_name)}${row("Email", w.email)}${row("Phone", w.phone)}
+      ${row("Business", w.business_name)}${row("Sector", w.business_sector)}${row("Location", w.location)}
+      ${row("Training mode", w.preferred_training_mode)}${row("Main challenge", w.main_challenge)}
+    </table>`;
+  const [learner, admin] = await Promise.all([
+    sendEmail({ to: w.email, subject: `You're on the waitlist — ${course}`, html: shell("You're on the waitlist", learnerInner), replyTo: "info@lovetechgroup.com.ng" }),
+    sendEmail({ to: ADMIN_TO, subject: `New waitlist sign-up · ${course}`, html: shell("New waitlist sign-up", adminInner), replyTo: w.email }),
+  ]);
+  return { learner: learner.ok, admin: admin.ok };
+}

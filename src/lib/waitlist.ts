@@ -1,4 +1,5 @@
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
+import { sendWaitlistConfirmation } from "@/lib/waitlist.functions";
 
 export type WaitlistEntry = {
   full_name?: string;
@@ -38,8 +39,10 @@ export async function joinWaitlist(entry: WaitlistEntry, courseInterest: string)
     if (existing && existing.length > 0) return { status: "duplicate" };
   }
 
+  const id = crypto.randomUUID();
   const { error } = await supabase.from("academy_waitlist").insert({
     ...entry,
+    id,
     full_name: full_name.slice(0, 200),
     email: email.slice(0, 320),
     interest_area: (entry.interest_area || courseInterest).slice(0, 200),
@@ -54,5 +57,6 @@ export async function joinWaitlist(entry: WaitlistEntry, courseInterest: string)
     throw new Error(error.message);
   }
   console.info("[waitlist] insert success");
+  sendWaitlistConfirmation({ data: { id } }).catch((e) => console.warn("[waitlist] email failed", e));
   return { status: "ok" };
 }

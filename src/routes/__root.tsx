@@ -118,9 +118,10 @@ function AuthSync() {
         return;
       }
 
+      // The OAuth callback page owns the post-sign-in redirect; don't race it.
+      if (window.location.pathname.startsWith("/auth/callback")) return;
+      if (event !== "SIGNED_IN" && event !== "USER_UPDATED") return;
       const hasValidSession = Boolean(session?.user);
-      const shouldRefreshRouter = hasValidSession || event === "USER_UPDATED";
-      if (!shouldRefreshRouter) return;
 
       window.setTimeout(() => {
         void router.invalidate();

@@ -1,51 +1,60 @@
 import { useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
-import { submitWaitlist } from "@/lib/forms.functions";
+import { toast } from "sonner";
 import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { LegalNotice } from "@/components/legal-notice";
+import { joinWaitlist } from "@/lib/waitlist";
+
+const MODES = ["Online", "Physical/In-person", "Hybrid", "Self-paced", "Not sure yet"];
 
 export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; courseLabel: string }) {
-  const submit = useServerFn(submitWaitlist);
+  void courseSlug;
   const me = useSessionIdentity();
-  const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [state, setState] = useState<"idle" | "loading" | "done" | "duplicate">("idle");
   const [err, setErr] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (state === "loading") return;
-    const form = e.currentTarget; // capture before await — currentTarget is null afterwards
-    const entries = Object.fromEntries(
-      [...new FormData(form).entries()]
-        .map(([k, v]) => [k, String(v).trim()])
-        .filter(([, v]) => v !== ""),
+    const form = e.currentTarget;
+    const values = Object.fromEntries(
+      [...new FormData(form).entries()].map(([k, v]) => [k, String(v).trim()]).filter(([, v]) => v !== ""),
     ) as Record<string, string>;
-    const data: Record<string, string> = { ...(me ?? {}), course_slug: courseSlug, ...entries };
-    if (!data.interest_area) data.interest_area = courseLabel.slice(0, 200);
-    if (!data.full_name || !data.email || !/^\S+@\S+\.\S+$/.test(data.email)) {
-      setErr("Please enter your full name and a valid email address."); setState("error"); return;
-    }
-    setState("loading"); setErr("");
+    setErr("");
+    setState("loading");
+    const tId = toast.loading("Submitting...");
     try {
-      await submit({ data: data as never });
+      const res = await joinWaitlist({ ...(me ?? {}), ...values }, courseLabel);
+      if (res.status === "duplicate") {
+        toast.info("You are already on the waitlist for this programme.", { id: tId });
+        setState("duplicate");
+        return;
+      }
       form.reset();
+      toast.success("You have joined the waitlist successfully.", { id: tId });
       setState("done");
     } catch (e2) {
-      setErr(e2 instanceof Error ? e2.message : "Something went wrong. Please try again.");
-      setState("error");
+      const msg = e2 instanceof Error ? e2.message : "Unknown error";
+      toast.error(`Submission failed: ${msg}`, { id: tId });
+      setErr(`Submission failed: ${msg}`);
+      setState("idle");
     }
   }
 
-  if (state === "done") {
+  if (state === "done" || state === "duplicate") {
     return (
       <div role="status" className="rounded-2xl border border-vetiver/30 bg-vetiver/5 p-8 text-center">
-        <h3 className="mb-2 font-serif text-2xl text-vetiver">Thank you. You have joined the waitlist.</h3>
+        <h3 className="mb-2 font-serif text-2xl text-vetiver">
+          {state === "done" ? "Thank you. You have joined the waitlist." : "You are already on the waitlist for this programme."}
+        </h3>
         <p className="text-foreground/75">We will contact you with the next steps for {courseLabel}.</p>
       </div>
     );
   }
+
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-card p-8">
-      <h2 className="font-serif text-3xl text-vetiver">Join the {courseLabel} waitlist</h2>
+    <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-card p-6 md:p-8">
+      <h2 className="font-serif text-2xl text-vetiver md:text-3xl">Join the {courseLabel} waitlist</h2>
+      <p className="text-xs text-foreground/60">Fields marked * are required.</p>
       {me ? (
         <p className="text-sm text-foreground/70">Joining as <span className="font-semibold">{me.full_name}</span> ({me.email})</p>
       ) : (
@@ -55,36 +64,40 @@ export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; 
         </div>
       )}
       <div className="grid gap-5 md:grid-cols-2">
-        <Input name="phone" label="Phone (WhatsApp)" />
-        <Input name="business_name" label="Business name" />
+        <Input name="phone" type="tel" label="Phone / WhatsApp" required />
+        <Input name="business_name" label="Business name" required />
       </div>
       <div className="grid gap-5 md:grid-cols-2">
-        <Input name="business_sector" label="Business sector" />
-        <Input name="location" label="Location" />
+        <Input name="business_sector" label="Business sector" required />
+        <Input name="location" label="Location" required />
       </div>
-      <Input name="interest_area" label="What interests you most about this programme?" />
+      <Input name="interest_area" label="What interests you most about this programme?" required />
       <div>
-        <label className="mb-1 block text-sm font-medium text-foreground/80">Main business challenge</label>
-        <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+        <label htmlFor="wl-challenge" className="mb-1 block text-sm font-medium text-foreground/80">Main business challenge *</label>
+        <textarea id="wl-challenge" name="main_challenge" required maxLength={2000} rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium text-foreground/80">Preferred training mode</label>
-        <select name="preferred_training_mode" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
-          <option value="">Select…</option>
-          {["Self-paced online","Live Zoom cohort","Hybrid","In-person"].map((o) => <option key={o}>{o}</option>)}
+        <label htmlFor="wl-mode" className="mb-1 block text-sm font-medium text-foreground/80">Preferred training mode *</label>
+        <select id="wl-mode" name="preferred_training_mode" required defaultValue="" className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
+          <option value="" disabled>Select…</option>
+          {MODES.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
       </div>
-      {err && <p className="text-sm text-destructive">{err}</p>}
-      <button disabled={state === "loading"} className="rounded-sm bg-vetiver px-6 py-3 font-semibold text-bone disabled:opacity-60">{state === "loading" ? "Submitting…" : "Join Waitlist"}</button>
+      {err && <p role="alert" className="text-sm text-destructive">{err}</p>}
+      <button type="submit" disabled={state === "loading"} className="rounded-md bg-vetiver px-6 py-3 font-semibold text-bone disabled:opacity-60">
+        {state === "loading" ? "Submitting…" : "Join Waitlist"}
+      </button>
       <LegalNotice action="joining the waitlist" />
     </form>
   );
 }
+
 function Input({ name, label, type = "text", required }: { name: string; label: string; type?: string; required?: boolean }) {
+  const id = `wl-${name}`;
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
-      <input name={name} type={type} required={required} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+      <label htmlFor={id} className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
+      <input id={id} name={name} type={type} required={required} maxLength={200} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
     </div>
   );
 }

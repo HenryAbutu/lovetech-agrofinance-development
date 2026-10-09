@@ -6,6 +6,7 @@ import { ArrowRight, GraduationCap, Sparkles, CheckCircle2, X, Clock, BarChart3,
 import { submitWaitlist } from "@/lib/forms.functions";
 import { LegalNotice } from "@/components/legal-notice";
 import { catalogue } from "@/lib/academy-catalogue";
+import { joinWaitlist } from "@/lib/waitlist";
 
 export const Route = createFileRoute("/academy/")({
   head: () => ({
@@ -544,7 +545,7 @@ function WaitlistInline({ course }: { course: Course }) {
       setErr("Please enter your full name and a valid email address."); setState("error"); return;
     }
     setState("loading"); setErr("");
-    try { await submit({ data: data as never }); form.reset(); setState("done"); }
+    try { const { course_slug: _cs, ...entry } = data; void _cs; await joinWaitlist(entry, course.title); form.reset(); setState("done"); }
     catch (e2) { setErr(e2 instanceof Error ? e2.message : "Something went wrong. Please try again."); setState("error"); }
   }
 

@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { ArrowRight, GraduationCap, Sparkles, CheckCircle2, X, Clock, BarChart3, Award, PlayCircle, Users } from "lucide-react";
 import { submitWaitlist } from "@/lib/forms.functions";
 import { LegalNotice } from "@/components/legal-notice";
+import { catalogue } from "@/lib/academy-catalogue";
 
 export const Route = createFileRoute("/academy/")({
   head: () => ({
@@ -245,6 +246,30 @@ function AcademyPage() {
           </p>
         </div>
       </section>
+
+      {/* Programme catalogue */}
+      <Section id="catalogue" eyebrow="Learning pathways" title="Our programmes">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {catalogue.map((c) => (
+            <article key={c.slug} className="flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-teal/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">{c.pathway}</span>
+                {c.hybrid && <span className="rounded-full bg-ochre/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-vetiver">Hybrid</span>}
+              </div>
+              <h3 className="mb-2 font-serif text-lg text-vetiver">{c.title}</h3>
+              <p className="mb-4 flex-1 text-sm text-foreground/65">{c.short}</p>
+              <dl className="mb-5 space-y-1 text-xs text-foreground/65">
+                <div className="flex gap-1.5"><BarChart3 className="size-3.5" /><dt className="sr-only">Level</dt><dd>{c.level}</dd></div>
+                <div className="flex gap-1.5"><Clock className="size-3.5" /><dt className="sr-only">Duration</dt><dd>{c.duration}</dd></div>
+                <div className="flex gap-1.5"><Users className="size-3.5" /><dt className="sr-only">Delivery</dt><dd>{c.delivery}</dd></div>
+              </dl>
+              <Link to="/academy/courses/$slug" params={{ slug: c.slug }} className="inline-flex items-center gap-1.5 self-start rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-white hover:opacity-95">
+                View Course <ArrowRight className="size-4" />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </Section>
 
       {/* Available Courses */}
       <Section id="available" eyebrow="Available now" title="Currently open for enrolment">

@@ -52,6 +52,7 @@ import { Route as AuthenticatedAdminRubyChaiRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
 import { Route as AuthenticatedSettingsProfileRouteImport } from './routes/_authenticated.settings.profile'
+import { Route as AcademyCoursesSlugRouteImport } from './routes/academy.courses.$slug'
 import { Route as AcademyCoursesAiToolsSmallBusinessesRouteImport } from './routes/academy.courses.ai-tools-small-businesses'
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
 import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
@@ -295,6 +296,11 @@ const AuthenticatedSettingsProfileRoute =
     path: '/settings/profile',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AcademyCoursesSlugRoute = AcademyCoursesSlugRouteImport.update({
+  id: '/academy/courses/$slug',
+  path: '/academy/courses/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AcademyCoursesAiToolsSmallBusinessesRoute =
   AcademyCoursesAiToolsSmallBusinessesRouteImport.update({
     id: '/academy/courses/ai-tools-small-businesses',
@@ -405,6 +411,7 @@ export interface FileRoutesByFullPath {
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/settings/profile': typeof AuthenticatedSettingsProfileRoute
+  '/academy/courses/$slug': typeof AcademyCoursesSlugRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -459,6 +466,7 @@ export interface FileRoutesByTo {
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/settings/profile': typeof AuthenticatedSettingsProfileRoute
+  '/academy/courses/$slug': typeof AcademyCoursesSlugRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -516,6 +524,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/_authenticated/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/_authenticated/settings/profile': typeof AuthenticatedSettingsProfileRoute
+  '/academy/courses/$slug': typeof AcademyCoursesSlugRoute
   '/academy/courses/ai-tools-small-businesses': typeof AcademyCoursesAiToolsSmallBusinessesRoute
   '/academy/courses/finance-readiness-msmes': typeof AcademyCoursesFinanceReadinessMsmesRoute
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -573,6 +582,7 @@ export interface FileRouteTypes {
     | '/admin/video-studio'
     | '/admin/waitlist'
     | '/settings/profile'
+    | '/academy/courses/$slug'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -627,6 +637,7 @@ export interface FileRouteTypes {
     | '/admin/video-studio'
     | '/admin/waitlist'
     | '/settings/profile'
+    | '/academy/courses/$slug'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -683,6 +694,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/video-studio'
     | '/_authenticated/admin/waitlist'
     | '/_authenticated/settings/profile'
+    | '/academy/courses/$slug'
     | '/academy/courses/ai-tools-small-businesses'
     | '/academy/courses/finance-readiness-msmes'
     | '/academy/courses/icss-2-0-entrepreneurship'
@@ -720,6 +732,7 @@ export interface RootRouteChildren {
   InsightsSlugRoute: typeof InsightsSlugRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
   InsightsIndexRoute: typeof InsightsIndexRoute
+  AcademyCoursesSlugRoute: typeof AcademyCoursesSlugRoute
   AcademyCoursesAiToolsSmallBusinessesRoute: typeof AcademyCoursesAiToolsSmallBusinessesRoute
   AcademyCoursesFinanceReadinessMsmesRoute: typeof AcademyCoursesFinanceReadinessMsmesRoute
   AcademyCoursesIcss20EntrepreneurshipRoute: typeof AcademyCoursesIcss20EntrepreneurshipRoute
@@ -1031,6 +1044,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsProfileRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/academy/courses/$slug': {
+      id: '/academy/courses/$slug'
+      path: '/academy/courses/$slug'
+      fullPath: '/academy/courses/$slug'
+      preLoaderRoute: typeof AcademyCoursesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/academy/courses/ai-tools-small-businesses': {
       id: '/academy/courses/ai-tools-small-businesses'
       path: '/academy/courses/ai-tools-small-businesses'
@@ -1245,6 +1265,7 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsSlugRoute: InsightsSlugRoute,
   AcademyIndexRoute: AcademyIndexRoute,
   InsightsIndexRoute: InsightsIndexRoute,
+  AcademyCoursesSlugRoute: AcademyCoursesSlugRoute,
   AcademyCoursesAiToolsSmallBusinessesRoute:
     AcademyCoursesAiToolsSmallBusinessesRoute,
   AcademyCoursesFinanceReadinessMsmesRoute:

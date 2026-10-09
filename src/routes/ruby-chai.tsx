@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowRight, Leaf, Sparkles, Minus, Plus, ShoppingBag } from "lucide-react";
 import { submitRubyChaiOrder } from "@/lib/rubychai.functions";
+import { LegalNotice } from "@/components/legal-notice";
 import heroAssetSrc from "@/assets/group/rubychai-hero.png";
 const heroAsset = { url: heroAssetSrc };
 import packagingAssetSrc from "@/assets/group/rubychai-packaging.png";
@@ -245,6 +246,7 @@ function Shop() {
                 {mutation.isPending ? "Sending…" : `Place order${total > 0 ? ` — ${ngn(total)}` : ""}`} <ShoppingBag className="size-4" />
               </button>
               <p className="mt-3 text-center text-xs text-foreground/60">No payment online — we confirm your order and share payment details.</p>
+              <LegalNotice action="placing this order" className="mt-3 text-center" />
             </form>
           )}
         </div>

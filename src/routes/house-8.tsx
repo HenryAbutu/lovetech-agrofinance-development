@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ArrowRight, BedDouble, Wifi, ShieldCheck, Sparkles, MapPin, Car, Users, Utensils, Gamepad2, Flame, Wine } from "lucide-react";
 import { submitHouse8Booking } from "@/lib/house8.functions";
+import { LegalNotice } from "@/components/legal-notice";
 import exteriorAssetSrc from "@/assets/group/house8-exterior.png";
 const exteriorAsset = { url: exteriorAssetSrc };
 import poolAssetSrc from "@/assets/group/house8-pool.png";
@@ -297,6 +298,7 @@ function BookingForm() {
         {mutation.isPending ? "Sending…" : "Send booking enquiry"} <ArrowRight className="size-4" />
       </button>
       <p className="mt-3 text-center text-xs text-foreground/60">No payment is taken online — we confirm availability first.</p>
+      <LegalNotice action="submitting this booking enquiry" className="mt-3 text-center" />
     </form>
   );
 }

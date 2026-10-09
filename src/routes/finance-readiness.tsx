@@ -12,6 +12,8 @@ export const Route = createFileRoute("/finance-readiness")({
       { name: "description", content: "Free diagnostic to assess your business's readiness for loans, grants and investment." },
       { property: "og:title", content: "Finance Readiness Diagnostic" },
       { property: "og:description", content: "A practical readiness assessment for MSMEs, agribusinesses and cooperatives seeking funding." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: DiagnosticPage,

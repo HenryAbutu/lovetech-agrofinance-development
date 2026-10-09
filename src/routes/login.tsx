@@ -7,7 +7,7 @@ import { LegalNotice } from "@/components/legal-notice";
 type LoginSearch = { redirect?: string };
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Sign in — LoveTech" }, { name: "description", content: "Sign in to your LoveTech account." }] }),
+  head: () => ({ meta: [{ title: "Sign in — LoveTech" }, { name: "description", content: "Sign in to your LoveTech account." }, { property: "og:title", content: "Sign in — LoveTech" }, { property: "og:description", content: "Access your LoveTech Academy account." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   validateSearch: (search: Record<string, unknown>): LoginSearch => ({
     redirect: typeof search.redirect === "string" ? search.redirect : undefined,
   }),

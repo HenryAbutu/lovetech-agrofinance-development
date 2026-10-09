@@ -12,6 +12,8 @@ export const Route = createFileRoute("/academy/")({
       { name: "description", content: "Practical courses for business growth, finance readiness, AI, agribusiness, climate-smart enterprise, and digital transformation." },
       { property: "og:title", content: "LoveTech Agro Academy" },
       { property: "og:description", content: "AI, entrepreneurship, finance readiness and digital skills for Nigerian MSMEs, entrepreneurs and professionals." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: AcademyPage,

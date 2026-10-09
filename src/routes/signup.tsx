@@ -5,7 +5,7 @@ import { lovable } from "@/lib/lovable-auth";
 import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/signup")({
-  head: () => ({ meta: [{ title: "Create account — LoveTech" }, { name: "description", content: "Create your LoveTech account." }] }),
+  head: () => ({ meta: [{ title: "Create account — LoveTech" }, { name: "description", content: "Create your LoveTech account." }, { property: "og:title", content: "Create account — LoveTech" }, { property: "og:description", content: "Register for LoveTech Academy courses and learning resources." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: SignupPage,
 });
 

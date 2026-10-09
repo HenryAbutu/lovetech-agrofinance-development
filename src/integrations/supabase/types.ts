@@ -1071,6 +1071,7 @@ export type Database = {
           course_interest: string | null
           created_at: string
           email: string
+          emails_sent_at: string | null
           full_name: string
           id: string
           interest_area: string | null
@@ -1089,6 +1090,7 @@ export type Database = {
           course_interest?: string | null
           created_at?: string
           email: string
+          emails_sent_at?: string | null
           full_name: string
           id?: string
           interest_area?: string | null
@@ -1107,6 +1109,7 @@ export type Database = {
           course_interest?: string | null
           created_at?: string
           email?: string
+          emails_sent_at?: string | null
           full_name?: string
           id?: string
           interest_area?: string | null

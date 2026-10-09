@@ -15,6 +15,13 @@
       "when": 1791569095645,
       "tag": "0001_waitlist_user_tracking",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791569722561,
+      "tag": "0002_waitlist_email_sent",
+      "breakpoints": true
     }
   ]
 }

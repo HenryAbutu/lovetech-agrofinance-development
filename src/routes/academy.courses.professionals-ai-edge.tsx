@@ -8,6 +8,7 @@ import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { enrolInCourse } from "@/lib/enrolment.functions";
 import { validateCoupon } from "@/lib/coupons.functions";
 import courseImg from "@/assets/course-ai-edge.jpg";
+import { LegalNotice } from "@/components/legal-notice";
 
 const SearchSchema = z.object({ ref: z.string().max(60).optional() });
 
@@ -271,7 +272,7 @@ function Page() {
               >
                 {state === "loading" ? "Processing…" : authed === null ? "Checking…" : authed ? priceLabel : "Sign in to enroll"}
               </button>
-              <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
+              <LegalNotice action="enrolling or proceeding to payment" />
             </form>
           )}
         </div>

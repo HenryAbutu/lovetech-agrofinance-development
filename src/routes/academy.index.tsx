@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ArrowRight, GraduationCap, Sparkles, CheckCircle2, X, Clock, BarChart3, Award, PlayCircle, Users } from "lucide-react";
 import { submitWaitlist } from "@/lib/forms.functions";
+import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/academy/")({
   head: () => ({
@@ -542,6 +543,7 @@ function WaitlistInline({ course }: { course: Course }) {
       <button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 text-sm font-bold text-white shadow-sm hover:opacity-95 disabled:opacity-60">
         {state === "loading" ? "Submitting…" : "Join Waiting List"}
       </button>
+      <LegalNotice action="joining the waiting list" />
     </form>
   );
 }

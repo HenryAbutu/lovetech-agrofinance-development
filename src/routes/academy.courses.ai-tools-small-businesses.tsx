@@ -8,6 +8,7 @@ import { enrolInCourse } from "@/lib/enrolment.functions";
 import { validateCoupon } from "@/lib/coupons.functions";
 import { whatsappUrl } from "@/lib/lms-config";
 import courseImg from "@/assets/course-ai-tools.jpg";
+import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses")({
   head: () => ({
@@ -367,7 +368,7 @@ function Page() {
               >
                 {state === "loading" ? "Processing…" : authed === null ? "Checking…" : authed ? priceLabel : "Sign in to enrol"}
               </button>
-              <p className="text-xs text-foreground/55">By enrolling you agree to our <Link to="/terms" className="underline">terms</Link> and <Link to="/privacy" className="underline">privacy policy</Link>.</p>
+              <LegalNotice action="enrolling or proceeding to payment" />
             </form>
           )}
         </div>

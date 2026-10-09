@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { lovable } from "@/lib/lovable-auth";
+import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({ meta: [{ title: "Create account — LoveTech" }, { name: "description", content: "Create your LoveTech account." }] }),
@@ -43,6 +44,7 @@ function SignupPage() {
         ) : (
           <>
             <button onClick={googleSignIn} className="mb-5 flex w-full items-center justify-center gap-2 rounded-md border border-border bg-background py-2.5 text-sm font-medium hover:bg-muted">Continue with Google</button>
+            <LegalNotice className="mb-5" />
             <div className="my-4 flex items-center gap-3 text-xs text-foreground/40"><div className="h-px flex-1 bg-border" /><span>OR</span><div className="h-px flex-1 bg-border" /></div>
             <form onSubmit={onSubmit} className="grid gap-4">
               <input required placeholder="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />

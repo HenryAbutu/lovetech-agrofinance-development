@@ -1547,6 +1547,30 @@ export type Database = {
       }
     }
     Functions: {
+      admin_list_users: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          last_sign_in_at: string
+          login_methods: string[]
+          role: string
+          status: string
+        }[]
+      }
+      admin_set_user_disabled: {
+        Args: { _disabled: boolean; _user_id: string }
+        Returns: undefined
+      }
+      admin_set_user_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: undefined
+      }
       get_my_role: { Args: never; Returns: string }
       has_role: {
         Args: {

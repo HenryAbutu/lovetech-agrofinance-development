@@ -1,11 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { CheckCircle2, Circle, PlayCircle, FileText, Download, ClipboardList, ClipboardCheck, Users, MessageSquare, ArrowRight, ExternalLink } from "lucide-react";
+import { CheckCircle2, Circle, PlayCircle, FileText, Download, ClipboardList, ClipboardCheck, Users, MessageSquare, ArrowRight, ExternalLink, Lock } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { findCourse } from "@/lib/academy-catalogue";
+import { whatsappUrl } from "@/lib/lms-config";
 import { ASSESSMENTS, LEARNABLE, RESOURCES, downloadResource, type Lesson } from "@/lib/learning-content";
-import { courseSummary, useLearnerData, useRefreshLearner } from "@/lib/use-learner-data";
+import { courseSummary, isEnrolled, previewKeys, useLearnerData, useRefreshLearner } from "@/lib/use-learner-data";
+
+const NOT_ENROLLED_MSG = "You are not enrolled in this course yet. Please join the waitlist or contact Lovetech support.";
 
 export const Route = createFileRoute("/_authenticated/academy/learn/$slug")({
   head: () => ({ meta: [{ title: "Learn — LoveTech Academy" }, { name: "robots", content: "noindex" }] }),
@@ -74,6 +77,13 @@ function LearnPage() {
         <Link to="/academy/dashboard" className="text-xs font-semibold uppercase tracking-widest text-ochre">← My Academy</Link>
         <h1 className="mt-2 text-2xl font-bold text-vetiver md:text-3xl">{course.title}</h1>
         <div className="mt-4">
+          {!enrolled && (
+            <div className="mb-4 rounded-xl border border-ochre/40 bg-ochre/10 p-4 text-sm">
+              <p className="font-semibold">Free preview</p>
+              <p className="mt-1 text-foreground/80">{NOT_ENROLLED_MSG}</p>
+              <Link to="/academy/courses/$slug" params={{ slug }} hash="register" className="mt-2 inline-block font-semibold text-teal underline">Join the waitlist</Link>
+            </div>
+          )}
           <div className="flex justify-between text-xs text-foreground/60"><span>Progress</span><span>{sum.percent}%</span></div>
           <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted"><div className="h-full bg-teal transition-all" style={{ width: `${sum.percent}%` }} /></div>
         </div>
@@ -86,9 +96,9 @@ function LearnPage() {
                 <ul className="space-y-1">
                   {m.lessons.map((l) => (
                     <li key={l.key}>
-                      <button type="button" onClick={() => { setActiveKey(l.key); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                      <button type="button" onClick={() => open(l.key)}
                         className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm ${l.key === active.key ? "bg-teal/10 text-teal" : "hover:bg-muted"}`}>
-                        {sum.done.has(l.key) ? <CheckCircle2 className="size-4 shrink-0 text-teal" /> : <Circle className="size-4 shrink-0 text-foreground/30" />}
+                        {!canOpen(l.key) ? <Lock className="size-4 shrink-0 text-foreground/30" /> : sum.done.has(l.key) ? <CheckCircle2 className="size-4 shrink-0 text-teal" /> : <Circle className="size-4 shrink-0 text-foreground/30" />}
                         <span className="flex-1">{l.title}</span>
                         <span className="text-foreground/40">{ICONS[l.type]}</span>
                       </button>
@@ -124,9 +134,9 @@ function LearnPage() {
               );
             })()}
 
-            {active.assessmentKey && <AssessmentBox slug={slug} akey={active.assessmentKey} status={data.assess.find((a) => a.course_slug === slug && a.assessment_key === active.assessmentKey)?.status} userId={data.userId} />}
+            {enrolled && active.assessmentKey && <AssessmentBox slug={slug} akey={active.assessmentKey} status={data.assess.find((a) => a.course_slug === slug && a.assessment_key === active.assessmentKey)?.status} userId={data.userId} />}
 
-            {active.assignmentKey && (
+            {enrolled && active.assignmentKey && (
               <AssignmentForm slug={slug} userId={data.userId} lesson={active} existing={data.subs.find((s) => s.course_slug === slug && s.assignment_key === active.assignmentKey)} />
             )}
             {active.key === "action-plan" && (
@@ -134,11 +144,11 @@ function LearnPage() {
             )}
 
             <div className="mt-8 flex flex-wrap gap-3 border-t border-border pt-5">
-              <button type="button" onClick={toggleComplete} disabled={busy} className={`inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold disabled:opacity-60 ${isDone ? "border border-border" : "bg-teal text-primary-foreground"}`}>
+              {enrolled && <button type="button" onClick={toggleComplete} disabled={busy} className={`inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold disabled:opacity-60 ${isDone ? "border border-border" : "bg-teal text-primary-foreground"}`}>
                 <CheckCircle2 className="size-4" /> {isDone ? "Completed — undo" : "Mark Lesson Complete"}
-              </button>
+              </button>}
               {next && (
-                <button type="button" onClick={() => { setActiveKey(next.key); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold">
+                <button type="button" onClick={() => open(next.key)} className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold">
                   Next Lesson <ArrowRight className="size-4" />
                 </button>
               )}
@@ -227,5 +237,18 @@ function AssignmentForm({ slug, userId, lesson, existing }: { slug: string; user
       </label>
       <button type="submit" disabled={sending} className="rounded-lg bg-ochre px-5 py-2.5 text-sm font-bold text-ink disabled:opacity-60">{sending ? "Submitting…" : "Submit Assignment"}</button>
     </form>
+  );
+}
+
+function NotEnrolled({ slug }: { slug: string }) {
+  return (
+    <main className="mx-auto max-w-xl px-6 py-24 text-center">
+      <Lock className="mx-auto mb-4 size-10 text-foreground/40" />
+      <h1 className="text-2xl font-bold text-vetiver">{NOT_ENROLLED_MSG}</h1>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <Link to="/academy/courses/$slug" params={{ slug }} hash="register" className="rounded-lg bg-ochre px-5 py-2.5 text-sm font-bold text-ink">Join Waitlist</Link>
+        <a href={whatsappUrl()} target="_blank" rel="noreferrer noopener" className="rounded-lg border border-border px-5 py-2.5 text-sm font-semibold">Contact Lovetech support</a>
+      </div>
+    </main>
   );
 }

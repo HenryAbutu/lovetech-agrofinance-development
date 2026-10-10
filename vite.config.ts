@@ -5,6 +5,7 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import netlify from "@netlify/vite-plugin-tanstack-start";
+import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
 
 export default defineConfig({
   vite: {
@@ -28,5 +29,5 @@ export default defineConfig({
       rollupConfig: { external: ["@vercel/nft"] },
     } as Record<string, unknown>),
   },
-  plugins: [netlify()],
+  plugins: [mcpPlugin(), netlify()],
 });

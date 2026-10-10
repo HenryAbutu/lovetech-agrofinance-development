@@ -1571,6 +1571,20 @@ export type Database = {
         }
         Returns: undefined
       }
+      claim_waitlist_for_email: {
+        Args: { _id: string }
+        Returns: {
+          business_name: string
+          business_sector: string
+          course_interest: string
+          email: string
+          full_name: string
+          location: string
+          main_challenge: string
+          phone: string
+          preferred_training_mode: string
+        }[]
+      }
       get_my_role: { Args: never; Returns: string }
       has_role: {
         Args: {

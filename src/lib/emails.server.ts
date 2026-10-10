@@ -3,7 +3,7 @@
 // payment fulfilment. Silently no-ops when RESEND_API_KEY is not configured
 // so local/preview builds don't fail; logs a warning.
 
-const FROM = process.env.RESEND_FROM ?? "LoveTech Academy <onboarding@resend.dev>";
+const FROM = process.env.RESEND_FROM ?? "LoveTech Academy <info@lovetechgroup.com.ng>";
 const ADMIN_TO = process.env.ADMIN_NOTIFICATIONS_EMAIL ?? "info@lovetechgroup.com.ng";
 
 type SendInput = {

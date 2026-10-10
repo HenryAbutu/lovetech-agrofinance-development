@@ -18,6 +18,7 @@ import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness
 import { Route as House8RouteImport } from './routes/house-8'
 import { Route as LearnersRouteImport } from './routes/learners'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProgrammesRouteImport } from './routes/programmes'
@@ -27,6 +28,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated.dashboard'
 import { Route as AcademyIndexRouteImport } from './routes/academy.index'
@@ -109,6 +111,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -154,6 +161,12 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -378,6 +391,7 @@ export interface FileRoutesByFullPath {
   '/house-8': typeof House8Route
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/programmes': typeof ProgrammesRoute
@@ -387,6 +401,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -434,6 +449,7 @@ export interface FileRoutesByTo {
   '/house-8': typeof House8Route
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/programmes': typeof ProgrammesRoute
@@ -443,6 +459,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -491,6 +508,7 @@ export interface FileRoutesById {
   '/house-8': typeof House8Route
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/programmes': typeof ProgrammesRoute
@@ -500,6 +518,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -549,6 +568,7 @@ export interface FileRouteTypes {
     | '/house-8'
     | '/learners'
     | '/login'
+    | '/mcp'
     | '/privacy'
     | '/privacy-policy'
     | '/programmes'
@@ -558,6 +578,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/terms-of-service'
+    | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/dashboard'
     | '/auth/callback'
@@ -605,6 +626,7 @@ export interface FileRouteTypes {
     | '/house-8'
     | '/learners'
     | '/login'
+    | '/mcp'
     | '/privacy'
     | '/privacy-policy'
     | '/programmes'
@@ -614,6 +636,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/terms-of-service'
+    | '/.well-known/oauth-protected-resource'
     | '/dashboard'
     | '/auth/callback'
     | '/insights/$slug'
@@ -661,6 +684,7 @@ export interface FileRouteTypes {
     | '/house-8'
     | '/learners'
     | '/login'
+    | '/mcp'
     | '/privacy'
     | '/privacy-policy'
     | '/programmes'
@@ -670,6 +694,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/terms-of-service'
+    | '/.well-known/oauth-protected-resource'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/auth/callback'
@@ -719,6 +744,7 @@ export interface RootRouteChildren {
   House8Route: typeof House8Route
   LearnersRoute: typeof LearnersRouteWithChildren
   LoginRoute: typeof LoginRoute
+  McpRoute: typeof McpRoute
   PrivacyRoute: typeof PrivacyRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProgrammesRoute: typeof ProgrammesRoute
@@ -728,6 +754,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
@@ -806,6 +833,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -867,6 +901,13 @@ declare module '@tanstack/react-router' {
       path: '/terms-of-service'
       fullPath: '/terms-of-service'
       preLoaderRoute: typeof TermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -1252,6 +1293,7 @@ const rootRouteChildren: RootRouteChildren = {
   House8Route: House8Route,
   LearnersRoute: LearnersRouteWithChildren,
   LoginRoute: LoginRoute,
+  McpRoute: McpRoute,
   PrivacyRoute: PrivacyRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProgrammesRoute: ProgrammesRoute,
@@ -1261,6 +1303,8 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   AcademyIndexRoute: AcademyIndexRoute,

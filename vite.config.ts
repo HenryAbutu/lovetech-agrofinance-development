@@ -6,12 +6,15 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import netlify from "@netlify/vite-plugin-tanstack-start";
 import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
+import { fileURLToPath } from "node:url";
 
 export default defineConfig({
   vite: {
     resolve: {
       alias: {
         "@vercel/nft": "@vercel/nft/out/index.js",
+        // Netlify builds can't resolve Cloudflare's virtual module (used by mcp-js metrics).
+        "cloudflare:workers": fileURLToPath(new URL("./src/shims/cloudflare-workers.ts", import.meta.url)),
       },
     },
   },

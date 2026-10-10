@@ -60,6 +60,6 @@ export function courseSummary(d: LearnerData, slug: string) {
   return {
     course, modules, lessons, done, submitted, started, percent, pending, nextLesson, plan,
     preTest: st("pre-test"), postTest: st("post-test"), cert,
-    completed: cert === "Eligible" || cert === "Issued",
+    completed: (cert as CertStatus) === "Eligible",
   };
 }

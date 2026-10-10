@@ -42,16 +42,23 @@ import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_aut
 import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
 import { Route as AuthenticatedAcademyReferralsRouteImport } from './routes/_authenticated.academy.referrals'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
+import { Route as AuthenticatedAdminActionPlansRouteImport } from './routes/_authenticated.admin.action-plans'
 import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated.admin.announcements'
 import { Route as AuthenticatedAdminAssessmentsRouteImport } from './routes/_authenticated.admin.assessments'
+import { Route as AuthenticatedAdminAssignmentsRouteImport } from './routes/_authenticated.admin.assignments'
 import { Route as AuthenticatedAdminCertificatesRouteImport } from './routes/_authenticated.admin.certificates'
+import { Route as AuthenticatedAdminCoachingLogsRouteImport } from './routes/_authenticated.admin.coaching-logs'
+import { Route as AuthenticatedAdminCohortsRouteImport } from './routes/_authenticated.admin.cohorts'
 import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated.admin.coupons'
 import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated.admin.courses'
 import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_authenticated.admin.enrolments'
+import { Route as AuthenticatedAdminEvidenceExportRouteImport } from './routes/_authenticated.admin.evidence-export'
 import { Route as AuthenticatedAdminHouse8RouteImport } from './routes/_authenticated.admin.house-8'
 import { Route as AuthenticatedAdminInsightsRouteImport } from './routes/_authenticated.admin.insights'
+import { Route as AuthenticatedAdminParticipantsRouteImport } from './routes/_authenticated.admin.participants'
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
 import { Route as AuthenticatedAdminRubyChaiRouteImport } from './routes/_authenticated.admin.ruby-chai'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated.admin.users'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
 import { Route as AuthenticatedSettingsProfileRouteImport } from './routes/_authenticated.settings.profile'
@@ -237,6 +244,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminActionPlansRoute =
+  AuthenticatedAdminActionPlansRouteImport.update({
+    id: '/action-plans',
+    path: '/action-plans',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminAnnouncementsRoute =
   AuthenticatedAdminAnnouncementsRouteImport.update({
     id: '/announcements',
@@ -249,10 +262,28 @@ const AuthenticatedAdminAssessmentsRoute =
     path: '/assessments',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminAssignmentsRoute =
+  AuthenticatedAdminAssignmentsRouteImport.update({
+    id: '/assignments',
+    path: '/assignments',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCertificatesRoute =
   AuthenticatedAdminCertificatesRouteImport.update({
     id: '/certificates',
     path: '/certificates',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCoachingLogsRoute =
+  AuthenticatedAdminCoachingLogsRouteImport.update({
+    id: '/coaching-logs',
+    path: '/coaching-logs',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCohortsRoute =
+  AuthenticatedAdminCohortsRouteImport.update({
+    id: '/cohorts',
+    path: '/cohorts',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminCouponsRoute =
@@ -273,6 +304,12 @@ const AuthenticatedAdminEnrolmentsRoute =
     path: '/enrolments',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminEvidenceExportRoute =
+  AuthenticatedAdminEvidenceExportRouteImport.update({
+    id: '/evidence-export',
+    path: '/evidence-export',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminHouse8Route =
   AuthenticatedAdminHouse8RouteImport.update({
     id: '/house-8',
@@ -283,6 +320,12 @@ const AuthenticatedAdminInsightsRoute =
   AuthenticatedAdminInsightsRouteImport.update({
     id: '/insights',
     path: '/insights',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminParticipantsRoute =
+  AuthenticatedAdminParticipantsRouteImport.update({
+    id: '/participants',
+    path: '/participants',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminPaymentsRoute =
@@ -297,6 +340,11 @@ const AuthenticatedAdminRubyChaiRoute =
     path: '/ruby-chai',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminVideoStudioRoute =
   AuthenticatedAdminVideoStudioRouteImport.update({
     id: '/video-studio',
@@ -420,16 +468,23 @@ export interface FileRoutesByFullPath {
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
+  '/admin/action-plans': typeof AuthenticatedAdminActionPlansRoute
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
+  '/admin/assignments': typeof AuthenticatedAdminAssignmentsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/admin/coaching-logs': typeof AuthenticatedAdminCoachingLogsRoute
+  '/admin/cohorts': typeof AuthenticatedAdminCohortsRoute
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/admin/evidence-export': typeof AuthenticatedAdminEvidenceExportRoute
   '/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/admin/insights': typeof AuthenticatedAdminInsightsRoute
+  '/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/settings/profile': typeof AuthenticatedSettingsProfileRoute
@@ -478,16 +533,23 @@ export interface FileRoutesByTo {
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
+  '/admin/action-plans': typeof AuthenticatedAdminActionPlansRoute
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
+  '/admin/assignments': typeof AuthenticatedAdminAssignmentsRoute
   '/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/admin/coaching-logs': typeof AuthenticatedAdminCoachingLogsRoute
+  '/admin/cohorts': typeof AuthenticatedAdminCohortsRoute
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/admin/evidence-export': typeof AuthenticatedAdminEvidenceExportRoute
   '/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/admin/insights': typeof AuthenticatedAdminInsightsRoute
+  '/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/settings/profile': typeof AuthenticatedSettingsProfileRoute
@@ -539,16 +601,23 @@ export interface FileRoutesById {
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
   '/_authenticated/academy/referrals': typeof AuthenticatedAcademyReferralsRoute
+  '/_authenticated/admin/action-plans': typeof AuthenticatedAdminActionPlansRoute
   '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/_authenticated/admin/assessments': typeof AuthenticatedAdminAssessmentsRoute
+  '/_authenticated/admin/assignments': typeof AuthenticatedAdminAssignmentsRoute
   '/_authenticated/admin/certificates': typeof AuthenticatedAdminCertificatesRoute
+  '/_authenticated/admin/coaching-logs': typeof AuthenticatedAdminCoachingLogsRoute
+  '/_authenticated/admin/cohorts': typeof AuthenticatedAdminCohortsRoute
   '/_authenticated/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/_authenticated/admin/enrolments': typeof AuthenticatedAdminEnrolmentsRoute
+  '/_authenticated/admin/evidence-export': typeof AuthenticatedAdminEvidenceExportRoute
   '/_authenticated/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/_authenticated/admin/insights': typeof AuthenticatedAdminInsightsRoute
+  '/_authenticated/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/_authenticated/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/_authenticated/settings/profile': typeof AuthenticatedSettingsProfileRoute
@@ -600,16 +669,23 @@ export interface FileRouteTypes {
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/academy/referrals'
+    | '/admin/action-plans'
     | '/admin/announcements'
     | '/admin/assessments'
+    | '/admin/assignments'
     | '/admin/certificates'
+    | '/admin/coaching-logs'
+    | '/admin/cohorts'
     | '/admin/coupons'
     | '/admin/courses'
     | '/admin/enrolments'
+    | '/admin/evidence-export'
     | '/admin/house-8'
     | '/admin/insights'
+    | '/admin/participants'
     | '/admin/payments'
     | '/admin/ruby-chai'
+    | '/admin/users'
     | '/admin/video-studio'
     | '/admin/waitlist'
     | '/settings/profile'
@@ -658,16 +734,23 @@ export interface FileRouteTypes {
     | '/academy/dashboard'
     | '/academy/receipt'
     | '/academy/referrals'
+    | '/admin/action-plans'
     | '/admin/announcements'
     | '/admin/assessments'
+    | '/admin/assignments'
     | '/admin/certificates'
+    | '/admin/coaching-logs'
+    | '/admin/cohorts'
     | '/admin/coupons'
     | '/admin/courses'
     | '/admin/enrolments'
+    | '/admin/evidence-export'
     | '/admin/house-8'
     | '/admin/insights'
+    | '/admin/participants'
     | '/admin/payments'
     | '/admin/ruby-chai'
+    | '/admin/users'
     | '/admin/video-studio'
     | '/admin/waitlist'
     | '/settings/profile'
@@ -718,16 +801,23 @@ export interface FileRouteTypes {
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
     | '/_authenticated/academy/referrals'
+    | '/_authenticated/admin/action-plans'
     | '/_authenticated/admin/announcements'
     | '/_authenticated/admin/assessments'
+    | '/_authenticated/admin/assignments'
     | '/_authenticated/admin/certificates'
+    | '/_authenticated/admin/coaching-logs'
+    | '/_authenticated/admin/cohorts'
     | '/_authenticated/admin/coupons'
     | '/_authenticated/admin/courses'
     | '/_authenticated/admin/enrolments'
+    | '/_authenticated/admin/evidence-export'
     | '/_authenticated/admin/house-8'
     | '/_authenticated/admin/insights'
+    | '/_authenticated/admin/participants'
     | '/_authenticated/admin/payments'
     | '/_authenticated/admin/ruby-chai'
+    | '/_authenticated/admin/users'
     | '/_authenticated/admin/video-studio'
     | '/_authenticated/admin/waitlist'
     | '/_authenticated/settings/profile'
@@ -1014,6 +1104,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/action-plans': {
+      id: '/_authenticated/admin/action-plans'
+      path: '/action-plans'
+      fullPath: '/admin/action-plans'
+      preLoaderRoute: typeof AuthenticatedAdminActionPlansRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/announcements': {
       id: '/_authenticated/admin/announcements'
       path: '/announcements'
@@ -1028,11 +1125,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAssessmentsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/assignments': {
+      id: '/_authenticated/admin/assignments'
+      path: '/assignments'
+      fullPath: '/admin/assignments'
+      preLoaderRoute: typeof AuthenticatedAdminAssignmentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/certificates': {
       id: '/_authenticated/admin/certificates'
       path: '/certificates'
       fullPath: '/admin/certificates'
       preLoaderRoute: typeof AuthenticatedAdminCertificatesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/coaching-logs': {
+      id: '/_authenticated/admin/coaching-logs'
+      path: '/coaching-logs'
+      fullPath: '/admin/coaching-logs'
+      preLoaderRoute: typeof AuthenticatedAdminCoachingLogsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/cohorts': {
+      id: '/_authenticated/admin/cohorts'
+      path: '/cohorts'
+      fullPath: '/admin/cohorts'
+      preLoaderRoute: typeof AuthenticatedAdminCohortsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/coupons': {
@@ -1056,6 +1174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminEnrolmentsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/evidence-export': {
+      id: '/_authenticated/admin/evidence-export'
+      path: '/evidence-export'
+      fullPath: '/admin/evidence-export'
+      preLoaderRoute: typeof AuthenticatedAdminEvidenceExportRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/house-8': {
       id: '/_authenticated/admin/house-8'
       path: '/house-8'
@@ -1070,6 +1195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminInsightsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/participants': {
+      id: '/_authenticated/admin/participants'
+      path: '/participants'
+      fullPath: '/admin/participants'
+      preLoaderRoute: typeof AuthenticatedAdminParticipantsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/payments': {
       id: '/_authenticated/admin/payments'
       path: '/payments'
@@ -1082,6 +1214,13 @@ declare module '@tanstack/react-router' {
       path: '/ruby-chai'
       fullPath: '/admin/ruby-chai'
       preLoaderRoute: typeof AuthenticatedAdminRubyChaiRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/video-studio': {
@@ -1193,32 +1332,46 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminActionPlansRoute: typeof AuthenticatedAdminActionPlansRoute
   AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
   AuthenticatedAdminAssessmentsRoute: typeof AuthenticatedAdminAssessmentsRoute
+  AuthenticatedAdminAssignmentsRoute: typeof AuthenticatedAdminAssignmentsRoute
   AuthenticatedAdminCertificatesRoute: typeof AuthenticatedAdminCertificatesRoute
+  AuthenticatedAdminCoachingLogsRoute: typeof AuthenticatedAdminCoachingLogsRoute
+  AuthenticatedAdminCohortsRoute: typeof AuthenticatedAdminCohortsRoute
   AuthenticatedAdminCouponsRoute: typeof AuthenticatedAdminCouponsRoute
   AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
   AuthenticatedAdminEnrolmentsRoute: typeof AuthenticatedAdminEnrolmentsRoute
+  AuthenticatedAdminEvidenceExportRoute: typeof AuthenticatedAdminEvidenceExportRoute
   AuthenticatedAdminHouse8Route: typeof AuthenticatedAdminHouse8Route
   AuthenticatedAdminInsightsRoute: typeof AuthenticatedAdminInsightsRoute
+  AuthenticatedAdminParticipantsRoute: typeof AuthenticatedAdminParticipantsRoute
   AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
   AuthenticatedAdminRubyChaiRoute: typeof AuthenticatedAdminRubyChaiRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
   AuthenticatedAdminWaitlistRoute: typeof AuthenticatedAdminWaitlistRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminActionPlansRoute: AuthenticatedAdminActionPlansRoute,
   AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
   AuthenticatedAdminAssessmentsRoute: AuthenticatedAdminAssessmentsRoute,
+  AuthenticatedAdminAssignmentsRoute: AuthenticatedAdminAssignmentsRoute,
   AuthenticatedAdminCertificatesRoute: AuthenticatedAdminCertificatesRoute,
+  AuthenticatedAdminCoachingLogsRoute: AuthenticatedAdminCoachingLogsRoute,
+  AuthenticatedAdminCohortsRoute: AuthenticatedAdminCohortsRoute,
   AuthenticatedAdminCouponsRoute: AuthenticatedAdminCouponsRoute,
   AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
   AuthenticatedAdminEnrolmentsRoute: AuthenticatedAdminEnrolmentsRoute,
+  AuthenticatedAdminEvidenceExportRoute: AuthenticatedAdminEvidenceExportRoute,
   AuthenticatedAdminHouse8Route: AuthenticatedAdminHouse8Route,
   AuthenticatedAdminInsightsRoute: AuthenticatedAdminInsightsRoute,
+  AuthenticatedAdminParticipantsRoute: AuthenticatedAdminParticipantsRoute,
   AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
   AuthenticatedAdminRubyChaiRoute: AuthenticatedAdminRubyChaiRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
   AuthenticatedAdminWaitlistRoute: AuthenticatedAdminWaitlistRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,

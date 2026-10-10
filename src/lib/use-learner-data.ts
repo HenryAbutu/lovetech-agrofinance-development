@@ -10,14 +10,17 @@ async function loadLearnerData() {
   const user = session?.user;
   if (!user) throw new Error("Please sign in again.");
   const uid = user.id;
-  const [starts, progress, subs, assess, plans] = await Promise.all([
+  const [starts, progress, subs, assess, plans, settings, links, waitlist] = await Promise.all([
     supabase.from("lms_course_starts").select("*").eq("user_id", uid),
     supabase.from("lms_lesson_progress").select("course_slug, lesson_key").eq("user_id", uid),
     supabase.from("lms_assignment_submissions").select("*").eq("user_id", uid).order("submitted_at", { ascending: false }),
     supabase.from("lms_assessment_status").select("course_slug, assessment_key, status").eq("user_id", uid),
     supabase.from("lms_action_plans").select("*").eq("user_id", uid).order("created_at", { ascending: false }),
+    supabase.from("lms_course_settings").select("*"),
+    supabase.from("lms_assessment_links").select("*"),
+    supabase.from("academy_waitlist").select("id, course_interest, interest_area, status, created_at").eq("user_id", uid).order("created_at", { ascending: false }),
   ]);
-  for (const r of [starts, progress, subs, assess, plans]) if (r.error) throw new Error(r.error.message);
+  for (const r of [starts, progress, subs, assess, plans, settings, links]) if (r.error) throw new Error(r.error.message);
   return {
     userId: uid,
     starts: starts.data ?? [],
@@ -25,7 +28,19 @@ async function loadLearnerData() {
     subs: subs.data ?? [],
     assess: assess.data ?? [],
     plans: plans.data ?? [],
+    settings: settings.data ?? [],
+    links: Object.fromEntries((links.data ?? []).map((l) => [l.assessment_key, l.url])) as Record<string, string>,
+    waitlist: waitlist.data ?? [],
   };
+}
+
+export function isEnrolled(d: LearnerData, slug: string) {
+  return d.starts.some((s) => s.course_slug === slug);
+}
+
+export function previewKeys(d: LearnerData, slug: string): Set<string> {
+  const s = d.settings.find((x) => x.course_slug === slug);
+  return new Set(s?.preview_enabled ? s.preview_lesson_keys : []);
 }
 
 export function useLearnerData() {

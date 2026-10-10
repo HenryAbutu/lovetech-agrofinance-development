@@ -6,12 +6,15 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import netlify from "@netlify/vite-plugin-tanstack-start";
 import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
+import { fileURLToPath } from "node:url";
 
 export default defineConfig({
   vite: {
     resolve: {
       alias: {
         "@vercel/nft": "@vercel/nft/out/index.js",
+        // Netlify builds can't resolve Cloudflare's virtual module (used by mcp-js metrics).
+        "cloudflare:workers": fileURLToPath(new URL("./src/shims/cloudflare-workers.ts", import.meta.url)),
       },
     },
   },
@@ -29,5 +32,24 @@ export default defineConfig({
       rollupConfig: { external: ["@vercel/nft"] },
     } as Record<string, unknown>),
   },
-  plugins: [mcpPlugin(), netlify()],
+  plugins: [
+    {
+      // mcp-js dynamically imports "cloudflare:workers" with @vite-ignore, which bypasses
+      // aliases and breaks Netlify's Rollup. Replace it with an empty env (falls back to process.env).
+      name: "strip-cloudflare-workers-import",
+      enforce: "pre",
+      transform(code: string, id: string) {
+        if (!id.includes("@lovable.dev/mcp-js") || !code.includes("cloudflare:workers")) return null;
+        return {
+          code: code.replace(
+            /import\(\s*(?:\/\*[^*]*\*\/\s*)?["']cloudflare:workers["']\s*\)/g,
+            "Promise.resolve({ env: {} })",
+          ),
+          map: null,
+        };
+      },
+    },
+    mcpPlugin(),
+    netlify(),
+  ],
 });

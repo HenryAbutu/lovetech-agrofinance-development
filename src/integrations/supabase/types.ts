@@ -1368,6 +1368,24 @@ export type Database = {
         }
         Relationships: []
       }
+      lms_assessment_links: {
+        Row: {
+          assessment_key: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          assessment_key: string
+          updated_at?: string
+          url?: string
+        }
+        Update: {
+          assessment_key?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       lms_assessment_status: {
         Row: {
           assessment_key: string
@@ -1443,27 +1461,54 @@ export type Database = {
         }
         Relationships: []
       }
+      lms_course_settings: {
+        Row: {
+          course_slug: string
+          preview_enabled: boolean
+          preview_lesson_keys: string[]
+          updated_at: string
+        }
+        Insert: {
+          course_slug: string
+          preview_enabled?: boolean
+          preview_lesson_keys?: string[]
+          updated_at?: string
+        }
+        Update: {
+          course_slug?: string
+          preview_enabled?: boolean
+          preview_lesson_keys?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       lms_course_starts: {
         Row: {
           cohort_name: string | null
           course_slug: string
+          enrolled_by: string | null
           id: string
           started_at: string
           user_id: string
+          waitlist_id: string | null
         }
         Insert: {
           cohort_name?: string | null
           course_slug: string
+          enrolled_by?: string | null
           id?: string
           started_at?: string
           user_id: string
+          waitlist_id?: string | null
         }
         Update: {
           cohort_name?: string | null
           course_slug?: string
+          enrolled_by?: string | null
           id?: string
           started_at?: string
           user_id?: string
+          waitlist_id?: string | null
         }
         Relationships: []
       }
@@ -1724,6 +1769,15 @@ export type Database = {
       }
     }
     Functions: {
+      admin_enrol_learner: {
+        Args: {
+          _cohort?: string
+          _course_slug: string
+          _email: string
+          _waitlist_id?: string
+        }
+        Returns: string
+      }
       admin_list_users: {
         Args: never
         Returns: {
@@ -1772,6 +1826,10 @@ export type Database = {
       }
       is_enrolled_in_course: {
         Args: { _course_id: string; _user_id: string }
+        Returns: boolean
+      }
+      lms_is_enrolled: {
+        Args: { _slug: string; _user_id: string }
         Returns: boolean
       }
     }

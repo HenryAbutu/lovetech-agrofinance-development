@@ -161,7 +161,9 @@ function LearnPage() {
 }
 
 function AssessmentBox({ slug, akey, status, userId }: { slug: string; akey: string; status?: string; userId: string }) {
-  const a = ASSESSMENTS.find((x) => x.key === akey)!;
+  const base = ASSESSMENTS.find((x) => x.key === akey)!;
+  const { data: ld } = useLearnerData();
+  const a = { ...base, url: ld?.links[akey] || base.url };
   const refresh = useRefreshLearner();
   async function setStatus(s: "started" | "completed") {
     const { error } = await supabase.from("lms_assessment_status").upsert(

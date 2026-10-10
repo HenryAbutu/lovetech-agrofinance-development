@@ -3,7 +3,7 @@ import { BookOpen, Download, ClipboardList, ClipboardCheck, Target, Award, Arrow
 import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { catalogue } from "@/lib/academy-catalogue";
 import { ASSESSMENTS, LEARNABLE, RESOURCES, RESOURCE_CATEGORIES, downloadResource } from "@/lib/learning-content";
-import { courseSummary, useLearnerData } from "@/lib/use-learner-data";
+import { courseSummary, previewKeys, useLearnerData } from "@/lib/use-learner-data";
 
 const statusLabel = (s: string) => (s === "completed" ? "Completed" : s === "started" ? "Started" : "Not started");
 
@@ -25,7 +25,7 @@ export function LearnerDashboardSections() {
   return (
     <div className="space-y-12">
       <Section icon={<BookOpen className="size-5" />} title="Continue learning">
-        {mine.length === 0 ? <Empty>You are not enrolled in any course yet.</Empty> : (
+        {mine.length === 0 ? <Empty>You are not enrolled in any course yet. Join a waitlist or contact Lovetech to begin.</Empty> : (
           <div className="grid gap-4">
             {mine.map(({ s, sum }) => (
               <article key={s.id} className="rounded-xl border border-border bg-card p-5">
@@ -53,6 +53,19 @@ export function LearnerDashboardSections() {
         )}
       </Section>
 
+      {data.waitlist.length > 0 && (
+        <Section icon={<ClipboardList className="size-5" />} title="My waitlist status">
+          <ul className="divide-y divide-border rounded-xl border border-border bg-card">
+            {data.waitlist.map((w) => (
+              <li key={w.id} className="flex flex-wrap items-center justify-between gap-2 p-3 text-sm">
+                <span>{w.course_interest ?? w.interest_area ?? "General"} <span className="text-xs text-foreground/50">· joined {new Date(w.created_at).toLocaleDateString()}</span></span>
+                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold capitalize">{w.status === "new" ? "Received" : w.status}</span>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
       <Section icon={<BookOpen className="size-5" />} title="Available courses">
         <div className="grid gap-3 sm:grid-cols-2">
           {available.map((c) => (
@@ -61,9 +74,10 @@ export function LearnerDashboardSections() {
               <p className="mt-1 text-xs text-foreground/60">{c.duration} · {c.delivery}</p>
               <div className="mt-3 flex gap-2">
                 <Link to="/academy/courses/$slug" params={{ slug: c.slug }} className="rounded-lg border border-border px-3 py-1.5 text-xs font-semibold">View Course</Link>
-                {LEARNABLE.has(c.slug)
-                  ? <Link to="/academy/learn/$slug" params={{ slug: c.slug }} className="rounded-lg bg-ochre px-3 py-1.5 text-xs font-bold text-ink">Start Course</Link>
-                  : <Link to="/academy/courses/$slug" params={{ slug: c.slug }} hash="register" className="rounded-lg bg-muted px-3 py-1.5 text-xs font-semibold">Join Waitlist</Link>}
+                <Link to="/academy/courses/$slug" params={{ slug: c.slug }} hash="register" className="rounded-lg bg-ochre px-3 py-1.5 text-xs font-bold text-ink">Join Waitlist</Link>
+                {LEARNABLE.has(c.slug) && previewKeys(data, c.slug).size > 0 && (
+                  <Link to="/academy/learn/$slug" params={{ slug: c.slug }} className="rounded-lg bg-muted px-3 py-1.5 text-xs font-semibold">Free preview</Link>
+                )}
               </div>
             </div>
           ))}
@@ -94,7 +108,7 @@ export function LearnerDashboardSections() {
                   <p className="font-semibold text-vetiver">{a.title}</p>
                   <p className="text-xs text-foreground/60">{a.purpose}</p>
                   <p className="mt-1 text-xs">Status: <b>{statusLabel(st)}</b> · {sum.course.title.split(":")[0]}</p>
-                  {a.url ? <a href={a.url} target="_blank" rel="noreferrer noopener" className="mt-2 inline-block text-xs font-semibold text-teal">Start Assessment →</a>
+                  {(data.links[a.key] || a.url) ? <a href={data.links[a.key] || a.url} target="_blank" rel="noreferrer noopener" className="mt-2 inline-block text-xs font-semibold text-teal">Start Assessment →</a>
                     : <p className="mt-2 text-xs text-foreground/50">Link coming soon</p>}
                 </div>
               );
@@ -135,7 +149,7 @@ export function LearnerDashboardSections() {
             ))}
           </ul>
         )}
-        <Link to="/academy/action-plan" className="mt-3 inline-flex rounded-lg bg-ochre px-4 py-2 text-sm font-bold text-ink">Submit Action Plan</Link>
+        {mine.length > 0 && <Link to="/academy/action-plan" className="mt-3 inline-flex rounded-lg bg-ochre px-4 py-2 text-sm font-bold text-ink">Submit Action Plan</Link>}
       </Section>
 
       <Section icon={<Award className="size-5" />} title="Certificate status">

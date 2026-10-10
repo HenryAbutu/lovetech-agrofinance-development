@@ -6,6 +6,7 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import { getMyEnrolments, checkIsAdmin } from "@/lib/learner.functions";
 import { AUTH_STORAGE_KEY, clearSupabaseAuthStorage, expireAuthCookie, getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { whatsappUrl } from "@/lib/lms-config";
+import { LearnerDashboardSections, LearnerWelcome } from "@/components/learner-dashboard-sections";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard")({
   head: () => ({ meta: [{ title: "My Dashboard — LoveTech Agro Academy" }] }),
@@ -83,8 +84,11 @@ function Dashboard() {
           </div>
         </div>
 
+        <LearnerWelcome />
+        <div className="mb-12"><LearnerDashboardSections /></div>
+
         <section>
-          <h2 className="mb-4 font-serif text-2xl text-vetiver">My courses</h2>
+          <h2 className="mb-4 font-serif text-2xl text-vetiver">My paid courses</h2>
           {!sessionResolved && <p className="text-sm text-foreground/60">Checking your session…</p>}
           {sessionResolved && !sessionReady && (
             <div className="rounded-2xl border border-border bg-card p-8 text-center">

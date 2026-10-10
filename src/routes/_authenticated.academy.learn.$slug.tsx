@@ -26,13 +26,6 @@ function LearnPage() {
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  // Auto-start the course the first time a learner opens it.
-  useEffect(() => {
-    if (!data || !course || !LEARNABLE.has(slug)) return;
-    if (data.starts.some((s) => s.course_slug === slug)) return;
-    supabase.from("lms_course_starts").insert({ user_id: data.userId, course_slug: slug }).then(() => refresh());
-  }, [data, course, slug]);
-
   const sum = useMemo(() => (data && course ? courseSummary(data, slug) : null), [data, course, slug]);
 
   if (!course || !LEARNABLE.has(slug)) {
@@ -43,13 +36,25 @@ function LearnPage() {
       </main>
     );
   }
-  if (isLoading || !sum || !data) return <main className="grid min-h-[50vh] place-items-center text-sm text-foreground/60">Loading your course…</main>;
   if (error) return <main className="p-10 text-center text-sm text-destructive">{(error as Error).message}</main>;
+  if (isLoading || !sum || !data) return <main className="grid min-h-[50vh] place-items-center text-sm text-foreground/60">Loading your course…</main>;
 
-  const active = sum.lessons.find((l) => l.key === activeKey) ?? sum.nextLesson ?? sum.lessons[0];
+  const enrolled = isEnrolled(data, slug);
+  const preview = previewKeys(data, slug);
+  const canOpen = (key: string) => enrolled || preview.has(key);
+
+  if (!enrolled && preview.size === 0) return <NotEnrolled slug={slug} />;
+
+  const active = sum.lessons.find((l) => l.key === activeKey && canOpen(l.key))
+    ?? (enrolled ? sum.nextLesson ?? sum.lessons[0] : sum.lessons.find((l) => preview.has(l.key))!);
   const idx = sum.lessons.findIndex((l) => l.key === active.key);
-  const next = sum.lessons[idx + 1];
+  const next = sum.lessons.slice(idx + 1).find((l) => canOpen(l.key));
   const isDone = sum.done.has(active.key);
+  function open(key: string) {
+    if (!canOpen(key)) return toast.error(NOT_ENROLLED_MSG);
+    setActiveKey(key);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   async function toggleComplete() {
     setBusy(true);

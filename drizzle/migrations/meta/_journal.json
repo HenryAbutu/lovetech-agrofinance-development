@@ -43,6 +43,13 @@
       "when": 1791629465494,
       "tag": "0005_admin_user_management_rpcs",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791671944105,
+      "tag": "0006_claim_waitlist_for_email",
+      "breakpoints": true
     }
   ]
 }

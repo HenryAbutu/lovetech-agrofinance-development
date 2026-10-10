@@ -26,10 +26,11 @@ const FIELDS: { k: string; label: string; required?: boolean; long?: boolean }[]
 
 function ActionPlanPage() {
   const { course } = Route.useSearch();
-  const courses = learnableCourses();
   const { data } = useLearnerData();
+  const courses = learnableCourses().filter((c) => data?.starts.some((s) => s.course_slug === c.slug));
   const refresh = useRefreshLearner();
-  const [form, setForm] = useState<Record<string, string>>({ course_slug: course ?? courses[0].slug, plan_type: "business_improvement" });
+  const [form, setForm] = useState<Record<string, string>>({ course_slug: course ?? "", plan_type: "business_improvement" });
+  const courseSlug = courses.some((c) => c.slug === form.course_slug) ? form.course_slug : courses[0]?.slug ?? "";
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -41,7 +42,7 @@ function ActionPlanPage() {
     const row: Record<string, string | null> = {};
     for (const f of FIELDS) row[f.k] = form[f.k]?.trim().slice(0, 5000) || null;
     const { error } = await supabase.from("lms_action_plans").insert({
-      ...row, user_id: data.userId, course_slug: form.course_slug, plan_type: form.plan_type as any,
+      ...row, user_id: data.userId, course_slug: courseSlug, plan_type: form.plan_type as any,
       main_goal: row.main_goal!, key_actions: row.key_actions!,
     });
     setSending(false);
@@ -58,7 +59,9 @@ function ActionPlanPage() {
         <h1 className="mt-2 text-3xl font-bold text-vetiver">Submit your action plan</h1>
         <p className="mt-2 text-sm text-foreground/70">Set out the practical steps you will take in your business after this programme.</p>
 
-        {done ? (
+        {data && courses.length === 0 ? (
+          <p className="mt-8 rounded-2xl border border-dashed border-border p-6 text-sm text-foreground/70">You are not enrolled in any course yet. Join a waitlist or contact Lovetech to begin.</p>
+        ) : done ? (
           <div className="mt-8 rounded-2xl border border-teal/40 bg-teal/5 p-6">
             <p className="font-semibold text-teal">Your action plan has been submitted successfully.</p>
             <div className="mt-4 flex gap-3">
@@ -69,7 +72,7 @@ function ActionPlanPage() {
         ) : (
           <form onSubmit={submit} className="mt-8 space-y-4 rounded-2xl border border-border bg-card p-5 md:p-6">
             <label className="block text-sm font-medium">Course / programme
-              <select value={form.course_slug} onChange={(e) => setForm({ ...form, course_slug: e.target.value })} className="mt-1 w-full rounded-md border border-input bg-background p-2 text-sm">
+              <select value={courseSlug} onChange={(e) => setForm({ ...form, course_slug: e.target.value })} className="mt-1 w-full rounded-md border border-input bg-background p-2 text-sm">
                 {courses.map((c) => <option key={c.slug} value={c.slug}>{c.title}</option>)}
               </select>
             </label>

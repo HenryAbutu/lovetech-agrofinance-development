@@ -18,6 +18,7 @@ const tabs: Tab[] = [
   { to: "/admin", label: "Overview", exact: true, roles: STAFF },
   { to: "/admin/users", label: "Users", roles: ["super_admin"] },
   { to: "/admin/waitlist", label: "Waitlist", roles: STAFF },
+  { to: "/admin/lms-settings", label: "Enrol & LMS Settings", roles: STAFF },
   { to: "/admin/courses", label: "Courses", roles: STAFF },
   { to: "/admin/cohorts", label: "Cohorts", roles: ALL_STAFF },
   { to: "/admin/participants", label: "Participants", roles: ALL_STAFF },

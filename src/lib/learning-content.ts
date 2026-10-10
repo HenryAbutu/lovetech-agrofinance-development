@@ -11,6 +11,8 @@ export type Lesson = {
   resourceKey?: string;
   assignmentKey?: string;
   assessmentKey?: string;
+  /** PLACEHOLDER CONTENT: generated wording, to be replaced with real lesson content. */
+  placeholder?: boolean;
 };
 
 export type LearningModule = { key: string; title: string; lessons: Lesson[] };
@@ -19,7 +21,7 @@ export type Assessment = { key: string; title: string; purpose: string; url: str
 
 export type Resource = { key: string; title: string; category: string; courseSlug?: string; outline: string[] };
 
-/** External form links. Replace "" with real Google Form URLs when ready. */
+/** Default assessment list. Live links are edited in Admin → LMS Settings (lms_assessment_links). */
 export const ASSESSMENTS: Assessment[] = [
   { key: "pre-test", title: "Pre-training assessment", purpose: "Measures your starting knowledge before the course.", url: "" },
   { key: "post-test", title: "Post-training assessment", purpose: "Measures what you have learned after the course.", url: "" },
@@ -94,7 +96,8 @@ export function buildModules(c: CatalogueCourse): LearningModule[] {
       { key: "action-plan", title: "Submit your action plan", type: "assignment", body: "Submit your final action plan from the Action Plan page." },
     ],
   });
-  return mods;
+  // PLACEHOLDER CONTENT: every generated lesson is flagged until real content arrives.
+  return mods.map((m) => ({ ...m, lessons: m.lessons.map((l) => ({ ...l, placeholder: true })) }));
 }
 
 export function learnableCourses() {

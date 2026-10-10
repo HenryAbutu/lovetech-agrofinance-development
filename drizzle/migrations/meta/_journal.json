@@ -57,6 +57,13 @@
       "when": 1791672996300,
       "tag": "0007_lms_phase2_learning",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791675210492,
+      "tag": "0008_lms_access_control",
+      "breakpoints": true
     }
   ]
 }

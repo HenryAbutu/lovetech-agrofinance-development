@@ -1314,6 +1314,183 @@ export type Database = {
         }
         Relationships: []
       }
+      lms_action_plans: {
+        Row: {
+          business_name: string | null
+          course_slug: string
+          created_at: string
+          expected_result: string | null
+          id: string
+          key_actions: string
+          main_goal: string
+          next_steps: string | null
+          plan_type: string
+          resources_needed: string | null
+          risks: string | null
+          status: string
+          support_needed: string | null
+          timeline: string | null
+          user_id: string
+        }
+        Insert: {
+          business_name?: string | null
+          course_slug: string
+          created_at?: string
+          expected_result?: string | null
+          id?: string
+          key_actions: string
+          main_goal: string
+          next_steps?: string | null
+          plan_type: string
+          resources_needed?: string | null
+          risks?: string | null
+          status?: string
+          support_needed?: string | null
+          timeline?: string | null
+          user_id: string
+        }
+        Update: {
+          business_name?: string | null
+          course_slug?: string
+          created_at?: string
+          expected_result?: string | null
+          id?: string
+          key_actions?: string
+          main_goal?: string
+          next_steps?: string | null
+          plan_type?: string
+          resources_needed?: string | null
+          risks?: string | null
+          status?: string
+          support_needed?: string | null
+          timeline?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      lms_assessment_status: {
+        Row: {
+          assessment_key: string
+          course_slug: string
+          id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          assessment_key: string
+          course_slug: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          assessment_key?: string
+          course_slug?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      lms_assignment_submissions: {
+        Row: {
+          assignment_key: string
+          assignment_title: string
+          course_slug: string
+          feedback: string | null
+          id: string
+          link_url: string | null
+          module_title: string | null
+          notes: string | null
+          status: string
+          submission_text: string | null
+          submitted_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          assignment_key: string
+          assignment_title: string
+          course_slug: string
+          feedback?: string | null
+          id?: string
+          link_url?: string | null
+          module_title?: string | null
+          notes?: string | null
+          status?: string
+          submission_text?: string | null
+          submitted_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          assignment_key?: string
+          assignment_title?: string
+          course_slug?: string
+          feedback?: string | null
+          id?: string
+          link_url?: string | null
+          module_title?: string | null
+          notes?: string | null
+          status?: string
+          submission_text?: string | null
+          submitted_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      lms_course_starts: {
+        Row: {
+          cohort_name: string | null
+          course_slug: string
+          id: string
+          started_at: string
+          user_id: string
+        }
+        Insert: {
+          cohort_name?: string | null
+          course_slug: string
+          id?: string
+          started_at?: string
+          user_id: string
+        }
+        Update: {
+          cohort_name?: string | null
+          course_slug?: string
+          id?: string
+          started_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      lms_lesson_progress: {
+        Row: {
+          completed_at: string
+          course_slug: string
+          id: string
+          lesson_key: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          course_slug: string
+          id?: string
+          lesson_key: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          course_slug?: string
+          id?: string
+          lesson_key?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

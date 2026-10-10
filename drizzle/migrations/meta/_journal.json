@@ -36,6 +36,13 @@
       "when": 1791593226055,
       "tag": "0004_role_management",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791629465494,
+      "tag": "0005_admin_user_management_rpcs",
+      "breakpoints": true
     }
   ]
 }

@@ -58,6 +58,7 @@ import { Route as AuthenticatedAdminInsightsRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminParticipantsRouteImport } from './routes/_authenticated.admin.participants'
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
 import { Route as AuthenticatedAdminRubyChaiRouteImport } from './routes/_authenticated.admin.ruby-chai'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated.admin.users'
 import { Route as AuthenticatedAdminVideoStudioRouteImport } from './routes/_authenticated.admin.video-studio'
 import { Route as AuthenticatedAdminWaitlistRouteImport } from './routes/_authenticated.admin.waitlist'
 import { Route as AuthenticatedSettingsProfileRouteImport } from './routes/_authenticated.settings.profile'
@@ -339,6 +340,11 @@ const AuthenticatedAdminRubyChaiRoute =
     path: '/ruby-chai',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedAdminVideoStudioRoute =
   AuthenticatedAdminVideoStudioRouteImport.update({
     id: '/video-studio',
@@ -478,6 +484,7 @@ export interface FileRoutesByFullPath {
   '/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/settings/profile': typeof AuthenticatedSettingsProfileRoute
@@ -542,6 +549,7 @@ export interface FileRoutesByTo {
   '/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/settings/profile': typeof AuthenticatedSettingsProfileRoute
@@ -609,6 +617,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/admin/video-studio': typeof AuthenticatedAdminVideoStudioRoute
   '/_authenticated/admin/waitlist': typeof AuthenticatedAdminWaitlistRoute
   '/_authenticated/settings/profile': typeof AuthenticatedSettingsProfileRoute
@@ -676,6 +685,7 @@ export interface FileRouteTypes {
     | '/admin/participants'
     | '/admin/payments'
     | '/admin/ruby-chai'
+    | '/admin/users'
     | '/admin/video-studio'
     | '/admin/waitlist'
     | '/settings/profile'
@@ -740,6 +750,7 @@ export interface FileRouteTypes {
     | '/admin/participants'
     | '/admin/payments'
     | '/admin/ruby-chai'
+    | '/admin/users'
     | '/admin/video-studio'
     | '/admin/waitlist'
     | '/settings/profile'
@@ -806,6 +817,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/participants'
     | '/_authenticated/admin/payments'
     | '/_authenticated/admin/ruby-chai'
+    | '/_authenticated/admin/users'
     | '/_authenticated/admin/video-studio'
     | '/_authenticated/admin/waitlist'
     | '/_authenticated/settings/profile'
@@ -1204,6 +1216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRubyChaiRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/video-studio': {
       id: '/_authenticated/admin/video-studio'
       path: '/video-studio'
@@ -1329,6 +1348,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminParticipantsRoute: typeof AuthenticatedAdminParticipantsRoute
   AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
   AuthenticatedAdminRubyChaiRoute: typeof AuthenticatedAdminRubyChaiRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedAdminVideoStudioRoute: typeof AuthenticatedAdminVideoStudioRoute
   AuthenticatedAdminWaitlistRoute: typeof AuthenticatedAdminWaitlistRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -1351,6 +1371,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminParticipantsRoute: AuthenticatedAdminParticipantsRoute,
   AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
   AuthenticatedAdminRubyChaiRoute: AuthenticatedAdminRubyChaiRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedAdminVideoStudioRoute: AuthenticatedAdminVideoStudioRoute,
   AuthenticatedAdminWaitlistRoute: AuthenticatedAdminWaitlistRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,

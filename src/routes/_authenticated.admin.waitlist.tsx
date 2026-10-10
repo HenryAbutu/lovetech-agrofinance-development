@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
+import { EnrolForm } from "@/components/admin-enrol-form";
 import { listWaitlistAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/waitlist")({
@@ -10,6 +14,14 @@ export const Route = createFileRoute("/_authenticated/admin/waitlist")({
 function WaitlistAdmin() {
   const list = useServerFn(listWaitlistAdmin);
   const { data, isLoading, error } = useQuery({ queryKey: ["admin-waitlist"], queryFn: () => list() });
+  const qc = useQueryClient();
+  const refresh = () => qc.invalidateQueries({ queryKey: ["admin-waitlist"] });
+  const [enrolling, setEnrolling] = useState<string | null>(null);
+  async function setStatus(id: string, status: string) {
+    const { error } = await supabase.from("academy_waitlist").update({ status }).eq("id", id);
+    if (error) return toast.error(error.message);
+    toast.success(`Marked as ${status}`); refresh();
+  }
 
   if (isLoading) return <p className="text-sm text-foreground/60">Loading…</p>;
   if (error) return <p className="text-sm text-destructive">Could not load waitlist: {(error as Error).message}</p>;
@@ -28,6 +40,7 @@ function WaitlistAdmin() {
               <th className="p-3">Mode / Challenge</th>
               <th className="p-3">Joined</th>
               <th className="p-3">Email</th>
+              <th className="p-3">Status / Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -58,11 +71,20 @@ function WaitlistAdmin() {
                       <span className="rounded-full bg-muted px-2 py-0.5 text-foreground/60">Not sent</span>
                     )}
                   </td>
+                  <td className="p-3 text-xs">
+                    <span className="rounded-full bg-muted px-2 py-0.5 font-semibold capitalize">{w.status}</span>
+                    <div className="mt-2 flex flex-wrap gap-1">
+                      {w.status !== "contacted" && w.status !== "enrolled" && <button type="button" onClick={() => setStatus(w.id, "contacted")} className="rounded border border-border px-2 py-1">Contacted</button>}
+                      {w.status !== "approved" && w.status !== "enrolled" && <button type="button" onClick={() => setStatus(w.id, "approved")} className="rounded border border-border px-2 py-1">Approved</button>}
+                      {w.status !== "enrolled" && <button type="button" onClick={() => setEnrolling(enrolling === w.id ? null : w.id)} className="rounded bg-primary px-2 py-1 font-semibold text-primary-foreground">Enrol</button>}
+                    </div>
+                    {enrolling === w.id && <div className="mt-2"><EnrolForm initialEmail={w.email} waitlistId={w.id} onDone={() => { setEnrolling(null); refresh(); }} /></div>}
+                  </td>
                 </tr>
               );
             })}
             {data?.waitlist.length === 0 && (
-              <tr><td colSpan={7} className="p-6 text-center text-foreground/60">No waitlist entries.</td></tr>
+              <tr><td colSpan={8} className="p-6 text-center text-foreground/60">No waitlist entries.</td></tr>
             )}
           </tbody>
         </table>

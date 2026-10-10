@@ -233,7 +233,7 @@ export const listWaitlistAdmin = createServerFn({ method: "GET" })
     await assertAdmin(context.supabase, context.userId);
     const { data, error } = await context.supabase
       .from("academy_waitlist")
-      .select("id, full_name, email, phone, business_name, business_sector, location, interest_area, course_interest, preferred_training_mode, main_challenge, emails_sent_at, created_at, course:academy_courses(title)")
+      .select("id, full_name, email, phone, business_name, business_sector, location, interest_area, course_interest, preferred_training_mode, main_challenge, emails_sent_at, status, created_at, course:academy_courses(title)")
       .order("created_at", { ascending: false })
       .limit(500);
     if (error) throw new Error(error.message);

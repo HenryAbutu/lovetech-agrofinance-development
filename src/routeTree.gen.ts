@@ -56,6 +56,7 @@ import { Route as AuthenticatedAdminEnrolmentsRouteImport } from './routes/_auth
 import { Route as AuthenticatedAdminEvidenceExportRouteImport } from './routes/_authenticated.admin.evidence-export'
 import { Route as AuthenticatedAdminHouse8RouteImport } from './routes/_authenticated.admin.house-8'
 import { Route as AuthenticatedAdminInsightsRouteImport } from './routes/_authenticated.admin.insights'
+import { Route as AuthenticatedAdminLmsSettingsRouteImport } from './routes/_authenticated.admin.lms-settings'
 import { Route as AuthenticatedAdminParticipantsRouteImport } from './routes/_authenticated.admin.participants'
 import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated.admin.payments'
 import { Route as AuthenticatedAdminRubyChaiRouteImport } from './routes/_authenticated.admin.ruby-chai'
@@ -330,6 +331,12 @@ const AuthenticatedAdminInsightsRoute =
     path: '/insights',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminLmsSettingsRoute =
+  AuthenticatedAdminLmsSettingsRouteImport.update({
+    id: '/lms-settings',
+    path: '/lms-settings',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminParticipantsRoute =
   AuthenticatedAdminParticipantsRouteImport.update({
     id: '/participants',
@@ -496,6 +503,7 @@ export interface FileRoutesByFullPath {
   '/admin/evidence-export': typeof AuthenticatedAdminEvidenceExportRoute
   '/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/admin/insights': typeof AuthenticatedAdminInsightsRoute
+  '/admin/lms-settings': typeof AuthenticatedAdminLmsSettingsRoute
   '/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
@@ -563,6 +571,7 @@ export interface FileRoutesByTo {
   '/admin/evidence-export': typeof AuthenticatedAdminEvidenceExportRoute
   '/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/admin/insights': typeof AuthenticatedAdminInsightsRoute
+  '/admin/lms-settings': typeof AuthenticatedAdminLmsSettingsRoute
   '/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
@@ -633,6 +642,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/evidence-export': typeof AuthenticatedAdminEvidenceExportRoute
   '/_authenticated/admin/house-8': typeof AuthenticatedAdminHouse8Route
   '/_authenticated/admin/insights': typeof AuthenticatedAdminInsightsRoute
+  '/_authenticated/admin/lms-settings': typeof AuthenticatedAdminLmsSettingsRoute
   '/_authenticated/admin/participants': typeof AuthenticatedAdminParticipantsRoute
   '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/ruby-chai': typeof AuthenticatedAdminRubyChaiRoute
@@ -703,6 +713,7 @@ export interface FileRouteTypes {
     | '/admin/evidence-export'
     | '/admin/house-8'
     | '/admin/insights'
+    | '/admin/lms-settings'
     | '/admin/participants'
     | '/admin/payments'
     | '/admin/ruby-chai'
@@ -770,6 +781,7 @@ export interface FileRouteTypes {
     | '/admin/evidence-export'
     | '/admin/house-8'
     | '/admin/insights'
+    | '/admin/lms-settings'
     | '/admin/participants'
     | '/admin/payments'
     | '/admin/ruby-chai'
@@ -839,6 +851,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/evidence-export'
     | '/_authenticated/admin/house-8'
     | '/_authenticated/admin/insights'
+    | '/_authenticated/admin/lms-settings'
     | '/_authenticated/admin/participants'
     | '/_authenticated/admin/payments'
     | '/_authenticated/admin/ruby-chai'
@@ -1228,6 +1241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminInsightsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/lms-settings': {
+      id: '/_authenticated/admin/lms-settings'
+      path: '/lms-settings'
+      fullPath: '/admin/lms-settings'
+      preLoaderRoute: typeof AuthenticatedAdminLmsSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/participants': {
       id: '/_authenticated/admin/participants'
       path: '/participants'
@@ -1385,6 +1405,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminEvidenceExportRoute: typeof AuthenticatedAdminEvidenceExportRoute
   AuthenticatedAdminHouse8Route: typeof AuthenticatedAdminHouse8Route
   AuthenticatedAdminInsightsRoute: typeof AuthenticatedAdminInsightsRoute
+  AuthenticatedAdminLmsSettingsRoute: typeof AuthenticatedAdminLmsSettingsRoute
   AuthenticatedAdminParticipantsRoute: typeof AuthenticatedAdminParticipantsRoute
   AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
   AuthenticatedAdminRubyChaiRoute: typeof AuthenticatedAdminRubyChaiRoute
@@ -1408,6 +1429,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminEvidenceExportRoute: AuthenticatedAdminEvidenceExportRoute,
   AuthenticatedAdminHouse8Route: AuthenticatedAdminHouse8Route,
   AuthenticatedAdminInsightsRoute: AuthenticatedAdminInsightsRoute,
+  AuthenticatedAdminLmsSettingsRoute: AuthenticatedAdminLmsSettingsRoute,
   AuthenticatedAdminParticipantsRoute: AuthenticatedAdminParticipantsRoute,
   AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
   AuthenticatedAdminRubyChaiRoute: AuthenticatedAdminRubyChaiRoute,

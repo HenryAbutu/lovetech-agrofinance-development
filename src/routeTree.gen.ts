@@ -36,6 +36,7 @@ import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as LearnersSlugRouteImport } from './routes/learners.$slug'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as AuthenticatedAcademyBadgesRouteImport } from './routes/_authenticated.academy.badges'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
 import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
@@ -201,6 +202,11 @@ const LearnersSlugRoute = LearnersSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => LearnersRoute,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAcademyBadgesRoute =
   AuthenticatedAcademyBadgesRouteImport.update({
@@ -409,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/insights/': typeof InsightsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -466,6 +473,7 @@ export interface FileRoutesByTo {
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy': typeof AcademyIndexRoute
   '/insights': typeof InsightsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -526,6 +534,7 @@ export interface FileRoutesById {
   '/learners/$slug': typeof LearnersSlugRoute
   '/academy/': typeof AcademyIndexRoute
   '/insights/': typeof InsightsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/_authenticated/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -586,6 +595,7 @@ export interface FileRouteTypes {
     | '/learners/$slug'
     | '/academy/'
     | '/insights/'
+    | '/.lovable/oauth/consent'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
@@ -643,6 +653,7 @@ export interface FileRouteTypes {
     | '/learners/$slug'
     | '/academy'
     | '/insights'
+    | '/.lovable/oauth/consent'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
@@ -702,6 +713,7 @@ export interface FileRouteTypes {
     | '/learners/$slug'
     | '/academy/'
     | '/insights/'
+    | '/.lovable/oauth/consent'
     | '/_authenticated/academy/badges'
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
@@ -759,6 +771,7 @@ export interface RootRouteChildren {
   InsightsSlugRoute: typeof InsightsSlugRoute
   AcademyIndexRoute: typeof AcademyIndexRoute
   InsightsIndexRoute: typeof InsightsIndexRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   AcademyCoursesSlugRoute: typeof AcademyCoursesSlugRoute
   AcademyCoursesAiToolsSmallBusinessesRoute: typeof AcademyCoursesAiToolsSmallBusinessesRoute
   AcademyCoursesFinanceReadinessMsmesRoute: typeof AcademyCoursesFinanceReadinessMsmesRoute
@@ -958,6 +971,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/learners/$slug'
       preLoaderRoute: typeof LearnersSlugRouteImport
       parentRoute: typeof LearnersRoute
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/academy/badges': {
       id: '/_authenticated/academy/badges'
@@ -1309,6 +1329,7 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsSlugRoute: InsightsSlugRoute,
   AcademyIndexRoute: AcademyIndexRoute,
   InsightsIndexRoute: InsightsIndexRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   AcademyCoursesSlugRoute: AcademyCoursesSlugRoute,
   AcademyCoursesAiToolsSmallBusinessesRoute:
     AcademyCoursesAiToolsSmallBusinessesRoute,

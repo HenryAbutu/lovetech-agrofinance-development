@@ -4,6 +4,7 @@ import { getActiveSupabaseSession, supabase, SIGNED_OUT_FLAG } from "@/lib/supab
 import { toast } from "sonner";
 import { lovable } from "@/lib/lovable-auth";
 import { LegalNotice } from "@/components/legal-notice";
+import { oauthReturnPath } from "@/lib/oauth-return-path";
 
 type LoginSearch = { redirect?: string };
 
@@ -17,14 +18,8 @@ export const Route = createFileRoute("/login")({
 
 function safeRedirectPath(value?: string) {
   if (!value) return "/academy/dashboard";
-  try {
-    const origin = typeof window !== "undefined" ? window.location.origin : "http://localhost";
-    const url = new URL(value, origin);
-    if (url.origin !== origin) return "/academy/dashboard";
-    return `${url.pathname}${url.search}${url.hash}` || "/academy/dashboard";
-  } catch {
-    return "/academy/dashboard";
-  }
+  const path = oauthReturnPath(value);
+  return path === "/" && value !== "/" ? "/academy/dashboard" : path;
 }
 
 function LoginPage() {

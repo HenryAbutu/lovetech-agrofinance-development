@@ -50,6 +50,13 @@
       "when": 1791671944105,
       "tag": "0006_claim_waitlist_for_email",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791672996300,
+      "tag": "0007_lms_phase2_learning",
+      "breakpoints": true
     }
   ]
 }

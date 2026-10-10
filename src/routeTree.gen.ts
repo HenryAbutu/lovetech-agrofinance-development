@@ -37,6 +37,7 @@ import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
 import { Route as LearnersSlugRouteImport } from './routes/learners.$slug'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as AuthenticatedAcademyActionPlanRouteImport } from './routes/_authenticated.academy.action-plan'
 import { Route as AuthenticatedAcademyBadgesRouteImport } from './routes/_authenticated.academy.badges'
 import { Route as AuthenticatedAcademyDashboardRouteImport } from './routes/_authenticated.academy.dashboard'
 import { Route as AuthenticatedAcademyReceiptRouteImport } from './routes/_authenticated.academy.receipt'
@@ -67,6 +68,7 @@ import { Route as AcademyCoursesAiToolsSmallBusinessesRouteImport } from './rout
 import { Route as AcademyCoursesFinanceReadinessMsmesRouteImport } from './routes/academy.courses.finance-readiness-msmes'
 import { Route as AcademyCoursesIcss20EntrepreneurshipRouteImport } from './routes/academy.courses.icss-2-0-entrepreneurship'
 import { Route as AcademyCoursesProfessionalsAiEdgeRouteImport } from './routes/academy.courses.professionals-ai-edge'
+import { Route as AuthenticatedAcademyLearnSlugRouteImport } from './routes/_authenticated.academy.learn.$slug'
 import { Route as ApiPublicPaystackVerifyRouteImport } from './routes/api/public/paystack.verify'
 import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack.webhook'
 import { Route as AuthenticatedAcademyDashboardCoursesSlugRouteImport } from './routes/_authenticated.academy.dashboard.courses.$slug'
@@ -215,6 +217,12 @@ const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
   path: '/.lovable/oauth/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAcademyActionPlanRoute =
+  AuthenticatedAcademyActionPlanRouteImport.update({
+    id: '/academy/action-plan',
+    path: '/academy/action-plan',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAcademyBadgesRoute =
   AuthenticatedAcademyBadgesRouteImport.update({
     id: '/academy/badges',
@@ -392,6 +400,12 @@ const AcademyCoursesProfessionalsAiEdgeRoute =
     path: '/academy/courses/professionals-ai-edge',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedAcademyLearnSlugRoute =
+  AuthenticatedAcademyLearnSlugRouteImport.update({
+    id: '/academy/learn/$slug',
+    path: '/academy/learn/$slug',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const ApiPublicPaystackVerifyRoute = ApiPublicPaystackVerifyRouteImport.update({
   id: '/api/public/paystack/verify',
   path: '/api/public/paystack/verify',
@@ -464,6 +478,7 @@ export interface FileRoutesByFullPath {
   '/academy/': typeof AcademyIndexRoute
   '/insights/': typeof InsightsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/academy/action-plan': typeof AuthenticatedAcademyActionPlanRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -494,6 +509,7 @@ export interface FileRoutesByFullPath {
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/academy/learn/$slug': typeof AuthenticatedAcademyLearnSlugRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
   '/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRouteWithChildren
@@ -529,6 +545,7 @@ export interface FileRoutesByTo {
   '/academy': typeof AcademyIndexRoute
   '/insights': typeof InsightsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/academy/action-plan': typeof AuthenticatedAcademyActionPlanRoute
   '/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -559,6 +576,7 @@ export interface FileRoutesByTo {
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/academy/learn/$slug': typeof AuthenticatedAcademyLearnSlugRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
   '/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRouteWithChildren
@@ -597,6 +615,7 @@ export interface FileRoutesById {
   '/academy/': typeof AcademyIndexRoute
   '/insights/': typeof InsightsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/_authenticated/academy/action-plan': typeof AuthenticatedAcademyActionPlanRoute
   '/_authenticated/academy/badges': typeof AuthenticatedAcademyBadgesRoute
   '/_authenticated/academy/dashboard': typeof AuthenticatedAcademyDashboardRouteWithChildren
   '/_authenticated/academy/receipt': typeof AuthenticatedAcademyReceiptRoute
@@ -627,6 +646,7 @@ export interface FileRoutesById {
   '/academy/courses/icss-2-0-entrepreneurship': typeof AcademyCoursesIcss20EntrepreneurshipRoute
   '/academy/courses/professionals-ai-edge': typeof AcademyCoursesProfessionalsAiEdgeRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/academy/learn/$slug': typeof AuthenticatedAcademyLearnSlugRoute
   '/api/public/paystack/verify': typeof ApiPublicPaystackVerifyRoute
   '/api/public/paystack/webhook': typeof ApiPublicPaystackWebhookRoute
   '/_authenticated/academy/dashboard/courses/$slug': typeof AuthenticatedAcademyDashboardCoursesSlugRouteWithChildren
@@ -665,6 +685,7 @@ export interface FileRouteTypes {
     | '/academy/'
     | '/insights/'
     | '/.lovable/oauth/consent'
+    | '/academy/action-plan'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
@@ -695,6 +716,7 @@ export interface FileRouteTypes {
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
     | '/admin/'
+    | '/academy/learn/$slug'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
     | '/academy/dashboard/courses/$slug'
@@ -730,6 +752,7 @@ export interface FileRouteTypes {
     | '/academy'
     | '/insights'
     | '/.lovable/oauth/consent'
+    | '/academy/action-plan'
     | '/academy/badges'
     | '/academy/dashboard'
     | '/academy/receipt'
@@ -760,6 +783,7 @@ export interface FileRouteTypes {
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
     | '/admin'
+    | '/academy/learn/$slug'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
     | '/academy/dashboard/courses/$slug'
@@ -797,6 +821,7 @@ export interface FileRouteTypes {
     | '/academy/'
     | '/insights/'
     | '/.lovable/oauth/consent'
+    | '/_authenticated/academy/action-plan'
     | '/_authenticated/academy/badges'
     | '/_authenticated/academy/dashboard'
     | '/_authenticated/academy/receipt'
@@ -827,6 +852,7 @@ export interface FileRouteTypes {
     | '/academy/courses/icss-2-0-entrepreneurship'
     | '/academy/courses/professionals-ai-edge'
     | '/_authenticated/admin/'
+    | '/_authenticated/academy/learn/$slug'
     | '/api/public/paystack/verify'
     | '/api/public/paystack/webhook'
     | '/_authenticated/academy/dashboard/courses/$slug'
@@ -1069,6 +1095,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/academy/action-plan': {
+      id: '/_authenticated/academy/action-plan'
+      path: '/academy/action-plan'
+      fullPath: '/academy/action-plan'
+      preLoaderRoute: typeof AuthenticatedAcademyActionPlanRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/academy/badges': {
       id: '/_authenticated/academy/badges'
       path: '/academy/badges'
@@ -1279,6 +1312,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyCoursesProfessionalsAiEdgeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/academy/learn/$slug': {
+      id: '/_authenticated/academy/learn/$slug'
+      path: '/academy/learn/$slug'
+      fullPath: '/academy/learn/$slug'
+      preLoaderRoute: typeof AuthenticatedAcademyLearnSlugRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/api/public/paystack/verify': {
       id: '/api/public/paystack/verify'
       path: '/api/public/paystack/verify'
@@ -1422,22 +1462,26 @@ const AuthenticatedAcademyDashboardRouteWithChildren =
 interface AuthenticatedRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedAcademyActionPlanRoute: typeof AuthenticatedAcademyActionPlanRoute
   AuthenticatedAcademyBadgesRoute: typeof AuthenticatedAcademyBadgesRoute
   AuthenticatedAcademyDashboardRoute: typeof AuthenticatedAcademyDashboardRouteWithChildren
   AuthenticatedAcademyReceiptRoute: typeof AuthenticatedAcademyReceiptRoute
   AuthenticatedAcademyReferralsRoute: typeof AuthenticatedAcademyReferralsRoute
   AuthenticatedSettingsProfileRoute: typeof AuthenticatedSettingsProfileRoute
+  AuthenticatedAcademyLearnSlugRoute: typeof AuthenticatedAcademyLearnSlugRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedAcademyActionPlanRoute: AuthenticatedAcademyActionPlanRoute,
   AuthenticatedAcademyBadgesRoute: AuthenticatedAcademyBadgesRoute,
   AuthenticatedAcademyDashboardRoute:
     AuthenticatedAcademyDashboardRouteWithChildren,
   AuthenticatedAcademyReceiptRoute: AuthenticatedAcademyReceiptRoute,
   AuthenticatedAcademyReferralsRoute: AuthenticatedAcademyReferralsRoute,
   AuthenticatedSettingsProfileRoute: AuthenticatedSettingsProfileRoute,
+  AuthenticatedAcademyLearnSlugRoute: AuthenticatedAcademyLearnSlugRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

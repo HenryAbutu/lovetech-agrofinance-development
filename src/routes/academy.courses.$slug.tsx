@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { CheckCircle2, Clock, GraduationCap, MonitorSmartphone, Users, ClipboardCheck, MessageSquare, Target } from "lucide-react";
 import { findCourse } from "@/lib/academy-catalogue";
 import { WaitlistForm } from "@/components/waitlist-form";
+import { LEARNABLE, downloadCourseGuide } from "@/lib/learning-content";
+import { whatsappUrl } from "@/lib/lms-config";
 
 export const Route = createFileRoute("/academy/courses/$slug")({
   loader: ({ params }) => {
@@ -52,7 +54,18 @@ function CoursePage() {
             <Fact icon={<Clock className="size-4" />} k="Duration" v={c.duration} />
             <Fact icon={<MonitorSmartphone className="size-4" />} k="Delivery" v={c.delivery} />
           </div>
-          <a href="#register" className="mt-8 inline-flex rounded-lg bg-ochre px-6 py-3 text-sm font-bold text-ink">Start Course</a>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {LEARNABLE.has(c.slug) && (
+              <Link to="/academy/learn/$slug" params={{ slug: c.slug }} className="inline-flex rounded-lg bg-ochre px-6 py-3 text-sm font-bold text-ink">{c.hybrid ? "Start Programme" : "Start Course"}</Link>
+            )}
+            <a href="#register" className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">Join Waitlist</a>
+            <button type="button" onClick={() => downloadCourseGuide(c)} className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">{c.hybrid ? "Download Programme Guide" : "Download Course Guide"}</button>
+            {c.hybrid ? (
+              <Link to="/academy/action-plan" search={{ course: c.slug }} className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">Submit Action Plan</Link>
+            ) : (
+              <a href={whatsappUrl()} target="_blank" rel="noreferrer noopener" className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">Contact Support</a>
+            )}
+          </div>
         </div>
       </section>
 

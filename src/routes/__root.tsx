@@ -128,7 +128,7 @@ function AuthSync() {
         } catch { /* noop */ }
         try { clearSupabaseAuthStorage(); } catch { /* noop */ }
         try { window.sessionStorage.removeItem("lovetech_post_auth_redirect"); } catch { /* noop */ }
-        if (window.location.pathname !== "/login") {
+        if (window.location.pathname !== "/login" && !window.location.pathname.startsWith("/auth/callback")) {
           window.location.assign("/login");
         }
         return;

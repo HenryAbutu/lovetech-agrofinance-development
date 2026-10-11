@@ -7,6 +7,8 @@ import { submitWaitlist } from "@/lib/forms.functions";
 import { LegalNotice } from "@/components/legal-notice";
 import { catalogue } from "@/lib/academy-catalogue";
 import { joinWaitlist } from "@/lib/waitlist";
+import { Button } from "@/components/ui/button";
+import { BookOpen, UserPlus, MonitorPlay, Download, FileCheck2, Target } from "lucide-react";
 
 export const Route = createFileRoute("/academy/")({
   head: () => ({
@@ -231,6 +233,13 @@ const faqs = [
   { q: "How does the waiting list work?", a: "Join the waiting list for any upcoming course. We'll email you the moment enrolment opens and offer priority access." },
 ];
 
+const steps = [
+  { icon: BookOpen, title: "Choose course" }, { icon: UserPlus, title: "Sign in" },
+  { icon: MonitorPlay, title: "Learn online" }, { icon: Download, title: "Download tools" },
+  { icon: FileCheck2, title: "Submit tasks" }, { icon: Target, title: "Build action plan" },
+  { icon: Award, title: "Track completion" },
+];
+
 function AcademyPage() {
   const [active, setActive] = useState<Course | null>(null);
   return (
@@ -247,6 +256,11 @@ function AcademyPage() {
           </p>
         </div>
       </section>
+
+      <section className="px-6 py-14 lg:px-8 lg:py-20"><div className="mx-auto max-w-6xl"><p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary">Your learning journey</p><h2 className="font-display text-3xl font-bold leading-tight tracking-normal md:text-4xl">How Lovetech Academy Works</h2>
+        <ol className="mt-9 grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-4 lg:grid-cols-7">{steps.map((s,i) => <li key={s.title} className="border-t-2 border-border pt-4"><span className="text-xs font-bold text-muted-foreground">0{i+1}</span><s.icon className="my-4 size-6 text-primary" /><h3 className="text-sm font-semibold">{s.title}</h3></li>)}</ol>
+        <Button asChild variant="link" className="mt-7 px-0"><Link to="/academy">Browse all courses <ArrowRight /></Link></Button>
+      </div></section>
 
       {/* Programme catalogue */}
       <Section id="catalogue" eyebrow="Learning pathways" title="Our programmes">

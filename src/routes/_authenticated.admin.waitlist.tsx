@@ -17,18 +17,33 @@ function WaitlistAdmin() {
   const qc = useQueryClient();
   const refresh = () => qc.invalidateQueries({ queryKey: ["admin-waitlist"] });
   const [enrolling, setEnrolling] = useState<string | null>(null);
+  const [course, setCourse] = useState("");
+  const [statusF, setStatusF] = useState("");
   async function setStatus(id: string, status: string) {
     const { error } = await supabase.from("academy_waitlist").update({ status }).eq("id", id);
     if (error) return toast.error(error.message);
     toast.success(`Marked as ${status}`); refresh();
   }
 
+  const progName = (w: any) => { const c = Array.isArray(w.course) ? w.course[0] : w.course; return c?.title ?? w.course_interest ?? w.interest_area ?? "General"; };
+  const courseOptions = [...new Set((data?.waitlist ?? []).map(progName))].sort();
+  const rows = (data?.waitlist ?? []).filter((w: any) => (!course || progName(w) === course) && (!statusF || w.status === statusF));
   if (isLoading) return <p className="text-sm text-foreground/60">Loading…</p>;
   if (error) return <p className="text-sm text-destructive">Could not load waitlist: {(error as Error).message}</p>;
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-foreground/60">{data?.waitlist.length ?? 0} people on the waitlist</p>
+      <div className="flex flex-wrap items-center gap-2">
+        <select aria-label="Filter by course" value={course} onChange={(e) => setCourse(e.target.value)} className="rounded-md border border-input bg-background p-2 text-sm">
+          <option value="">All courses</option>
+          {courseOptions.map((c) => <option key={c} value={c}>{c}</option>)}
+        </select>
+        <select aria-label="Filter by status" value={statusF} onChange={(e) => setStatusF(e.target.value)} className="rounded-md border border-input bg-background p-2 text-sm">
+          <option value="">All statuses</option>
+          {["new", "contacted", "approved", "enrolled"].map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
+        <p className="text-sm text-foreground/60">{rows.length} of {data?.waitlist.length ?? 0} people on the waitlist</p>
+      </div>
       <div className="overflow-x-auto rounded-2xl border border-border bg-card">
         <table className="w-full min-w-[1100px] text-sm">
           <thead className="bg-muted/50 text-left text-xs uppercase tracking-widest text-foreground/60">
@@ -44,7 +59,7 @@ function WaitlistAdmin() {
             </tr>
           </thead>
           <tbody>
-            {data?.waitlist.map((w: any) => {
+            {rows.map((w: any) => {
               const course = Array.isArray(w.course) ? w.course[0] : w.course;
               return (
                 <tr key={w.id} className="border-t border-border align-top">
@@ -83,7 +98,7 @@ function WaitlistAdmin() {
                 </tr>
               );
             })}
-            {data?.waitlist.length === 0 && (
+            {rows.length === 0 && (
               <tr><td colSpan={8} className="p-6 text-center text-foreground/60">No waitlist entries.</td></tr>
             )}
           </tbody>

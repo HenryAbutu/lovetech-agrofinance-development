@@ -55,7 +55,7 @@ export function ReviewTable({ data, items, table, onDone }: { data: LmsAdminData
   );
 }
 
-function Review({ item, table, onDone }: { item: Item; table: Item extends never ? never : "lms_assignment_submissions" | "lms_action_plans"; onDone: () => void }) {
+function Review({ item, table, onDone }: { item: Item; table: "lms_assignment_submissions" | "lms_action_plans"; onDone: () => void }) {
   const [status, setStatus] = useState(item.status);
   const [feedback, setFeedback] = useState(item.feedback ?? "");
   const [busy, setBusy] = useState(false);

@@ -110,6 +110,14 @@ function AuthSync() {
   const router = useRouter();
   const qc = useQueryClient();
   useEffect(() => {
+    // Older confirmation links land on "/" — hand them to the callback page.
+    const h = window.location.hash;
+    if (window.location.pathname === "/" && /type=(signup|email)/.test(h)) {
+      window.location.replace(`/auth/callback?verified=1${h}`);
+      return;
+    }
+  }, []);
+  useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_OUT") {
         // Hard reset: purge every cached auth artefact and force a fresh

@@ -26,6 +26,7 @@ function LoginPage() {
   const { redirect } = Route.useSearch();
   const [email, setEmail] = useState(""); const [password, setPassword] = useState("");
   const [err, setErr] = useState(""); const [loading, setLoading] = useState(false);
+  const [verified, setVerified] = useState(false);
   const redirectTo = safeRedirectPath(redirect);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ function LoginPage() {
         window.sessionStorage.removeItem(SIGNED_OUT_FLAG);
         toast.success("You have been signed out.");
       }
+      if (new URLSearchParams(window.location.search).get("verified") === "1") setVerified(true);
     } catch { /* noop */ }
   }, []);
 
@@ -70,6 +72,11 @@ function LoginPage() {
       <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-8">
         <h1 className="mb-2 font-serif text-4xl text-vetiver">Sign in</h1>
         <p className="mb-6 text-sm text-foreground/65">Welcome back to LoveTech.</p>
+        {verified && (
+          <div role="status" className="mb-5 rounded-md border border-teal/40 bg-teal/10 p-3 text-sm text-foreground">
+            <strong>Email verified.</strong> Your email address has been confirmed. Please sign in to continue.
+          </div>
+        )}
         <button onClick={googleSignIn} className="mb-5 flex w-full items-center justify-center gap-2 rounded-md border border-border bg-background py-2.5 text-sm font-medium hover:bg-muted">Continue with Google</button>
         <LegalNotice className="mb-5" />
         <div className="my-4 flex items-center gap-3 text-xs text-foreground/40"><div className="h-px flex-1 bg-border" /><span>OR</span><div className="h-px flex-1 bg-border" /></div>

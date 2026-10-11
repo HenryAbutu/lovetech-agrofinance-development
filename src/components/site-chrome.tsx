@@ -8,8 +8,12 @@ import { getActiveSupabaseSession, supabase, signOutAndRedirect } from "@/lib/su
 import { checkIsAdmin } from "@/lib/learner.functions";
 
 const navLinks = [
-  { to: "/about", label: "About" },
-  { to: "/advisory", label: "Advisory & Academy" },
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About Lovetech" },
+  { to: "/advisory", label: "Advisory Services" },
+  { to: "/academy", label: "Academy LMS" },
+  { to: "/finance-readiness", label: "Finance Readiness" },
+  { to: "/programmes", label: "Programmes" },
   { to: "/insights", label: "Insights" },
   { to: "/contact", label: "Contact" },
 ] as const;
@@ -87,47 +91,14 @@ export function SiteHeader() {
           <img src={logoAsset.url} alt="LoveTech Group" className="h-10 w-auto" />
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm font-medium text-foreground/75 lg:flex">
-          <div
-            className="relative"
-            onMouseEnter={() => setMega(true)}
-            onMouseLeave={() => setMega(false)}
-          >
-            <button
-              className="flex items-center gap-1 transition-colors hover:text-navy"
-              onClick={() => setMega((v) => !v)}
-              aria-expanded={mega}
-            >
-              Our Businesses <ChevronDown className="size-4" />
-            </button>
-            {mega && (
-              <div className="absolute left-1/2 top-full w-[36rem] -translate-x-1/2 pt-3">
-                <div className="grid gap-2 rounded-2xl border border-border bg-white p-3 shadow-xl">
-                  {businesses.map((b) => (
-                    <Link
-                      key={b.to}
-                      to={b.to}
-                      onClick={() => setMega(false)}
-                      className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-cloud"
-                    >
-                      <span className={`mt-1.5 size-2 shrink-0 rounded-full ${b.dot}`} />
-                      <span className="min-w-0">
-                        <span className="block font-serif text-sm font-semibold text-navy">{b.name}</span>
-                        <span className="block text-xs text-muted-foreground">{b.tagline}</span>
-                      </span>
-                      <ArrowRight className="ml-auto mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+        <nav className="hidden items-center gap-5 text-sm font-medium text-foreground/75 xl:flex">
           {navLinks.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               className="transition-colors hover:text-navy"
               activeProps={{ className: "text-navy font-semibold" }}
+              activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
             </Link>
@@ -144,7 +115,7 @@ export function SiteHeader() {
             </Link>
           )}
           {authed && who && (
-            <span className="hidden max-w-[10rem] truncate text-xs text-muted-foreground xl:inline" title={who}>{who}</span>
+            <span className="hidden max-w-[10rem] truncate text-xs text-muted-foreground 2xl:inline" title={who}>{who}</span>
           )}
           {authed ? (
             <Link
@@ -160,7 +131,7 @@ export function SiteHeader() {
               onClick={signOut}
               className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-navy/80 hover:bg-cloud hover:text-navy lg:inline-flex"
             >
-              Sign out
+              Sign Out
             </button>
           )}
           {authed === false ? (
@@ -169,10 +140,10 @@ export function SiteHeader() {
                 to="/login"
                 className="hidden rounded-lg border border-navy/20 bg-white px-4 py-2 text-sm font-semibold text-navy hover:bg-cloud lg:inline-flex"
               >
-                Sign in
+                Login
               </Link>
               <Link to="/signup" className="hidden px-2 py-2 text-sm font-semibold text-navy/80 hover:text-navy lg:inline-flex">
-                Register
+                Join Academy
               </Link>
             </>
           ) : null}
@@ -184,7 +155,7 @@ export function SiteHeader() {
           </Link>
           <button
             aria-label="Toggle menu"
-            className="grid size-10 place-items-center rounded-lg border border-border text-navy lg:hidden"
+            className="grid size-10 place-items-center rounded-lg border border-border text-navy xl:hidden"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -193,20 +164,8 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-white lg:hidden">
+        <div className="border-t border-border bg-white xl:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4 text-sm font-medium">
-            <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Our Businesses</p>
-            {businesses.map((b) => (
-              <Link
-                key={b.to}
-                to={b.to}
-                className="rounded-md px-3 py-2 text-foreground/80 hover:bg-cloud"
-                onClick={() => setOpen(false)}
-              >
-                {b.name}
-              </Link>
-            ))}
-            <p className="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Group</p>
             {navLinks.map((l) => (
               <Link
                 key={l.to}
@@ -216,6 +175,17 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
               >
                 {l.label}
+              </Link>
+            ))}
+            <p className="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Lovetech Group Ventures</p>
+            {businesses.map((b) => (
+              <Link
+                key={b.to}
+                to={b.to}
+                className="rounded-md px-3 py-2 text-foreground/80 hover:bg-cloud"
+                onClick={() => setOpen(false)}
+              >
+                {b.name}
               </Link>
             ))}
             {isAdmin && (
@@ -242,7 +212,7 @@ export function SiteHeader() {
                 onClick={signOut}
                 className="mt-2 rounded-lg border border-border bg-white px-4 py-2.5 text-center text-sm font-semibold text-navy"
               >
-                Sign out
+                Sign Out
               </button>
             )}
             {authed === false ? (
@@ -251,12 +221,12 @@ export function SiteHeader() {
                 className="mt-2 rounded-lg border border-navy/20 bg-white px-4 py-2.5 text-center text-sm font-semibold text-navy"
                 onClick={() => setOpen(false)}
               >
-                Sign in
+                Login
               </Link>
             ) : null}
             {authed === false ? (
               <Link to="/signup" className="mt-2 rounded-lg border border-border bg-white px-4 py-2.5 text-center text-sm font-semibold text-navy" onClick={() => setOpen(false)}>
-                Register
+                Join Academy
               </Link>
             ) : null}
             {authed && who ? <p className="mt-2 truncate text-center text-xs text-muted-foreground">Signed in as {who}</p> : null}

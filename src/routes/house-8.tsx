@@ -58,7 +58,7 @@ const amenities = [
 
 function House8Page() {
   return (
-    <main className="bg-white">
+    <main className="website web-venture bg-background">
       <section className="relative bg-burgundy text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
           <div>

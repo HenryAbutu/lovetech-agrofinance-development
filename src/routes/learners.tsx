@@ -15,6 +15,8 @@ export const Route = createFileRoute("/learners")({
       { name: "description", content: "Meet learners and entrepreneurs building better businesses through LoveTech Agro Academy." },
       { property: "og:title", content: "Learner directory · LoveTech Agro Academy" },
       { property: "og:description", content: "Meet learners and entrepreneurs building better businesses through LoveTech Agro Academy." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(learnersQuery),
@@ -26,7 +28,7 @@ export const Route = createFileRoute("/learners")({
 function LearnersPage() {
   const { data: learners } = useSuspenseQuery(learnersQuery);
   return (
-    <main>
+    <main className="website">
       <section className="bg-ink px-6 py-20 text-bone lg:px-8">
         <div className="mx-auto max-w-5xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Community</p>

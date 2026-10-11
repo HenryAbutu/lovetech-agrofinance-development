@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/reset-password")({
-  head: () => ({ meta: [{ title: "Reset password — LoveTech" }] }),
+  head: () => ({ meta: [{ title: "Reset password — Lovetech Academy" }, { name: "description", content: "Reset the password for your Lovetech Academy account." }, { property: "og:title", content: "Reset password — Lovetech Academy" }, { property: "og:description", content: "Recover access to your existing Lovetech Academy account." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: ResetPage,
 });
 
@@ -30,17 +30,17 @@ function ResetPage() {
   }
 
   return (
-    <main className="px-6 py-20 lg:px-8">
+    <main className="website web-auth px-6 py-20 lg:px-8">
       <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-8">
         <h1 className="mb-6 font-serif text-3xl text-vetiver">{mode === "request" ? "Reset your password" : "Set a new password"}</h1>
         {mode === "request" ? (
           <form onSubmit={request} className="grid gap-4">
-            <input required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
+            <input aria-label="Email" required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
             <button className="rounded-sm bg-vetiver py-2.5 text-sm font-semibold text-bone">Send reset link</button>
           </form>
         ) : (
           <form onSubmit={update} className="grid gap-4">
-            <input required type="password" minLength={8} placeholder="New password" value={password} onChange={(e) => setPassword(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
+            <input aria-label="New password" required type="password" minLength={8} placeholder="New password" value={password} onChange={(e) => setPassword(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
             <button className="rounded-sm bg-vetiver py-2.5 text-sm font-semibold text-bone">Update password</button>
           </form>
         )}

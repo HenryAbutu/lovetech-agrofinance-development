@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/terms")({
   beforeLoad: () => { throw redirect({ to: "/terms-of-service", statusCode: 301 }); },
-  head: () => ({ meta: [{ title: "Terms & Conditions — LoveTech" }, { name: "description", content: "Terms of service for LoveTech Agrofinance & Development Ltd." }] }),
+  head: () => ({ meta: [{ title: "Terms redirect — Lovetech" }, { name: "description", content: "Continue to the canonical Lovetech Terms of Service." }, { property: "og:title", content: "Terms of Service — Lovetech" }, { property: "og:description", content: "Continue to the Lovetech Terms of Service." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: () => (
     <main className="mx-auto max-w-3xl px-6 py-20 lg:px-8">
       <h1 className="mb-6 font-serif text-5xl text-vetiver">Terms & Conditions</h1>

@@ -151,8 +151,8 @@ function DiagnosticPage() {
               </Row>
               <Field name="funding_amount_needed" label="Approximate funding amount needed" placeholder="e.g. ₦2,000,000" />
               <div>
-                <label className="mb-1 block text-sm font-medium text-foreground/80">Main funding challenge</label>
-                <textarea name="main_funding_challenge" rows={4} className="input" placeholder="What's the biggest obstacle to securing the funding you need?" />
+                <label htmlFor="main_funding_challenge" className="mb-1 block text-sm font-medium text-foreground/80">Main funding challenge</label>
+                <textarea id="main_funding_challenge" name="main_funding_challenge" rows={4} className="input" placeholder="What's the biggest obstacle to securing the funding you need?" />
               </div>
               {err && <p className="text-sm text-destructive">{err}</p>}
               <Button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 font-semibold text-primary-foreground shadow-sm hover:opacity-95 disabled:opacity-60">
@@ -171,16 +171,16 @@ function Row({ children }: { children: React.ReactNode }) { return <div classNam
 function Field({ name, label, type = "text", required, placeholder }: { name: string; label: string; type?: string; required?: boolean; placeholder?: string }) {
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
-      <input name={name} type={type} required={required} placeholder={placeholder} className="input" />
+      <label htmlFor={name} className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
+      <input id={name} name={name} type={type} required={required} placeholder={placeholder} className="input" />
     </div>
   );
 }
 function Select({ name, label, options }: { name: string; label: string; options: string[] }) {
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-foreground/80">{label}</label>
-      <select name={name} className="input">
+      <label htmlFor={name} className="mb-1 block text-sm font-medium text-foreground/80">{label}</label>
+      <select id={name} name={name} className="input">
         <option value="">Select…</option>
         {options.map((o) => <option key={o} value={o}>{o}</option>)}
       </select>

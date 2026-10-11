@@ -34,13 +34,13 @@ export const Route = createFileRoute("/insights/$slug")({
     return { meta };
   },
   errorComponent: () => (
-    <main className="mx-auto max-w-3xl px-6 py-24 text-center">
+    <main className="website mx-auto max-w-3xl px-6 py-24 text-center">
       <h1 className="font-serif text-3xl font-bold text-navy">This article couldn't be loaded</h1>
       <Link to="/insights" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal">Back to Insights</Link>
     </main>
   ),
   notFoundComponent: () => (
-    <main className="mx-auto max-w-3xl px-6 py-24 text-center">
+    <main className="website mx-auto max-w-3xl px-6 py-24 text-center">
       <h1 className="font-serif text-3xl font-bold text-navy">Article not found</h1>
       <p className="mt-3 text-foreground/70">It may have been unpublished or moved.</p>
       <Link to="/insights" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal">Back to Insights <ArrowRight className="size-4" /></Link>
@@ -58,7 +58,7 @@ function PostPage() {
     : "";
 
   return (
-    <main className="bg-white">
+    <main className="website web-article bg-background">
       <article className="mx-auto max-w-3xl px-6 py-16 lg:py-20">
         <Link to="/insights" className="inline-flex items-center gap-2 text-sm font-semibold text-teal hover:underline">
           <ArrowLeft className="size-4" /> All insights
@@ -83,7 +83,7 @@ function PostPage() {
         <div className="mt-14 rounded-2xl border border-border bg-cloud p-8">
           <h2 className="font-serif text-xl font-bold text-navy">Need practical support for your business?</h2>
           <p className="mt-2 text-sm text-foreground/70">Our advisory team helps Nigerian businesses get structured, finance-ready and digitally efficient.</p>
-          <Link to="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white hover:opacity-95">
+          <Link to="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-95">
             Book a consultation <ArrowRight className="size-4" />
           </Link>
         </div>

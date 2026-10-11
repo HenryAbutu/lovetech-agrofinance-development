@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/privacy")({
   beforeLoad: () => { throw redirect({ to: "/privacy-policy", statusCode: 301 }); },
-  head: () => ({ meta: [{ title: "Privacy Policy — LoveTech" }, { name: "description", content: "How LoveTech handles your data." }] }),
+  head: () => ({ meta: [{ title: "Privacy Policy redirect — Lovetech" }, { name: "description", content: "Continue to the canonical Lovetech Privacy Policy." }, { property: "og:title", content: "Privacy Policy — Lovetech" }, { property: "og:description", content: "Continue to the Lovetech Privacy Policy." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: () => (
     <main className="mx-auto max-w-3xl px-6 py-20 lg:px-8">
       <h1 className="mb-6 font-serif text-5xl text-vetiver">Privacy Policy</h1>

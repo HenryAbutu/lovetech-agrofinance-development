@@ -6,10 +6,14 @@ export const Route = createFileRoute("/academy/courses/finance-readiness-msmes")
     meta: [
       { title: "Finance Readiness for MSMEs — LoveTech Agro Academy" },
       { name: "description", content: "Upcoming programme preparing MSMEs for loans, grants, investment and partnerships. Join the waitlist." },
+      { property: "og:title", content: "Finance Readiness for MSMEs — Lovetech Academy" },
+      { property: "og:description", content: "Upcoming programme preparing MSMEs for finance and partnerships. Join the existing waitlist." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: () => (
-    <main>
+    <main className="website web-course">
       <section className="bg-ink px-6 py-24 text-bone lg:px-8">
         <div className="mx-auto max-w-5xl">
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Coming Soon</p>

@@ -97,7 +97,7 @@ function Home() {
             ].map(([n, t]) => (
               <div key={t} className="border-l border-primary/20 pl-5">
                 <p
-                  className={`${n === "Multidisciplinary" ? "text-lg" : "text-3xl"} font-semibold text-primary`}
+                  className={`${n === "Multidisciplinary" ? "text-sm sm:text-lg" : "text-3xl"} font-semibold text-primary`}
                 >
                   {n}
                 </p>

@@ -32,7 +32,7 @@ export const Route = createFileRoute("/academy/courses/$slug")({
 
 function CourseNotFound() {
   return (
-    <main className="px-6 py-24 text-center">
+    <main className="website px-6 py-24 text-center">
       <h1 className="font-serif text-3xl text-vetiver">Course not found</h1>
       <Link to="/academy" className="mt-6 inline-block font-semibold text-teal underline">Back to Academy</Link>
     </main>
@@ -42,7 +42,7 @@ function CourseNotFound() {
 function CoursePage() {
   const { course: c } = Route.useLoaderData();
   return (
-    <main className="bg-background">
+    <main className="website web-course bg-background">
       <section className="bg-ink px-6 py-16 text-bone lg:px-8 md:py-20">
         <div className="mx-auto max-w-5xl">
           <Link to="/academy" className="text-xs font-semibold uppercase tracking-widest text-ochre">← LoveTech Academy</Link>

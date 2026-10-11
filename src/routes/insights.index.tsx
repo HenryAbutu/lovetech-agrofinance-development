@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Newspaper } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { listPublishedPosts } from "@/lib/blog.functions";
 
 const postsQuery = queryOptions({
@@ -12,10 +13,10 @@ const postsQuery = queryOptions({
 export const Route = createFileRoute("/insights/")({
   head: () => ({
     meta: [
-      { title: "Insights — LoveTech Group" },
+      { title: "Insights — Lovetech Agrofinance & Development" },
       { name: "description", content: "Practical updates, opportunities and analysis for Nigerian MSMEs, agribusinesses, entrepreneurs, cooperatives and development actors." },
-      { property: "og:title", content: "LoveTech Group Insights" },
-      { property: "og:description", content: "Funding opportunities, finance readiness, AI, agribusiness, hospitality and wellness insights from LoveTech Group." },
+      { property: "og:title", content: "Lovetech Insights" },
+      { property: "og:description", content: "Enterprise, finance readiness, AI and agribusiness insights from Lovetech." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -51,13 +52,13 @@ function InsightsPage() {
   const rest = posts.slice(1).filter((p) => filter === "All" || p.category === filter);
 
   return (
-    <main className="bg-white">
-      <section className="border-b border-border bg-gradient-to-br from-cloud via-white to-white px-6 py-16 lg:px-8 lg:py-20">
+    <main className="website">
+      <section className="border-b border-border bg-secondary px-6 py-16 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-5xl">
           <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-teal">
             <Newspaper className="size-3.5" /> Insights
           </p>
-          <h1 className="font-serif text-4xl font-bold text-navy md:text-5xl">Insights from LoveTech Group</h1>
+          <h1 className="font-serif text-4xl font-bold text-navy md:text-5xl">Insights from Lovetech</h1>
           <p className="mt-4 max-w-3xl text-lg text-foreground/70">
             Practical updates, opportunities and analysis for Nigerian MSMEs, agribusinesses, entrepreneurs, cooperatives and development actors.
           </p>
@@ -66,12 +67,12 @@ function InsightsPage() {
 
       {posts.length === 0 ? (
         <section className="px-6 py-24 lg:px-8">
-          <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-cloud p-10 text-center">
+          <div className="mx-auto max-w-2xl rounded-lg border border-border bg-cloud p-10 text-center">
             <h2 className="font-serif text-2xl font-bold text-navy">New articles are on the way</h2>
             <p className="mt-3 text-foreground/70">
               We're preparing our first published pieces on finance readiness, funding opportunities and practical AI for Nigerian businesses.
             </p>
-            <Link to="/contact" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white hover:opacity-95">
+            <Link to="/contact" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-95">
               Talk to our team <ArrowRight className="size-4" />
             </Link>
           </div>
@@ -83,7 +84,7 @@ function InsightsPage() {
               <Link
                 to="/insights/$slug"
                 params={{ slug: featured.slug }}
-                className="group grid gap-6 overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition-shadow hover:shadow-lg md:grid-cols-2"
+                className="group grid gap-6 overflow-hidden rounded-lg border border-border bg-background shadow-sm transition-shadow hover:shadow-lg md:grid-cols-2"
               >
                 {featured.featured_image ? (
                   <img src={featured.featured_image} alt={featured.title} loading="lazy" className="h-full min-h-56 w-full object-cover" />
@@ -105,16 +106,17 @@ function InsightsPage() {
             {categories.length > 1 && (
               <div className="mt-12 flex flex-wrap gap-2">
                 {categories.map((c) => (
-                  <button
+                  <Button
+                    variant="outline"
                     key={c}
                     type="button"
                     onClick={() => setFilter(c)}
                     className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-                      filter === c ? "border-teal bg-teal text-white" : "border-border bg-white text-foreground/70 hover:border-teal/40"
+                      filter === c ? "border-teal bg-teal text-primary-foreground" : "border-border bg-background text-foreground/70 hover:border-teal/40"
                     }`}
                   >
                     {c}
-                  </button>
+                   </Button>
                 ))}
               </div>
             )}
@@ -125,7 +127,7 @@ function InsightsPage() {
                   key={p.id}
                   to="/insights/$slug"
                   params={{ slug: p.slug }}
-                  className="group flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="group flex flex-col rounded-lg border border-border bg-background p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <span className="self-start rounded-full bg-teal/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-teal">
                     {p.category ?? "Insight"}

@@ -1,3 +1,5 @@
+import academyImage from "@/assets/academy-hero-v3.jpg";
+import { PhotoHero } from "@/components/website/presentation";
 import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
@@ -13,9 +15,9 @@ import { BookOpen, UserPlus, MonitorPlay, Download, FileCheck2, Target } from "l
 export const Route = createFileRoute("/academy/")({
   head: () => ({
     meta: [
-      { title: "LoveTech Agro Academy — Practical AI, finance and business courses" },
+      { title: "Lovetech Academy — Practical AI, finance and business courses" },
       { name: "description", content: "Practical courses for business growth, finance readiness, AI, agribusiness, climate-smart enterprise, and digital transformation." },
-      { property: "og:title", content: "LoveTech Agro Academy" },
+      { property: "og:title", content: "Lovetech Academy" },
       { property: "og:description", content: "AI, entrepreneurship, finance readiness and digital skills for Nigerian MSMEs, entrepreneurs and professionals." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -243,19 +245,8 @@ const steps = [
 function AcademyPage() {
   const [active, setActive] = useState<Course | null>(null);
   return (
-    <main className="bg-white">
-      {/* Compact heading */}
-      <section className="border-b border-border bg-gradient-to-br from-[#FFF8E7] via-white to-white px-6 pt-16 pb-10 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <p className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-ochre">
-            <Sparkles className="size-3.5" /> LoveTech Agro Academy
-          </p>
-          <h1 className="font-serif text-4xl text-vetiver md:text-5xl">Practical courses for business growth.</h1>
-          <p className="mt-4 max-w-3xl text-lg text-foreground/70">
-            Practical courses for business growth, finance readiness, AI, agribusiness, climate-smart enterprise and digital transformation.
-          </p>
-        </div>
-      </section>
+    <main className="website">
+      <PhotoHero label="Lovetech Academy · Live" title="Skills you can put to work." text="Practical courses for business growth, finance readiness, AI, agribusiness and digital transformation." image={academyImage} alt="African entrepreneurs learning and working together"><Button asChild variant="websiteLight" className="web-button"><a href="#catalogue">Explore Courses <ArrowRight /></a></Button></PhotoHero>
 
       <section className="px-6 py-14 lg:px-8 lg:py-20"><div className="mx-auto max-w-6xl"><p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary">Your learning journey</p><h2 className="font-display text-3xl font-bold leading-tight tracking-normal md:text-4xl">How Lovetech Academy Works</h2>
         <ol className="mt-9 grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-4 lg:grid-cols-7">{steps.map((s,i) => <li key={s.title} className="border-t-2 border-border pt-4"><span className="text-xs font-bold text-muted-foreground">0{i+1}</span><s.icon className="my-4 size-6 text-primary" /><h3 className="text-sm font-semibold">{s.title}</h3></li>)}</ol>
@@ -266,7 +257,7 @@ function AcademyPage() {
       <Section id="catalogue" eyebrow="Learning pathways" title="Our programmes">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {catalogue.map((c) => (
-            <article key={c.slug} className="flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm">
+            <article key={c.slug} className="flex flex-col rounded-lg border border-border bg-background p-6 shadow-sm">
               <div className="mb-3 flex flex-wrap items-center gap-2">
                 <span className="rounded-full bg-teal/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">{c.pathway}</span>
                 {c.hybrid && <span className="rounded-full bg-ochre/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-vetiver">Hybrid</span>}
@@ -278,7 +269,7 @@ function AcademyPage() {
                 <div className="flex gap-1.5"><Clock className="size-3.5" /><dt className="sr-only">Duration</dt><dd>{c.duration}</dd></div>
                 <div className="flex gap-1.5"><Users className="size-3.5" /><dt className="sr-only">Delivery</dt><dd>{c.delivery}</dd></div>
               </dl>
-              <Link to="/academy/courses/$slug" params={{ slug: c.slug }} className="inline-flex items-center gap-1.5 self-start rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-white hover:opacity-95">
+              <Link to="/academy/courses/$slug" params={{ slug: c.slug }} className="inline-flex items-center gap-1.5 self-start rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-95">
                 View Course <ArrowRight className="size-4" />
               </Link>
             </article>
@@ -298,7 +289,7 @@ function AcademyPage() {
       <Section id="advanced-modules" eyebrow="Advanced AI Programme" title="Choose the AI module that fits your business" bg="ivory">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {advancedModules.map((m, i) => (
-            <article key={m.t} className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+            <article key={m.t} className="rounded-lg border border-border bg-background p-6 shadow-sm">
               <div className="mb-3 flex items-center justify-between">
                 <span className="rounded-full bg-teal/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">Module {i + 1}</span>
                 <span className="text-xs font-semibold text-ochre">₦15,000</span>
@@ -308,12 +299,12 @@ function AcademyPage() {
             </article>
           ))}
         </div>
-        <div className="mt-8 rounded-2xl border border-vetiver/25 bg-white p-6 md:flex md:items-center md:justify-between">
+        <div className="mt-8 rounded-lg border border-vetiver/25 bg-background p-6 md:flex md:items-center md:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-ochre">Best Value</p>
             <p className="mt-1 font-serif text-2xl text-vetiver">Bundle all 5 modules for ₦25,000</p>
           </div>
-          <button onClick={() => setActive(advancedCourse)} className="mt-4 inline-flex rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-95 md:mt-0">
+          <button onClick={() => setActive(advancedCourse)} className="mt-4 inline-flex rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:opacity-95 md:mt-0">
             View bundle details
           </button>
         </div>
@@ -341,7 +332,7 @@ function AcademyPage() {
       <Section id="faqs" eyebrow="FAQs" title="Common questions">
         <div className="grid gap-4 md:grid-cols-2">
           {faqs.map((f) => (
-            <div key={f.q} className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+            <div key={f.q} className="rounded-lg border border-border bg-background p-6 shadow-sm">
               <h3 className="mb-2 font-serif text-lg text-vetiver">{f.q}</h3>
               <p className="text-sm text-foreground/65">{f.a}</p>
             </div>
@@ -356,7 +347,7 @@ function AcademyPage() {
 
 function Section({ id, eyebrow, title, children, bg }: { id: string; eyebrow: string; title: string; children: React.ReactNode; bg?: "ivory" }) {
   return (
-    <section id={id} className={`px-6 py-16 lg:px-8 ${bg === "ivory" ? "border-y border-border bg-[#FFF8E7]" : "bg-white"}`}>
+    <section id={id} className={`px-6 py-16 lg:px-8 ${bg === "ivory" ? "border-y border-border bg-secondary" : "bg-background"}`}>
       <div className="mx-auto max-w-6xl">
         <div className="mb-10">
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-teal">{eyebrow}</p>
@@ -370,7 +361,7 @@ function Section({ id, eyebrow, title, children, bg }: { id: string; eyebrow: st
 
 function Pillar({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+    <div className="rounded-lg border border-border bg-background p-6 shadow-sm">
       <div className="mb-3 grid size-10 place-items-center rounded-lg bg-vetiver/10 text-vetiver">{icon}</div>
       <h3 className="mb-2 font-serif text-xl text-vetiver">{title}</h3>
       <p className="text-sm text-foreground/65">{body}</p>
@@ -380,7 +371,7 @@ function Pillar({ icon, title, body }: { icon: React.ReactNode; title: string; b
 
 function FeaturedCourseCard({ course, onOpen }: { course: Course; onOpen: () => void }) {
   return (
-    <button onClick={onOpen} className="group flex flex-col rounded-2xl border-2 border-vetiver/20 bg-white p-7 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-vetiver/50 hover:shadow-lg">
+    <button onClick={onOpen} className="group flex flex-col rounded-lg border-2 border-vetiver/20 bg-background p-7 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-vetiver/50 hover:shadow-lg">
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-ochre px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ink">{course.status}</span>
         <span className="rounded-full bg-teal/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">{course.category}</span>
@@ -398,7 +389,7 @@ function FeaturedCourseCard({ course, onOpen }: { course: Course; onOpen: () => 
           <p className="font-serif text-3xl text-vetiver">{course.price}</p>
           {course.priceNote && <p className="text-xs text-foreground/55">{course.priceNote}</p>}
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-lg bg-vetiver px-4 py-2.5 text-sm font-semibold text-white group-hover:opacity-95">
+        <span className="inline-flex items-center gap-1.5 rounded-lg bg-vetiver px-4 py-2.5 text-sm font-semibold text-primary-foreground group-hover:opacity-95">
           View details <ArrowRight className="size-4" />
         </span>
       </div>
@@ -408,9 +399,9 @@ function FeaturedCourseCard({ course, onOpen }: { course: Course; onOpen: () => 
 
 function UpcomingCard({ course, onOpen }: { course: Course; onOpen: () => void }) {
   return (
-    <button onClick={onOpen} className="group flex flex-col rounded-2xl border border-border bg-white p-6 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-teal/40 hover:shadow-lg">
+    <button onClick={onOpen} className="group flex flex-col rounded-lg border border-border bg-background p-6 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-teal/40 hover:shadow-lg">
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-ochre/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#8B6A00]">Waiting List</span>
+        <span className="rounded-full bg-ochre/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ochre">Waiting List</span>
         <span className="text-[10px] font-semibold uppercase tracking-wider text-teal">{course.category}</span>
       </div>
       <h3 className="mb-2 font-serif text-lg text-vetiver">{course.title}</h3>
@@ -427,15 +418,15 @@ function UpcomingCard({ course, onOpen }: { course: Course; onOpen: () => void }
 function CourseDetailModal({ course, onClose }: { course: Course; onClose: () => void }) {
   const [showWaitlist, setShowWaitlist] = useState(false);
   return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center overflow-y-auto bg-black/60 p-0 sm:items-center sm:p-6" onClick={onClose}>
+    <div className="fixed inset-0 z-[60] flex items-end justify-center overflow-y-auto bg-navy-deep/60 p-0 sm:items-center sm:p-6" onClick={onClose}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative max-h-[95vh] w-full max-w-3xl overflow-y-auto rounded-t-3xl bg-white shadow-2xl sm:rounded-2xl"
+        className="relative max-h-[95vh] w-full max-w-3xl overflow-y-auto rounded-t-3xl bg-background shadow-2xl sm:rounded-lg"
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-white/95 px-6 py-4 backdrop-blur">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-background/95 px-6 py-4 backdrop-blur">
           <div className="min-w-0">
             <div className="mb-1 flex flex-wrap items-center gap-2">
-              <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${course.status === "Enrolment Open" ? "bg-ochre text-ink" : "bg-ochre/20 text-[#8B6A00]"}`}>{course.status}</span>
+              <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${course.status === "Enrolment Open" ? "bg-ochre text-ink" : "bg-ochre/20 text-ochre"}`}>{course.status}</span>
               <span className="text-[10px] font-semibold uppercase tracking-wider text-teal">{course.category}</span>
             </div>
             <h3 className="truncate font-serif text-xl text-vetiver">{course.displayTitle ?? course.title}</h3>
@@ -449,7 +440,7 @@ function CourseDetailModal({ course, onClose }: { course: Course; onClose: () =>
           <p className="text-[15px] leading-relaxed text-foreground/75">{course.summary}</p>
 
           {(course.price || course.duration || course.level || course.format) && (
-            <div className="grid gap-3 rounded-xl bg-[#FFF8E7] p-4 sm:grid-cols-4">
+            <div className="grid gap-3 rounded-xl bg-secondary p-4 sm:grid-cols-4">
               {course.price && <Meta k="Price" v={course.price} sub={course.priceNote} />}
               {course.duration && <Meta k="Duration" v={course.duration} />}
               {course.level && <Meta k="Level" v={course.level} />}
@@ -465,7 +456,7 @@ function CourseDetailModal({ course, onClose }: { course: Course; onClose: () =>
               <h4 className="mb-3 font-serif text-lg text-vetiver">Modules & topics</h4>
               <ol className="space-y-3">
                 {course.modules.map((m, i) => (
-                  <li key={m.title} className="rounded-xl border border-border bg-white p-4">
+                  <li key={m.title} className="rounded-xl border border-border bg-background p-4">
                     <div className="mb-1 flex items-center justify-between gap-3">
                       <p className="font-semibold text-vetiver">{i + 1}. {m.title}</p>
                       {m.duration && <span className="text-xs text-foreground/55">{m.duration}</span>}
@@ -489,12 +480,12 @@ function CourseDetailModal({ course, onClose }: { course: Course; onClose: () =>
           </div>
 
           {/* CTA */}
-          <div className="sticky bottom-0 -mx-6 border-t border-border bg-white px-6 py-4">
+          <div className="sticky bottom-0 -mx-6 border-t border-border bg-background px-6 py-4">
             {course.onOpenCTA === "enrol" ? (
               <Link
                 to={course.externalCTA ?? "/academy"}
                 hash="enrol"
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-vetiver px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:opacity-95"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-vetiver px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-sm hover:opacity-95"
               >
                 {course.ctaLabel} <ArrowRight className="size-4" />
               </Link>
@@ -503,7 +494,7 @@ function CourseDetailModal({ course, onClose }: { course: Course; onClose: () =>
             ) : (
               <button
                 onClick={() => setShowWaitlist(true)}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-vetiver px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:opacity-95"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-vetiver px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-sm hover:opacity-95"
               >
                 {course.ctaLabel} <ArrowRight className="size-4" />
               </button>
@@ -591,7 +582,7 @@ function WaitlistInline({ course }: { course: Course }) {
       </div>
       <textarea name="main_challenge" rows={2} placeholder="Short note (optional)" className="input" />
       {err && <p className="text-xs text-destructive">{err}</p>}
-      <button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 text-sm font-bold text-white shadow-sm hover:opacity-95 disabled:opacity-60">
+      <button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 text-sm font-bold text-primary-foreground shadow-sm hover:opacity-95 disabled:opacity-60">
         {state === "loading" ? "Submitting…" : "Join Waiting List"}
       </button>
       <LegalNotice action="joining the waiting list" />

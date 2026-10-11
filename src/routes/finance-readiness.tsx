@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { FileCheck2, Building2, Receipt, TrendingUp, AlertTriangle, Target, ScrollText, ClipboardCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 import { submitDiagnostic } from "@/lib/forms.functions";
+import { Button } from "@/components/ui/button";
 import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/finance-readiness")({
@@ -59,9 +60,9 @@ function DiagnosticPage() {
   }
 
   return (
-    <main className="bg-white">
+    <main className="website">
       {/* HERO */}
-      <section className="border-b border-border bg-gradient-to-br from-[#FFF8E7] via-white to-white px-6 py-16 lg:px-8 lg:py-24">
+      <section className="border-b border-border bg-secondary px-6 py-16 lg:px-8 lg:py-24">
         <div className="mx-auto max-w-5xl">
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-ochre">Diagnostic</p>
           <h1 className="font-serif text-4xl text-vetiver md:text-6xl">Finance Readiness Diagnostic</h1>
@@ -70,7 +71,7 @@ function DiagnosticPage() {
             Tell us about your business and we'll come back with your readiness summary and the specific gaps to close first.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#diagnostic" className="rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-95">Start My Diagnostic</a>
+            <Button asChild className="web-button"><a href="#diagnostic">Start My Diagnostic</a></Button>
             <Link to="/contact" search={{ service: "Finance Readiness Pack" } as never} className="rounded-lg bg-ochre px-6 py-3 text-sm font-semibold text-ink shadow-sm hover:opacity-95">Request Full Finance Readiness Pack</Link>
           </div>
         </div>
@@ -85,7 +86,7 @@ function DiagnosticPage() {
           </div>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {checks.map(({ icon: Icon, ...c }) => (
-              <div key={c.t} className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <div key={c.t} className="rounded-lg border border-border bg-background p-6 shadow-sm">
                 <div className="mb-4 grid size-11 place-items-center rounded-lg bg-vetiver/10 text-vetiver">
                   <Icon className="size-5" />
                 </div>
@@ -98,7 +99,7 @@ function DiagnosticPage() {
       </section>
 
       {/* WHAT HAPPENS AFTER */}
-      <section className="border-y border-border bg-[#FFF8E7] px-6 py-16 lg:px-8">
+      <section className="border-y border-border bg-secondary px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10">
             <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-teal">Your next steps</p>
@@ -106,7 +107,7 @@ function DiagnosticPage() {
           </div>
           <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
-              <li key={s} className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <li key={s} className="rounded-lg border border-border bg-background p-6 shadow-sm">
                 <div className="mb-3 font-mono text-xs font-semibold text-ochre">STEP {String(i + 1).padStart(2, "0")}</div>
                 <p className="font-serif text-lg leading-snug text-vetiver">{s}</p>
               </li>
@@ -119,7 +120,7 @@ function DiagnosticPage() {
       <section id="diagnostic" className="px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-3xl">
           {state === "done" ? (
-            <div className="rounded-2xl border border-vetiver/25 bg-vetiver/5 p-10 text-center shadow-sm">
+            <div className="rounded-lg border border-vetiver/25 bg-vetiver/5 p-10 text-center shadow-sm">
               <div className="mx-auto mb-4 grid size-12 place-items-center rounded-full bg-vetiver/10 text-vetiver">
                 <CheckCircle2 className="size-6" />
               </div>
@@ -132,7 +133,7 @@ function DiagnosticPage() {
               </div>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-white p-8 shadow-sm">
+            <form onSubmit={onSubmit} className="grid gap-5 rounded-lg border border-border bg-background p-8 shadow-sm">
               <div>
                 <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-ochre">Diagnostic form</p>
                 <h2 className="font-serif text-2xl text-vetiver">Tell us about your business</h2>
@@ -154,9 +155,9 @@ function DiagnosticPage() {
                 <textarea name="main_funding_challenge" rows={4} className="input" placeholder="What's the biggest obstacle to securing the funding you need?" />
               </div>
               {err && <p className="text-sm text-destructive">{err}</p>}
-              <button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 font-semibold text-white shadow-sm hover:opacity-95 disabled:opacity-60">
+              <Button disabled={state === "loading"} className="rounded-lg bg-vetiver px-6 py-3 font-semibold text-primary-foreground shadow-sm hover:opacity-95 disabled:opacity-60">
                 {state === "loading" ? "Submitting…" : "Submit Diagnostic Request"}
-              </button>
+               </Button>
               <LegalNotice action="submitting this diagnostic request" />
             </form>
           )}

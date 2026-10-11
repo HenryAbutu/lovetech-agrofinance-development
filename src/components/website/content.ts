@@ -125,7 +125,7 @@ export const audienceContent = [
   ],
 ] as const;
 export const experienceNote =
-  "Lovetech Agrofinance & Development Ltd was incorporated in May 2024. Historical reach figures refer to founder/team prior professional experience, not contracts awarded to the company. Reporting periods, programme scope and supporting records are awaiting publication approval.";
+  "Lovetech Agrofinance & Development Ltd was incorporated in May 2026. Historical reach figures refer to founder/team prior professional experience, not contracts awarded to the company. Reporting periods, programme scope and supporting records are awaiting publication approval.";
 export function websiteHead(title: string, description: string) {
   const full = `${title} — Lovetech Agrofinance & Development Ltd`;
   return {

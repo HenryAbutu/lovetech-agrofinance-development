@@ -1,9 +1,11 @@
+# Institutional public website redesign
+- [x] Inspect protected workflows and routes; use supplied essential copy because Google Docs is not connected.
+- [x] Redesign homepage, navigation/footer and About/Advisory; add four services, Who We Serve and Our Work.
+- [x] Apply isolated public Academy, Insights, Contact and diagnostic presentation changes without changing workflows.
+- [x] Verify public links, desktop/mobile layout, protected-file integrity and preview health; provide pre-deployment QA report without publishing.
+- [ ] Signed-in learner/admin and sign-out regression check — blocked until the user signs in in preview or approves a specific test account.
+- [ ] Historical figure scope/timeframes, case-study permissions and photography provenance — awaiting user-approved evidence.
 # Legal pages
- # Institutional public website redesign
-- [ ] Inspect protected workflows and existing routes; read approved master where accessible.
-- [ ] Redesign public homepage, shared navigation/footer and About/Advisory; add four service pages, Who We Serve and Our Work.
-- [ ] Apply isolated presentation updates to existing public Academy, Insights, Contact and diagnostic pages without changing workflows.
-- [ ] Verify public links, desktop/mobile layout, unchanged protected files and preview health; report manual checks and risks without publishing.
 - [x] Add supplied Privacy Policy and Terms of Service at requested URLs; retain old URLs.
 - [x] Link legal pages from footer and all relevant sign-in, registration, enquiry and checkout consent locations.
 - [x] Verify pages, links, and readable layout.

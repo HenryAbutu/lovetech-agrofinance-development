@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, Clock, GraduationCap, BedDouble, Leaf, Building2, ArrowRight } from "lucide-react";
 import { submitEnquiry } from "@/lib/forms.functions";
+import { Button } from "@/components/ui/button";
 import { LegalNotice } from "@/components/legal-notice";
 
 type ContactSearch = { service?: string; business?: string };
@@ -10,10 +11,10 @@ type ContactSearch = { service?: string; business?: string };
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact LoveTech Group — Advisory, House 8 & Ruby Chai" },
-      { name: "description", content: "Talk to LoveTech Group: advisory and academy support, House 8 shortlet bookings, Ruby Chai wellness orders and partnership enquiries. We respond within 48 hours." },
-      { property: "og:title", content: "Contact LoveTech Group" },
-      { property: "og:description", content: "One place to reach our advisory team, House 8 Shortlet Apartments and Ruby Chai Wellness." },
+      { title: "Contact Lovetech — Business & Institutional Advisory" },
+      { name: "description", content: "Discuss advisory, finance readiness, digital solutions, practical training and programme support with Lovetech." },
+      { property: "og:title", content: "Contact Lovetech" },
+      { property: "og:description", content: "Start a conversation with Lovetech about your business, team or programme." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -67,18 +68,15 @@ function ContactPage() {
   }
 
   return (
-    <main className="bg-white">
-      <section className="border-b border-border bg-gradient-to-br from-cloud via-white to-white px-6 py-16 lg:px-8 lg:py-24">
+    <main className="website">
+      <section className="border-b border-border bg-secondary px-6 py-16 lg:px-8 lg:py-24">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-teal">Contact LoveTech Group</p>
-          <h1 className="font-serif text-4xl font-bold text-navy md:text-6xl">One group. One place to start the conversation.</h1>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-teal">Contact Lovetech</p>
+          <h1 className="font-serif text-4xl font-bold text-navy md:text-6xl">Let’s start with what you need.</h1>
           <p className="mt-6 max-w-2xl text-lg text-foreground/70">
-            Whether you need advisory support, a course, a place to stay in Abuja or a wellness order, tell us what you need and the right team will respond within 48 hours.
+            Tell us about your business, team or programme. We’ll help you find the right starting point.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4 text-sm text-foreground/70">
-            <span className="inline-flex items-center gap-2"><Clock className="size-4 text-gold" /> Mon–Sat, 9am–6pm WAT</span>
-            <span className="inline-flex items-center gap-2"><MessageCircle className="size-4 text-gold" /> WhatsApp replies fastest</span>
-          </div>
+
         </div>
       </section>
 
@@ -94,7 +92,7 @@ function ContactPage() {
                   type="button"
                   onClick={() => setUnit(b.id)}
                   aria-pressed={active}
-                  className={`rounded-2xl border p-5 text-left transition-all ${active ? "border-teal bg-teal/5 shadow-md" : "border-border bg-white hover:border-teal/40 hover:shadow-sm"}`}
+                  className={`rounded-lg border p-5 text-left transition-all ${active ? "border-teal bg-teal/5 shadow-md" : "border-border bg-background hover:border-teal/40 hover:shadow-sm"}`}
                 >
                   <b.icon className={`size-6 ${active ? "text-teal" : "text-navy/60"}`} />
                   <h3 className="mt-3 text-sm font-semibold text-navy">{b.id}</h3>
@@ -102,7 +100,7 @@ function ContactPage() {
                   <Link to={b.to} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-teal hover:underline">
                     Visit page <ArrowRight className="size-3" />
                   </Link>
-                </button>
+                 </button>
               );
             })}
           </div>
@@ -112,7 +110,7 @@ function ContactPage() {
       <section className="bg-cloud px-6 py-16 lg:px-8">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[2fr_1fr]">
           {state === "done" ? (
-            <div className="rounded-2xl border border-teal/25 bg-white p-10 shadow-sm">
+            <div className="rounded-lg border border-teal/25 bg-background p-10 shadow-sm">
               <div className="mb-4 grid size-12 place-items-center rounded-full bg-teal/10 text-teal">
                 <CheckCircle2 className="size-6" />
               </div>
@@ -121,7 +119,7 @@ function ContactPage() {
               <Link to="/" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal">Back to home <ArrowRight className="size-4" /></Link>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="grid gap-5 rounded-2xl border border-border bg-white p-8 shadow-sm">
+            <form onSubmit={onSubmit} className="grid gap-5 rounded-lg border border-border bg-background p-8 shadow-sm">
               <p className="text-sm text-foreground/70">
                 Enquiry for <span className="font-semibold text-navy">{unit}</span>
               </p>
@@ -164,9 +162,9 @@ function ContactPage() {
                 <textarea name="message" required rows={5} className="input" placeholder="Tell us about your business, stay or order and what you need help with." />
               </div>
               {err && <p className="text-sm text-destructive">{err}</p>}
-              <button disabled={state === "loading"} className="rounded-lg bg-navy px-6 py-3 font-semibold text-white shadow-sm hover:opacity-95 disabled:opacity-60">
+              <Button disabled={state === "loading"} className="rounded-lg bg-navy px-6 py-3 font-semibold text-primary-foreground shadow-sm hover:opacity-95 disabled:opacity-60">
                 {state === "loading" ? "Sending…" : "Send enquiry"}
-              </button>
+               </Button>
               <LegalNotice action="submitting this enquiry" />
               <p className="text-xs text-foreground/60">
                 Booking a stay? You can also use the <Link to="/house-8" className="font-semibold text-teal hover:underline">House 8 booking form</Link>. Ordering tea? Use the <Link to="/ruby-chai" className="font-semibold text-teal hover:underline">Ruby Chai shop</Link>.
@@ -174,16 +172,16 @@ function ContactPage() {
             </form>
           )}
 
-          <aside className="rounded-2xl bg-navy p-8 text-white shadow-sm">
-            <h3 className="mb-6 font-serif text-2xl font-bold text-white">Reach us directly</h3>
+          <aside className="rounded-lg bg-navy p-8 text-primary-foreground shadow-sm">
+            <h3 className="mb-6 font-serif text-2xl font-bold text-primary-foreground">Reach us directly</h3>
             <ul className="space-y-5 text-sm">
               <li className="flex gap-3"><Phone className="mt-0.5 size-4 shrink-0 text-gold" /><a className="hover:text-gold" href="tel:+2348026065189">+234 802 606 5189</a></li>
               <li className="flex gap-3"><MessageCircle className="mt-0.5 size-4 shrink-0 text-gold" /><a className="hover:text-gold" href="https://wa.me/2348026065189" target="_blank" rel="noreferrer">WhatsApp us</a></li>
               <li className="flex gap-3"><Mail className="mt-0.5 size-4 shrink-0 text-gold" /><a className="hover:text-gold" href="mailto:info@lovetechgroup.com.ng">info@lovetechgroup.com.ng</a></li>
               <li className="flex gap-3"><MapPin className="mt-0.5 size-4 shrink-0 text-gold" /><span>27, 3rd Avenue, Aldenco Estate, Galadimawa, Abuja, Nigeria</span></li>
             </ul>
-            <div className="mt-8 border-t border-white/15 pt-6 text-sm text-white/75">
-              <p className="font-semibold text-white">Group businesses</p>
+            <div className="mt-8 border-t border-primary-foreground/15 pt-6 text-sm text-primary-foreground/75">
+              <p className="font-semibold text-primary-foreground">Group businesses</p>
               <ul className="mt-3 space-y-2">
                 <li><Link to="/advisory" className="hover:text-gold">LoveTech Advisory & Academy</Link></li>
                 <li><Link to="/house-8" className="hover:text-gold">House 8 Shortlet Apartments</Link></li>

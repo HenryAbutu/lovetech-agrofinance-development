@@ -1,4 +1,9 @@
 # Legal pages
+ # Institutional public website redesign
+- [ ] Inspect protected workflows and existing routes; read approved master where accessible.
+- [ ] Redesign public homepage, shared navigation/footer and About/Advisory; add four service pages, Who We Serve and Our Work.
+- [ ] Apply isolated presentation updates to existing public Academy, Insights, Contact and diagnostic pages without changing workflows.
+- [ ] Verify public links, desktop/mobile layout, unchanged protected files and preview health; report manual checks and risks without publishing.
 - [x] Add supplied Privacy Policy and Terms of Service at requested URLs; retain old URLs.
 - [x] Link legal pages from footer and all relevant sign-in, registration, enquiry and checkout consent locations.
 - [x] Verify pages, links, and readable layout.

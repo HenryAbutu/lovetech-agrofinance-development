@@ -13,14 +13,19 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdvisoryRouteImport } from './routes/advisory'
+import { Route as AgribusinessDevelopmentRouteImport } from './routes/agribusiness-development'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DigitalAiSolutionsRouteImport } from './routes/digital-ai-solutions'
+import { Route as FinanceAdvisoryRouteImport } from './routes/finance-advisory'
 import { Route as FinanceReadinessRouteImport } from './routes/finance-readiness'
 import { Route as House8RouteImport } from './routes/house-8'
 import { Route as LearnersRouteImport } from './routes/learners'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as OurWorkRouteImport } from './routes/our-work'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as ProgrammeSupportRouteImport } from './routes/programme-support'
 import { Route as ProgrammesRouteImport } from './routes/programmes'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RubyChaiRouteImport } from './routes/ruby-chai'
@@ -28,6 +33,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as WhoWeServeRouteImport } from './routes/who-we-serve'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated.dashboard'
@@ -97,9 +103,24 @@ const AdvisoryRoute = AdvisoryRouteImport.update({
   path: '/advisory',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgribusinessDevelopmentRoute = AgribusinessDevelopmentRouteImport.update({
+  id: '/agribusiness-development',
+  path: '/agribusiness-development',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DigitalAiSolutionsRoute = DigitalAiSolutionsRouteImport.update({
+  id: '/digital-ai-solutions',
+  path: '/digital-ai-solutions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanceAdvisoryRoute = FinanceAdvisoryRouteImport.update({
+  id: '/finance-advisory',
+  path: '/finance-advisory',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FinanceReadinessRoute = FinanceReadinessRouteImport.update({
@@ -127,6 +148,11 @@ const McpRoute = McpRouteImport.update({
   path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OurWorkRoute = OurWorkRouteImport.update({
+  id: '/our-work',
+  path: '/our-work',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -135,6 +161,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgrammeSupportRoute = ProgrammeSupportRouteImport.update({
+  id: '/programme-support',
+  path: '/programme-support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProgrammesRoute = ProgrammesRouteImport.update({
@@ -170,6 +201,11 @@ const TermsRoute = TermsRouteImport.update({
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
   path: '/terms-of-service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhoWeServeRoute = WhoWeServeRouteImport.update({
+  id: '/who-we-serve',
+  path: '/who-we-serve',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
@@ -461,14 +497,19 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advisory': typeof AdvisoryRoute
+  '/agribusiness-development': typeof AgribusinessDevelopmentRoute
   '/contact': typeof ContactRoute
+  '/digital-ai-solutions': typeof DigitalAiSolutionsRoute
+  '/finance-advisory': typeof FinanceAdvisoryRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/house-8': typeof House8Route
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/our-work': typeof OurWorkRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/programme-support': typeof ProgrammeSupportRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ruby-chai': typeof RubyChaiRoute
@@ -476,6 +517,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/who-we-serve': typeof WhoWeServeRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
@@ -530,14 +572,19 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/advisory': typeof AdvisoryRoute
+  '/agribusiness-development': typeof AgribusinessDevelopmentRoute
   '/contact': typeof ContactRoute
+  '/digital-ai-solutions': typeof DigitalAiSolutionsRoute
+  '/finance-advisory': typeof FinanceAdvisoryRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/house-8': typeof House8Route
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/our-work': typeof OurWorkRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/programme-support': typeof ProgrammeSupportRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ruby-chai': typeof RubyChaiRoute
@@ -545,6 +592,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/who-we-serve': typeof WhoWeServeRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/auth/callback': typeof AuthCallbackRoute
@@ -600,14 +648,19 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/advisory': typeof AdvisoryRoute
+  '/agribusiness-development': typeof AgribusinessDevelopmentRoute
   '/contact': typeof ContactRoute
+  '/digital-ai-solutions': typeof DigitalAiSolutionsRoute
+  '/finance-advisory': typeof FinanceAdvisoryRoute
   '/finance-readiness': typeof FinanceReadinessRoute
   '/house-8': typeof House8Route
   '/learners': typeof LearnersRouteWithChildren
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
+  '/our-work': typeof OurWorkRoute
   '/privacy': typeof PrivacyRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/programme-support': typeof ProgrammeSupportRoute
   '/programmes': typeof ProgrammesRoute
   '/reset-password': typeof ResetPasswordRoute
   '/ruby-chai': typeof RubyChaiRoute
@@ -615,6 +668,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/who-we-serve': typeof WhoWeServeRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
@@ -671,14 +725,19 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/advisory'
+    | '/agribusiness-development'
     | '/contact'
+    | '/digital-ai-solutions'
+    | '/finance-advisory'
     | '/finance-readiness'
     | '/house-8'
     | '/learners'
     | '/login'
     | '/mcp'
+    | '/our-work'
     | '/privacy'
     | '/privacy-policy'
+    | '/programme-support'
     | '/programmes'
     | '/reset-password'
     | '/ruby-chai'
@@ -686,6 +745,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/terms-of-service'
+    | '/who-we-serve'
     | '/.well-known/oauth-protected-resource'
     | '/admin'
     | '/dashboard'
@@ -740,14 +800,19 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/advisory'
+    | '/agribusiness-development'
     | '/contact'
+    | '/digital-ai-solutions'
+    | '/finance-advisory'
     | '/finance-readiness'
     | '/house-8'
     | '/learners'
     | '/login'
     | '/mcp'
+    | '/our-work'
     | '/privacy'
     | '/privacy-policy'
+    | '/programme-support'
     | '/programmes'
     | '/reset-password'
     | '/ruby-chai'
@@ -755,6 +820,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/terms-of-service'
+    | '/who-we-serve'
     | '/.well-known/oauth-protected-resource'
     | '/dashboard'
     | '/auth/callback'
@@ -809,14 +875,19 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/advisory'
+    | '/agribusiness-development'
     | '/contact'
+    | '/digital-ai-solutions'
+    | '/finance-advisory'
     | '/finance-readiness'
     | '/house-8'
     | '/learners'
     | '/login'
     | '/mcp'
+    | '/our-work'
     | '/privacy'
     | '/privacy-policy'
+    | '/programme-support'
     | '/programmes'
     | '/reset-password'
     | '/ruby-chai'
@@ -824,6 +895,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/terms-of-service'
+    | '/who-we-serve'
     | '/.well-known/oauth-protected-resource'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
@@ -880,14 +952,19 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   AdvisoryRoute: typeof AdvisoryRoute
+  AgribusinessDevelopmentRoute: typeof AgribusinessDevelopmentRoute
   ContactRoute: typeof ContactRoute
+  DigitalAiSolutionsRoute: typeof DigitalAiSolutionsRoute
+  FinanceAdvisoryRoute: typeof FinanceAdvisoryRoute
   FinanceReadinessRoute: typeof FinanceReadinessRoute
   House8Route: typeof House8Route
   LearnersRoute: typeof LearnersRouteWithChildren
   LoginRoute: typeof LoginRoute
   McpRoute: typeof McpRoute
+  OurWorkRoute: typeof OurWorkRoute
   PrivacyRoute: typeof PrivacyRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ProgrammeSupportRoute: typeof ProgrammeSupportRoute
   ProgrammesRoute: typeof ProgrammesRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   RubyChaiRoute: typeof RubyChaiRoute
@@ -895,6 +972,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
+  WhoWeServeRoute: typeof WhoWeServeRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
@@ -940,11 +1018,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdvisoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agribusiness-development': {
+      id: '/agribusiness-development'
+      path: '/agribusiness-development'
+      fullPath: '/agribusiness-development'
+      preLoaderRoute: typeof AgribusinessDevelopmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/digital-ai-solutions': {
+      id: '/digital-ai-solutions'
+      path: '/digital-ai-solutions'
+      fullPath: '/digital-ai-solutions'
+      preLoaderRoute: typeof DigitalAiSolutionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finance-advisory': {
+      id: '/finance-advisory'
+      path: '/finance-advisory'
+      fullPath: '/finance-advisory'
+      preLoaderRoute: typeof FinanceAdvisoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/finance-readiness': {
@@ -982,6 +1081,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/our-work': {
+      id: '/our-work'
+      path: '/our-work'
+      fullPath: '/our-work'
+      preLoaderRoute: typeof OurWorkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -994,6 +1100,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programme-support': {
+      id: '/programme-support'
+      path: '/programme-support'
+      fullPath: '/programme-support'
+      preLoaderRoute: typeof ProgrammeSupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/programmes': {
@@ -1043,6 +1156,13 @@ declare module '@tanstack/react-router' {
       path: '/terms-of-service'
       fullPath: '/terms-of-service'
       preLoaderRoute: typeof TermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/who-we-serve': {
+      id: '/who-we-serve'
+      path: '/who-we-serve'
+      fullPath: '/who-we-serve'
+      preLoaderRoute: typeof WhoWeServeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.well-known/oauth-protected-resource': {
@@ -1527,14 +1647,19 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   AdvisoryRoute: AdvisoryRoute,
+  AgribusinessDevelopmentRoute: AgribusinessDevelopmentRoute,
   ContactRoute: ContactRoute,
+  DigitalAiSolutionsRoute: DigitalAiSolutionsRoute,
+  FinanceAdvisoryRoute: FinanceAdvisoryRoute,
   FinanceReadinessRoute: FinanceReadinessRoute,
   House8Route: House8Route,
   LearnersRoute: LearnersRouteWithChildren,
   LoginRoute: LoginRoute,
   McpRoute: McpRoute,
+  OurWorkRoute: OurWorkRoute,
   PrivacyRoute: PrivacyRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ProgrammeSupportRoute: ProgrammeSupportRoute,
   ProgrammesRoute: ProgrammesRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   RubyChaiRoute: RubyChaiRoute,
@@ -1542,6 +1667,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
+  WhoWeServeRoute: WhoWeServeRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AuthCallbackRoute: AuthCallbackRoute,

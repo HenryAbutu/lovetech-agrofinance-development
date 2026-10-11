@@ -18,6 +18,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         homepage: "bg-accent text-accent-foreground hover:bg-accent/90",
         homepageOutline: "border border-primary-foreground/40 bg-primary/20 text-primary-foreground hover:bg-primary/40",
+        websiteLight: "border border-primary-foreground bg-primary-foreground text-primary hover:bg-primary-foreground/90",
       },
       size: {
         default: "h-9 px-4 py-2",

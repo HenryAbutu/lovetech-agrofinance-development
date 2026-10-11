@@ -5,6 +5,10 @@ export const Route = createFileRoute("/programmes")({
     meta: [
       { title: "Programmes — LoveTech Agrofinance & Development Ltd" },
       { name: "description", content: "Current and upcoming programmes for MSMEs, professionals and agribusinesses." },
+      { property: "og:title", content: "Programmes — Lovetech Agrofinance & Development Ltd" },
+      { property: "og:description", content: "Current and upcoming programmes for MSMEs, professionals and agribusinesses." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ProgrammesPage,
@@ -21,7 +25,7 @@ const upcoming = [
 
 function ProgrammesPage() {
   return (
-    <main>
+    <main className="website">
       <section className="border-b border-border bg-card px-6 py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-5xl">
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-ochre">Programmes</p>
@@ -33,7 +37,7 @@ function ProgrammesPage() {
           <h2 className="mb-8 font-serif text-3xl text-vetiver">Currently running</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {current.map((p) => (
-              <article key={p.t} className="rounded-2xl border border-vetiver/20 bg-card p-8">
+              <article key={p.t} className="rounded-lg border border-vetiver/20 bg-card p-8">
                 <span className="mb-3 inline-flex rounded-full bg-vetiver/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-vetiver">{p.status}</span>
                 <h3 className="mb-2 font-serif text-2xl text-vetiver">{p.t}</h3>
                 <p className="mb-6 text-foreground/70">{p.b}</p>
@@ -44,7 +48,7 @@ function ProgrammesPage() {
           <h2 className="mt-16 mb-8 font-serif text-3xl text-vetiver">Coming soon</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {upcoming.map((p) => (
-              <article key={p.t} className="rounded-2xl border border-border bg-card p-6">
+              <article key={p.t} className="rounded-lg border border-border bg-card p-6">
                 <span className="mb-3 inline-flex rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/70">Coming Soon</span>
                 <h3 className="mb-2 font-serif text-xl text-vetiver">{p.t}</h3>
                 <p className="mb-6 text-sm text-foreground/65">{p.b}</p>

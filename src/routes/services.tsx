@@ -8,6 +8,8 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "Practical consulting support for MSMEs, agribusinesses, cooperatives, professionals and development programmes." },
       { property: "og:title", content: "LoveTech Services — Consulting for Nigerian Businesses" },
       { property: "og:description", content: "Business documentation, finance readiness, digital systems, AI, training and programme implementation support." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ServicesPage,
@@ -132,10 +134,10 @@ const steps = [
 
 function ServicesPage() {
   return (
-    <main className="bg-white">
+    <main className="website">
       {/* HERO */}
-      <section className="relative overflow-hidden border-b border-border bg-white px-6 py-20 lg:px-8 lg:py-28">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#FFF8E7] via-white to-white" />
+      <section className="relative overflow-hidden border-b border-border bg-background px-6 py-20 lg:px-8 lg:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-secondary" />
         <div className="relative mx-auto max-w-5xl">
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-ochre">Services</p>
           <h1 className="font-serif text-4xl leading-[1.1] text-vetiver md:text-6xl">
@@ -145,8 +147,8 @@ function ServicesPage() {
             LoveTech provides hands-on advisory, documentation, training, finance readiness, digital systems, and implementation support for Nigerian MSMEs, agribusinesses, cooperatives, professionals, and enterprise development programmes.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/contact" className="rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-95">Book a Consultation</Link>
-            <a href="#services" className="rounded-lg border border-vetiver/25 bg-white px-6 py-3 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Browse services</a>
+            <Link to="/contact" className="rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:opacity-95">Book a Consultation</Link>
+            <a href="#services" className="rounded-lg border border-vetiver/25 bg-background px-6 py-3 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Browse services</a>
           </div>
         </div>
       </section>
@@ -160,7 +162,7 @@ function ServicesPage() {
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.map(({ icon: Icon, ...s }) => (
-              <article key={s.t} className="group flex flex-col rounded-2xl border border-border bg-white p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:border-vetiver/40 hover:shadow-lg">
+              <article key={s.t} className="group flex flex-col rounded-lg border border-border bg-background p-7 shadow-sm transition-all hover:-translate-y-0.5 hover:border-vetiver/40 hover:shadow-lg">
                 <div className="mb-5 flex items-center gap-3">
                   <div className="grid size-11 place-items-center rounded-xl bg-vetiver/10 text-vetiver">
                     <Icon className="size-5" />
@@ -180,7 +182,7 @@ function ServicesPage() {
                 <Link
                   to="/contact"
                   search={{ service: s.service } as never}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-vetiver px-4 py-2.5 text-sm font-semibold text-white hover:opacity-95"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-vetiver px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-95"
                 >
                   {s.cta} <ArrowRight className="size-4" />
                 </Link>
@@ -191,7 +193,7 @@ function ServicesPage() {
       </section>
 
       {/* HOW CONSULTING WORKS */}
-      <section className="border-y border-border bg-[#FFF8E7] px-6 py-20 lg:px-8">
+      <section className="border-y border-border bg-secondary px-6 py-20 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 max-w-2xl">
             <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-teal">Our process</p>
@@ -199,7 +201,7 @@ function ServicesPage() {
           </div>
           <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
-              <li key={s.t} className="rounded-2xl border border-border bg-white p-6 shadow-sm">
+              <li key={s.t} className="rounded-lg border border-border bg-background p-6 shadow-sm">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="grid size-10 place-items-center rounded-lg bg-teal/10 text-teal">
                     <s.icon className="size-5" />
@@ -212,7 +214,7 @@ function ServicesPage() {
             ))}
           </ol>
           <div className="mt-10">
-            <Link to="/contact" className="inline-flex rounded-lg bg-vetiver px-6 py-3 font-semibold text-white shadow-sm hover:opacity-95">Start a conversation</Link>
+            <Link to="/contact" className="inline-flex rounded-lg bg-vetiver px-6 py-3 font-semibold text-primary-foreground shadow-sm hover:opacity-95">Start a conversation</Link>
           </div>
         </div>
       </section>

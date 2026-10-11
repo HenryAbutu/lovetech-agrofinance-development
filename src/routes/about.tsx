@@ -49,7 +49,7 @@ function About() {
               Our work connects enterprise development, finance readiness, agribusiness,
               organisational development, institutional capacity, research and digital solutions.
             </p>
-            <p className="mt-6 text-xs text-muted-foreground">Incorporated May 2026 · RC 9535107</p>
+            <p className="mt-6 text-xs text-muted-foreground">Incorporated May 2024 · RC 9535107</p>
           </div>
         </div>
       </section>

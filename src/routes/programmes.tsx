@@ -1,16 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { websiteHead } from "@/components/website/content";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/programmes")({
-  head: () => ({
-    meta: [
-      { title: "Programmes — LoveTech Agrofinance & Development Ltd" },
-      { name: "description", content: "Current and upcoming programmes for MSMEs, professionals and agribusinesses." },
-      { property: "og:title", content: "Programmes — Lovetech Agrofinance & Development Ltd" },
-      { property: "og:description", content: "Current and upcoming programmes for MSMEs, professionals and agribusinesses." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => websiteHead(
+    "Programmes",
+    "Current and upcoming programmes for MSMEs, professionals and agribusinesses."
+  ),
   component: ProgrammesPage,
 });
 
@@ -41,7 +37,9 @@ function ProgrammesPage() {
                 <span className="mb-3 inline-flex rounded-full bg-vetiver/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-vetiver">{p.status}</span>
                 <h3 className="mb-2 font-serif text-2xl text-vetiver">{p.t}</h3>
                 <p className="mb-6 text-foreground/70">{p.b}</p>
-                <Link to={p.to} hash={p.hash} className="inline-flex rounded-sm bg-vetiver px-5 py-2.5 text-sm font-semibold text-bone">View Programme</Link>
+                <Button asChild className="web-button">
+                  <Link to={p.to as any} hash={p.hash}>View Programme</Link>
+                </Button>
               </article>
             ))}
           </div>
@@ -52,7 +50,9 @@ function ProgrammesPage() {
                 <span className="mb-3 inline-flex rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground/70">Coming Soon</span>
                 <h3 className="mb-2 font-serif text-xl text-vetiver">{p.t}</h3>
                 <p className="mb-6 text-sm text-foreground/65">{p.b}</p>
-                <Link to={p.to} className="inline-flex rounded-sm border border-vetiver/20 px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Join Waitlist</Link>
+                <Button asChild variant="outline" className="web-button">
+                  <Link to={p.to as any}>Join Waitlist</Link>
+                </Button>
               </article>
             ))}
           </div>

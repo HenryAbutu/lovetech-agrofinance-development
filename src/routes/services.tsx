@@ -1,17 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FileText, TrendingUp, Laptop, Cpu, GraduationCap, ClipboardList, ArrowRight, MessageSquareText, Search, Lightbulb, Handshake } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { websiteHead } from "@/components/website/content";
 
 export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Services — LoveTech Agrofinance & Development Ltd" },
-      { name: "description", content: "Practical consulting support for MSMEs, agribusinesses, cooperatives, professionals and development programmes." },
-      { property: "og:title", content: "LoveTech Services — Consulting for Nigerian Businesses" },
-      { property: "og:description", content: "Business documentation, finance readiness, digital systems, AI, training and programme implementation support." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () => websiteHead(
+    "Services",
+    "Practical consulting support for MSMEs, agribusinesses, cooperatives, professionals and development programmes."
+  ),
   component: ServicesPage,
 });
 
@@ -147,8 +143,12 @@ function ServicesPage() {
             LoveTech provides hands-on advisory, documentation, training, finance readiness, digital systems, and implementation support for Nigerian MSMEs, agribusinesses, cooperatives, professionals, and enterprise development programmes.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/contact" className="rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:opacity-95">Book a Consultation</Link>
-            <a href="#services" className="rounded-lg border border-vetiver/25 bg-background px-6 py-3 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Browse services</a>
+            <Button asChild className="web-button">
+              <Link to="/contact">Book a Consultation</Link>
+            </Button>
+            <Button asChild variant="outline" className="web-button">
+              <a href="#services">Browse services</a>
+            </Button>
           </div>
         </div>
       </section>
@@ -179,13 +179,14 @@ function ServicesPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  to="/contact"
-                  search={{ service: s.service } as never}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-vetiver px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-95"
-                >
-                  {s.cta} <ArrowRight className="size-4" />
-                </Link>
+                <Button asChild className="web-button mt-4 justify-start self-start" variant="link">
+                  <Link
+                    to="/contact"
+                    search={{ service: s.service } as never}
+                  >
+                    {s.cta} <ArrowRight className="size-4 ml-1.5" />
+                  </Link>
+                </Button>
               </article>
             ))}
           </div>
@@ -214,7 +215,9 @@ function ServicesPage() {
             ))}
           </ol>
           <div className="mt-10">
-            <Link to="/contact" className="inline-flex rounded-lg bg-vetiver px-6 py-3 font-semibold text-primary-foreground shadow-sm hover:opacity-95">Start a conversation</Link>
+            <Button asChild className="web-button">
+              <Link to="/contact">Start a conversation</Link>
+            </Button>
           </div>
         </div>
       </section>

@@ -141,7 +141,7 @@ export function SiteHeader() {
               {serviceContent.map((s) => (
                 <Link
                   key={s.id}
-                  to={s.to}
+                  to={s.to as any}
                   className="block whitespace-normal px-3 py-3 leading-relaxed hover:bg-muted"
                 >
                   {s.title}
@@ -152,7 +152,7 @@ export function SiteHeader() {
           {navLinks.slice(1).map((l) => (
             <Link
               key={l.to}
-              to={l.to}
+              to={l.to as any}
               activeProps={{ className: "text-primary underline underline-offset-4" }}
               className="hover:text-primary"
             >
@@ -164,7 +164,7 @@ export function SiteHeader() {
           {isAdmin && (
             <Button asChild variant="ghost" className="hidden px-2 lg:inline-flex">
               <Link to="/admin">
-                <ShieldCheck />
+                <ShieldCheck className="mr-1.5 size-4" />
                 Admin
               </Link>
             </Button>
@@ -191,7 +191,7 @@ export function SiteHeader() {
           )}
           <Button asChild className="hidden h-11 rounded px-4 text-xs lg:inline-flex">
             <Link to="/contact">
-              Book Consultation <ArrowUpRight />
+              Book Consultation <ArrowUpRight className="ml-1.5 size-4" />
             </Link>
           </Button>
           <Button
@@ -228,7 +228,7 @@ export function SiteHeader() {
               {serviceContent.map((s) => (
                 <Link
                   key={s.id}
-                  to={s.to}
+                  to={s.to as any}
                   onClick={() => setOpen(false)}
                   className="block py-3 text-sm"
                 >
@@ -240,7 +240,7 @@ export function SiteHeader() {
           {navLinks.slice(1).map((l) => (
             <Link
               key={l.to}
-              to={l.to}
+              to={l.to as any}
               onClick={() => setOpen(false)}
               className="block py-3 text-sm"
             >
@@ -251,7 +251,7 @@ export function SiteHeader() {
             {isAdmin && (
               <Button asChild variant="outline">
                 <Link to="/admin" onClick={() => setOpen(false)}>
-                  <ShieldCheck />
+                  <ShieldCheck className="mr-1.5 size-4" />
                   Admin
                 </Link>
               </Button>
@@ -288,7 +288,7 @@ export function SiteHeader() {
             ) : null}
             <Button asChild className="web-button">
               <Link to="/contact" onClick={() => setOpen(false)}>
-                Book a Consultation <ArrowUpRight />
+                Book a Consultation <ArrowUpRight className="ml-1.5 size-4" />
               </Link>
             </Button>
           </div>
@@ -326,24 +326,15 @@ export function NextStepBand() {
           stay in Abuja, or a wellness ritual you can trust — LoveTech Group has a door for you.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
-          <Link
-            to="/contact"
-            className="rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-95"
-          >
-            Book a Consultation
-          </Link>
-          <Link
-            to="/finance-readiness"
-            className="rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-navy shadow-sm hover:opacity-95"
-          >
-            Start Diagnostic
-          </Link>
-          <Link
-            to="/academy"
-            className="rounded-lg border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy hover:bg-white/70"
-          >
-            Explore Academy
-          </Link>
+          <Button asChild className="h-12 px-6">
+            <Link to="/contact">Book a Consultation</Link>
+          </Button>
+          <Button asChild variant="outline" className="h-12 border-teal/20 bg-white px-6 text-teal hover:bg-teal/5">
+            <Link to="/finance-readiness">Start Diagnostic</Link>
+          </Button>
+          <Button asChild variant="outline" className="h-12 border-navy/20 bg-white px-6 text-navy hover:bg-white/70">
+            <Link to="/academy">Explore Academy</Link>
+          </Button>
         </div>
       </div>
     </section>
@@ -391,11 +382,11 @@ export function SiteFooter() {
     <footer className="website">
       <div className="bg-navy-deep text-primary-foreground">
         <div className="web-container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_.7fr_.7fr_.8fr]">
-          <div>
+          <div className="flex flex-col">
             <img
               src={logoAsset.url}
               alt="Lovetech"
-              className="mb-5 h-12 w-auto rounded bg-background px-2 py-1"
+              className="mb-5 h-12 w-auto self-start rounded bg-background px-2 py-1"
             />
             <h2 className="text-sm font-semibold leading-relaxed">
               Lovetech Agrofinance
@@ -423,7 +414,7 @@ export function SiteFooter() {
                 {c.links.map((l) => (
                   <li key={l.to}>
                     <Link
-                      to={l.to}
+                      to={l.to as any}
                       className="text-xs leading-relaxed text-primary-foreground/70 hover:text-accent"
                     >
                       {l.label}

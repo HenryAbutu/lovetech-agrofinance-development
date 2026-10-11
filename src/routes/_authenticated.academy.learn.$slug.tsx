@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { findCourse } from "@/lib/academy-catalogue";
 import { whatsappUrl } from "@/lib/lms-config";
 import { ASSESSMENTS, LEARNABLE, RESOURCES, downloadResource, type Lesson } from "@/lib/learning-content";
-import { courseSummary, isEnrolled, previewKeys, useLearnerData, useRefreshLearner } from "@/lib/use-learner-data";
+import { courseSummary, isEnrolled, isStaff, previewKeys, useLearnerData, useRefreshLearner } from "@/lib/use-learner-data";
 
 const NOT_ENROLLED_MSG = "You are not enrolled in this course yet. Please join the waitlist or contact Lovetech support.";
 
@@ -44,9 +44,10 @@ function LearnPage() {
 
   const enrolled = isEnrolled(data, slug);
   const preview = previewKeys(data, slug);
-  const canOpen = (key: string) => enrolled || preview.has(key);
+  const staff = isStaff(data);
+  const canOpen = (key: string) => enrolled || staff || preview.has(key);
 
-  if (!enrolled && preview.size === 0) return <NotEnrolled slug={slug} />;
+  if (!enrolled && !staff && preview.size === 0) return <NotEnrolled slug={slug} />;
 
   const active = sum.lessons.find((l) => l.key === activeKey && canOpen(l.key))
     ?? (enrolled ? sum.nextLesson ?? sum.lessons[0] : sum.lessons.find((l) => preview.has(l.key))!);

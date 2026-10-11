@@ -1320,12 +1320,15 @@ export type Database = {
           course_slug: string
           created_at: string
           expected_result: string | null
+          feedback: string | null
           id: string
           key_actions: string
           main_goal: string
           next_steps: string | null
           plan_type: string
           resources_needed: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           risks: string | null
           status: string
           support_needed: string | null
@@ -1337,12 +1340,15 @@ export type Database = {
           course_slug: string
           created_at?: string
           expected_result?: string | null
+          feedback?: string | null
           id?: string
           key_actions: string
           main_goal: string
           next_steps?: string | null
           plan_type: string
           resources_needed?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           risks?: string | null
           status?: string
           support_needed?: string | null
@@ -1354,12 +1360,15 @@ export type Database = {
           course_slug?: string
           created_at?: string
           expected_result?: string | null
+          feedback?: string | null
           id?: string
           key_actions?: string
           main_goal?: string
           next_steps?: string | null
           plan_type?: string
           resources_needed?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           risks?: string | null
           status?: string
           support_needed?: string | null
@@ -1423,6 +1432,8 @@ export type Database = {
           link_url: string | null
           module_title: string | null
           notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           status: string
           submission_text: string | null
           submitted_at: string
@@ -1438,6 +1449,8 @@ export type Database = {
           link_url?: string | null
           module_title?: string | null
           notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           submission_text?: string | null
           submitted_at?: string
@@ -1453,11 +1466,143 @@ export type Database = {
           link_url?: string | null
           module_title?: string | null
           notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           submission_text?: string | null
           submitted_at?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      lms_attendance: {
+        Row: {
+          cohort_id: string
+          created_at: string
+          id: string
+          present: boolean
+          recorded_by: string | null
+          session_date: string
+          session_label: string
+          user_id: string
+        }
+        Insert: {
+          cohort_id: string
+          created_at?: string
+          id?: string
+          present?: boolean
+          recorded_by?: string | null
+          session_date?: string
+          session_label: string
+          user_id: string
+        }
+        Update: {
+          cohort_id?: string
+          created_at?: string
+          id?: string
+          present?: boolean
+          recorded_by?: string | null
+          session_date?: string
+          session_label?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lms_attendance_cohort_id_fkey"
+            columns: ["cohort_id"]
+            isOneToOne: false
+            referencedRelation: "lms_cohorts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lms_coaching_logs: {
+        Row: {
+          cohort_id: string | null
+          course_slug: string
+          created_at: string
+          follow_up_action: string | null
+          id: string
+          mode: string
+          notes: string | null
+          session_date: string
+          staff_id: string
+          touchpoint_number: number
+          user_id: string
+        }
+        Insert: {
+          cohort_id?: string | null
+          course_slug: string
+          created_at?: string
+          follow_up_action?: string | null
+          id?: string
+          mode?: string
+          notes?: string | null
+          session_date?: string
+          staff_id: string
+          touchpoint_number?: number
+          user_id: string
+        }
+        Update: {
+          cohort_id?: string | null
+          course_slug?: string
+          created_at?: string
+          follow_up_action?: string | null
+          id?: string
+          mode?: string
+          notes?: string | null
+          session_date?: string
+          staff_id?: string
+          touchpoint_number?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lms_coaching_logs_cohort_id_fkey"
+            columns: ["cohort_id"]
+            isOneToOne: false
+            referencedRelation: "lms_cohorts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lms_cohorts: {
+        Row: {
+          course_slug: string
+          created_at: string
+          delivery_mode: string | null
+          end_date: string | null
+          facilitator_id: string | null
+          id: string
+          location: string | null
+          name: string
+          start_date: string | null
+          status: string
+        }
+        Insert: {
+          course_slug: string
+          created_at?: string
+          delivery_mode?: string | null
+          end_date?: string | null
+          facilitator_id?: string | null
+          id?: string
+          location?: string | null
+          name: string
+          start_date?: string | null
+          status?: string
+        }
+        Update: {
+          course_slug?: string
+          created_at?: string
+          delivery_mode?: string | null
+          end_date?: string | null
+          facilitator_id?: string | null
+          id?: string
+          location?: string | null
+          name?: string
+          start_date?: string | null
+          status?: string
         }
         Relationships: []
       }
@@ -1484,6 +1629,8 @@ export type Database = {
       }
       lms_course_starts: {
         Row: {
+          access_status: string
+          cohort_id: string | null
           cohort_name: string | null
           course_slug: string
           enrolled_by: string | null
@@ -1493,6 +1640,8 @@ export type Database = {
           waitlist_id: string | null
         }
         Insert: {
+          access_status?: string
+          cohort_id?: string | null
           cohort_name?: string | null
           course_slug: string
           enrolled_by?: string | null
@@ -1502,6 +1651,8 @@ export type Database = {
           waitlist_id?: string | null
         }
         Update: {
+          access_status?: string
+          cohort_id?: string | null
           cohort_name?: string | null
           course_slug?: string
           enrolled_by?: string | null
@@ -1510,7 +1661,15 @@ export type Database = {
           user_id?: string
           waitlist_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "lms_course_starts_cohort_id_fkey"
+            columns: ["cohort_id"]
+            isOneToOne: false
+            referencedRelation: "lms_cohorts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       lms_lesson_progress: {
         Row: {
@@ -1828,6 +1987,7 @@ export type Database = {
         Args: { _course_id: string; _user_id: string }
         Returns: boolean
       }
+      is_lms_staff: { Args: { _user_id: string }; Returns: boolean }
       lms_is_enrolled: {
         Args: { _slug: string; _user_id: string }
         Returns: boolean

@@ -87,20 +87,16 @@ function ContactPage() {
             {businesses.map((b) => {
               const active = unit === b.id;
               return (
-                <button
-                  key={b.id}
-                  type="button"
-                  onClick={() => setUnit(b.id)}
-                  aria-pressed={active}
-                  className={`rounded-lg border p-5 text-left transition-all ${active ? "border-teal bg-teal/5 shadow-md" : "border-border bg-background hover:border-teal/40 hover:shadow-sm"}`}
-                >
+                <article key={b.id} className={`web-form-selection rounded-lg border p-5 text-left transition-all ${active ? "border-teal bg-teal/5 shadow-sm" : "border-border bg-background hover:border-teal/40"}`}>
+                  <Button variant="ghost" type="button" onClick={() => setUnit(b.id)} aria-pressed={active} className="block h-auto w-full whitespace-normal p-0 text-left hover:bg-transparent">
                   <b.icon className={`size-6 ${active ? "text-teal" : "text-navy/60"}`} />
                   <h3 className="mt-3 text-sm font-semibold text-navy">{b.id}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-foreground/65">{b.blurb}</p>
+                  </Button>
                   <Link to={b.to} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-teal hover:underline">
                     Visit page <ArrowRight className="size-3" />
                   </Link>
-                 </button>
+                </article>
               );
             })}
           </div>

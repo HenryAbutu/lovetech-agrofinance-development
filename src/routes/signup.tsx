@@ -35,7 +35,7 @@ function SignupPage() {
   }
 
   return (
-    <main className="px-6 py-20 lg:px-8">
+    <main className="website web-auth px-6 py-20 lg:px-8">
       <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-8">
         <h1 className="mb-2 font-serif text-4xl text-vetiver">Create your account</h1>
         <p className="mb-6 text-sm text-foreground/65">Join the LoveTech Agro Academy.</p>
@@ -47,9 +47,9 @@ function SignupPage() {
             <LegalNotice className="mb-5" />
             <div className="my-4 flex items-center gap-3 text-xs text-foreground/40"><div className="h-px flex-1 bg-border" /><span>OR</span><div className="h-px flex-1 bg-border" /></div>
             <form onSubmit={onSubmit} className="grid gap-4">
-              <input required placeholder="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
-              <input required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
-              <input required type="password" minLength={8} placeholder="Password (min 8 chars)" value={password} onChange={(e) => setPassword(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
+              <input aria-label="Full name" required placeholder="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
+              <input aria-label="Email" required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
+              <input aria-label="Password (minimum 8 characters)" required type="password" minLength={8} placeholder="Password (min 8 chars)" value={password} onChange={(e) => setPassword(e.target.value)} className="rounded-md border border-border bg-background px-3 py-2 text-sm" />
               {err && <p className="text-sm text-destructive">{err}</p>}
               <button disabled={loading} className="rounded-sm bg-vetiver py-2.5 text-sm font-semibold text-bone disabled:opacity-60">{loading ? "Creating…" : "Create account"}</button>
             </form>

@@ -13,10 +13,10 @@ function InlineText({ text }: { text: string }) {
 export function LegalDocument({ title, content }: { title: string; content: string }) {
   const blocks = content.trim().split(/\n\s*\n/).filter((block) => !block.startsWith("# "));
   return (
-    <main className="bg-background px-6 py-12 sm:py-16 lg:px-8">
+    <main className="website web-legal bg-background px-6 py-12 sm:py-16 lg:px-8">
       <article className="mx-auto max-w-3xl">
         <header className="mb-8 border-b border-border pb-8">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">LoveTech Group</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Lovetech Agrofinance & Development Ltd</p>
           <h1 className="break-words font-display text-4xl leading-tight tracking-normal text-primary sm:text-5xl">{title}</h1>
         </header>
         <div className="text-base leading-8 text-foreground/80">

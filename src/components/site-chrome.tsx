@@ -118,7 +118,7 @@ export function SiteHeader() {
         </Link>
         <nav
           aria-label="Main navigation"
-          className="hidden items-center gap-5 whitespace-nowrap text-xs font-medium xl:flex"
+          className="hidden items-center gap-4 whitespace-nowrap text-[13px] font-medium xl:flex"
         >
           <Link
             to="/about"
@@ -315,10 +315,10 @@ export function NextStepBand() {
   )
     return null;
   return (
-    <section className="border-t border-border bg-cloud px-6 py-20 lg:px-8">
+    <section className="website border-t border-border bg-secondary px-6 py-16 lg:px-8">
       <div className="mx-auto max-w-5xl text-center">
         <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-teal">Next Step</p>
-        <h2 className="mb-4 font-serif text-4xl font-bold text-navy md:text-5xl">
+        <h2 className="web-heading mb-4 text-navy">
           Let's find the right entry point for you
         </h2>
         <p className="mx-auto mb-8 max-w-2xl text-foreground/70">
@@ -329,10 +329,10 @@ export function NextStepBand() {
           <Button asChild className="h-12 px-6">
             <Link to="/contact">Book a Consultation</Link>
           </Button>
-          <Button asChild variant="outline" className="h-12 border-teal/20 bg-white px-6 text-teal hover:bg-teal/5">
+           <Button asChild variant="outline" className="web-button border-primary/20 bg-background text-primary hover:bg-muted">
             <Link to="/finance-readiness">Start Diagnostic</Link>
           </Button>
-          <Button asChild variant="outline" className="h-12 border-navy/20 bg-white px-6 text-navy hover:bg-white/70">
+           <Button asChild variant="outline" className="web-button border-primary/20 bg-background text-primary hover:bg-muted">
             <Link to="/academy">Explore Academy</Link>
           </Button>
         </div>
@@ -415,7 +415,7 @@ export function SiteFooter() {
                   <li key={l.to}>
                     <Link
                       to={l.to as any}
-                      className="text-xs leading-relaxed text-primary-foreground/70 hover:text-accent"
+                      className="text-sm leading-relaxed text-primary-foreground/80 hover:text-accent"
                     >
                       {l.label}
                     </Link>

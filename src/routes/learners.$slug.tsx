@@ -20,7 +20,9 @@ export const Route = createFileRoute("/learners/$slug")({
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
-        ...(p?.avatar_url ? [{ property: "og:image", content: p.avatar_url }, { name: "twitter:image", content: p.avatar_url }] : []),
+        { property: "og:type", content: "profile" },
+        { name: "twitter:card", content: "summary" },
+        ...(p?.avatar_url?.startsWith("https://") ? [{ property: "og:image", content: p.avatar_url }, { name: "twitter:image", content: p.avatar_url }] : []),
       ],
     };
   },
@@ -32,7 +34,7 @@ export const Route = createFileRoute("/learners/$slug")({
   component: PublicProfilePage,
   errorComponent: ({ error }) => <div role="alert" className="p-8 text-center text-red-600">{error instanceof Error ? error.message : String(error)}</div>,
   notFoundComponent: () => (
-    <main className="mx-auto max-w-xl px-6 py-24 text-center">
+    <main className="website mx-auto max-w-xl px-6 py-24 text-center">
       <h1 className="font-serif text-3xl text-vetiver">Profile not found</h1>
       <p className="mt-3 text-sm text-foreground/60">This learner profile is private or doesn't exist.</p>
       <Link to="/learners" className="mt-6 inline-flex rounded-sm bg-vetiver px-5 py-2 text-sm font-semibold text-bone">Browse learners</Link>
@@ -45,7 +47,7 @@ function PublicProfilePage() {
   const { data } = useSuspenseQuery(profileQuery(slug));
   const p = data.profile!;
   return (
-    <main>
+    <main className="website">
       <section className="bg-ink px-6 py-16 text-bone lg:px-8">
         <div className="mx-auto flex max-w-4xl flex-col items-start gap-6 sm:flex-row sm:items-center">
           {p.avatar_url ? (

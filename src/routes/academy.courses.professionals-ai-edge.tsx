@@ -147,12 +147,12 @@ function Page() {
   const priceLabel = isFree ? "Enroll Now (Free)" : `Enroll & Pay ₦${finalAmount.toLocaleString()}`;
 
   return (
-    <main>
+    <main className="website web-course">
       {/* Hero */}
       <section className="relative overflow-hidden bg-ink text-bone">
         <div className="absolute inset-0">
-          <img src={courseImg} alt="People using AI tools at work" className="h-full w-full object-cover opacity-35" width={1280} height={832} />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
+          <img src={courseImg} alt="People using AI tools at work" className="h-full w-full object-cover" width={1280} height={832} />
+          <div className="absolute inset-0 bg-primary/85" />
         </div>
         <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1.4fr_1fr] lg:px-8 lg:py-20">
           <div>

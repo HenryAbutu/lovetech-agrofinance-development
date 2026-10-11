@@ -90,12 +90,12 @@ export function SiteHeader() {
           <img src={logoAsset.url} alt="LoveTech Group" className="h-10 w-auto" />
         </Link>
 
-        <nav className="hidden items-center gap-5 text-sm font-medium text-foreground/75 xl:flex">
+        <nav className="hidden items-center gap-4 whitespace-nowrap text-[13px] font-medium text-foreground/75 xl:flex">
           {navLinks.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="transition-colors hover:text-navy"
+              className={`transition-colors hover:text-navy ${l.to === "/" ? "2xl:inline hidden" : ""}`}
               activeProps={{ className: "text-navy font-semibold" }}
               activeOptions={{ exact: l.to === "/" }}
             >
@@ -104,7 +104,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 whitespace-nowrap">
           {isAdmin && (
             <Link
               to="/admin"

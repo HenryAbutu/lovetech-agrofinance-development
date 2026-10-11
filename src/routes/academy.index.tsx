@@ -256,8 +256,8 @@ function AcademyPage() {
   const [topic, setTopic] = useState<string>("All Courses");
   const legacy = [basicCourse, advancedCourse, ...upcoming];
   const courses: DiscoveryCourse[] = [
-    ...catalogue.map(c => ({ id:c.slug, title:c.title, summary:c.short, category:c.pathway, image:discoveryImage(c.pathway), level:c.level, duration:c.duration, delivery:c.delivery, routeSlug:c.slug, status:upcoming.find(u => u.slug === c.slug)?.status ?? "Cohort registration" })),
-    ...legacy.filter(c => !catalogue.some(item => item.slug === c.slug)).map(c => ({ id:c.slug, title:c.displayTitle ?? c.title, summary:c.summary, category:c.category, image:c === advancedCourse ? advancedImage : discoveryImage(c.category), status:c.status, price:c.price, priceNote:c.priceNote, level:c.level, duration:c.duration, delivery:c.format, onOpen:() => setActive(c), actionLabel:c.onOpenCTA === "waitlist" ? "Join Waiting List" : "View details" })),
+    ...catalogue.map(c => ({ id:c.slug, title:c.title, summary:c.short, category:c.pathway, image:discoveryImage(c.pathway), level:c.level, duration:c.duration, delivery:c.delivery, routeSlug:c.slug })),
+    ...legacy.map(c => ({ id:`programme-${c.slug}`, title:c.displayTitle ?? c.title, summary:c.summary, category:c.category, image:c === advancedCourse ? advancedImage : discoveryImage(c.category), status:c.status, price:c.price, priceNote:c.priceNote, level:c.level, duration:c.duration, delivery:c.format, onOpen:() => setActive(c), actionLabel:c.onOpenCTA === "waitlist" ? "Join Waiting List" : "View details" })),
   ];
   const filtered = courses.filter(c => {
     const matchesTopic = topic === "All Courses" || discoveryTopic(c.category) === topic || (topic === "Business Development" && /Business|SME|MSME|Proposal|Grant|Cooperative/i.test(c.title));

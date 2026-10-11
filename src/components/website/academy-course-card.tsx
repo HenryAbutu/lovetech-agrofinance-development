@@ -14,7 +14,7 @@ export function AcademyCourseCard({ course, compact = false }: { course: Discove
     <div className="flex flex-1 flex-col p-4">
       <p className="text-xs font-semibold text-primary">{course.category}</p>
       <h3 className="mt-2 text-base font-semibold leading-snug">{course.title}</h3>
-      {!compact && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{course.summary}</p>}
+      {!compact && <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{course.summary}</p>}
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{[course.level, course.duration, course.delivery].filter(Boolean).join(" · ")}</p>
       {course.status && <p className="mt-3 text-xs font-semibold text-primary">{course.status}</p>}
       {course.price && <p className="mt-2 text-sm font-semibold">{course.price}{course.priceNote && <span className="block text-xs font-normal text-muted-foreground">{course.priceNote}</span>}</p>}

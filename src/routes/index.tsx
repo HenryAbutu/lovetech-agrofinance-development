@@ -125,7 +125,7 @@ function Home() {
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link to="/academy" className={btnNavy}>Go to Academy LMS <ArrowRight className="size-4" /></Link>
-            <Link to="/academy" hash="programmes" className={btnOutline}>Join a Course Waitlist</Link>
+            <Link to="/academy" className={btnOutline}>Join a Course Waitlist</Link>
             <Link to="/academy/dashboard" className={btnOutline}>View My Academy</Link>
           </div>
         </div>

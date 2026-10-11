@@ -331,3 +331,13 @@
   .website.web-article h1 { font-size: 1.8rem; }
 }
 @media (prefers-reduced-motion: reduce) { .website *, .website *::before, .website *::after { scroll-behavior: auto; transition: none; } }
+
+/* Compact public discovery; learner tools remain outside these wrappers. */
+.home-concise .web-section { padding-block: 3rem; }
+.academy-marketplace .academy-catalogue-hero .web-hero-shade { background: color-mix(in oklab, var(--primary) 85%, transparent); }
+.website .academy-search input { border: 0; background: transparent; border-radius: 0; }
+.academy-course-shelf { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 3rem) / 4); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 4px 12px; }
+.academy-course-shelf > * { scroll-snap-align: start; min-width: 0; }
+.academy-discovery-card img { flex-shrink: 0; }
+@media (max-width: 1023px) { .academy-course-shelf { grid-auto-columns: calc((100% - 1rem) / 2); } }
+@media (max-width: 639px) { .academy-course-shelf { grid-auto-columns: 85%; } .home-concise .web-section { padding-block: 2.5rem; } .academy-shelf-section .web-heading { font-size: 1.45rem; } }

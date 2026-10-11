@@ -6,3 +6,5 @@
 - Keep homepage visual content separate from auth and LMS logic, and use shared Button variants for its CTAs, so presentation updates preserve learner workflows and navigation.
 - Scope institutional website tokens and typography to public presentation wrappers and shared chrome; leave global learner tokens intact so the redesign cannot restyle protected learning tools.
 - Keep public service content and shared presentation in website-only modules; preserve all existing route paths and use dedicated top-level service routes so new advisory pages cannot intercept existing diagnostic or LMS URLs.
+
+- Keep public Academy discovery cards and shelves in website presentation modules, adapting existing catalogue metadata without changing course definitions or enrolment handlers; this isolates discovery styling from learner access.

@@ -1,10 +1,15 @@
 import academyImage from "@/assets/academy-hero-v3.jpg";
-import { PhotoHero } from "@/components/website/presentation";
+import { AcademyCourseCard, AcademyCourseShelf, type DiscoveryCourse } from "@/components/website/academy-course-card";
+import { Eyebrow } from "@/components/website/presentation";
+import aiImage from "@/assets/course-ai-tools.jpg";
+import advancedImage from "@/assets/course-ai-edge.jpg";
+import financeImage from "@/assets/course-finance.jpg";
+import agricultureImage from "@/assets/hero-lovetech.jpg";
 import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowRight, GraduationCap, Sparkles, CheckCircle2, X, Clock, BarChart3, Award, PlayCircle, Users } from "lucide-react";
+import { ArrowRight, Search, CheckCircle2, X, Award, Users } from "lucide-react";
 import { submitWaitlist } from "@/lib/forms.functions";
 import { LegalNotice } from "@/components/legal-notice";
 import { catalogue } from "@/lib/academy-catalogue";
@@ -220,14 +225,6 @@ const upcoming: Course[] = [
   },
 ];
 
-const advancedModules = [
-  { t: "AI for Marketing, Content & Social Media", b: "Campaign planning, content calendars, captions, video scripts, repurposing and marketing productivity." },
-  { t: "AI for Customer Service & WhatsApp", b: "Better customer replies, FAQs, WhatsApp automation and enquiry management workflows." },
-  { t: "AI for Finance, Bookkeeping & Cashflow", b: "Organise sales, track expenses, understand cashflow and support better business decisions." },
-  { t: "AI for Administration, Documents & Productivity", b: "Draft letters, proposals, reports, SOPs, meeting notes and daily documents faster." },
-  { t: "AI for Research, Data & Business Decisions", b: "Market research, competitor review, customer insights, planning and decision support." },
-];
-
 const faqs = [
   { q: "How do I access a course after paying?", a: "After successful Paystack payment, a learner account is created (or updated) and you'll be redirected to your dashboard where the course opens instantly." },
   { q: "Can I take just one advanced module?", a: "Yes. You can purchase any single Advanced AI module for ₦15,000, or take the full bundle of all 5 modules for ₦25,000." },
@@ -242,175 +239,54 @@ const steps = [
   { icon: Award, title: "Track completion" },
 ];
 
+const topics = ["All Courses", "Business Development", "Digital & AI", "Finance Readiness", "Agribusiness & Enterprise"] as const;
+function discoveryTopic(category: string): string {
+  if (/AI|Digital/i.test(category)) return "Digital & AI";
+  if (/Finance|Funding|Proposal/i.test(category)) return "Finance Readiness";
+  if (/Agri|Agriculture|Climate|Cooperative/i.test(category)) return "Agribusiness & Enterprise";
+  return "Business Development";
+}
+function discoveryImage(category: string) {
+  const topic = discoveryTopic(category);
+  return topic === "Digital & AI" ? aiImage : topic === "Finance Readiness" ? financeImage : topic === "Agribusiness & Enterprise" ? agricultureImage : academyImage;
+}
 function AcademyPage() {
   const [active, setActive] = useState<Course | null>(null);
-  return (
-    <main className="website">
-      <PhotoHero label="Lovetech Academy · Live" title="Skills you can put to work." text="Practical courses for business growth, finance readiness, AI, agribusiness and digital transformation." image={academyImage} alt="African entrepreneurs learning and working together"><Button asChild variant="websiteLight" className="web-button"><a href="#catalogue">Explore Courses <ArrowRight /></a></Button></PhotoHero>
-
-      <section className="px-6 py-14 lg:px-8 lg:py-20"><div className="mx-auto max-w-6xl"><p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary">Your learning journey</p><h2 className="font-display text-3xl font-bold leading-tight tracking-normal md:text-4xl">How Lovetech Academy Works</h2>
-        <ol className="mt-9 grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-4 lg:grid-cols-7">{steps.map((s,i) => <li key={s.title} className="border-t-2 border-border pt-4"><span className="text-xs font-bold text-muted-foreground">0{i+1}</span><s.icon className="my-4 size-6 text-primary" /><h3 className="text-sm font-semibold">{s.title}</h3></li>)}</ol>
-        <Button asChild variant="link" className="mt-7 px-0"><Link to="/academy">Browse all courses <ArrowRight /></Link></Button>
-      </div></section>
-
-      {/* Programme catalogue */}
-      <Section id="catalogue" eyebrow="Learning pathways" title="Our programmes">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {catalogue.map((c) => (
-            <article key={c.slug} className="flex flex-col rounded-lg border border-border bg-background p-6 shadow-sm">
-              <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-teal/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">{c.pathway}</span>
-                {c.hybrid && <span className="rounded-full bg-ochre/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-vetiver">Hybrid</span>}
-              </div>
-              <h3 className="mb-2 font-serif text-lg text-vetiver">{c.title}</h3>
-              <p className="mb-4 flex-1 text-sm text-foreground/65">{c.short}</p>
-              <dl className="mb-5 space-y-1 text-xs text-foreground/65">
-                <div className="flex gap-1.5"><BarChart3 className="size-3.5" /><dt className="sr-only">Level</dt><dd>{c.level}</dd></div>
-                <div className="flex gap-1.5"><Clock className="size-3.5" /><dt className="sr-only">Duration</dt><dd>{c.duration}</dd></div>
-                <div className="flex gap-1.5"><Users className="size-3.5" /><dt className="sr-only">Delivery</dt><dd>{c.delivery}</dd></div>
-              </dl>
-              <Link to="/academy/courses/$slug" params={{ slug: c.slug }} className="inline-flex items-center gap-1.5 self-start rounded-lg bg-vetiver px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-95">
-                View Course <ArrowRight className="size-4" />
-              </Link>
-            </article>
-          ))}
-        </div>
-      </Section>
-
-      {/* Available Courses */}
-      <Section id="available" eyebrow="Available now" title="Currently open for enrolment">
-        <div className="grid gap-6 md:grid-cols-2">
-          <FeaturedCourseCard course={basicCourse} onOpen={() => setActive(basicCourse)} />
-          <FeaturedCourseCard course={advancedCourse} onOpen={() => setActive(advancedCourse)} />
-        </div>
-      </Section>
-
-      {/* Advanced AI Modules */}
-      <Section id="advanced-modules" eyebrow="Advanced AI Programme" title="Choose the AI module that fits your business" bg="ivory">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {advancedModules.map((m, i) => (
-            <article key={m.t} className="rounded-lg border border-border bg-background p-6 shadow-sm">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="rounded-full bg-teal/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">Module {i + 1}</span>
-                <span className="text-xs font-semibold text-ochre">₦15,000</span>
-              </div>
-              <h3 className="mb-2 font-serif text-lg text-vetiver">{m.t}</h3>
-              <p className="text-sm text-foreground/65">{m.b}</p>
-            </article>
-          ))}
-        </div>
-        <div className="mt-8 rounded-lg border border-vetiver/25 bg-background p-6 md:flex md:items-center md:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-ochre">Best Value</p>
-            <p className="mt-1 font-serif text-2xl text-vetiver">Bundle all 5 modules for ₦25,000</p>
-          </div>
-          <button onClick={() => setActive(advancedCourse)} className="mt-4 inline-flex rounded-lg bg-vetiver px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm hover:opacity-95 md:mt-0">
-            View bundle details
-          </button>
-        </div>
-      </Section>
-
-      {/* Upcoming */}
-      <Section id="upcoming" eyebrow="Coming soon" title="Upcoming Courses & Programmes">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {upcoming.map((c) => (
-            <UpcomingCard key={c.slug} course={c} onOpen={() => setActive(c)} />
-          ))}
-        </div>
-      </Section>
-
-      {/* Why */}
-      <Section id="why" eyebrow="Why LoveTech" title="Why learn with LoveTech" bg="ivory">
-        <div className="grid gap-6 md:grid-cols-3">
-          <Pillar icon={<GraduationCap className="size-5" />} title="Practitioners, not theorists" body="Every course is built and delivered by people doing the work in Nigerian businesses." />
-          <Pillar icon={<Sparkles className="size-5" />} title="Built for application" body="Workbooks, templates and exercises so you can apply what you learn the next day." />
-          <Pillar icon={<Award className="size-5" />} title="Certification & pathway" body="Earn a certificate and graduate into our consulting and finance-readiness support." />
-        </div>
-      </Section>
-
-      {/* FAQs */}
-      <Section id="faqs" eyebrow="FAQs" title="Common questions">
-        <div className="grid gap-4 md:grid-cols-2">
-          {faqs.map((f) => (
-            <div key={f.q} className="rounded-lg border border-border bg-background p-6 shadow-sm">
-              <h3 className="mb-2 font-serif text-lg text-vetiver">{f.q}</h3>
-              <p className="text-sm text-foreground/65">{f.a}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {active && <CourseDetailModal course={active} onClose={() => setActive(null)} />}
-    </main>
-  );
-}
-
-function Section({ id, eyebrow, title, children, bg }: { id: string; eyebrow: string; title: string; children: React.ReactNode; bg?: "ivory" }) {
-  return (
-    <section id={id} className={`px-6 py-16 lg:px-8 ${bg === "ivory" ? "border-y border-border bg-secondary" : "bg-background"}`}>
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-10">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-teal">{eyebrow}</p>
-          <h2 className="font-serif text-3xl text-vetiver md:text-4xl">{title}</h2>
-        </div>
-        {children}
-      </div>
+  const [query, setQuery] = useState("");
+  const [topic, setTopic] = useState<string>("All Courses");
+  const legacy = [basicCourse, advancedCourse, ...upcoming];
+  const courses: DiscoveryCourse[] = [
+    ...catalogue.map(c => ({ id:c.slug, title:c.title, summary:c.short, category:c.pathway, image:discoveryImage(c.pathway), level:c.level, duration:c.duration, delivery:c.delivery, routeSlug:c.slug })),
+    ...legacy.map(c => ({ id:`programme-${c.slug}`, title:c.displayTitle ?? c.title, summary:c.summary, category:c.category, image:c === advancedCourse ? advancedImage : discoveryImage(c.category), status:c.status, price:c.price, priceNote:c.priceNote, level:c.level, duration:c.duration, delivery:c.format, onOpen:() => setActive(c), actionLabel:c.onOpenCTA === "waitlist" ? "Join Waiting List" : "View details" })),
+  ];
+  const filtered = courses.filter(c => {
+    const matchesTopic = topic === "All Courses" || discoveryTopic(c.category) === topic || (topic === "Business Development" && /Business|SME|MSME|Proposal|Grant|Cooperative/i.test(c.title));
+    return matchesTopic && [c.title,c.summary,c.category,c.level,c.duration,c.delivery,c.status].filter(Boolean).join(" ").toLowerCase().includes(query.trim().toLowerCase());
+  });
+  const trending = filtered.filter(c => c.status === "Enrolment Open");
+  const business = filtered.filter(c => /Business|SME|MSME|Proposal|Grant|Cooperative/i.test(c.title));
+  return <main className="website academy-marketplace">
+    <section className="web-photo-hero academy-catalogue-hero">
+      <img src={academyImage} alt="African entrepreneurs learning and working together" fetchPriority="high" className="web-hero-image" /><div className="web-hero-shade" />
+      <div className="web-container relative py-12 lg:py-16"><div className="max-w-3xl"><Eyebrow>Skills you can put to work</Eyebrow><h1 className="web-title">Lovetech Academy</h1><p className="mt-4 max-w-xl text-base leading-relaxed text-primary-foreground">Practical learning for business growth, finance readiness, agribusiness and digital transformation.</p>
+        <div className="academy-search mt-6 flex items-center gap-3 rounded border border-border bg-background px-4 text-foreground"><Search className="size-5 shrink-0 text-primary" aria-hidden="true" /><label htmlFor="academy-search" className="sr-only">What do you want to learn?</label><input id="academy-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="What do you want to learn?" className="min-w-0 flex-1 py-4 text-base" aria-controls="course-results" /></div>
+        <div className="mt-5 flex flex-wrap gap-3"><Button asChild variant="websiteLight" className="web-button"><a href="#course-results">Explore courses <ArrowRight /></a></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/academy/dashboard">My Academy <ArrowRight /></Link></Button></div>
+      </div></div>
     </section>
-  );
-}
-
-function Pillar({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
-  return (
-    <div className="rounded-lg border border-border bg-background p-6 shadow-sm">
-      <div className="mb-3 grid size-10 place-items-center rounded-lg bg-vetiver/10 text-vetiver">{icon}</div>
-      <h3 className="mb-2 font-serif text-xl text-vetiver">{title}</h3>
-      <p className="text-sm text-foreground/65">{body}</p>
-    </div>
-  );
-}
-
-function FeaturedCourseCard({ course, onOpen }: { course: Course; onOpen: () => void }) {
-  return (
-    <button onClick={onOpen} className="group flex flex-col rounded-lg border-2 border-vetiver/20 bg-background p-7 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-vetiver/50 hover:shadow-lg">
-      <div className="mb-4 flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-ochre px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ink">{course.status}</span>
-        <span className="rounded-full bg-teal/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-teal">{course.category}</span>
-        {course.level && <span className="text-[11px] text-foreground/55">{course.level}</span>}
-      </div>
-      <h3 className="mb-2 font-serif text-2xl text-vetiver">{course.displayTitle ?? course.title}</h3>
-      <p className="mb-5 flex-1 text-sm text-foreground/70">{course.summary}</p>
-      <div className="mb-5 flex flex-wrap gap-x-4 gap-y-2 text-xs text-foreground/60">
-        {course.duration && <span className="inline-flex items-center gap-1"><Clock className="size-3.5" />{course.duration}</span>}
-        {course.format && <span className="inline-flex items-center gap-1"><PlayCircle className="size-3.5" />{course.format}</span>}
-        {course.modules && <span className="inline-flex items-center gap-1"><BarChart3 className="size-3.5" />{course.modules.length} modules</span>}
-      </div>
-      <div className="flex items-end justify-between">
-        <div>
-          <p className="font-serif text-3xl text-vetiver">{course.price}</p>
-          {course.priceNote && <p className="text-xs text-foreground/55">{course.priceNote}</p>}
-        </div>
-        <span className="inline-flex items-center gap-1.5 rounded-lg bg-vetiver px-4 py-2.5 text-sm font-semibold text-primary-foreground group-hover:opacity-95">
-          View details <ArrowRight className="size-4" />
-        </span>
-      </div>
-    </button>
-  );
-}
-
-function UpcomingCard({ course, onOpen }: { course: Course; onOpen: () => void }) {
-  return (
-    <button onClick={onOpen} className="group flex flex-col rounded-lg border border-border bg-background p-6 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-teal/40 hover:shadow-lg">
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-ochre/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ochre">Waiting List</span>
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-teal">{course.category}</span>
-      </div>
-      <h3 className="mb-2 font-serif text-lg text-vetiver">{course.title}</h3>
-      <p className="mb-5 flex-1 text-sm text-foreground/65">{course.summary}</p>
-      <span className="inline-flex items-center gap-1.5 self-start rounded-lg border border-vetiver/25 px-4 py-2 text-sm font-semibold text-vetiver group-hover:bg-vetiver/5">
-        Join Waiting List <ArrowRight className="size-4" />
-      </span>
-    </button>
-  );
+    <section className="border-b border-border bg-secondary py-5"><div className="web-container"><nav aria-label="Course topics" className="flex flex-wrap gap-2">{topics.map(t => <Button key={t} variant={topic === t ? "default" : "outline"} aria-pressed={topic === t} onClick={() => setTopic(t)} className="h-auto min-h-10 whitespace-normal">{t}</Button>)}</nav></div></section>
+    {!query.trim() && <>
+      {trending.length > 0 && <AcademyCourseShelf title="Trending courses" courses={trending} />}
+      {business.length > 0 && (topic === "All Courses" || topic === "Business Development") && <AcademyCourseShelf title="Top courses in Business Development" courses={business} />}
+      {topics.slice(2).map(t => {const items = filtered.filter(c => discoveryTopic(c.category) === t);return items.length > 0 ? <AcademyCourseShelf key={t} title={`Top courses in ${t}`} courses={items} /> : null;})}
+    </>}
+    <section id="course-results" className="scroll-mt-24 bg-secondary py-10"><div className="web-container"><div className="mb-6 flex flex-wrap items-end justify-between gap-3"><h2 className="web-heading">{query.trim() ? "Search results" : "Full course catalogue"}</h2><p className="text-sm text-muted-foreground" role="status">{filtered.length} {filtered.length === 1 ? "course" : "courses"}{topic !== "All Courses" ? ` · ${topic}` : ""}</p></div>
+      {filtered.length ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{filtered.map(c => <AcademyCourseCard key={c.id} course={c} />)}</div> : <div className="border-y border-border py-12 text-center"><h3 className="text-lg font-semibold">No courses found</h3><p className="mt-2 text-sm text-muted-foreground">No courses match your search and topic.</p><Button variant="outline" className="mt-5" onClick={() => {setQuery("");setTopic("All Courses");}}>Clear filters</Button></div>}
+    </div></section>
+    <section className="py-10"><div className="web-container"><Eyebrow>Your learning journey</Eyebrow><h2 className="web-heading">How Lovetech Academy Works</h2><ol className="mt-7 grid grid-cols-2 gap-x-5 gap-y-6 sm:grid-cols-4 lg:grid-cols-7">{steps.map((step,i) => <li key={step.title} className="border-t border-border pt-4"><span className="text-xs text-muted-foreground">0{i+1}</span><step.icon className="my-3 size-5 text-primary" /><h3 className="text-sm font-semibold">{step.title}</h3></li>)}</ol></div></section>
+    <section className="border-t border-border py-10"><div className="web-container"><h2 className="web-heading">Common questions</h2><div className="mt-5 grid gap-x-8 md:grid-cols-2">{faqs.map(f => <details key={f.q} className="border-b border-border py-4"><summary className="cursor-pointer text-sm font-semibold">{f.q}</summary><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p></details>)}</div></div></section>
+    <section className="bg-primary py-10 text-primary-foreground"><div className="web-container flex flex-wrap items-center justify-between gap-5"><h2 className="web-heading">Your next step starts here.</h2><div className="flex flex-wrap gap-3"><Button asChild variant="websiteLight" className="web-button"><a href="#course-results">Explore courses <ArrowRight /></a></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/academy/dashboard">My Academy <ArrowRight /></Link></Button></div></div></section>
+    {active && <CourseDetailModal course={active} onClose={() => setActive(null)} />}
+  </main>;
 }
 
 /* ---------- Course detail modal + inline enrol/waitlist ---------- */

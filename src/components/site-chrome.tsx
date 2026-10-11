@@ -365,7 +365,6 @@ export function SiteFooter() {
         { to: "/about", label: "About Lovetech" },
         { to: "/who-we-serve", label: "Who We Serve" },
         { to: "/our-work", label: "Our Work" },
-        { to: "/programmes", label: "Programmes" },
         { to: "/insights", label: "Insights" },
         { to: "/contact", label: "Contact" },
       ],

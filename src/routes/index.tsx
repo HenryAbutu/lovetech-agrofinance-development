@@ -3,7 +3,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   GraduationCap,
-  Check,
   Building2,
   Sprout,
   Users,
@@ -12,9 +11,9 @@ import {
 } from "lucide-react";
 import hero from "@/assets/academy-hero-v3.jpg";
 import academy from "@/assets/group/academy-workshop.jpg";
-import founder from "@/assets/avess-abutu.png";
 import house from "@/assets/group/house8-exterior.png";
 import ruby from "@/assets/group/rubychai-packaging.png";
+import { AcademyCourseCard } from "@/components/website/academy-course-card";
 import { catalogue } from "@/lib/academy-catalogue";
 import { Button } from "@/components/ui/button";
 import { ServiceCards, Eyebrow, ConsultationCTA } from "@/components/website/presentation";
@@ -22,7 +21,6 @@ import {
   websiteHead,
   experienceNote,
   audienceContent,
-  serviceContent,
 } from "@/components/website/content";
 export const Route = createFileRoute("/")({
   head: () =>
@@ -35,7 +33,7 @@ export const Route = createFileRoute("/")({
 const audienceIcons = [Briefcase, Sprout, Users, Building2, Landmark];
 function Home() {
   return (
-    <main className="website">
+    <main className="website home-concise">
       <section className="web-photo-hero home-hero">
         <img
           src={hero}
@@ -86,9 +84,9 @@ function Home() {
           </p>
         </div>
       </section>
-      <section className="border-b border-border bg-secondary py-8">
+      <section className="border-b border-border bg-secondary py-5">
         <div className="web-container">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-4 lg:grid-cols-4">
             {[
               ["1,000+", "MSMEs & entrepreneurs reached"],
               ["250+", "Businesses directly supported"],
@@ -105,144 +103,21 @@ function Home() {
               </div>
             ))}
           </div>
-          <p className="mt-6 max-w-5xl text-[11px] leading-relaxed text-muted-foreground">
+          <p className="mt-4 max-w-5xl text-[11px] leading-relaxed text-muted-foreground">
             {experienceNote}
           </p>
         </div>
       </section>
       <section className="web-section">
-        <div className="web-container">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <Eyebrow>Our core advisory areas</Eyebrow>
-              <h2 className="web-heading">What Lovetech Does</h2>
-            </div>
-            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Practical support that connects business preparation, enterprise growth and better
-              ways of working.
-            </p>
-          </div>
-          <ServiceCards />
-        </div>
+        <div className="web-container"><Eyebrow>Our core advisory areas</Eyebrow><h2 className="web-heading">What Lovetech Does</h2><ServiceCards /></div>
       </section>
       <section className="web-section bg-primary text-primary-foreground">
-        <div className="web-container">
-          <div className="grid items-center gap-10 lg:grid-cols-2">
-            <div>
-              <p className="mb-5 inline-flex items-center gap-2 text-xs font-semibold">
-                <span className="size-2 rounded-full bg-accent" /> Academy is live
-              </p>
-              <h2 className="web-heading">Skills you can put to work.</h2>
-              <p className="mt-5 max-w-lg text-primary-foreground/80 leading-relaxed">
-                Learn through the Lovetech Academy LMS — practical courses, downloadable tools,
-                assignments, assessments and action plans.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Button asChild variant="websiteLight" className="web-button">
-                  <Link to="/academy">
-                    Explore Lovetech Academy <ArrowUpRight />
-                  </Link>
-                </Button>
-                <Button asChild variant="homepageOutline" className="web-button">
-                  <Link to="/academy/dashboard">
-                    My Academy <GraduationCap />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-            <img
-              src={academy}
-              alt="Participants learning practical business skills at a workshop"
-              loading="lazy"
-              className="aspect-[16/10] w-full rounded-lg object-cover"
-            />
-          </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {catalogue.slice(0, 4).map((c) => (
-              <article
-                key={c.slug}
-                className="flex flex-col rounded-lg border border-primary-foreground/25 p-5"
-              >
-                <p className="text-[11px] text-accent">{c.pathway}</p>
-                <h3 className="mt-3 flex-1 text-base font-semibold leading-relaxed">{c.title}</h3>
-                <p className="mt-4 text-xs text-primary-foreground/75">
-                  {c.duration} · {c.delivery}
-                </p>
-                <Button
-                  asChild
-                  variant="link"
-                  className="mt-5 justify-start px-0 text-primary-foreground"
-                >
-                  <Link to="/academy/courses/$slug" params={{ slug: c.slug }}>
-                    View Course <ArrowRight />
-                  </Link>
-                </Button>
-              </article>
-            ))}
-          </div>
-          <p className="mt-5 text-xs text-primary-foreground/75">
-            Course availability, previews and enrolment requirements are shown on each course page.
-          </p>
-        </div>
+        <div className="web-container"><div className="mb-6 flex flex-wrap items-end justify-between gap-5"><div><Eyebrow>Lovetech Academy</Eyebrow><h2 className="web-heading">Skills you can put to work.</h2><p className="mt-3 max-w-xl text-sm leading-relaxed text-primary-foreground/90">Practical courses, downloadable tools and action plans for your next business step.</p></div><div className="flex flex-wrap gap-3"><Button asChild variant="websiteLight" className="web-button"><Link to="/academy">Explore Academy <ArrowUpRight /></Link></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/academy/dashboard">My Academy <GraduationCap /></Link></Button></div></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{catalogue.slice(0,4).map(c => <AcademyCourseCard key={c.slug} compact course={{id:c.slug,title:c.title,summary:c.short,category:c.pathway,image:academy,level:c.level,duration:c.duration,delivery:c.delivery,routeSlug:c.slug}} />)}</div></div>
       </section>
       <section className="web-section">
-        <div className="web-container grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <Eyebrow>Programme & institutional support</Eyebrow>
-            <h2 className="web-heading">Strong programmes need more than good designs.</h2>
-            <p className="mt-5 text-muted-foreground leading-relaxed">
-              {serviceContent[3].intro.substring(serviceContent[3].intro.indexOf(". ") + 2)}
-            </p>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {[
-                "Coordinated delivery",
-                "Institutional capacity",
-                "Research & MEL",
-                "Practical training",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-2 text-sm">
-                  <Check className="size-4 text-primary" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <Button asChild variant="link" className="mt-7 px-0">
-              <Link to="/programme-support">
-                Explore Programme Support <ArrowUpRight />
-              </Link>
-            </Button>
-          </div>
-          <img
-            src={academy}
-            alt="Business skills workshop with African participants"
-            loading="lazy"
-            className="aspect-[4/3] w-full rounded-lg object-cover"
-          />
-        </div>
-      </section>
-      <section className="web-section bg-muted">
-        <div className="web-container">
-          <Eyebrow>Different contexts. Shared ambition.</Eyebrow>
-          <div className="flex flex-wrap justify-between gap-6">
-            <h2 className="web-heading">Who We Serve</h2>
-            <Button asChild variant="link" className="px-0">
-              <Link to="/who-we-serve">
-                Find your starting point <ArrowUpRight />
-              </Link>
-            </Button>
-          </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {audienceContent.map(([t, b], i) => {
-              const Icon = audienceIcons[i] ?? Users;
-              return (
-                <div key={t} className="border-t border-primary/25 pt-5">
-                  <Icon className="size-7 text-primary" strokeWidth={1.4} />
-                  <h3 className="mt-5 text-base font-semibold leading-relaxed">{t}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p>
-                </div>
-              );
-            })}
-          </div>
+        <div className="web-container grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+          <div><Eyebrow>Programme & institutional support</Eyebrow><h2 className="web-heading">Strong programmes need more than good designs.</h2><p className="mt-4 text-sm leading-relaxed text-muted-foreground">We support development partners, public institutions and implementation teams with coordinated delivery, useful evidence and lasting capability.</p><Button asChild variant="link" className="mt-4 px-0"><Link to="/programme-support">Explore Programme Support <ArrowUpRight /></Link></Button></div>
+          <div><h3 className="text-lg font-semibold">Who We Serve</h3><ul className="mt-3 grid gap-x-5 sm:grid-cols-2">{audienceContent.map(([title],i) => {const Icon = audienceIcons[i] ?? Users;return <li key={title} className="flex items-center gap-3 border-b border-border py-4 text-sm"><Icon className="size-5 shrink-0 text-primary" />{title}</li>;})}</ul><Button asChild variant="link" className="mt-3 px-0"><Link to="/who-we-serve">Who We Serve <ArrowUpRight /></Link></Button></div>
         </div>
       </section>
       <section className="web-section">
@@ -269,7 +144,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="border-y border-border bg-secondary py-10">
+      <section className="border-y border-border bg-secondary py-5">
         <div className="web-container">
           <div className="flex flex-wrap items-center justify-between gap-6">
             <div>
@@ -297,46 +172,6 @@ function Home() {
                 </Link>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-      <section className="web-section">
-        <div className="web-container flex flex-wrap items-center justify-between gap-8">
-          <div>
-            <Eyebrow>Insights</Eyebrow>
-            <h2 className="web-heading">Ideas for better-prepared businesses.</h2>
-            <p className="mt-4 max-w-xl text-muted-foreground">
-              Explore published perspectives on enterprise, finance readiness, agribusiness and
-              practical technology.
-            </p>
-          </div>
-          <Button asChild variant="outline" className="web-button">
-            <Link to="/insights">
-              Browse Insights <ArrowUpRight />
-            </Link>
-          </Button>
-        </div>
-      </section>
-      <section className="web-section bg-muted">
-        <div className="web-container flex flex-col gap-8 md:flex-row md:items-center">
-          <img
-            src={founder}
-            alt="Avess Abutu, Founder and CEO"
-            loading="lazy"
-            className="h-52 w-44 rounded-lg object-cover object-top"
-          />
-          <div className="max-w-2xl">
-            <Eyebrow>Our founder</Eyebrow>
-            <h2 className="web-heading">Advisory rooted in real business challenges.</h2>
-            <p className="mt-5 text-muted-foreground">
-              Founded by Avess Swile Abutu, Lovetech brings a practical view of enterprise
-              development, finance readiness and institutional capability.
-            </p>
-            <Button asChild variant="link" className="mt-5 px-0">
-              <Link to="/about">
-                About Lovetech <ArrowUpRight />
-              </Link>
-            </Button>
           </div>
         </div>
       </section>

@@ -65,6 +65,9 @@ function About() {
             <Eyebrow>Founder / CEO</Eyebrow>
             <h2 className="web-heading">Avess Swile Abutu</h2>
             <p className="mt-5 max-w-2xl leading-relaxed text-muted-foreground">
+              Founded by Avess Swile Abutu, Lovetech brings a practical view of enterprise development, finance readiness and institutional capability.
+            </p>
+            <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
               Lovetech’s founder brings a practical focus on business structure, finance readiness,
               capacity and the tools enterprises need to move forward.
             </p>

@@ -13,6 +13,6 @@
 - [x] Shorten all homepage sections and add icon-led cards, badges, compact processes and digital-support imagery.
 - [x] Verify desktop/mobile rendering, preserved links and signed-in/out menus without altering auth or LMS logic.
 # Homepage and Academy structure
-- [ ] Move learning timeline to Academy before its catalogue; retain hero and homepage LMS panel unchanged.
-- [ ] Expand Finance/Agribusiness/Digital panels and reorder Programme Support and Who We Serve.
-- [ ] Verify panel order, preserved first panels, links and desktop/mobile rendering.
+- [x] Move learning timeline to Academy before its catalogue; retain hero and homepage LMS panel unchanged.
+- [x] Expand Finance/Agribusiness/Digital panels and reorder Programme Support and Who We Serve.
+- [x] Verify panel order, preserved first panels, links and desktop/mobile rendering.

@@ -1,11 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight, Building2, GraduationCap, Leaf, LineChart, Briefcase, Sprout, Cpu, ClipboardCheck,
-  BookOpen, UserPlus, MonitorPlay, FileCheck2, Target, MessageCircle, Award, Quote, CheckCircle2,
-} from "lucide-react";
+import type { ReactNode } from "react";
+import { ArrowRight, Building2, GraduationCap, Leaf, LineChart, Briefcase, Sprout, Cpu, ClipboardCheck, BookOpen, UserPlus, MonitorPlay, FileCheck2, Target, MessageCircle, Award, Quote, Download, Users, Handshake, Globe, BarChart3, Bot, Workflow, LayoutDashboard } from "lucide-react";
 import heroImg from "@/assets/group/hero-advisory-session.jpg";
 import academyImg from "@/assets/group/academy-workshop.jpg";
 import financeImg from "@/assets/group/finance-review.jpg";
+import digitalImg from "@/assets/group/digital-business.jpg";
 import house8Img from "@/assets/group/house8-pool.png";
 import rubyImg from "@/assets/group/rubychai-hero.png";
 import avessImg from "@/assets/avess-abutu.png";
@@ -31,287 +30,125 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const lmsCourses = [
-  { slug: "ai-for-businesses", title: "AI for Businesses: Practical AI Skills for Nigerian SMEs", status: "Enrolment / Waitlist", cta: "View Course", tone: "bg-teal/15 text-teal" },
-  { slug: "finance-readiness-msmes", title: "Finance Readiness for MSMEs", status: "Coming Soon", cta: "Join Waitlist", tone: "bg-gold/20 text-navy" },
-  { slug: "agribusiness-skills", title: "Agribusiness Skills for Value Addition, Market Access and Certification Readiness", status: "Private Cohorts", cta: "View Programme", tone: "bg-navy/10 text-navy" },
-  { slug: "business-automation-smes", title: "Business Automation for SMEs", status: "Coming Soon", cta: "Join Waitlist", tone: "bg-gold/20 text-navy" },
+const courses = [
+  { slug: "ai-for-businesses", title: "AI for Businesses", text: "Practical AI tools for Nigerian SMEs.", status: "Enrolment / Waitlist", cta: "View Course", icon: Bot },
+  { slug: "finance-readiness-msmes", title: "Finance Readiness for MSMEs", text: "Prepare for loans, grants and investor conversations.", status: "Coming Soon", cta: "Join Waitlist", icon: LineChart },
+  { slug: "agribusiness-skills", title: "Agribusiness Skills", text: "Value addition, market access and certification readiness.", status: "Private Cohorts", cta: "View Programme", icon: Sprout },
+  { slug: "business-automation-smes", title: "Business Automation", text: "Simple systems for sales, records and customer follow-up.", status: "Coming Soon", cta: "Join Waitlist", icon: Workflow },
 ] as const;
-
 const services = [
-  { icon: LineChart, t: "Finance Readiness & Access to Finance", b: "We help businesses prepare for loans, grants, investor conversations and procurement opportunities through diagnostics, business plans, financial records, pitch documents and funding-readiness support." },
-  { icon: Briefcase, t: "Business Development Advisory", b: "We support MSMEs, agribusinesses, cooperatives and startups with business structuring, growth planning, operations improvement, market positioning and implementation support." },
-  { icon: GraduationCap, t: "Lovetech Academy LMS", b: "We deliver practical online and hybrid courses with videos, templates, assignments, assessments, coaching, action plans and certificates." },
-  { icon: Sprout, t: "Agribusiness & Value Chain Development", b: "We support agribusinesses and agricultural programmes with value addition, market access, training, certification readiness, youth and women inclusion, and enterprise development." },
-  { icon: Cpu, t: "Digital Transformation & AI for SMEs", b: "We help organisations use AI, automation, forms, dashboards, CRM tools and digital workflows to improve sales, operations, reporting and customer service." },
-  { icon: ClipboardCheck, t: "Research, M&E and Programme Support", b: "We support development programmes with assessments, surveys, curriculum development, hybrid training delivery, reporting, dashboards and evidence documentation." },
-];
-
+  { icon: LineChart, title: "Finance Readiness", text: "Diagnostics, records, business plans and funding documents.", to: "/finance-readiness" },
+  { icon: Briefcase, title: "Business Advisory", text: "Structure, strategy, operations and growth support.", to: "/advisory" },
+  { icon: GraduationCap, title: "Academy LMS", text: "Practical courses, templates, assignments and certificates.", to: "/academy" },
+  { icon: Sprout, title: "Agribusiness Development", text: "Value chains, market access, processing and certification readiness.", to: "/advisory" },
+  { icon: Cpu, title: "Digital & AI Solutions", text: "Automation, dashboards, AI tools and customer-service workflows.", to: "/contact" },
+  { icon: ClipboardCheck, title: "Research & Programme Support", text: "Surveys, curriculum, M&E, reporting and evidence systems.", to: "/programmes" },
+] as const;
 const steps = [
-  { icon: BookOpen, t: "Choose a course", b: "Select a practical course or join a programme waitlist." },
-  { icon: UserPlus, t: "Register or sign in", b: "Create your learner account using email or Google." },
-  { icon: MonitorPlay, t: "Learn online", b: "Access videos, notes, templates and downloadable resources." },
-  { icon: FileCheck2, t: "Complete assignments", b: "Submit practical tasks linked to your business." },
-  { icon: Target, t: "Build your action plan", b: "Prepare a business, finance, market or implementation plan." },
-  { icon: MessageCircle, t: "Receive support", b: "Get guidance through coaching, WhatsApp or facilitator support." },
-  { icon: Award, t: "Complete and progress", b: "Track completion and certificate status." },
+  { icon: BookOpen, title: "Choose course" }, { icon: UserPlus, title: "Sign in" },
+  { icon: MonitorPlay, title: "Learn online" }, { icon: Download, title: "Download tools" },
+  { icon: FileCheck2, title: "Submit tasks" }, { icon: Target, title: "Build action plan" },
+  { icon: Award, title: "Track completion" },
 ];
-
 const audiences = [
-  "MSMEs and startups", "Agribusinesses and agro-processors", "Cooperatives and farmer groups", "Women and youth-led businesses",
-  "Development programmes and NGOs", "BMOs and enterprise support organisations", "Consultants and professionals", "Institutions and donor-funded projects",
+  { icon: Briefcase, title: "MSMEs & startups" }, { icon: Sprout, title: "Agribusinesses" },
+  { icon: Handshake, title: "Cooperatives" }, { icon: Users, title: "Women & youth-led businesses" },
+  { icon: Globe, title: "NGOs & development programmes" }, { icon: BookOpen, title: "Consultants & professionals" },
+  { icon: Building2, title: "BMOs & institutions" }, { icon: Target, title: "Donor-funded projects" },
 ];
-
+const programmeSupport = [
+  { icon: ClipboardCheck, title: "Skills assessment" }, { icon: BookOpen, title: "Curriculum design" },
+  { icon: MonitorPlay, title: "Hybrid training" }, { icon: MessageCircle, title: "Coaching & action plans" },
+  { icon: BarChart3, title: "Evidence reporting" },
+];
+const digitalServices = [
+  { icon: Bot, title: "AI business tools" }, { icon: MessageCircle, title: "Customer service workflows" },
+  { icon: LayoutDashboard, title: "Dashboards & reports" }, { icon: GraduationCap, title: "LMS and training portals" },
+];
 const ventures = [
-  { to: "/house-8" as const, img: house8Img, icon: Building2, name: "House 8 Shortlet Apartments", body: "A 5-bedroom luxury apartment in Dawaki, Abuja." },
-  { to: "/ruby-chai" as const, img: rubyImg, icon: Leaf, name: "Ruby Chai Wellness", body: "Herbal tea blends and everyday wellness rituals." },
-];
-
-const btnPrimary = "inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-navy hover:opacity-95";
-const btnGhostDark = "inline-flex items-center gap-2 rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10";
-const btnNavy = "inline-flex items-center gap-2 rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white hover:opacity-95";
-const btnOutline = "inline-flex items-center gap-2 rounded-lg border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy hover:bg-cloud";
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="text-xs font-semibold uppercase tracking-widest text-teal">{children}</p>;
+  { to: "/house-8", img: house8Img, name: "House 8 Apartments" },
+  { to: "/ruby-chai", img: rubyImg, name: "Ruby Chai Wellness" },
+] as const;
+const band = "px-6 py-14 lg:px-8 lg:py-20";
+const heading = "font-display text-3xl font-bold leading-tight tracking-normal md:text-4xl";
+const cta = "h-auto min-h-11 max-w-full whitespace-normal px-5 py-3 text-center leading-snug";
+function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+  return <p className={`mb-3 text-xs font-bold uppercase tracking-widest ${dark ? "text-accent" : "text-primary"}`}>{children}</p>;
 }
-
 function Home() {
   return (
     <main>
-      {/* 1. Hero */}
-      <section className="relative overflow-hidden bg-navy text-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">
-          <div>
-            <p className="mb-5 inline-flex rounded-full bg-teal/15 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-teal">Lovetech Agrofinance &amp; Development</p>
-            <h1 className="font-serif text-3xl font-bold leading-[1.12] md:text-5xl">
-              Lovetech Agrofinance &amp; Development helps businesses become <span className="text-gold">finance-ready, market-ready and digitally enabled.</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-base text-white/75 md:text-lg">
-              We provide advisory services, business development support, finance readiness tools, digital transformation solutions, and practical online learning for MSMEs, agribusinesses, cooperatives, institutions, and development programmes across Nigeria and Africa.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/academy" className={btnPrimary}>Explore Lovetech Academy LMS <ArrowRight className="size-4" /></Link>
-              <Link to="/finance-readiness" className={btnGhostDark}>Start Finance Readiness Diagnostic</Link>
-              <Link to="/contact" className={btnGhostDark}>Book a Consultation</Link>
-            </div>
-            <p className="mt-10 border-t border-white/10 pt-6 text-xs font-medium tracking-wide text-white/60 md:text-sm">
-              Advisory • Academy • Finance Readiness • Agribusiness • Digital Transformation • Programme Support
-            </p>
-          </div>
-          <img src={heroImg} alt="Lovetech advisory session with Nigerian business owners" width={1600} height={1200} className="rounded-2xl object-cover shadow-2xl" />
-        </div>
-      </section>
-
-      {/* 2. LMS announcement */}
-      <section className="border-b border-border bg-cloud px-6 py-16 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-7xl">
+      <section className="relative isolate overflow-hidden bg-primary text-primary-foreground">
+        <img src={heroImg} alt="Lovetech advisory session with Nigerian business owners" width={1600} height={1200} fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 -z-10 bg-navy-deep/80 lg:bg-navy-deep/70" />
+        <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
           <div className="max-w-3xl">
-            <p className="inline-flex rounded-full bg-gold px-3 py-1 text-xs font-bold uppercase tracking-widest text-navy">New</p>
-            <h2 className="mt-4 font-serif text-3xl font-bold text-navy md:text-4xl">Learn through the Lovetech Academy LMS</h2>
-            <p className="mt-4 text-foreground/75">
-              Our lightweight LMS gives entrepreneurs, MSMEs, agribusinesses, cooperatives and programme participants access to practical courses, downloadable templates, assignments, assessments, action plans and certificates. Whether you are learning AI for business, preparing for finance, or joining a hybrid agribusiness programme, Lovetech Academy helps you move from knowledge to implementation.
-            </p>
-          </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {lmsCourses.map((c) => (
-              <div key={c.slug} className="flex flex-col rounded-2xl border border-border bg-white p-5 shadow-sm">
-                <span className={`self-start rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${c.tone}`}>{c.status}</span>
-                <h3 className="mt-4 flex-1 font-serif text-base font-semibold leading-snug text-navy">{c.title}</h3>
-                <Link to="/academy/courses/$slug" params={{ slug: c.slug }} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-teal hover:underline">
-                  {c.cta} <ArrowRight className="size-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link to="/academy" className={btnNavy}>Go to Academy LMS <ArrowRight className="size-4" /></Link>
-            <Link to="/academy" className={btnOutline}>Join a Course Waitlist</Link>
-            <Link to="/academy/dashboard" className={btnOutline}>View My Academy</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. What we do */}
-      <section className="px-6 py-16 lg:px-8 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <Eyebrow>Our work</Eyebrow>
-          <h2 className="mt-3 max-w-3xl font-serif text-3xl font-bold text-navy md:text-4xl">What Lovetech Agrofinance &amp; Development Does</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <div key={s.t} className="rounded-2xl border border-border bg-white p-6 shadow-sm">
-                <span className="grid size-11 place-items-center rounded-xl bg-teal/10 text-teal"><s.icon className="size-5" /></span>
-                <h3 className="mt-4 font-serif text-lg font-semibold text-navy">{s.t}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/70">{s.b}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Finance readiness diagnostic */}
-      <section className="bg-navy px-6 py-16 text-white lg:px-8 lg:py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
-          <img src={financeImg} alt="Reviewing business financial records" loading="lazy" className="rounded-2xl object-cover shadow-xl" />
-          <div>
-            <h2 className="mt-3 font-serif text-3xl font-bold md:text-4xl">Finance Readiness Diagnostic</h2>
-            <div className="mt-5 space-y-4 text-base leading-relaxed text-primary-foreground/80">
-              <p>Many businesses need funding, but are not yet fully prepared to approach banks, investors, grant programmes, development partners, or procurement opportunities.</p>
-              <p>The Lovetech Finance Readiness Diagnostic helps MSMEs, agribusinesses, cooperatives, startups, and growing enterprises understand where they stand and what they need to strengthen before seeking finance.</p>
-              <p>Through a simple diagnostic process, we assess your business structure, registration status, records, revenue model, financial documentation, funding need, repayment or accountability plan, and overall readiness for loans, grants, investment, or enterprise support programmes.</p>
-              <p>After completing the diagnostic, Lovetech can support you with the next practical steps, including business profiling, financial records, pitch documents, business plans, proposal support, market positioning, and finance-readiness advisory.</p>
+            <Eyebrow dark>Lovetech Agrofinance &amp; Development</Eyebrow>
+            <h1 className="font-display text-3xl font-bold leading-tight tracking-normal md:text-5xl">Lovetech Agrofinance &amp; Development helps businesses become <span className="text-accent">finance-ready, market-ready and digitally enabled.</span></h1>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-primary-foreground/90 md:text-lg">Advisory, finance-readiness, digital tools and practical learning for MSMEs, agribusinesses, cooperatives and development programmes.</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Button asChild variant="homepage" className={cta}><Link to="/academy">Explore Academy LMS <ArrowRight /></Link></Button>
+              <Button asChild variant="homepageOutline" className={cta}><Link to="/finance-readiness">Start Finance Readiness Diagnostic</Link></Button>
+              <Button asChild variant="homepageOutline" className={cta}><Link to="/contact">Book a Consultation</Link></Button>
             </div>
-            <p className="mt-6 border-t border-primary-foreground/20 pt-5 text-sm leading-relaxed text-primary-foreground/80"><strong className="text-primary-foreground">Best for:</strong> MSMEs, agribusinesses, cooperatives, women/youth-led businesses, startups, and enterprises preparing for funding or growth support.</p>
-            <Button asChild variant="secondary" className="mt-8 h-auto max-w-full whitespace-normal bg-gold px-6 py-3 text-navy hover:bg-gold/90">
-              <Link to="/finance-readiness">Start Finance Readiness Diagnostic <ArrowRight className="size-4 shrink-0" /></Link>
-            </Button>
+            <ul className="mt-8 flex flex-wrap gap-2 border-t border-primary-foreground/20 pt-6">
+              {["Advisory", "Academy LMS", "Finance Readiness", "Agribusiness", "Digital & AI", "Programme Support"].map(label => <li key={label} className="rounded-md border border-primary-foreground/25 bg-primary/30 px-3 py-1.5 text-xs font-medium">{label}</li>)}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* 5. How the academy works (featured learning) */}
-      <section className="px-6 py-16 lg:px-8 lg:py-24">
+      <section className={`${band} border-b border-border bg-muted`}>
         <div className="mx-auto max-w-7xl">
-          <Eyebrow>Featured courses</Eyebrow>
-          <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">How Lovetech Academy Works</h2>
-          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s, i) => (
-              <li key={s.t} className="rounded-2xl border border-border bg-white p-5">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-8 place-items-center rounded-full bg-navy text-xs font-bold text-white">{i + 1}</span>
-                  <s.icon className="size-5 text-teal" />
-                </div>
-                <h3 className="mt-4 font-semibold text-navy">{s.t}</h3>
-                <p className="mt-2 text-sm text-foreground/70">{s.b}</p>
-              </li>
-            ))}
-            <li className="flex flex-col justify-center rounded-2xl bg-teal/10 p-5">
-              <p className="font-serif text-lg font-semibold text-navy">Ready to start?</p>
-              <Link to="/academy" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-teal hover:underline">Browse all courses <ArrowRight className="size-4" /></Link>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      {/* 6. Who we serve */}
-      <section className="bg-cloud px-6 py-16 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-7xl">
-          <Eyebrow>Who we serve</Eyebrow>
-          <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Who We Serve</h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {audiences.map((a) => (
-              <div key={a} className="rounded-xl border border-border bg-white p-5 text-sm font-semibold text-navy">{a}</div>
-            ))}
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <div className="max-w-2xl"><Eyebrow>Now live · Practical learning</Eyebrow><h2 className={heading}>Lovetech Academy LMS is live</h2><p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">Practical online and hybrid learning with videos, templates, assignments, assessments, action plans and certificates.</p></div>
+            <Button asChild variant="outline" className={cta}><Link to="/academy">Join a Course Waitlist <ArrowRight /></Link></Button>
           </div>
-        </div>
-      </section>
-
-      {/* 7. Programme support */}
-      <section className="px-6 py-16 lg:px-8 lg:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
-          <div>
-            <Eyebrow>Programme implementation &amp; donor support</Eyebrow>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Programme Design, Training Delivery and Evidence Support</h2>
-            <p className="mt-4 text-foreground/75">Lovetech supports institutions and development programmes with skills assessments, curriculum development, hybrid training, coaching, participant action planning, monitoring, reporting and evidence documentation.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/programmes" className={btnNavy}>View Programme Support <ArrowRight className="size-4" /></Link>
-              <Link to="/contact" className={btnOutline}>Book a Consultation</Link>
-            </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {courses.map(c => <article key={c.slug} className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card text-card-foreground">
+              <div className="flex h-24 items-center justify-between bg-primary/5 px-5"><c.icon className="size-9 text-primary" strokeWidth={1.5} /><span className="rounded-md bg-accent/20 px-2 py-1 text-[11px] font-semibold text-foreground">{c.status}</span></div>
+              <div className="flex flex-1 flex-col p-5"><h3 className="min-h-12 font-display text-lg font-bold leading-snug">{c.title}</h3><p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{c.text}</p><Button asChild variant="link" className="mt-5 h-auto justify-start self-start p-0"><Link to="/academy/courses/$slug" params={{ slug: c.slug }}>{c.cta} <ArrowRight /></Link></Button></div>
+            </article>)}
           </div>
-          <img src={academyImg} alt="Lovetech hybrid training workshop" loading="lazy" className="rounded-2xl object-cover shadow-lg" />
-        </div>
-      </section>
-
-      {/* 8. Digital & AI */}
-      <section className="bg-navy px-6 py-16 text-white lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gold">Digital transformation</p>
-          <h2 className="mt-3 max-w-3xl font-serif text-3xl font-bold md:text-4xl">Digital transformation and AI solutions for growing businesses</h2>
-          <div className="mt-5 max-w-3xl space-y-4 text-base leading-relaxed text-primary-foreground/80">
-            <p>Lovetech helps businesses and organisations use digital tools, AI, automation, forms, dashboards, and lightweight systems to work smarter and operate more efficiently.</p>
-            <p>Our digital and AI solutions are designed for real business needs: customer follow-up, sales tracking, online learning, business records, reporting, content creation, customer service, data collection, workflow automation, and management dashboards.</p>
-            <p>We support SMEs, consultants, training organisations, development programmes, and institutions to adopt practical technology without unnecessary complexity. From AI-assisted documents and customer-service workflows to LMS portals, CRM-style forms, dashboards, and automated reporting systems, we help organisations turn digital tools into everyday operational value.</p>
-          </div>
-          <p className="mt-8 font-semibold text-primary-foreground">Our support includes:</p>
-          <ul className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-            {["AI business tools and workflow design", "Lightweight LMS and training portals", "Customer service and lead capture systems", "Digital forms, dashboards, and reporting tools", "Business automation for sales, operations, and follow-up", "AI training for teams, SMEs, consultants, and professionals"].map((x) => (
-              <li key={x} className="flex items-start gap-3 border-t border-primary-foreground/20 py-4 text-sm font-medium leading-relaxed text-primary-foreground/85"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-teal" />{x}</li>
-            ))}
+          <ul className="mt-6 grid gap-4 border-y border-border py-5 sm:grid-cols-2 lg:grid-cols-5">
+            {[{ icon: MonitorPlay, label: "Watch lessons" }, { icon: Download, label: "Download templates" }, { icon: FileCheck2, label: "Submit assignments" }, { icon: Target, label: "Build action plans" }, { icon: Award, label: "Track completion" }].map(x => <li key={x.label} className="flex items-center gap-2 text-sm font-medium"><x.icon className="size-4 shrink-0 text-primary" />{x.label}</li>)}
           </ul>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild variant="secondary" className="h-auto max-w-full whitespace-normal bg-gold px-6 py-3 text-navy hover:bg-gold/90">
-              <Link to="/contact">Request Digital Transformation Support <ArrowRight className="size-4 shrink-0" /></Link>
-            </Button>
-          </div>
+          <div className="mt-5 flex flex-wrap gap-3"><Button asChild variant="link" className="px-0"><Link to="/academy">Go to Academy LMS <ArrowRight /></Link></Button><Button asChild variant="link"><Link to="/academy/dashboard">View My Academy <ArrowRight /></Link></Button></div>
         </div>
       </section>
 
-      {/* 9. Group ventures */}
-      <section className="px-6 py-16 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-7xl">
-          <Eyebrow>Lovetech Group Ventures</Eyebrow>
-          <h2 className="mt-3 font-serif text-2xl font-bold text-navy md:text-3xl">Lovetech Group Ventures</h2>
-          <p className="mt-3 max-w-3xl text-sm text-foreground/70">Beyond our advisory and academy work, the Lovetech ecosystem also includes hospitality, wellness and product ventures that reflect our commitment to enterprise development, service excellence and practical innovation.</p>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            {ventures.map((v) => (
-              <Link key={v.to} to={v.to} className="group flex items-center gap-4 overflow-hidden rounded-2xl border border-border bg-white p-3 shadow-sm transition hover:shadow-md">
-                <img src={v.img} alt={v.name} loading="lazy" className="size-24 shrink-0 rounded-xl object-cover" />
-                <div className="min-w-0">
-                  <p className="flex items-center gap-2 font-serif font-semibold text-navy"><v.icon className="size-4 text-teal" /> {v.name}</p>
-                  <p className="mt-1 text-sm text-foreground/70">{v.body}</p>
-                </div>
-                <ArrowRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className={band}><div className="mx-auto max-w-7xl"><Eyebrow>Advisory to implementation</Eyebrow><h2 className={heading}>What Lovetech Does</h2><p className="mt-4 text-muted-foreground">We combine advisory, academy, finance-readiness and digital implementation support.</p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{services.map(s => <article key={s.title} className="flex flex-col rounded-lg border border-border bg-card p-6"><s.icon className="size-7 text-primary" strokeWidth={1.5} /><h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3><p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{s.text}</p><Button asChild variant="link" className="mt-5 h-auto justify-start self-start p-0"><Link to={s.to}>Learn more <ArrowRight /></Link></Button></article>)}</div>
+      </div></section>
 
-      {/* 10. CEO message */}
-      <section className="bg-cloud px-6 py-16 lg:px-8 lg:py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.7fr_1.3fr]">
-          <img src={avessImg} alt="Avess Abutu, Founder & CEO, Lovetech Agrofinance & Development" loading="lazy" className="w-full max-w-sm rounded-2xl object-cover shadow-lg" />
-          <div>
-            <Eyebrow>CEO message</Eyebrow>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">Led by practitioners, not theorists</h2>
-            <p className="mt-5 text-foreground/75">
-              Lovetech is led by <strong className="text-navy">Avess Abutu</strong>, whose work spans agrofinance, enterprise development and business advisory across Nigeria. African businesses do not lack ambition — they lack structure, tools and access.
-            </p>
-            <p className="mt-4 text-foreground/70">That conviction shapes everything we do: advisory that produces documents funders accept, and courses people actually finish and apply.</p>
-            <Link to="/about" className={`${btnNavy} mt-8`}>About Lovetech <ArrowRight className="size-4" /></Link>
-          </div>
+      <section className={`${band} bg-primary text-primary-foreground`}><div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
+        <img src={financeImg} alt="Reviewing business financial records" loading="lazy" width={1280} height={960} className="aspect-[4/3] w-full rounded-lg object-cover" />
+        <div><Eyebrow dark>Finance Readiness Diagnostic</Eyebrow><h2 className={heading}>Are you ready for funding?</h2><p className="mt-4 max-w-xl leading-relaxed text-primary-foreground/85">Use our diagnostic to check your business structure, records, funding need and next steps before approaching lenders, investors or grant programmes.</p>
+          <ol className="my-7 space-y-4">{["Complete diagnostic", "Receive readiness insight", "Get advisory support"].map((s,i) => <li key={s} className="flex items-center gap-4"><span className="grid size-9 shrink-0 place-items-center rounded-full border border-accent/50 text-sm font-bold text-accent">0{i+1}</span><span className="font-medium">{s}</span></li>)}</ol>
+          <Button asChild variant="homepage" className={cta}><Link to="/finance-readiness">Start Finance Readiness Diagnostic <ArrowRight /></Link></Button>
         </div>
-      </section>
+      </div></section>
 
-      {/* 11. Testimonials placeholder */}
-      <section className="px-6 py-16 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-7xl">
-          <Eyebrow>Project experience</Eyebrow>
-          <h2 className="mt-3 font-serif text-3xl font-bold text-navy md:text-4xl">What clients and participants say</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[1, 2, 3].map((n) => (
-              <figure key={n} className="rounded-2xl border border-dashed border-border bg-white p-6">
-                <Quote className="size-6 text-teal" />
-                <blockquote className="mt-3 text-sm italic text-foreground/60">Testimonial coming soon.</blockquote>
-                <figcaption className="mt-4 text-xs font-semibold text-foreground/50">Client / programme partner</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className={band}><div className="mx-auto max-w-7xl"><Eyebrow>Your learning journey</Eyebrow><h2 className={heading}>How Lovetech Academy Works</h2>
+        <ol className="mt-9 grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-4 lg:grid-cols-7">{steps.map((s,i) => <li key={s.title} className="border-t-2 border-border pt-4"><span className="text-xs font-bold text-muted-foreground">0{i+1}</span><s.icon className="my-4 size-6 text-primary" /><h3 className="text-sm font-semibold">{s.title}</h3></li>)}</ol>
+        <Button asChild variant="link" className="mt-7 px-0"><Link to="/academy">Browse all courses <ArrowRight /></Link></Button>
+      </div></section>
 
-      {/* 12. Final CTA */}
-      <section className="bg-navy px-6 py-16 text-center text-white lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="font-serif text-3xl font-bold md:text-4xl">Ready to build a stronger, finance-ready and digitally enabled business?</h2>
-          <p className="mt-4 text-white/75">Whether you need advisory support, training, finance readiness, digital tools or programme implementation, Lovetech Agrofinance &amp; Development can help you take the next practical step.</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link to="/academy" className={btnPrimary}>Explore Academy LMS</Link>
-            <Link to="/finance-readiness" className={btnGhostDark}>Start Finance Diagnostic</Link>
-            <Link to="/contact" className={btnGhostDark}>Book a Consultation</Link>
-          </div>
-        </div>
-      </section>
+      <section className={`${band} bg-muted`}><div className="mx-auto max-w-7xl"><Eyebrow>Enterprise & development</Eyebrow><h2 className={heading}>Who We Serve</h2><div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">{audiences.map(a => <div key={a.title} className="flex min-h-28 flex-col items-start gap-4 rounded-lg border border-border bg-card p-5"><a.icon className="size-6 shrink-0 text-primary" strokeWidth={1.5} /><h3 className="text-sm font-semibold leading-relaxed">{a.title}</h3></div>)}</div></div></section>
+
+      <section className={band}><div className="mx-auto max-w-7xl"><div className="grid items-center gap-8 lg:grid-cols-2"><div><Eyebrow>Programme implementation</Eyebrow><h2 className={heading}>Programme Support for Institutions</h2><p className="mt-4 leading-relaxed text-muted-foreground">We support skills assessments, curriculum development, hybrid training, coaching, reporting and evidence documentation.</p><div className="mt-6 flex flex-wrap gap-3"><Button asChild className={cta}><Link to="/contact">Book a Programme Consultation <ArrowRight /></Link></Button><Button asChild variant="link" className={cta}><Link to="/programmes">View Programme Support</Link></Button></div></div><img src={academyImg} alt="Lovetech hybrid training workshop" loading="lazy" width={1280} height={960} className="aspect-[16/9] w-full rounded-lg object-cover" /></div>
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">{programmeSupport.map(x => <li key={x.title} className="flex items-start gap-3 border-t border-border pt-5"><x.icon className="size-5 shrink-0 text-primary" /><span className="text-sm font-semibold">{x.title}</span></li>)}</ul>
+      </div></section>
+
+      <section className={`${band} bg-muted`}><div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2"><img src={digitalImg} alt="Business owner and adviser using digital customer records and reports" loading="lazy" width={1280} height={960} className="aspect-[4/3] w-full rounded-lg object-cover" /><div><Eyebrow>Practical technology</Eyebrow><h2 className={heading}>Digital &amp; AI Solutions</h2><p className="mt-4 leading-relaxed text-muted-foreground">We help SMEs and institutions use AI, forms, dashboards, CRM-style tools and automation to work smarter.</p><div className="mt-6 grid grid-cols-2 gap-3">{digitalServices.map(x => <div key={x.title} className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4"><x.icon className="size-6 text-primary" /><h3 className="text-sm font-semibold leading-relaxed">{x.title}</h3></div>)}</div><Button asChild className={`${cta} mt-6`}><Link to="/contact">Request Digital Support <ArrowRight /></Link></Button></div></div></section>
+
+      <section className={band}><div className="mx-auto max-w-7xl"><h2 className="font-display text-2xl font-bold tracking-normal md:text-3xl">Lovetech Group Ventures</h2><p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">Our wider ecosystem includes hospitality, wellness and product ventures built around enterprise, service and innovation.</p><div className="mt-6 grid gap-5 sm:grid-cols-2">{ventures.map(v => <article key={v.to} className="overflow-hidden rounded-lg border border-border bg-card"><img src={v.img} alt={v.name} loading="lazy" className="aspect-[3/1] w-full object-cover" /><div className="p-5"><Button asChild variant="link" className="h-auto w-full justify-between p-0 text-base"><Link to={v.to}>{v.name} <ArrowRight /></Link></Button></div></article>)}</div></div></section>
+
+      <section className={`${band} bg-muted`}><div className="mx-auto flex max-w-5xl flex-col items-start gap-8 md:flex-row md:items-center"><img src={avessImg} alt="Avess Abutu, Founder and CEO" loading="lazy" className="aspect-square w-44 shrink-0 rounded-lg object-cover object-top md:w-56" /><div><Eyebrow>From the CEO</Eyebrow><h2 className={heading}>From the CEO</h2><p className="mt-4 max-w-2xl text-lg leading-relaxed">At Lovetech, we believe development must be practical. We help businesses move from ideas to structure, from structure to growth, and from growth to sustainable impact.</p><p className="mt-5 font-bold">Avess Abutu <span className="ml-2 text-sm font-normal text-muted-foreground">Founder/CEO</span></p><Button asChild variant="link" className="mt-4 h-auto px-0"><Link to="/about">Read More About Lovetech <ArrowRight /></Link></Button></div></div></section>
+
+      <section className={band}><div className="mx-auto max-w-7xl"><h2 className="font-display text-2xl font-bold tracking-normal md:text-3xl">What clients and participants say</h2><div className="mt-6 grid gap-4 md:grid-cols-3">{["Client story coming soon", "Programme feedback coming soon", "Learner testimonial coming soon"].map(t => <div key={t} className="flex items-center gap-4 rounded-lg border border-dashed border-border p-5"><Quote className="size-6 shrink-0 text-muted-foreground" /><p className="text-sm text-muted-foreground">{t}</p></div>)}</div></div></section>
+
+      <section className={`${band} bg-primary text-center text-primary-foreground`}><div className="mx-auto max-w-3xl"><h2 className={heading}>Ready to build a stronger business?</h2><p className="mt-4 text-primary-foreground/85">Start with training, finance-readiness or advisory support.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Button asChild variant="homepage" className={cta}><Link to="/academy">Explore Academy LMS <ArrowRight /></Link></Button><Button asChild variant="homepageOutline" className={cta}><Link to="/finance-readiness">Start Diagnostic</Link></Button><Button asChild variant="homepageOutline" className={cta}><Link to="/contact">Book Consultation</Link></Button></div></div></section>
     </main>
   );
 }

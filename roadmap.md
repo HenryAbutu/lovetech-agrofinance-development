@@ -9,3 +9,6 @@
 # Approved homepage refinements
 - [x] Replace Finance Diagnostic and Digital & AI sections with supplied copy.
 - [x] Verify homepage navigation, signed-in/out menus, course links and CTAs on desktop and mobile without changing LMS workflows.
+# Visual homepage refinement
+- [x] Shorten all homepage sections and add icon-led cards, badges, compact processes and digital-support imagery.
+- [x] Verify desktop/mobile rendering, preserved links and signed-in/out menus without altering auth or LMS logic.

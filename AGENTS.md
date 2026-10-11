@@ -3,3 +3,4 @@
 - Use `LegalNotice` for consent links at authentication, registration, enquiry and checkout controls so all forms point to the same canonical legal pages.
 - Keep `/privacy` and `/terms` as permanent redirects to the canonical legal URLs so existing links remain usable.- Keep agent-integration (MCP) tools in `src/lib/mcp/` and query the database only as the signed-in caller, so connected assistants never see another user's data.
 - Keep user roles only in `user_roles` (never on profiles); `has_role(...,'admin')` also passes for super_admin, so every existing admin check covers super admins automatically.
+- Keep homepage visual content separate from auth and LMS logic, and use shared Button variants for its CTAs, so presentation updates preserve learner workflows and navigation.

@@ -141,7 +141,7 @@ export function SiteHeader() {
               {serviceContent.map((s) => (
                 <Link
                   key={s.id}
-                  to={s.to as any}
+                  to={s.to}
                   className="block whitespace-normal px-3 py-3 leading-relaxed hover:bg-muted"
                 >
                   {s.title}
@@ -152,7 +152,7 @@ export function SiteHeader() {
           {navLinks.slice(1).map((l) => (
             <Link
               key={l.to}
-              to={l.to as any}
+              to={l.to}
               activeProps={{ className: "text-primary underline underline-offset-4" }}
               className="hover:text-primary"
             >
@@ -228,7 +228,7 @@ export function SiteHeader() {
               {serviceContent.map((s) => (
                 <Link
                   key={s.id}
-                  to={s.to as any}
+                  to={s.to}
                   onClick={() => setOpen(false)}
                   className="block py-3 text-sm"
                 >
@@ -240,7 +240,7 @@ export function SiteHeader() {
           {navLinks.slice(1).map((l) => (
             <Link
               key={l.to}
-              to={l.to as any}
+              to={l.to}
               onClick={() => setOpen(false)}
               className="block py-3 text-sm"
             >
@@ -414,7 +414,7 @@ export function SiteFooter() {
                 {c.links.map((l) => (
                   <li key={l.to}>
                     <Link
-                      to={l.to as any}
+                      to={l.to}
                       className="text-sm leading-relaxed text-primary-foreground/80 hover:text-accent"
                     >
                       {l.label}

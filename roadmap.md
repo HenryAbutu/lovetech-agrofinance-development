@@ -1,8 +1,8 @@
 # Public visual-conformance and protection audit
 - [x] Record every public page's original desktop/mobile deviations and inspect protected code/policies read-only.
-- [ ] Correct public typography, mobile overflow, form visibility, focus states and shared navigation consistency.
-- [ ] Recheck all public links, route protection and protected-file fingerprints without login, submissions or publication.
-- [ ] Deliver page audit, exact changed files, checks, limitations and preview-only confirmation.
+- [x] Correct public typography, mobile overflow, form visibility, focus states and shared navigation consistency.
+- [x] Recheck all public links, route protection and protected-file fingerprints without login, submissions or publication.
+- [x] Deliver page audit, exact changed files, checks, limitations and preview-only confirmation.
 # Institutional public website redesign
 - [x] Inspect protected workflows and routes; use supplied essential copy because Google Docs is not connected.
 - [x] Redesign homepage, navigation/footer and About/Advisory; add four services, Who We Serve and Our Work.

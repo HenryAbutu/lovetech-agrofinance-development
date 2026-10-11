@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { Menu, X, ShieldCheck } from "lucide-react";
@@ -244,6 +244,8 @@ export function SiteHeader() {
 }
 
 export function NextStepBand() {
+  const { pathname } = useLocation();
+  if (pathname === "/") return null;
   return (
     <section className="border-t border-border bg-cloud px-6 py-20 lg:px-8">
       <div className="mx-auto max-w-5xl text-center">

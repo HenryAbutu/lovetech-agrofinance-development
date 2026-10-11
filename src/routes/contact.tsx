@@ -129,8 +129,8 @@ function ContactPage() {
               </div>
               <div className="grid gap-5 md:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-foreground/80">Area of interest</label>
-                  <select name="service_area" defaultValue={service ?? ""} className="input">
+                  <label htmlFor="service_area" className="mb-1 block text-sm font-medium text-foreground/80">Area of interest</label>
+                  <select id="service_area" name="service_area" defaultValue={service ?? ""} className="input">
                     <option value="">Select…</option>
                     {serviceAreas.map((s) => <option key={s}>{s}</option>)}
                   </select>
@@ -139,23 +139,23 @@ function ContactPage() {
               </div>
               <div className="grid gap-5 md:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-foreground/80">Urgency</label>
-                  <select name="urgency" className="input">
+                  <label htmlFor="urgency" className="mb-1 block text-sm font-medium text-foreground/80">Urgency</label>
+                  <select id="urgency" name="urgency" className="input">
                     <option value="">Select…</option>
                     {["Just exploring","Within 1 month","Within 2 weeks","This week"].map((s) => <option key={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-foreground/80">Budget range (optional)</label>
-                  <select name="budget_range" className="input">
+                  <label htmlFor="budget_range" className="mb-1 block text-sm font-medium text-foreground/80">Budget range (optional)</label>
+                  <select id="budget_range" name="budget_range" className="input">
                     <option value="">Select…</option>
                     {["Under ₦100k","₦100k - ₦500k","₦500k - ₦2m","₦2m+","Not sure yet"].map((s) => <option key={s}>{s}</option>)}
                   </select>
                 </div>
               </div>
               <div>
-                <label className="mb-1 block text-sm font-medium text-foreground/80">Message *</label>
-                <textarea name="message" required rows={5} className="input" placeholder="Tell us about your business, stay or order and what you need help with." />
+                <label htmlFor="message" className="mb-1 block text-sm font-medium text-foreground/80">Message *</label>
+                <textarea id="message" name="message" required rows={5} className="input" placeholder="Tell us about your business, stay or order and what you need help with." />
               </div>
               {err && <p className="text-sm text-destructive">{err}</p>}
               <Button disabled={state === "loading"} className="rounded-lg bg-navy px-6 py-3 font-semibold text-primary-foreground shadow-sm hover:opacity-95 disabled:opacity-60">
@@ -194,8 +194,8 @@ function ContactPage() {
 function Field({ name, label, type = "text", required, placeholder }: { name: string; label: string; type?: string; required?: boolean; placeholder?: string }) {
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
-      <input name={name} type={type} required={required} placeholder={placeholder} className="input" />
+      <label htmlFor={name} className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
+      <input id={name} name={name} type={type} required={required} placeholder={placeholder} className="input" />
     </div>
   );
 }

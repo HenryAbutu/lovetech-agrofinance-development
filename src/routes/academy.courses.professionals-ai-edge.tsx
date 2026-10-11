@@ -211,7 +211,7 @@ function Page() {
                   <p className="mt-2 text-xs text-foreground/55">Details are taken from your account. <Link to="/settings/profile" className="underline">Update profile</Link>.</p>
                   <div className="mt-4">
                     <label className="mb-1 block text-sm font-medium text-foreground/80">Main challenge you want AI to solve (optional)</label>
-                    <textarea name="main_challenge" rows={3} value={mainChallenge} onChange={(e) => setMainChallenge(e.target.value)} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+                    <textarea aria-label="Main challenge you want AI to help with" name="main_challenge" rows={3} value={mainChallenge} onChange={(e) => setMainChallenge(e.target.value)} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
                   </div>
                 </div>
               ) : (
@@ -230,7 +230,7 @@ function Page() {
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-foreground/80">Main challenge you want AI to solve</label>
-                    <textarea name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+                    <textarea aria-label="Main challenge you want AI to help with" name="main_challenge" rows={3} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
                   </div>
                   <Field name="referral_source" label="How did you hear about us?" />
                 </>
@@ -242,6 +242,7 @@ function Page() {
                 </label>
                 <div className="flex gap-2">
                   <input
+                    aria-label="Discount coupon (optional)"
                     name="coupon_code"
                     value={coupon}
                     onChange={(e) => { setCoupon(e.target.value); setCouponInfo(null); }}
@@ -320,8 +321,8 @@ function Page() {
 function Field({ name, label, type = "text", required }: { name: string; label: string; type?: string; required?: boolean }) {
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
-      <input name={name} type={type} required={required} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
+      <label htmlFor={name} className="mb-1 block text-sm font-medium text-foreground/80">{label}{required && " *"}</label>
+      <input id={name} name={name} type={type} required={required} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" />
     </div>
   );
 }

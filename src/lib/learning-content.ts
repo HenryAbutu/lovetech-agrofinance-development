@@ -59,7 +59,7 @@ export const ACTION_PLAN_TYPES = [
 ] as const;
 
 /** Courses learners can start now from the catalogue. */
-export const LEARNABLE = new Set(["ai-for-businesses", "agribusiness-skills"]);
+export const LEARNABLE = new Set(["ai-for-businesses", "finance-readiness-msmes", "agribusiness-skills", "business-automation-smes"]);
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 60);
 

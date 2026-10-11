@@ -1,26 +1,346 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowRight, ArrowUpRight, GraduationCap, Check, Building2, Sprout, Users, Briefcase, Landmark } from 'lucide-react';
-import hero from '@/assets/group/hero-advisory-session.jpg';
-import academy from '@/assets/group/academy-workshop.jpg';
-import founder from '@/assets/avess-abutu.png';
-import house from '@/assets/group/house8-exterior.png';
-import ruby from '@/assets/group/rubychai-packaging.png';
-import { catalogue } from '@/lib/academy-catalogue';
-import { Button } from '@/components/ui/button';
-import { ServiceCards, Eyebrow, ConsultationCTA } from '@/components/website/presentation';
-import { websiteHead, experienceNote, audienceContent, serviceContent } from '@/components/website/content';
-export const Route = createFileRoute('/')({head:()=>websiteHead('Business advisory, enterprise & institutional development','Lovetech works with entrepreneurs, agribusinesses, financial institutions and development partners to prepare for finance and build stronger systems, skills and programmes.'),component:Home});
-const audienceIcons=[Briefcase,Sprout,Users,Building2,Landmark];
-function Home(){return <main className="website">
- <section className="web-photo-hero home-hero"><img src={hero} alt="An African business training and advisory setting" fetchPriority="high" className="web-hero-image"/><div className="web-hero-shade"/><div className="web-container relative py-14 lg:py-20"><div className="max-w-2xl"><Eyebrow>Lovetech Agrofinance & Development Ltd</Eyebrow><h1 className="web-title">Better-prepared businesses.<br/>Stronger institutions.<br/><span className="text-accent">More opportunities to grow.</span></h1><p className="mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/90">We work with entrepreneurs, agribusinesses, financial institutions and development partners to solve practical challenges — from getting ready for finance to building better systems, skills and programmes.</p><div className="mt-8 flex flex-wrap gap-3"><Button asChild variant="websiteLight" className="web-button"><Link to="/contact">Book a Consultation <ArrowUpRight/></Link></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/advisory">Explore Our Services <ArrowRight/></Link></Button></div><Link to="/academy" className="mt-7 inline-flex items-center gap-2 border-b border-primary-foreground/40 pb-1 text-sm">Skills you can put to work · Explore Academy <ArrowUpRight className="size-4"/></Link></div></div><div className="web-container relative border-t border-primary-foreground/25 py-4"><p className="text-xs text-primary-foreground/80">Enterprise development &nbsp; / &nbsp; Finance readiness &nbsp; / &nbsp; Institutional capability</p></div></section>
- <section className="border-b border-border bg-secondary py-8"><div className="web-container"><div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">{[['1,000+','MSMEs & entrepreneurs reached'],['250+','Businesses directly supported'],['6','Master Trainers'],['Multidisciplinary','Expertise']].map(([n,t])=><div key={t} className="border-l border-primary/20 pl-5"><p className={`${n==='Multidisciplinary'?'text-lg':'text-3xl'} font-semibold text-primary`}>{n}</p><p className="mt-2 text-xs text-muted-foreground">{t}</p></div>)}</div><p className="mt-6 max-w-5xl text-[11px] leading-relaxed text-muted-foreground">{experienceNote}</p></div></section>
- <section className="web-section"><div className="web-container"><div className="flex flex-wrap items-end justify-between gap-6"><div><Eyebrow>Our core advisory areas</Eyebrow><h2 className="web-heading">What Lovetech Does</h2></div><p className="max-w-sm text-sm leading-relaxed text-muted-foreground">Practical support that connects business preparation, enterprise growth and better ways of working.</p></div><ServiceCards/></div></section>
- <section className="web-section bg-primary text-primary-foreground"><div className="web-container"><div className="grid items-center gap-10 lg:grid-cols-2"><div><p className="mb-5 inline-flex items-center gap-2 text-xs font-semibold"><span className="size-2 rounded-full bg-accent"/> Academy is live</p><h2 className="web-heading">Skills you can put to work.</h2><p className="mt-5 max-w-lg text-primary-foreground/80 leading-relaxed">Learn through the Lovetech Academy LMS — practical courses, downloadable tools, assignments, assessments and action plans.</p><div className="mt-7 flex flex-wrap gap-3"><Button asChild variant="websiteLight" className="web-button"><Link to="/academy">Explore Lovetech Academy <ArrowUpRight/></Link></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/academy/dashboard">My Academy <GraduationCap/></Link></Button></div></div><img src={academy} alt="Participants learning practical business skills at a workshop" loading="lazy" className="aspect-[16/10] w-full rounded-lg object-cover"/></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{catalogue.slice(0,4).map(c=><article key={c.slug} className="flex flex-col rounded-lg border border-primary-foreground/25 p-5"><p className="text-[11px] text-accent">{c.pathway}</p><h3 className="mt-3 flex-1 text-base font-semibold leading-relaxed">{c.title}</h3><p className="mt-4 text-xs text-primary-foreground/75">{c.duration} · {c.delivery}</p><Button asChild variant="link" className="mt-5 justify-start px-0 text-primary-foreground"><Link to="/academy/courses/$slug" params={{slug:c.slug}}>View Course <ArrowRight/></Link></Button></article>)}</div><p className="mt-5 text-xs text-primary-foreground/75">Course availability, previews and enrolment requirements are shown on each course page.</p></div></section>
- <section className="web-section"><div className="web-container grid items-center gap-12 lg:grid-cols-2"><div><Eyebrow>Programme & institutional support</Eyebrow><h2 className="web-heading">Strong programmes need more than good designs.</h2><p className="mt-5 text-muted-foreground leading-relaxed">{serviceContent[3].intro.substring(serviceContent[3].intro.indexOf('. ')+2)}</p><ul className="mt-6 grid gap-3 sm:grid-cols-2">{['Coordinated delivery','Institutional capacity','Research & MEL','Practical training'].map(t=><li key={t} className="flex items-center gap-2 text-sm"><Check className="size-4 text-primary"/>{t}</li>)}</ul><Button asChild variant="link" className="mt-7 px-0"><Link to="/programme-support">Explore Programme Support <ArrowUpRight/></Link></Button></div><img src={academy} alt="Business skills workshop with African participants" loading="lazy" className="aspect-[4/3] w-full rounded-lg object-cover"/></div></section>
- <section className="web-section bg-muted"><div className="web-container"><Eyebrow>Different contexts. Shared ambition.</Eyebrow><div className="flex flex-wrap justify-between gap-6"><h2 className="web-heading">Who We Serve</h2><Button asChild variant="link" className="px-0"><Link to="/who-we-serve">Find your starting point <ArrowUpRight/></Link></Button></div><div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">{audienceContent.map(([t,b],i)=>{const Icon=audienceIcons[i]??Users;return <div key={t} className="border-t border-primary/25 pt-5"><Icon className="size-7 text-primary" strokeWidth={1.4}/><h3 className="mt-5 text-base font-semibold leading-relaxed">{t}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p></div>})}</div></div></section>
- <section className="web-section"><div className="web-container grid gap-10 lg:grid-cols-2"><div><Eyebrow>Our work & professional experience</Eyebrow><h2 className="web-heading">Experience matters.<br/>So does clear attribution.</h2><Button asChild variant="link" className="mt-6 px-0"><Link to="/our-work">Our work & experience <ArrowUpRight/></Link></Button></div><div className="border-l border-border pl-7"><p className="leading-relaxed text-muted-foreground">{experienceNote}</p><p className="mt-5 text-sm text-muted-foreground">Company case studies and client references will appear after evidence and publication permissions are approved.</p></div></div></section>
- <section className="border-y border-border bg-secondary py-10"><div className="web-container"><div className="flex flex-wrap items-center justify-between gap-6"><div><Eyebrow>Our wider ecosystem</Eyebrow><h2 className="text-xl font-semibold">Lovetech Group Ventures</h2></div><div className="flex flex-wrap gap-6">{[{to:'/house-8',name:'House 8 Shortlet Apartments',img:house},{to:'/ruby-chai',name:'Ruby Chai Wellness',img:ruby}].map(v=><Link key={v.to} to={v.to} className="flex items-center gap-3 text-sm font-medium hover:text-primary"><img src={v.img} alt={v.name} loading="lazy" className="size-14 rounded object-cover"/>{v.name}<ArrowUpRight className="size-4"/></Link>)}</div></div></div></section>
- <section className="web-section"><div className="web-container flex flex-wrap items-center justify-between gap-8"><div><Eyebrow>Insights</Eyebrow><h2 className="web-heading">Ideas for better-prepared businesses.</h2><p className="mt-4 max-w-xl text-muted-foreground">Explore published perspectives on enterprise, finance readiness, agribusiness and practical technology.</p></div><Button asChild variant="outline" className="web-button"><Link to="/insights">Browse Insights <ArrowUpRight/></Link></Button></div></section>
- <section className="web-section bg-muted"><div className="web-container flex flex-col gap-8 md:flex-row md:items-center"><img src={founder} alt="Avess Abutu, Founder and CEO" loading="lazy" className="h-52 w-44 rounded-lg object-cover object-top"/><div className="max-w-2xl"><Eyebrow>Our founder</Eyebrow><h2 className="web-heading">Advisory rooted in real business challenges.</h2><p className="mt-5 text-muted-foreground">Founded by Avess Swile Abutu, Lovetech brings a practical view of enterprise development, finance readiness and institutional capability.</p><Button asChild variant="link" className="mt-5 px-0"><Link to="/about">About Lovetech <ArrowUpRight/></Link></Button></div></div></section>
- <ConsultationCTA/>
- </main>}
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  GraduationCap,
+  Check,
+  Building2,
+  Sprout,
+  Users,
+  Briefcase,
+  Landmark,
+} from "lucide-react";
+import hero from "@/assets/academy-hero-v3.jpg";
+import academy from "@/assets/group/academy-workshop.jpg";
+import founder from "@/assets/avess-abutu.png";
+import house from "@/assets/group/house8-exterior.png";
+import ruby from "@/assets/group/rubychai-packaging.png";
+import { catalogue } from "@/lib/academy-catalogue";
+import { Button } from "@/components/ui/button";
+import { ServiceCards, Eyebrow, ConsultationCTA } from "@/components/website/presentation";
+import {
+  websiteHead,
+  experienceNote,
+  audienceContent,
+  serviceContent,
+} from "@/components/website/content";
+export const Route = createFileRoute("/")({
+  head: () =>
+    websiteHead(
+      "Business advisory, enterprise & institutional development",
+      "Lovetech works with entrepreneurs, agribusinesses, financial institutions and development partners to prepare for finance and build stronger systems, skills and programmes.",
+    ),
+  component: Home,
+});
+const audienceIcons = [Briefcase, Sprout, Users, Building2, Landmark];
+function Home() {
+  return (
+    <main className="website">
+      <section className="web-photo-hero home-hero">
+        <img
+          src={hero}
+          alt="An African business training and advisory setting"
+          fetchPriority="high"
+          className="web-hero-image"
+        />
+        <div className="web-hero-shade" />
+        <div className="web-container relative py-14 lg:py-20">
+          <div className="max-w-2xl">
+            <Eyebrow>Lovetech Agrofinance & Development Ltd</Eyebrow>
+            <h1 className="web-title">
+              Better-prepared businesses.
+              <br />
+              Stronger institutions.
+              <br />
+              <span className="text-accent">More opportunities to grow.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/90">
+              We work with entrepreneurs, agribusinesses, financial institutions and development
+              partners to solve practical challenges — from getting ready for finance to building
+              better systems, skills and programmes.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild variant="websiteLight" className="web-button">
+                <Link to="/contact">
+                  Book a Consultation <ArrowUpRight />
+                </Link>
+              </Button>
+              <Button asChild variant="homepageOutline" className="web-button">
+                <Link to="/advisory">
+                  Explore Our Services <ArrowRight />
+                </Link>
+              </Button>
+            </div>
+            <Link
+              to="/academy"
+              className="mt-7 inline-flex items-center gap-2 border-b border-primary-foreground/40 pb-1 text-sm"
+            >
+              Skills you can put to work · Explore Academy <ArrowUpRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+        <div className="web-container relative border-t border-primary-foreground/25 py-4">
+          <p className="text-xs text-primary-foreground/80">
+            Enterprise development &nbsp; / &nbsp; Finance readiness &nbsp; / &nbsp; Institutional
+            capability
+          </p>
+        </div>
+      </section>
+      <section className="border-b border-border bg-secondary py-8">
+        <div className="web-container">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+            {[
+              ["1,000+", "MSMEs & entrepreneurs reached"],
+              ["250+", "Businesses directly supported"],
+              ["6", "Master Trainers"],
+              ["Multidisciplinary", "Expertise"],
+            ].map(([n, t]) => (
+              <div key={t} className="border-l border-primary/20 pl-5">
+                <p
+                  className={`${n === "Multidisciplinary" ? "text-lg" : "text-3xl"} font-semibold text-primary`}
+                >
+                  {n}
+                </p>
+                <p className="mt-2 text-xs text-muted-foreground">{t}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 max-w-5xl text-[11px] leading-relaxed text-muted-foreground">
+            {experienceNote}
+          </p>
+        </div>
+      </section>
+      <section className="web-section">
+        <div className="web-container">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow>Our core advisory areas</Eyebrow>
+              <h2 className="web-heading">What Lovetech Does</h2>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+              Practical support that connects business preparation, enterprise growth and better
+              ways of working.
+            </p>
+          </div>
+          <ServiceCards />
+        </div>
+      </section>
+      <section className="web-section bg-primary text-primary-foreground">
+        <div className="web-container">
+          <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <p className="mb-5 inline-flex items-center gap-2 text-xs font-semibold">
+                <span className="size-2 rounded-full bg-accent" /> Academy is live
+              </p>
+              <h2 className="web-heading">Skills you can put to work.</h2>
+              <p className="mt-5 max-w-lg text-primary-foreground/80 leading-relaxed">
+                Learn through the Lovetech Academy LMS — practical courses, downloadable tools,
+                assignments, assessments and action plans.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Button asChild variant="websiteLight" className="web-button">
+                  <Link to="/academy">
+                    Explore Lovetech Academy <ArrowUpRight />
+                  </Link>
+                </Button>
+                <Button asChild variant="homepageOutline" className="web-button">
+                  <Link to="/academy/dashboard">
+                    My Academy <GraduationCap />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+            <img
+              src={academy}
+              alt="Participants learning practical business skills at a workshop"
+              loading="lazy"
+              className="aspect-[16/10] w-full rounded-lg object-cover"
+            />
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {catalogue.slice(0, 4).map((c) => (
+              <article
+                key={c.slug}
+                className="flex flex-col rounded-lg border border-primary-foreground/25 p-5"
+              >
+                <p className="text-[11px] text-accent">{c.pathway}</p>
+                <h3 className="mt-3 flex-1 text-base font-semibold leading-relaxed">{c.title}</h3>
+                <p className="mt-4 text-xs text-primary-foreground/75">
+                  {c.duration} · {c.delivery}
+                </p>
+                <Button
+                  asChild
+                  variant="link"
+                  className="mt-5 justify-start px-0 text-primary-foreground"
+                >
+                  <Link to="/academy/courses/$slug" params={{ slug: c.slug }}>
+                    View Course <ArrowRight />
+                  </Link>
+                </Button>
+              </article>
+            ))}
+          </div>
+          <p className="mt-5 text-xs text-primary-foreground/75">
+            Course availability, previews and enrolment requirements are shown on each course page.
+          </p>
+        </div>
+      </section>
+      <section className="web-section">
+        <div className="web-container grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <Eyebrow>Programme & institutional support</Eyebrow>
+            <h2 className="web-heading">Strong programmes need more than good designs.</h2>
+            <p className="mt-5 text-muted-foreground leading-relaxed">
+              {serviceContent[3].intro.substring(serviceContent[3].intro.indexOf(". ") + 2)}
+            </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {[
+                "Coordinated delivery",
+                "Institutional capacity",
+                "Research & MEL",
+                "Practical training",
+              ].map((t) => (
+                <li key={t} className="flex items-center gap-2 text-sm">
+                  <Check className="size-4 text-primary" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <Button asChild variant="link" className="mt-7 px-0">
+              <Link to="/programme-support">
+                Explore Programme Support <ArrowUpRight />
+              </Link>
+            </Button>
+          </div>
+          <img
+            src={academy}
+            alt="Business skills workshop with African participants"
+            loading="lazy"
+            className="aspect-[4/3] w-full rounded-lg object-cover"
+          />
+        </div>
+      </section>
+      <section className="web-section bg-muted">
+        <div className="web-container">
+          <Eyebrow>Different contexts. Shared ambition.</Eyebrow>
+          <div className="flex flex-wrap justify-between gap-6">
+            <h2 className="web-heading">Who We Serve</h2>
+            <Button asChild variant="link" className="px-0">
+              <Link to="/who-we-serve">
+                Find your starting point <ArrowUpRight />
+              </Link>
+            </Button>
+          </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {audienceContent.map(([t, b], i) => {
+              const Icon = audienceIcons[i] ?? Users;
+              return (
+                <div key={t} className="border-t border-primary/25 pt-5">
+                  <Icon className="size-7 text-primary" strokeWidth={1.4} />
+                  <h3 className="mt-5 text-base font-semibold leading-relaxed">{t}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      <section className="web-section">
+        <div className="web-container grid gap-10 lg:grid-cols-2">
+          <div>
+            <Eyebrow>Our work & professional experience</Eyebrow>
+            <h2 className="web-heading">
+              Experience matters.
+              <br />
+              So does clear attribution.
+            </h2>
+            <Button asChild variant="link" className="mt-6 px-0">
+              <Link to="/our-work">
+                Our work & experience <ArrowUpRight />
+              </Link>
+            </Button>
+          </div>
+          <div className="border-l border-border pl-7">
+            <p className="leading-relaxed text-muted-foreground">{experienceNote}</p>
+            <p className="mt-5 text-sm text-muted-foreground">
+              Company case studies and client references will appear after evidence and publication
+              permissions are approved.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="border-y border-border bg-secondary py-10">
+        <div className="web-container">
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <div>
+              <Eyebrow>Our wider ecosystem</Eyebrow>
+              <h2 className="text-xl font-semibold">Lovetech Group Ventures</h2>
+            </div>
+            <div className="flex flex-wrap gap-6">
+              {[
+                { to: "/house-8", name: "House 8 Shortlet Apartments", img: house },
+                { to: "/ruby-chai", name: "Ruby Chai Wellness", img: ruby },
+              ].map((v) => (
+                <Link
+                  key={v.to}
+                  to={v.to}
+                  className="flex items-center gap-3 text-sm font-medium hover:text-primary"
+                >
+                  <img
+                    src={v.img}
+                    alt={v.name}
+                    loading="lazy"
+                    className="size-14 rounded object-cover"
+                  />
+                  {v.name}
+                  <ArrowUpRight className="size-4" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="web-section">
+        <div className="web-container flex flex-wrap items-center justify-between gap-8">
+          <div>
+            <Eyebrow>Insights</Eyebrow>
+            <h2 className="web-heading">Ideas for better-prepared businesses.</h2>
+            <p className="mt-4 max-w-xl text-muted-foreground">
+              Explore published perspectives on enterprise, finance readiness, agribusiness and
+              practical technology.
+            </p>
+          </div>
+          <Button asChild variant="outline" className="web-button">
+            <Link to="/insights">
+              Browse Insights <ArrowUpRight />
+            </Link>
+          </Button>
+        </div>
+      </section>
+      <section className="web-section bg-muted">
+        <div className="web-container flex flex-col gap-8 md:flex-row md:items-center">
+          <img
+            src={founder}
+            alt="Avess Abutu, Founder and CEO"
+            loading="lazy"
+            className="h-52 w-44 rounded-lg object-cover object-top"
+          />
+          <div className="max-w-2xl">
+            <Eyebrow>Our founder</Eyebrow>
+            <h2 className="web-heading">Advisory rooted in real business challenges.</h2>
+            <p className="mt-5 text-muted-foreground">
+              Founded by Avess Swile Abutu, Lovetech brings a practical view of enterprise
+              development, finance readiness and institutional capability.
+            </p>
+            <Button asChild variant="link" className="mt-5 px-0">
+              <Link to="/about">
+                About Lovetech <ArrowUpRight />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+      <ConsultationCTA />
+    </main>
+  );
+}

@@ -1,8 +1,89 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowUpRight } from 'lucide-react';
-import hero from '@/assets/group/hero-advisory-session.jpg';
-import { Button } from '@/components/ui/button';
-import { PhotoHero, ServiceCards, Eyebrow, ConsultationCTA } from '@/components/website/presentation';
-import { websiteHead, serviceContent } from '@/components/website/content';
-export const Route=createFileRoute('/advisory')({head:()=>websiteHead('Advisory Services','Finance readiness, agribusiness and enterprise development, digital & AI solutions and programme support for businesses and institutions.'),component:Advisory});
-function Advisory(){return <main className="website"><PhotoHero label="Our advisory services" title="Practical support. Better-prepared organisations." text="From finance preparation to enterprise development and institutional delivery, we connect advice with the tools and capability to act." image={hero} alt="An African business advisory discussion"><Button asChild variant="websiteLight" className="web-button"><Link to="/contact">Book a Consultation <ArrowUpRight/></Link></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/finance-readiness">Finance Readiness Diagnostic</Link></Button></PhotoHero><section className="web-section"><div className="web-container"><Eyebrow>Enterprise & business support</Eyebrow><h2 className="web-heading">Three connected areas of support.</h2><ServiceCards/></div></section><section className="web-section bg-secondary"><div className="web-container grid items-center gap-10 lg:grid-cols-2"><img src={serviceContent[3].image} alt={serviceContent[3].alt} loading="lazy" className="aspect-[4/3] w-full rounded-lg object-cover"/><div><Eyebrow>For institutions & development partners</Eyebrow><h2 className="web-heading">Programme & Institutional Support</h2><p className="mt-5 leading-relaxed text-muted-foreground">{serviceContent[3].intro}</p><Button asChild className="web-button mt-7"><Link to="/programme-support">Explore Programme Support <ArrowUpRight/></Link></Button></div></div></section><section className="web-section"><div className="web-container"><Eyebrow>From insight to implementation</Eyebrow><h2 className="web-heading">The work starts with your context.</h2><div className="mt-9 grid gap-8 md:grid-cols-4">{[['Listen','Understand your business, team and constraints.'],['Diagnose','Identify the gaps and opportunities that matter.'],['Build','Agree practical tools, skills and deliverables.'],['Review','Support implementation and review progress.']].map(([t,b],i)=><div key={t} className="border-t border-border pt-5"><p className="text-sm text-primary">0{i+1}</p><h3 className="web-card-title mt-4">{t}</h3><p className="mt-3 text-muted-foreground">{b}</p></div>)}</div></div></section><ConsultationCTA/></main>}
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
+import hero from "@/assets/academy-hero-v3.jpg";
+import { Button } from "@/components/ui/button";
+import {
+  PhotoHero,
+  ServiceCards,
+  Eyebrow,
+  ConsultationCTA,
+} from "@/components/website/presentation";
+import { websiteHead, serviceContent } from "@/components/website/content";
+export const Route = createFileRoute("/advisory")({
+  head: () =>
+    websiteHead(
+      "Advisory Services",
+      "Finance readiness, agribusiness and enterprise development, digital & AI solutions and programme support for businesses and institutions.",
+    ),
+  component: Advisory,
+});
+function Advisory() {
+  return (
+    <main className="website">
+      <PhotoHero
+        label="Our advisory services"
+        title="Practical support. Better-prepared organisations."
+        text="From finance preparation to enterprise development and institutional delivery, we connect advice with the tools and capability to act."
+        image={hero}
+        alt="An African business advisory discussion"
+      >
+        <Button asChild variant="websiteLight" className="web-button">
+          <Link to="/contact">
+            Book a Consultation <ArrowUpRight />
+          </Link>
+        </Button>
+        <Button asChild variant="homepageOutline" className="web-button">
+          <Link to="/finance-readiness">Finance Readiness Diagnostic</Link>
+        </Button>
+      </PhotoHero>
+      <section className="web-section">
+        <div className="web-container">
+          <Eyebrow>Enterprise & business support</Eyebrow>
+          <h2 className="web-heading">Three connected areas of support.</h2>
+          <ServiceCards />
+        </div>
+      </section>
+      <section className="web-section bg-secondary">
+        <div className="web-container grid items-center gap-10 lg:grid-cols-2">
+          <img
+            src={serviceContent[3].image}
+            alt={serviceContent[3].alt}
+            loading="lazy"
+            className="aspect-[4/3] w-full rounded-lg object-cover"
+          />
+          <div>
+            <Eyebrow>For institutions & development partners</Eyebrow>
+            <h2 className="web-heading">Programme & Institutional Support</h2>
+            <p className="mt-5 leading-relaxed text-muted-foreground">{serviceContent[3].intro}</p>
+            <Button asChild className="web-button mt-7">
+              <Link to="/programme-support">
+                Explore Programme Support <ArrowUpRight />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+      <section className="web-section">
+        <div className="web-container">
+          <Eyebrow>From insight to implementation</Eyebrow>
+          <h2 className="web-heading">The work starts with your context.</h2>
+          <div className="mt-9 grid gap-8 md:grid-cols-4">
+            {[
+              ["Listen", "Understand your business, team and constraints."],
+              ["Diagnose", "Identify the gaps and opportunities that matter."],
+              ["Build", "Agree practical tools, skills and deliverables."],
+              ["Review", "Support implementation and review progress."],
+            ].map(([t, b], i) => (
+              <div key={t} className="border-t border-border pt-5">
+                <p className="text-sm text-primary">0{i + 1}</p>
+                <h3 className="web-card-title mt-4">{t}</h3>
+                <p className="mt-3 text-muted-foreground">{b}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <ConsultationCTA />
+    </main>
+  );
+}

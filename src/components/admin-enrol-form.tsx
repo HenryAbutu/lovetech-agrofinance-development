@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { learnableCourses } from "@/lib/learning-content";
@@ -9,6 +10,9 @@ export function EnrolForm({ onDone, initialEmail = "", waitlistId }: { onDone: (
   const [email, setEmail] = useState(initialEmail);
   const [course, setCourse] = useState(learnableCourses()[0].slug);
   const [cohort, setCohort] = useState("");
+  const [cohortId, setCohortId] = useState("");
+  const cohorts = useQuery({ queryKey: ["enrol-cohorts"], queryFn: async () => (await supabase.from("lms_cohorts").select("id, name, course_slug")).data ?? [] });
+  const options = (cohorts.data ?? []).filter((c) => c.course_slug === course);
   const [busy, setBusy] = useState(false);
   const notify = useServerFn(sendEnrolmentNotification);
   async function enrol(e: React.FormEvent) {
@@ -16,6 +20,10 @@ export function EnrolForm({ onDone, initialEmail = "", waitlistId }: { onDone: (
     setBusy(true);
     const { error } = await supabase.rpc("admin_enrol_learner", { _email: email, _course_slug: course, _cohort: cohort || undefined, _waitlist_id: waitlistId });
     if (error) { setBusy(false); return toast.error(error.message); }
+    if (cohortId) {
+      const { data: p } = await supabase.from("profiles").select("id").ilike("email", email.trim()).maybeSingle();
+      if (p) await supabase.from("lms_course_starts").update({ cohort_id: cohortId, cohort_name: cohort }).eq("user_id", p.id).eq("course_slug", course);
+    }
     try {
       const r = await notify({ data: { email, course_slug: course, cohort: cohort || null, origin: window.location.origin } });
       if (r.ok) toast.success(`${email} is now enrolled and has been emailed`);
@@ -32,12 +40,18 @@ export function EnrolForm({ onDone, initialEmail = "", waitlistId }: { onDone: (
         <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 block w-64 rounded-md border border-input bg-background p-2 text-sm" />
       </label>
       <label className="text-xs font-medium">Course
-        <select value={course} onChange={(e) => setCourse(e.target.value)} className="mt-1 block rounded-md border border-input bg-background p-2 text-sm">
+        <select value={course} onChange={(e) => { setCourse(e.target.value); setCohortId(""); setCohort(""); }} className="mt-1 block rounded-md border border-input bg-background p-2 text-sm">
           {learnableCourses().map((c) => <option key={c.slug} value={c.slug}>{c.title.split(":")[0]}</option>)}
         </select>
       </label>
       <label className="text-xs font-medium">Cohort (optional)
-        <input value={cohort} onChange={(e) => setCohort(e.target.value)} placeholder="e.g. Abuja Cohort 1" className="mt-1 block w-48 rounded-md border border-input bg-background p-2 text-sm" />
+        {options.length > 0 ? (
+          <select value={cohortId} onChange={(e) => { setCohortId(e.target.value); setCohort(options.find((o) => o.id === e.target.value)?.name ?? ""); }} className="mt-1 block w-48 rounded-md border border-input bg-background p-2 text-sm">
+            <option value="">No cohort</option>{options.map((o) => <option key={o.id} value={o.id}>{o.name}</option>)}
+          </select>
+        ) : (
+          <input value={cohort} onChange={(e) => setCohort(e.target.value)} placeholder="Create cohorts in the Cohorts tab" className="mt-1 block w-48 rounded-md border border-input bg-background p-2 text-sm" />
+        )}
       </label>
       <button disabled={busy} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60">{busy ? "Enrolling…" : "Enrol learner"}</button>
     </form>

@@ -2,19 +2,28 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { learnableCourses } from "@/lib/learning-content";
+import { useServerFn } from "@tanstack/react-start";
+import { sendEnrolmentNotification } from "@/lib/enrol-notify.functions";
 
 export function EnrolForm({ onDone, initialEmail = "", waitlistId }: { onDone: () => void; initialEmail?: string; waitlistId?: string }) {
   const [email, setEmail] = useState(initialEmail);
   const [course, setCourse] = useState(learnableCourses()[0].slug);
   const [cohort, setCohort] = useState("");
   const [busy, setBusy] = useState(false);
+  const notify = useServerFn(sendEnrolmentNotification);
   async function enrol(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     const { error } = await supabase.rpc("admin_enrol_learner", { _email: email, _course_slug: course, _cohort: cohort || undefined, _waitlist_id: waitlistId });
+    if (error) { setBusy(false); return toast.error(error.message); }
+    try {
+      const r = await notify({ data: { email, course_slug: course, cohort: cohort || null, origin: window.location.origin } });
+      if (r.ok) toast.success(`${email} is now enrolled and has been emailed`);
+      else toast.warning(`${email} is enrolled, but the email failed: ${r.error ?? "unknown error"}`);
+    } catch (e) {
+      toast.warning(`${email} is enrolled, but the email failed: ${(e as Error).message}`);
+    }
     setBusy(false);
-    if (error) return toast.error(error.message);
-    toast.success(`${email} is now enrolled`);
     onDone();
   }
   return (

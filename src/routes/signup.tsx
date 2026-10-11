@@ -17,7 +17,7 @@ function SignupPage() {
     e.preventDefault(); setLoading(true); setErr("");
     const { data, error } = await supabase.auth.signUp({
       email, password,
-      options: { emailRedirectTo: window.location.origin, data: { full_name: fullName } },
+      options: { emailRedirectTo: `${window.location.origin}/auth/callback?verified=1`, data: { full_name: fullName } },
     });
     setLoading(false);
     if (error) { setErr(error.message); return; }

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { clearSupabaseAuthStorage, supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/auth/callback")({
   ssr: false,
@@ -16,9 +16,20 @@ function AuthCallback() {
   const [err, setErr] = useState("");
   useEffect(() => {
     let done = false;
+    const url = new URL(window.location.href);
+    const hash = new URLSearchParams(url.hash.slice(1));
+    const isVerify = url.searchParams.get("verified") === "1" || ["signup", "email"].includes(url.searchParams.get("type") ?? hash.get("type") ?? "");
     const go = () => {
       if (done) return;
       done = true;
+      if (isVerify) {
+        // Email confirmed: end the auto-session and send them to sign in.
+        void Promise.race([supabase.auth.signOut({ scope: "local" }), new Promise((r) => setTimeout(r, 2000))]).finally(() => {
+          clearSupabaseAuthStorage();
+          window.location.assign("/login?verified=1");
+        });
+        return;
+      }
       const dest = safePath(window.sessionStorage.getItem("lovetech_post_auth_redirect"));
       window.sessionStorage.removeItem("lovetech_post_auth_redirect");
       window.location.assign(dest);
@@ -27,8 +38,7 @@ function AuthCallback() {
       if (session?.user) go();
     });
     (async () => {
-      const url = new URL(window.location.href);
-      const oauthErr = url.searchParams.get("error_description") || url.searchParams.get("error");
+      const oauthErr = url.searchParams.get("error_description") || url.searchParams.get("error") || hash.get("error_description");
       if (oauthErr) { setErr(oauthErr); return; }
       let { data } = await supabase.auth.getSession();
       const code = url.searchParams.get("code");

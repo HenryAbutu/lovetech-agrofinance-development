@@ -314,6 +314,10 @@
 .website.web-article article { max-width: 760px; }
 .website .web-form-selection { min-height: 180px; }
 .website .web-form-selection > button { min-height: 130px; }
+.website :is(.text-foreground\/40, .text-foreground\/50, .text-foreground\/55, .text-foreground\/60) { color: var(--muted-foreground); }
+.website .bg-ochre { background-color: var(--accent); }
+.website.web-course a[href^="https://wa.me"] { background-color: var(--primary); color: var(--primary-foreground); }
+.website.web-venture .bg-burgundy .text-gold { color: var(--primary-foreground); }
 @media (max-width: 767px) {
   .web-title { font-size: 2rem; }
   .web-heading { font-size: 1.7rem; }

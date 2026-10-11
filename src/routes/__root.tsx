@@ -110,6 +110,14 @@ function AuthSync() {
   const router = useRouter();
   const qc = useQueryClient();
   useEffect(() => {
+    // Older confirmation links land on "/" — hand them to the callback page.
+    const h = window.location.hash;
+    if (window.location.pathname === "/" && /type=(signup|email)/.test(h)) {
+      window.location.replace(`/auth/callback?verified=1${h}`);
+      return;
+    }
+  }, []);
+  useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_OUT") {
         // Hard reset: purge every cached auth artefact and force a fresh
@@ -120,7 +128,7 @@ function AuthSync() {
         } catch { /* noop */ }
         try { clearSupabaseAuthStorage(); } catch { /* noop */ }
         try { window.sessionStorage.removeItem("lovetech_post_auth_redirect"); } catch { /* noop */ }
-        if (window.location.pathname !== "/login") {
+        if (window.location.pathname !== "/login" && !window.location.pathname.startsWith("/auth/callback")) {
           window.location.assign("/login");
         }
         return;

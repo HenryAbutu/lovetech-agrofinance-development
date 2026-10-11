@@ -48,10 +48,8 @@ export function SiteHeader() {
 
   useEffect(() => {
     let active = true;
-    async function check() {
-      const session = await getActiveSupabaseSession();
+    async function apply(user: { id: string; email?: string; user_metadata?: Record<string, unknown> } | null | undefined) {
       if (!active) return;
-      const user = session?.user;
       setAuthed(!!user);
       const meta = user?.user_metadata ?? {};
       setWho(String(meta.full_name ?? meta.name ?? user?.email ?? ""));
@@ -61,8 +59,16 @@ export function SiteHeader() {
         if (active) setIsAdmin(!!r.isAdmin);
       } catch { if (active) setIsAdmin(false); }
     }
+    async function check() {
+      let user = (await getActiveSupabaseSession())?.user ?? null;
+      if (!user) user = (await supabase.auth.getSession()).data.session?.user ?? null;
+      await apply(user);
+    }
     check();
-    const { data: sub } = supabase.auth.onAuthStateChange(() => check());
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session?.user) void apply(session.user);
+      else if (event === "SIGNED_OUT") void apply(null);
+    });
     return () => { active = false; sub.subscription.unsubscribe(); };
   }, [fetchAdmin]);
 

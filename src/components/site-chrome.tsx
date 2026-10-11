@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
-import { Menu, X, ShieldCheck, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ShieldCheck } from "lucide-react";
 import logoAssetSrc from "@/assets/LoveTech_Logo.png";
 const logoAsset = { url: logoAssetSrc };
 import { getActiveSupabaseSession, supabase, signOutAndRedirect } from "@/lib/supabase";
@@ -44,7 +44,6 @@ export const businesses = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const [mega, setMega] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [who, setWho] = useState("");

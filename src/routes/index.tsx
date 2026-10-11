@@ -9,6 +9,7 @@ import financeImg from "@/assets/group/finance-review.jpg";
 import house8Img from "@/assets/group/house8-pool.png";
 import rubyImg from "@/assets/group/rubychai-hero.png";
 import avessImg from "@/assets/avess-abutu.png";
+import { Button } from "@/components/ui/button";
 
 const URL = "https://lovetechgroup.lovable.app/";
 const TITLE = "Lovetech Agrofinance & Development — Advisory, Academy LMS & Finance Readiness";
@@ -153,15 +154,17 @@ function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
           <img src={financeImg} alt="Reviewing business financial records" loading="lazy" className="rounded-2xl object-cover shadow-xl" />
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-gold">Free tool</p>
             <h2 className="mt-3 font-serif text-3xl font-bold md:text-4xl">Finance Readiness Diagnostic</h2>
-            <p className="mt-4 text-white/75">Find out in minutes how ready your business looks to lenders, grant providers and investors — and what to fix first.</p>
-            <ul className="mt-6 space-y-2 text-sm text-white/80">
-              {["Records and financial statements", "Business plan and documentation", "Compliance and registration", "Funding-readiness next steps"].map((x) => (
-                <li key={x} className="flex items-center gap-2"><CheckCircle2 className="size-4 text-teal" /> {x}</li>
-              ))}
-            </ul>
-            <Link to="/finance-readiness" className={`${btnPrimary} mt-8`}>Start Finance Diagnostic <ArrowRight className="size-4" /></Link>
+            <div className="mt-5 space-y-4 text-base leading-relaxed text-primary-foreground/80">
+              <p>Many businesses need funding, but are not yet fully prepared to approach banks, investors, grant programmes, development partners, or procurement opportunities.</p>
+              <p>The Lovetech Finance Readiness Diagnostic helps MSMEs, agribusinesses, cooperatives, startups, and growing enterprises understand where they stand and what they need to strengthen before seeking finance.</p>
+              <p>Through a simple diagnostic process, we assess your business structure, registration status, records, revenue model, financial documentation, funding need, repayment or accountability plan, and overall readiness for loans, grants, investment, or enterprise support programmes.</p>
+              <p>After completing the diagnostic, Lovetech can support you with the next practical steps, including business profiling, financial records, pitch documents, business plans, proposal support, market positioning, and finance-readiness advisory.</p>
+            </div>
+            <p className="mt-6 border-t border-primary-foreground/20 pt-5 text-sm leading-relaxed text-primary-foreground/80"><strong className="text-primary-foreground">Best for:</strong> MSMEs, agribusinesses, cooperatives, women/youth-led businesses, startups, and enterprises preparing for funding or growth support.</p>
+            <Button asChild variant="secondary" className="mt-8 h-auto max-w-full whitespace-normal bg-gold px-6 py-3 text-navy hover:bg-gold/90">
+              <Link to="/finance-readiness">Start Finance Readiness Diagnostic <ArrowRight className="size-4 shrink-0" /></Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -224,15 +227,21 @@ function Home() {
         <div className="mx-auto max-w-7xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-gold">Digital transformation</p>
           <h2 className="mt-3 max-w-3xl font-serif text-3xl font-bold md:text-4xl">Digital transformation and AI solutions for growing businesses</h2>
-          <p className="mt-4 max-w-3xl text-white/75">We help organisations use AI, automation, forms, dashboards, CRM tools and digital workflows to improve sales, operations, reporting and customer service.</p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {["AI prompts and assistants for daily work", "WhatsApp Business and customer follow-up", "Forms, records and dashboards", "Simple automation workflows"].map((x) => (
-              <div key={x} className="rounded-xl border border-white/10 bg-white/5 p-5 text-sm font-medium text-white/85">{x}</div>
-            ))}
+          <div className="mt-5 max-w-3xl space-y-4 text-base leading-relaxed text-primary-foreground/80">
+            <p>Lovetech helps businesses and organisations use digital tools, AI, automation, forms, dashboards, and lightweight systems to work smarter and operate more efficiently.</p>
+            <p>Our digital and AI solutions are designed for real business needs: customer follow-up, sales tracking, online learning, business records, reporting, content creation, customer service, data collection, workflow automation, and management dashboards.</p>
+            <p>We support SMEs, consultants, training organisations, development programmes, and institutions to adopt practical technology without unnecessary complexity. From AI-assisted documents and customer-service workflows to LMS portals, CRM-style forms, dashboards, and automated reporting systems, we help organisations turn digital tools into everyday operational value.</p>
           </div>
+          <p className="mt-8 font-semibold text-primary-foreground">Our support includes:</p>
+          <ul className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+            {["AI business tools and workflow design", "Lightweight LMS and training portals", "Customer service and lead capture systems", "Digital forms, dashboards, and reporting tools", "Business automation for sales, operations, and follow-up", "AI training for teams, SMEs, consultants, and professionals"].map((x) => (
+              <li key={x} className="flex items-start gap-3 border-t border-primary-foreground/20 py-4 text-sm font-medium leading-relaxed text-primary-foreground/85"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-teal" />{x}</li>
+            ))}
+          </ul>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/academy/courses/$slug" params={{ slug: "ai-for-businesses" }} className={btnPrimary}>AI for Businesses course <ArrowRight className="size-4" /></Link>
-            <Link to="/advisory" className={btnGhostDark}>Advisory Services</Link>
+            <Button asChild variant="secondary" className="h-auto max-w-full whitespace-normal bg-gold px-6 py-3 text-navy hover:bg-gold/90">
+              <Link to="/contact">Request Digital Transformation Support <ArrowRight className="size-4 shrink-0" /></Link>
+            </Button>
           </div>
         </div>
       </section>

@@ -1,7 +1,7 @@
 # Concise homepage and Academy discovery
-- [ ] Implement approved eight-section homepage and integrate founder copy into About.
-- [ ] Add searchable topic-based Academy shelves while preserving existing course definitions/actions.
-- [ ] Redirect legacy services/programmes and verify preview, links and protected fingerprints.
+- [x] Implement approved eight-section homepage and integrate founder copy into About.
+- [x] Add searchable topic-based Academy shelves while preserving existing course definitions/actions.
+- [x] Redirect legacy services/programmes and verify preview, links and protected fingerprints.
 # Public visual-conformance and protection audit
 - [x] Record every public page's original desktop/mobile deviations and inspect protected code/policies read-only.
 - [x] Correct public typography, mobile overflow, form visibility, focus states and shared navigation consistency.

@@ -8,3 +8,4 @@
 - Keep public service content and shared presentation in website-only modules; preserve all existing route paths and use dedicated top-level service routes so new advisory pages cannot intercept existing diagnostic or LMS URLs.
 
 - Keep public Academy discovery cards and shelves in website presentation modules, adapting existing catalogue metadata without changing course definitions or enrolment handlers; this isolates discovery styling from learner access.
+- Gate LMS staff (admin, super_admin, facilitator) through `is_lms_staff()` in policies and keep admin-only writes on `has_role(...,'admin')`, so facilitators can review but never manage enrolments or cohorts.

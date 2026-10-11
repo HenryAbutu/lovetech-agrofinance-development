@@ -35,13 +35,14 @@ export const RESOURCES: Resource[] = [
   { key: "content-calendar", title: "7-Day Content Calendar", category: "Templates", courseSlug: "ai-for-businesses", outline: ["Day", "Platform", "Post idea", "Caption", "Call to action"] },
   { key: "whatsapp-replies", title: "WhatsApp Quick Reply Bank", category: "Templates", courseSlug: "ai-for-businesses", outline: ["Greeting", "Price enquiry", "Delivery enquiry", "Payment confirmation", "Follow-up"] },
   { key: "sales-expense-tracker", title: "Sales and Expense Tracker", category: "Business Record Templates", courseSlug: "ai-for-businesses", outline: ["Date", "Item", "Sales (₦)", "Expenses (₦)", "Balance (₦)"] },
-  { key: "finance-checklist", title: "Finance Readiness Checklist", category: "Finance Readiness Tools", outline: ["Business registration", "Bank statements (6 months)", "Sales records", "Business plan", "Tax ID"] },
+  { key: "finance-checklist", title: "Finance Readiness Checklist", category: "Finance Readiness Tools", courseSlug: "finance-readiness-msmes", outline: ["Business registration", "Bank statements (6 months)", "Sales records", "Business plan", "Tax ID"] },
   { key: "business-profile", title: "Business Profile Template", category: "Templates", outline: ["Business name", "What you sell", "Customers", "Location", "Achievements", "Contact"] },
   { key: "agri-self-assessment", title: "Agribusiness Skills Self-Assessment", category: "Assessment Tools", courseSlug: "agribusiness-skills", outline: ["Skill area", "My level (1–5)", "Evidence", "What I want to improve"] },
   { key: "value-addition", title: "Value Addition Checklist", category: "Worksheets", courseSlug: "agribusiness-skills", outline: ["Raw product", "Possible processed products", "Equipment needed", "Packaging", "Target market"] },
   { key: "food-safety", title: "Food Safety Checklist", category: "Certification Readiness Tools", courseSlug: "agribusiness-skills", outline: ["Clean water", "Hygiene practices", "Storage", "Pest control", "Record keeping"] },
   { key: "certification-readiness", title: "Certification Readiness Checklist", category: "Certification Readiness Tools", courseSlug: "agribusiness-skills", outline: ["Product registration", "NAFDAC requirements", "Labelling", "Premises", "Documents"] },
   { key: "market-linkage-plan", title: "Market Linkage Action Plan", category: "Action Plan Templates", courseSlug: "agribusiness-skills", outline: ["Target buyer", "Product and volume", "Price", "Steps to reach buyer", "Timeline"] },
+  { key: "automation-workflow-map", title: "Automation Workflow Map", category: "Worksheets", courseSlug: "business-automation-smes", outline: ["Repeated task", "Who does it now", "Time per week", "Tool to automate", "Owner"] },
   { key: "business-improvement-plan", title: "Business Improvement Action Plan", category: "Action Plan Templates", outline: ["Goal", "Key actions", "Resources", "Timeline", "Expected result"] },
 ];
 

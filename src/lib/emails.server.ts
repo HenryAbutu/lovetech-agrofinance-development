@@ -182,3 +182,13 @@ export async function sendWaitlistEmails(w: WaitlistEmailInput) {
   ]);
   return { learner: learner.ok, admin: admin.ok };
 }
+
+export async function sendLearnerEnrolledEmail(i: { email: string; name: string; courseTitle: string; cohort?: string | null; learnUrl: string }) {
+  const inner = `
+    <p style="font-size:15px;margin:0 0 12px;">Hi ${escapeHtml(i.name || "there")},</p>
+    <p style="font-size:15px;margin:0 0 16px;">You have been enrolled in <strong>${escapeHtml(i.courseTitle)}</strong>${i.cohort ? ` (${escapeHtml(i.cohort)})` : ""}. Your full course access is now active.</p>
+    <p style="margin:20px 0;">${btn(i.learnUrl, "Start learning")}</p>
+    <p style="font-size:14px;color:#5a635a;margin:0;">Sign in with this email address to open your course. Watch out for our WhatsApp cohort invite. Questions? Just reply to this email.</p>
+  `;
+  return sendEmail({ to: i.email, subject: `You're enrolled — ${i.courseTitle}`, html: shell("Welcome to your course", inner), replyTo: "info@lovetechgroup.com.ng" });
+}

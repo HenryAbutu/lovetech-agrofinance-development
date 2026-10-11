@@ -10,7 +10,7 @@ async function loadLearnerData() {
   const user = session?.user;
   if (!user) throw new Error("Please sign in again.");
   const uid = user.id;
-  const [starts, progress, subs, assess, plans, settings, links, waitlist] = await Promise.all([
+  const [starts, progress, subs, assess, plans, settings, links, waitlist, role] = await Promise.all([
     supabase.from("lms_course_starts").select("*").eq("user_id", uid),
     supabase.from("lms_lesson_progress").select("course_slug, lesson_key").eq("user_id", uid),
     supabase.from("lms_assignment_submissions").select("*").eq("user_id", uid).order("submitted_at", { ascending: false }),
@@ -19,6 +19,7 @@ async function loadLearnerData() {
     supabase.from("lms_course_settings").select("*"),
     supabase.from("lms_assessment_links").select("*"),
     supabase.from("academy_waitlist").select("id, course_interest, interest_area, status, created_at").eq("user_id", uid).order("created_at", { ascending: false }),
+    supabase.rpc("get_my_role"),
   ]);
   for (const r of [starts, progress, subs, assess, plans, settings, links]) if (r.error) throw new Error(r.error.message);
   return {
@@ -31,11 +32,17 @@ async function loadLearnerData() {
     settings: settings.data ?? [],
     links: Object.fromEntries((links.data ?? []).map((l) => [l.assessment_key, l.url])) as Record<string, string>,
     waitlist: waitlist.data ?? [],
+    role: (role.data as string | null) ?? "learner",
   };
 }
 
 export function isEnrolled(d: LearnerData, slug: string) {
-  return d.starts.some((s) => s.course_slug === slug);
+  return d.starts.some((s) => s.course_slug === slug && s.access_status !== "suspended");
+}
+
+/** Admins, super admins and facilitators may open full learning pages to review content. */
+export function isStaff(d: LearnerData) {
+  return ["admin", "super_admin", "facilitator", "instructor"].includes(d.role);
 }
 
 export function previewKeys(d: LearnerData, slug: string): Set<string> {

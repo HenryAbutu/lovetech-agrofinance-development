@@ -9,7 +9,7 @@ export type DiscoveryCourse = {
   routeSlug?: string; onOpen?: () => void; actionLabel?: string;
 };
 export function AcademyCourseCard({ course, compact = false }: { course: DiscoveryCourse; compact?: boolean }) {
-  return <article className="academy-discovery-card flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card">
+  return <article className="academy-discovery-card flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card text-card-foreground">
     <img src={course.image} alt="" loading="lazy" className="aspect-[16/9] w-full object-cover" />
     <div className="flex flex-1 flex-col p-4">
       <p className="text-xs font-semibold text-primary">{course.category}</p>

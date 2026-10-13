@@ -1,0 +1,1 @@
+GRANT EXECUTE ON FUNCTION public.is_enrolled_in_course(uuid, uuid) TO authenticated;

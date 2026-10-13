@@ -185,7 +185,7 @@ function Progress({ label, pct, note }: { label: string; pct: number; note?: str
 }
 function Ring({ pct, label }: { pct: number; label: string }) {
   return <div className="text-center">
-    <div className="relative grid size-20 place-items-center rounded-full" style={{ background: `conic-gradient(hsl(var(--primary)) ${pct * 3.6}deg, hsl(var(--muted)) 0)` }}>
+    <div className="relative grid size-20 place-items-center rounded-full" style={{ background: `conic-gradient(var(--primary) ${pct * 3.6}deg, var(--muted) 0)` }}>
       <div className="grid size-14 place-items-center rounded-full bg-card text-sm font-semibold">{pct}%</div>
     </div>
     <p className="mt-1 text-[11px] text-foreground/60">{label}</p>

@@ -8,7 +8,7 @@ import { AUTH_STORAGE_KEY, clearSupabaseAuthStorage, expireAuthCookie, getActive
 import { whatsappUrl } from "@/lib/lms-config";
 import { LearnerDashboardSections, LearnerWelcome } from "@/components/learner-dashboard-sections";
 
-export const Route = createFileRoute("/_authenticated/academy/dashboard")({
+export const Route = createFileRoute("/_authenticated/academy/dashboard/")({
   head: () => ({ meta: [{ title: "My Dashboard — LoveTech Agro Academy" }] }),
   component: Dashboard,
 });

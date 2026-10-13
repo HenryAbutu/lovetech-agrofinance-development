@@ -9,7 +9,7 @@ import { LMS_CONFIG, whatsappUrl } from "@/lib/lms-config";
 import { LessonDiscussion } from "@/components/lesson-discussion";
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 
-export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug")({
+export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/")({
   head: () => ({ meta: [{ title: "Course · LoveTech Agro Academy" }] }),
   component: CoursePage,
 });

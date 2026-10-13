@@ -11,6 +11,11 @@ import {
 } from "lucide-react";
 import hero from "@/assets/academy-hero-v3.jpg";
 import academy from "@/assets/group/academy-workshop.jpg";
+import imgAi from "@/assets/course-ai-tools.jpg";
+import imgFinance from "@/assets/group/finance-review.jpg";
+import imgAgri from "@/assets/course-agribusiness.jpg";
+import imgAuto from "@/assets/group/digital-business.jpg";
+const courseImages: Record<string, string> = { "ai-for-businesses": imgAi, "finance-readiness-msmes": imgFinance, "agribusiness-skills": imgAgri, "business-automation-smes": imgAuto };
 import house from "@/assets/group/house8-exterior.png";
 import ruby from "@/assets/group/rubychai-packaging.png";
 import { AcademyCourseCard } from "@/components/website/academy-course-card";
@@ -112,7 +117,7 @@ function Home() {
         <div className="web-container"><Eyebrow>Our core advisory areas</Eyebrow><h2 className="web-heading">What Lovetech Does</h2><ServiceCards /></div>
       </section>
       <section className="web-section bg-primary text-primary-foreground">
-        <div className="web-container"><div className="mb-6 flex flex-wrap items-end justify-between gap-5"><div><Eyebrow>Lovetech Academy</Eyebrow><h2 className="web-heading">Skills you can put to work.</h2><p className="mt-3 max-w-xl text-sm leading-relaxed text-primary-foreground/90">Practical courses, downloadable tools and action plans for your next business step.</p></div><div className="flex flex-wrap gap-3"><Button asChild variant="websiteLight" className="web-button"><Link to="/academy">Explore Academy <ArrowUpRight /></Link></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/academy/dashboard">My Academy <GraduationCap /></Link></Button></div></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{catalogue.slice(0,4).map(c => <AcademyCourseCard key={c.slug} compact course={{id:c.slug,title:c.title,summary:c.short,category:c.pathway,image:academy,level:c.level,duration:c.duration,delivery:c.delivery,routeSlug:c.slug}} />)}</div></div>
+        <div className="web-container"><div className="mb-6 flex flex-wrap items-end justify-between gap-5"><div><Eyebrow>Lovetech Academy</Eyebrow><h2 className="web-heading">Skills you can put to work.</h2><p className="mt-3 max-w-xl text-sm leading-relaxed text-primary-foreground/90">Practical courses, downloadable tools and action plans for your next business step.</p></div><div className="flex flex-wrap gap-3"><Button asChild variant="websiteLight" className="web-button"><Link to="/academy">Explore Academy <ArrowUpRight /></Link></Button><Button asChild variant="homepageOutline" className="web-button"><Link to="/academy/dashboard">My Academy <GraduationCap /></Link></Button></div></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{catalogue.slice(0,4).map(c => <AcademyCourseCard key={c.slug} compact course={{id:c.slug,title:c.title,summary:c.short,category:c.pathway,image:courseImages[c.slug] ?? academy,level:c.level,duration:c.duration,delivery:c.delivery,routeSlug:c.slug}} />)}</div></div>
       </section>
       <section className="web-section">
         <div className="web-container grid gap-8 lg:grid-cols-[1fr_1.2fr]">

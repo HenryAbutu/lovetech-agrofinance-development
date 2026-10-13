@@ -1,19 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { EnrolForm } from "@/components/admin-enrol-form";
-import { listWaitlistAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/waitlist")({
   component: WaitlistAdmin,
 });
 
 function WaitlistAdmin() {
-  const list = useServerFn(listWaitlistAdmin);
-  const { data, isLoading, error } = useQuery({ queryKey: ["admin-waitlist"], queryFn: () => list() });
+  // Read directly as the signed-in admin; the database's admin-read rule returns every entry.
+  const { data, isLoading, error } = useQuery({ queryKey: ["admin-waitlist"], queryFn: async () => {
+    const { data, error } = await supabase.from("academy_waitlist").select("*").order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return { waitlist: data ?? [] };
+  } });
+  const [since, setSince] = useState("");
+  const [viewing, setViewing] = useState<string | null>(null);
   const qc = useQueryClient();
   const refresh = () => qc.invalidateQueries({ queryKey: ["admin-waitlist"] });
   const [enrolling, setEnrolling] = useState<string | null>(null);
@@ -25,9 +29,9 @@ function WaitlistAdmin() {
     toast.success(`Marked as ${status}`); refresh();
   }
 
-  const progName = (w: any) => { const c = Array.isArray(w.course) ? w.course[0] : w.course; return c?.title ?? w.course_interest ?? w.interest_area ?? "General"; };
+  const progName = (w: any) => w.course_interest ?? w.interest_area ?? "General";
   const courseOptions = [...new Set((data?.waitlist ?? []).map(progName))].sort();
-  const rows = (data?.waitlist ?? []).filter((w: any) => (!course || progName(w) === course) && (!statusF || w.status === statusF));
+  const rows = (data?.waitlist ?? []).filter((w: any) => (!course || progName(w) === course) && (!statusF || w.status === statusF) && (!since || w.created_at >= since));
   if (isLoading) return <p className="text-sm text-foreground/60">Loading…</p>;
   if (error) return <p className="text-sm text-destructive">Could not load waitlist: {(error as Error).message}</p>;
 
@@ -40,8 +44,9 @@ function WaitlistAdmin() {
         </select>
         <select aria-label="Filter by status" value={statusF} onChange={(e) => setStatusF(e.target.value)} className="rounded-md border border-input bg-background p-2 text-sm">
           <option value="">All statuses</option>
-          {["new", "contacted", "approved", "enrolled"].map((s) => <option key={s} value={s}>{s}</option>)}
+          {["new", "contacted", "approved", "declined", "enrolled"].map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
+        <label className="text-xs text-foreground/60">Joined since <input type="date" value={since} onChange={(e) => setSince(e.target.value)} className="ml-1 rounded-md border border-input bg-background p-2 text-sm" /></label>
         <p className="text-sm text-foreground/60">{rows.length} of {data?.waitlist.length ?? 0} people on the waitlist</p>
       </div>
       <div className="overflow-x-auto rounded-2xl border border-border bg-card">
@@ -91,8 +96,11 @@ function WaitlistAdmin() {
                     <div className="mt-2 flex flex-wrap gap-1">
                       {w.status !== "contacted" && w.status !== "enrolled" && <button type="button" onClick={() => setStatus(w.id, "contacted")} className="rounded border border-border px-2 py-1">Contacted</button>}
                       {w.status !== "approved" && w.status !== "enrolled" && <button type="button" onClick={() => setStatus(w.id, "approved")} className="rounded border border-border px-2 py-1">Approved</button>}
+                      {w.status !== "declined" && w.status !== "enrolled" && <button type="button" onClick={() => setStatus(w.id, "declined")} className="rounded border border-border px-2 py-1">Decline</button>}
+                      <button type="button" onClick={() => setViewing(viewing === w.id ? null : w.id)} className="rounded border border-border px-2 py-1">{viewing === w.id ? "Hide" : "View details"}</button>
                       {w.status !== "enrolled" && <button type="button" onClick={() => setEnrolling(enrolling === w.id ? null : w.id)} className="rounded bg-primary px-2 py-1 font-semibold text-primary-foreground">Enrol</button>}
                     </div>
+                    {viewing === w.id && <dl className="mt-2 space-y-1 rounded border border-border bg-muted/30 p-2">{["full_name","email","phone","business_name","business_sector","location","course_interest","interest_area","preferred_training_mode","main_challenge","source_page","status","created_at"].filter((k) => w[k]).map((k) => <div key={k}><dt className="inline font-semibold capitalize">{k.replaceAll("_"," ")}: </dt><dd className="inline">{String(w[k])}</dd></div>)}</dl>}
                     {enrolling === w.id && <div className="mt-2"><EnrolForm initialEmail={w.email} waitlistId={w.id} onDone={() => { setEnrolling(null); refresh(); }} /></div>}
                   </td>
                 </tr>

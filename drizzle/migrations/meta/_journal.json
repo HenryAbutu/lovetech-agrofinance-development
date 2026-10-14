@@ -92,6 +92,13 @@
       "when": 1792014962652,
       "tag": "0012_public_profile_privacy",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1792015015412,
+      "tag": "0013_payment_receipt_email_claim",
+      "breakpoints": true
     }
   ]
 }

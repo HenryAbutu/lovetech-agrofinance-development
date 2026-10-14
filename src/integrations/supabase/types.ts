@@ -750,6 +750,7 @@ export type Database = {
           paid_at: string | null
           payment_provider: string
           paystack_reference: string | null
+          receipt_emailed_at: string | null
           status: string
           user_email: string
         }
@@ -765,6 +766,7 @@ export type Database = {
           paid_at?: string | null
           payment_provider?: string
           paystack_reference?: string | null
+          receipt_emailed_at?: string | null
           status?: string
           user_email: string
         }
@@ -780,6 +782,7 @@ export type Database = {
           paid_at?: string | null
           payment_provider?: string
           paystack_reference?: string | null
+          receipt_emailed_at?: string | null
           status?: string
           user_email?: string
         }

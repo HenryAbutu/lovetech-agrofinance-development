@@ -67,17 +67,8 @@ export const enrolInCourse = createServerFn({ method: "POST" })
 
     const { course_slug, coupon_code, referral_code, purchase_option, module_choice, ...rest } = data;
 
-    let basePrice = Number(course.discount_price ?? course.regular_price ?? 0);
-    let option: "bundle" | "single_module" = "bundle";
-    let chosenModule: string | null = null;
-    if (purchase_option === "single_module") {
-      const cfg = SINGLE_MODULE[course_slug];
-      if (!cfg) throw new Error("Single-module purchase isn't available for this course");
-      if (!module_choice || !cfg.modules.includes(module_choice)) throw new Error("Please choose a module");
-      basePrice = cfg.price;
-      option = "single_module";
-      chosenModule = module_choice;
-    }
+    // Price always comes from the saved course record (or configured module price), never the browser.
+    const { basePrice, option, module: chosenModule } = resolveBasePrice(course_slug, course, purchase_option, module_choice);
 
     // ---- Apply coupon (server-side re-validation) ----
     let discountAmount = 0;
@@ -90,22 +81,8 @@ export const enrolInCourse = createServerFn({ method: "POST" })
         .select("id, kind, value, max_uses, used_count, expires_at, min_amount, course_id, active, issued_to_user_id")
         .eq("code", code)
         .maybeSingle();
-      const now = new Date();
-      const usable =
-        coupon &&
-        coupon.active &&
-        (!coupon.expires_at || new Date(coupon.expires_at) >= now) &&
-        (coupon.max_uses === null || (coupon.used_count ?? 0) < coupon.max_uses) &&
-        (!coupon.course_id || coupon.course_id === course.id) &&
-        (coupon.min_amount === null || basePrice >= Number(coupon.min_amount)) &&
-        (!coupon.issued_to_user_id || coupon.issued_to_user_id === userId);
-      if (usable && coupon) {
-        discountAmount =
-          coupon.kind === "percent"
-            ? Math.min(basePrice, Math.round((basePrice * Number(coupon.value)) / 100))
-            : Math.min(basePrice, Number(coupon.value));
-        appliedCoupon = code;
-      }
+      discountAmount = couponDiscount(coupon, basePrice, course.id, userId);
+      if (discountAmount > 0) appliedCoupon = code;
     }
     const amount = Math.max(0, basePrice - discountAmount);
 

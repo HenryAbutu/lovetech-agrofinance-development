@@ -81,7 +81,7 @@ async function sendEnquiryEmail(data: z.infer<typeof EnquirySchema>) {
   }
 }
 
-const EnquirySchema = z.object({
+export const EnquirySchema = z.object({
   full_name: z.string().min(1).max(200),
   email: z.string().email().max(200),
   phone: z.string().max(50).optional().nullable(),

@@ -4,8 +4,9 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { resolveBasePrice, couponDiscount } from "@/lib/pricing";
 
-const EnrolSchema = z.object({
+export const EnrolSchema = z.object({
   course_slug: z.string().min(1).max(120),
   full_name: z.string().min(1).max(200),
   email: z.string().email().max(200),
@@ -20,21 +21,6 @@ const EnrolSchema = z.object({
   purchase_option: z.enum(["bundle", "single_module"]).optional().nullable(),
   module_choice: z.string().max(200).optional().nullable(),
 });
-
-// Courses that can be bought one module at a time, with the server-trusted module price.
-const SINGLE_MODULE: Record<string, { price: number; modules: string[] }> = {
-  "professionals-ai-edge": {
-    price: 15000,
-    modules: [
-      "Day 1: Understanding AI and What It Can Do for Your Business",
-      "Day 2: Prompt Writing for Business Owners",
-      "Day 3: AI for Marketing, Sales, and WhatsApp Business",
-      "Day 4: AI for Operations, Records, Finance, and Access to Finance",
-      "Day 5: AI Workflow, Responsible AI, and Final Business Action Plan",
-    ],
-  },
-};
-export const SINGLE_MODULE_OPTIONS = SINGLE_MODULE;
 
 function getPublicClient() {
   const url = process.env.SUPABASE_URL;

@@ -6,7 +6,8 @@ import { Check, Calendar, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, Ta
 import { toast } from "sonner";
 import { z } from "zod";
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
-import { enrolInCourse, SINGLE_MODULE_OPTIONS } from "@/lib/enrolment.functions";
+import { enrolInCourse } from "@/lib/enrolment.functions";
+import { SINGLE_MODULE_OPTIONS } from "@/lib/pricing";
 import { validateCoupon } from "@/lib/coupons.functions";
 import courseImg from "@/assets/course-ai-edge.jpg";
 import { LegalNotice } from "@/components/legal-notice";

@@ -250,11 +250,20 @@ export async function fulfilPayment(reference: string) {
     }
   }
 
-  // ------- Email confirmations (once, gated by first fulfilment) -------
-  if (firstFulfilment) {
+  // ------- Email confirmations (exactly once, atomic database claim) -------
+  const { data: claimed } = await supabaseAdmin
+    .from("academy_payments")
+    .update({ receipt_emailed_at: new Date().toISOString() })
+    .eq("id", payment.id)
+    .is("receipt_emailed_at", null)
+    .select("id");
+  const { isStaging, siteOrigin: resolveSiteOrigin } = await import("@/lib/environment.server");
+  if (claimed && claimed.length > 0 && isStaging()) {
+    console.info("[fulfilment] staging: receipt emails suppressed");
+  } else if (claimed && claimed.length > 0) {
     try {
       const { sendLearnerReceiptEmail, sendAdminNewEnrolmentEmail } = await import("@/lib/emails.server");
-      const siteOrigin = process.env.SITE_ORIGIN ?? "https://lovetechgroup.lovable.app";
+      const siteOrigin = resolveSiteOrigin();
       const learnerEmail = enrolment.email ?? payment.user_email ?? "";
       if (learnerEmail) {
         await sendLearnerReceiptEmail({
@@ -278,6 +287,8 @@ export async function fulfilPayment(reference: string) {
       });
     } catch (e) {
       console.warn("[fulfilment] email send failed:", e instanceof Error ? e.message : e);
+      // Release the claim so a later delivery can retry the emails.
+      await supabaseAdmin.from("academy_payments").update({ receipt_emailed_at: null }).eq("id", payment.id);
     }
   }
 

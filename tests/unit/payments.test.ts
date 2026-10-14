@@ -52,7 +52,7 @@ describe("payment verification (mocked Paystack + database)", () => {
     expect(enrolment().access_status).toBe("inactive");
   });
 
-  it("verified full payment grants access and fulfils once", async () => {
+  it("verified full payment grants access and runs fulfilment", async () => {
     paystackReturns({ status: "success", amount: 2500000, currency: "NGN", metadata: { enrolment_id: ENROL } });
     const r = await applyPaystackResult("REF1", KEY);
     expect(r.ok).toBe(true);
@@ -60,12 +60,36 @@ describe("payment verification (mocked Paystack + database)", () => {
     expect(state.fulfil).toHaveBeenCalledTimes(1);
   });
 
-  it("duplicate delivery is idempotent (fulfilment runs once)", async () => {
+  it("duplicate delivery keeps one success state and the original paid time", async () => {
     paystackReturns({ status: "success", amount: 2500000, currency: "NGN" });
     await applyPaystackResult("REF1", KEY);
+    const firstPaidAt = state.db.tables.academy_payments![0]!.paid_at;
+    await new Promise((r) => setTimeout(r, 5));
     await applyPaystackResult("REF1", KEY);
     await applyPaystackResult("REF1", KEY);
-    expect(state.fulfil).toHaveBeenCalledTimes(1);
+    expect(state.db.tables.academy_payments![0]!.paid_at).toBe(firstPaidAt);
+    expect(state.db.tables.academy_enrolments).toHaveLength(1);
+    expect(enrolment().access_status).toBe("active");
+  });
+
+  it("Paystack being unreachable throws (so the webhook is retried) and grants nothing", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => { throw new Error("network down"); }));
+    await expect(applyPaystackResult("REF1", KEY)).rejects.toThrow();
+    expect(enrolment().access_status).toBe("inactive");
+  });
+
+  it("a crash during fulfilment is recovered on the next delivery", async () => {
+    paystackReturns({ status: "success", amount: 2500000, currency: "NGN" });
+    state.fulfil.mockRejectedValueOnce(new Error("temporary database failure"));
+    await expect(applyPaystackResult("REF1", KEY)).rejects.toThrow();
+    await applyPaystackResult("REF1", KEY);
+    expect(state.fulfil).toHaveBeenCalledTimes(2);
+    expect(enrolment().access_status).toBe("active");
+  });
+
+  it("overpayment is accepted (amount is at least expected)", async () => {
+    paystackReturns({ status: "success", amount: 2600000, currency: "NGN" });
+    expect((await checkPaystackCharge("REF1", KEY)).ok).toBe(true);
   });
 
   it("a later failed check never downgrades an already-successful payment", async () => {

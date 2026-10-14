@@ -9,7 +9,11 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "test:smoke": "bun ./tests/smoke/smoke.ts",
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -93,7 +97,8 @@
     "prettier": "^3.7.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "vitest": "^3"
   },
   "overrides": {
     "@vercel/nft": "^0.30.3"

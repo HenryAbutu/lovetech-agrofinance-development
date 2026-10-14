@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { Check, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, PlayCircle, Download, Tag } from "lucide-react";
@@ -12,6 +13,7 @@ import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/academy/courses/ai-tools-small-businesses")({
   head: () => ({
+    links: [canonicalLink("/academy/courses/ai-tools-small-businesses")],
     meta: [
       { title: "AI for Businesses: Practical AI Skills for Nigerian SMEs — Lovetech Business Academy" },
       { name: "description", content: "60-minute beginner course: use ChatGPT, Canva AI, CapCut & HeyGen to grow your Nigerian small business. Launch price ₦8,900." },

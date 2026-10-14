@@ -6,7 +6,7 @@ export const Route = createFileRoute("/programme-support")({
     websiteHead(
       "Programme & Institutional Support",
       serviceContent.find((s) => s.id === "programme")?.intro ??
-        "Programme & Institutional Support",
+        "Programme & Institutional Support", "/programme-support"
     ),
   component: () => <ServicePage id="programme" />,
 });

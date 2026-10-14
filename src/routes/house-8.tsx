@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink, canonicalUrl } from "@/lib/seo";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
@@ -17,7 +18,6 @@ const exteriorImg = exteriorAsset.url;
 const poolImg = poolAsset.url;
 const bedroomImg = roomAsset.url;
 
-const URL = "https://lovetechgroup.lovable.app/house-8";
 
 export const Route = createFileRoute("/house-8")({
   head: () => ({
@@ -27,10 +27,10 @@ export const Route = createFileRoute("/house-8")({
       { property: "og:title", content: "House 8 — Luxury Shortlet Apartment in Abuja" },
       { property: "og:description", content: "Five named rooms, two lounges, bush bar, grills and games in a gated Dawaki home." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: URL },
+      { property: "og:url", content: canonicalUrl("/house-8") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: URL }],
+    links: [canonicalLink("/house-8")],
   }),
   component: House8Page,
 });

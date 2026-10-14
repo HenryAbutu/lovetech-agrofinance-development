@@ -9,3 +9,4 @@
 
 - Keep public Academy discovery cards and shelves in website presentation modules, adapting existing catalogue metadata without changing course definitions or enrolment handlers; this isolates discovery styling from learner access.
 - Gate LMS staff (admin, super_admin, facilitator) through `is_lms_staff()` in policies and keep admin-only writes on `has_role(...,'admin')`, so facilitators can review but never manage enrolments or cohorts.
+- Build canonical links with `canonicalLink()` from `src/lib/seo.ts` (production origin with validated `VITE_SITE_URL` override) and keep `public/sitemap.xml` limited to indexable public pages, so search engines never index preview hosts or private areas.

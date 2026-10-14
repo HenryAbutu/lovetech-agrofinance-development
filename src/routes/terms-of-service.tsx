@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { LegalDocument } from "@/components/legal-document";
 import content from "@/content/terms-of-service.md?raw";
 
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/terms-of-service")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
-    links: [{ rel: "canonical", href: "https://lovetechgroup.com.ng/terms-of-service" }],
+    links: [canonicalLink("/terms-of-service")],
   }),
   component: () => <LegalDocument title="Terms of Service" content={content} />,
 });

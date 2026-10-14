@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { Check, Calendar, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, Tag } from "lucide-react";
@@ -15,6 +16,7 @@ const SearchSchema = z.object({ ref: z.string().max(60).optional() });
 export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
   validateSearch: (s) => SearchSchema.parse(s),
   head: () => ({
+    links: [canonicalLink("/academy/courses/professionals-ai-edge")],
     meta: [
       { title: "Enroll · AI for Work & Business — LoveTech Agro Academy" },
       { name: "description", content: "Practical AI skills to work smarter, grow your business, and stay ahead. Launch price ₦5,000." },

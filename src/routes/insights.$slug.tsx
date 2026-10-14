@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getPublishedPost } from "@/lib/blog.functions";
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/insights/$slug")({
     if (!res.post) throw notFound();
     return res;
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const p = loaderData?.post;
     const title = p ? `${p.title} — LoveTech Group Insights` : "Insights — LoveTech Group";
     const description = p?.excerpt ?? "Practical insights for Nigerian businesses from LoveTech Group.";
@@ -31,7 +32,7 @@ export const Route = createFileRoute("/insights/$slug")({
       meta.push({ property: "og:image", content: p.featured_image });
       meta.push({ name: "twitter:image", content: p.featured_image });
     }
-    return { meta };
+    return { meta, links: p ? [canonicalLink(`/insights/${params.slug}`)] : [] };
   },
   errorComponent: () => (
     <main className="website mx-auto max-w-3xl px-6 py-24 text-center">

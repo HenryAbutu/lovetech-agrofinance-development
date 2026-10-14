@@ -1,4 +1,5 @@
 import academyImage from "@/assets/academy-hero-v3.jpg";
+import { canonicalLink } from "@/lib/seo";
 import { AcademyCourseCard, AcademyCourseShelf, type DiscoveryCourse } from "@/components/website/academy-course-card";
 import { Eyebrow } from "@/components/website/presentation";
 import aiImage from "@/assets/course-ai-tools.jpg";
@@ -19,6 +20,7 @@ import { BookOpen, UserPlus, MonitorPlay, Download, FileCheck2, Target } from "l
 
 export const Route = createFileRoute("/academy/")({
   head: () => ({
+    links: [canonicalLink("/academy")],
     meta: [
       { title: "Lovetech Academy — Practical AI, finance and business courses" },
       { name: "description", content: "Practical courses for business growth, finance readiness, AI, agribusiness, climate-smart enterprise, and digital transformation." },

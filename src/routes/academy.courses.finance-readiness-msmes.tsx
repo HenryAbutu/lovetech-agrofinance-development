@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { WaitlistForm } from "@/components/waitlist-form";
 
 export const Route = createFileRoute("/academy/courses/finance-readiness-msmes")({
   head: () => ({
+    links: [canonicalLink("/academy/courses/finance-readiness-msmes")],
     meta: [
       { title: "Finance Readiness for MSMEs — LoveTech Agro Academy" },
       { name: "description", content: "Upcoming programme preparing MSMEs for loans, grants, investment and partnerships. Join the waitlist." },

@@ -5,7 +5,7 @@ export const Route = createFileRoute("/digital-ai-solutions")({
   head: () =>
     websiteHead(
       "Digital & AI Solutions",
-      serviceContent.find((s) => s.id === "digital")?.intro ?? "Digital & AI Solutions",
+      serviceContent.find((s) => s.id === "digital")?.intro ?? "Digital & AI Solutions", "/digital-ai-solutions"
     ),
   component: () => <ServicePage id="digital" />,
 });

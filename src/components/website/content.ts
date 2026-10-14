@@ -1,3 +1,4 @@
+import { canonicalLink } from "@/lib/seo";
 import finance from "@/assets/group/finance-review.jpg";
 import agriculture from "@/assets/hero-lovetech.jpg";
 import digital from "@/assets/group/digital-business.jpg";
@@ -126,9 +127,10 @@ export const audienceContent = [
 ] as const;
 export const experienceNote =
   "Lovetech Agrofinance & Development Ltd was incorporated in May 2026. Historical reach figures refer to founder/team prior professional experience, not contracts awarded to the company. Reporting periods, programme scope and supporting records are awaiting publication approval.";
-export function websiteHead(title: string, description: string) {
+export function websiteHead(title: string, description: string, path?: string) {
   const full = `${title} — Lovetech Agrofinance & Development Ltd`;
   return {
+    links: path ? [canonicalLink(path)] : [],
     meta: [
       { title: full },
       { name: "description", content: description },

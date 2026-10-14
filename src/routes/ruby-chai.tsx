@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink, canonicalUrl } from "@/lib/seo";
 import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
@@ -11,7 +12,6 @@ const heroAsset = { url: heroAssetSrc };
 import packagingAssetSrc from "@/assets/group/rubychai-packaging.png";
 const packagingAsset = { url: packagingAssetSrc };
 
-const URL = "https://lovetechgroup.lovable.app/ruby-chai";
 
 export const Route = createFileRoute("/ruby-chai")({
   head: () => ({
@@ -21,10 +21,10 @@ export const Route = createFileRoute("/ruby-chai")({
       { property: "og:title", content: "Ruby Chai Wellness" },
       { property: "og:description", content: "Herbal teas and simple wellness rituals for calm, energy and everyday balance." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: URL },
+      { property: "og:url", content: canonicalUrl("/ruby-chai") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: URL }],
+    links: [canonicalLink("/ruby-chai")],
   }),
   component: RubyChaiPage,
 });

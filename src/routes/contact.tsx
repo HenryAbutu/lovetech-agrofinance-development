@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { Phone, Mail, MapPin, MessageCircle, CheckCircle2, Clock, GraduationCap, BedDouble, Leaf, Building2, ArrowRight } from "lucide-react";
@@ -10,6 +11,7 @@ type ContactSearch = { service?: string; business?: string };
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
+    links: [canonicalLink("/contact")],
     meta: [
       { title: "Contact Lovetech — Business & Institutional Advisory" },
       { name: "description", content: "Discuss advisory, finance readiness, digital solutions, practical training and programme support with Lovetech." },

@@ -1,0 +1,21 @@
+# Crawl guidance only. Private areas are protected by sign-in and server checks.
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /academy/dashboard
+Disallow: /academy/learn/
+Disallow: /academy/receipt
+Disallow: /academy/referrals
+Disallow: /academy/badges
+Disallow: /academy/action-plan
+Disallow: /dashboard
+Disallow: /settings/
+Disallow: /api/
+Disallow: /mcp
+Disallow: /auth/
+Disallow: /login
+Disallow: /signup
+Disallow: /reset-password
+Disallow: /learners
+
+Sitemap: https://lovetechgroup.com.ng/sitemap.xml

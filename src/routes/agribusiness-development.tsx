@@ -6,7 +6,7 @@ export const Route = createFileRoute("/agribusiness-development")({
     websiteHead(
       "Agribusiness & Enterprise Development",
       serviceContent.find((s) => s.id === "agribusiness")?.intro ??
-        "Agribusiness & Enterprise Development",
+        "Agribusiness & Enterprise Development", "/agribusiness-development"
     ),
   component: () => <ServicePage id="agribusiness" />,
 });

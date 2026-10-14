@@ -85,6 +85,20 @@
       "when": 1792013346998,
       "tag": "0011_enrolment_purchase_option",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1792014962652,
+      "tag": "0012_public_profile_privacy",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1792015015412,
+      "tag": "0013_payment_receipt_email_claim",
+      "breakpoints": true
     }
   ]
 }

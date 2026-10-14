@@ -144,7 +144,9 @@ export const enrolInCourse = createServerFn({ method: "POST" })
       };
     }
 
-    // Live Paystack init
+    // Live Paystack init (staging refuses any non-test key)
+    const { assertPaystackKeyAllowed } = await import("@/lib/environment.server");
+    assertPaystackKeyAllowed(paystackKey);
     const req = getRequest();
     const origin = new URL(req.url).origin;
     const callbackUrl = `${origin}/api/public/paystack/verify`;

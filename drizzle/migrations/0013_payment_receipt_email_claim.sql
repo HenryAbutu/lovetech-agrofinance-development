@@ -1,0 +1,2 @@
+ALTER TABLE public.academy_payments ADD COLUMN IF NOT EXISTS receipt_emailed_at timestamptz;
+UPDATE public.academy_payments SET receipt_emailed_at = COALESCE(paid_at, now()) WHERE invoice_pdf_url IS NOT NULL AND receipt_emailed_at IS NULL;

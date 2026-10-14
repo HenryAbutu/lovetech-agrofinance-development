@@ -6,7 +6,7 @@ import { Check, Calendar, Clock, MessageCircle, Phone, ShieldCheck, Sparkles, Ta
 import { toast } from "sonner";
 import { z } from "zod";
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
-import { enrolInCourse } from "@/lib/enrolment.functions";
+import { enrolInCourse, SINGLE_MODULE_OPTIONS } from "@/lib/enrolment.functions";
 import { validateCoupon } from "@/lib/coupons.functions";
 import courseImg from "@/assets/course-ai-edge.jpg";
 import { LegalNotice } from "@/components/legal-notice";
@@ -62,6 +62,9 @@ function Page() {
   const [coupon, setCoupon] = useState("");
   const [couponInfo, setCouponInfo] = useState<{ ok: boolean; message: string; final?: number } | null>(null);
   const [mainChallenge, setMainChallenge] = useState("");
+  const [plan, setPlan] = useState<"bundle" | "single_module">("bundle");
+  const [moduleChoice, setModuleChoice] = useState("");
+  const singleModules = SINGLE_MODULE_OPTIONS["professionals-ai-edge"].modules;
 
   useEffect(() => {
     async function loadProfile(userId: string, email: string, metaName = "") {
@@ -117,7 +120,12 @@ function Page() {
       course_slug: "professionals-ai-edge",
       ...formEntries,
       referral_code: refFromUrl ?? null,
+      purchase_option: plan,
+      module_choice: plan === "single_module" ? moduleChoice : null,
     };
+    if (plan === "single_module" && !moduleChoice) {
+      setState("idle"); toast.error("Please choose a module"); return;
+    }
     if (profile) {
       data.full_name = (data.full_name as string) || profile.full_name;
       data.email = (data.email as string) || profile.email;
@@ -144,9 +152,10 @@ function Page() {
     }
   }
 
-  const finalAmount = couponInfo?.ok && typeof couponInfo.final === "number" ? couponInfo.final : 25000;
+  const basePrice = plan === "single_module" ? 15000 : 25000;
+  const finalAmount = plan === "bundle" && couponInfo?.ok && typeof couponInfo.final === "number" ? couponInfo.final : basePrice;
   const isFree = finalAmount <= 0;
-  const priceLabel = isFree ? "Enroll Now (Free)" : `Enroll & Pay ₦${finalAmount.toLocaleString()}`;
+  const priceLabel = isFree ? "Enroll Now (Free)" : `Enroll & Pay ₦${finalAmount.toLocaleString()}${plan === "single_module" && couponInfo?.ok ? " (coupon applied at checkout)" : ""}`;
 
   return (
     <main className="website web-course">

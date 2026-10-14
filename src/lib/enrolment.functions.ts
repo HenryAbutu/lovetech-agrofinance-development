@@ -17,7 +17,24 @@ const EnrolSchema = z.object({
   referral_source: z.string().max(200).optional().nullable(),
   coupon_code: z.string().max(60).optional().nullable(),
   referral_code: z.string().max(60).optional().nullable(),
+  purchase_option: z.enum(["bundle", "single_module"]).optional().nullable(),
+  module_choice: z.string().max(200).optional().nullable(),
 });
+
+// Courses that can be bought one module at a time, with the server-trusted module price.
+const SINGLE_MODULE: Record<string, { price: number; modules: string[] }> = {
+  "professionals-ai-edge": {
+    price: 15000,
+    modules: [
+      "Day 1: Understanding AI and What It Can Do for Your Business",
+      "Day 2: Prompt Writing for Business Owners",
+      "Day 3: AI for Marketing, Sales, and WhatsApp Business",
+      "Day 4: AI for Operations, Records, Finance, and Access to Finance",
+      "Day 5: AI Workflow, Responsible AI, and Final Business Action Plan",
+    ],
+  },
+};
+export const SINGLE_MODULE_OPTIONS = SINGLE_MODULE;
 
 function getPublicClient() {
   const url = process.env.SUPABASE_URL;
@@ -48,10 +65,19 @@ export const enrolInCourse = createServerFn({ method: "POST" })
     if (cErr) throw new Error(cErr.message);
     if (!course) throw new Error("Course not found");
 
-    const { course_slug, coupon_code, referral_code, ...rest } = data;
-    void course_slug;
+    const { course_slug, coupon_code, referral_code, purchase_option, module_choice, ...rest } = data;
 
-    const basePrice = Number(course.discount_price ?? course.regular_price ?? 0);
+    let basePrice = Number(course.discount_price ?? course.regular_price ?? 0);
+    let option: "bundle" | "single_module" = "bundle";
+    let chosenModule: string | null = null;
+    if (purchase_option === "single_module") {
+      const cfg = SINGLE_MODULE[course_slug];
+      if (!cfg) throw new Error("Single-module purchase isn't available for this course");
+      if (!module_choice || !cfg.modules.includes(module_choice)) throw new Error("Please choose a module");
+      basePrice = cfg.price;
+      option = "single_module";
+      chosenModule = module_choice;
+    }
 
     // ---- Apply coupon (server-side re-validation) ----
     let discountAmount = 0;
@@ -108,6 +134,8 @@ export const enrolInCourse = createServerFn({ method: "POST" })
         coupon_code: appliedCoupon,
         discount_amount: discountAmount,
         referral_code: appliedReferral,
+        purchase_option: option,
+        module_choice: chosenModule,
       })
       .select()
       .single();

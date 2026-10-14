@@ -78,6 +78,13 @@
       "when": 1791891371720,
       "tag": "0010_grant_is_enrolled_in_course",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1792013346998,
+      "tag": "0011_enrolment_purchase_option",
+      "breakpoints": true
     }
   ]
 }

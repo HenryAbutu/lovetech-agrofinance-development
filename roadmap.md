@@ -32,3 +32,6 @@
 - [x] Move learning timeline to Academy before its catalogue; retain hero and homepage LMS panel unchanged.
 - [x] Expand Finance/Agribusiness/Digital panels and reorder Programme Support and Who We Serve.
 - [x] Verify panel order, preserved first panels, links and desktop/mobile rendering.
+# Phase 3 automated regression (AUD-05)
+- [x] Unit tests for payments, signatures, idempotency, pricing, forms, canonicals; smoke tests for routes/SEO/API/MCP.
+- [ ] Signed-in authorization tests — blocked until isolated test accounts are approved.

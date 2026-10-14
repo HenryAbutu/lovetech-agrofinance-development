@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "test": "vitest run --config vitest.config.ts",
     "test:watch": "vitest --config vitest.config.ts",
-    "test:smoke": "bun tests/smoke/smoke.ts",
+    "test:smoke": "bun ./tests/smoke/smoke.ts",
     "typecheck": "tsgo --noEmit"
   },
   "dependencies": {

@@ -257,7 +257,8 @@ function AcademyPage() {
   const [active, setActive] = useState<Course | null>(null);
   const [query, setQuery] = useState("");
   const [topic, setTopic] = useState<string>("All Courses");
-  const legacy = [basicCourse, advancedCourse, ...upcoming];
+  void basicCourse; // consolidated into advancedCourse (same course)
+  const legacy = [advancedCourse, ...upcoming];
   const courses: DiscoveryCourse[] = [
     ...catalogue.map(c => ({ id:c.slug, title:c.title, summary:c.short, category:c.pathway, image:discoveryImage(c.pathway), level:c.level, duration:c.duration, delivery:c.delivery, routeSlug:c.slug })),
     ...legacy.map(c => ({ id:`programme-${c.slug}`, title:c.displayTitle ?? c.title, summary:c.summary, category:c.category, image:c === advancedCourse ? advancedImage : discoveryImage(c.category), status:c.status, price:c.price, priceNote:c.priceNote, level:c.level, duration:c.duration, delivery:c.format, onOpen:() => setActive(c), actionLabel:c.onOpenCTA === "waitlist" ? "Join Waiting List" : "View details" })),

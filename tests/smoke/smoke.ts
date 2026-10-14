@@ -66,6 +66,19 @@ async function main() {
     } else ok("professionals-ai-edge course record readable", false);
   } else console.log("(skipped price-vs-database check: VITE_SUPABASE_URL / key not set)");
 
+  // Profile privacy: signed-out direct database requests can't read profile rows or contact details
+  if (sbUrl && sbKey) {
+    const h = { apikey: sbKey, "content-type": "application/json" };
+    const direct = await fetch(`${sbUrl}/rest/v1/profiles?select=email,phone,referral_code&limit=5`, { headers: h });
+    const rows = direct.ok ? ((await direct.json()) as unknown[]) : [];
+    ok("signed-out direct profile read returns no rows", rows.length === 0, `status ${direct.status}`);
+    const dir = await fetch(`${sbUrl}/rest/v1/rpc/list_public_learners`, { method: "POST", headers: h, body: "{}" });
+    const dtxt = await dir.text();
+    ok("public learner directory has no contact fields", dir.ok && !/"(email|phone|referral_code|id)"/.test(dtxt), `status ${dir.status}`);
+    const one = await fetch(`${sbUrl}/rest/v1/rpc/get_public_learner`, { method: "POST", headers: h, body: JSON.stringify({ _slug: "no-such-learner-smoke" }) });
+    ok("unknown public learner returns nothing", one.ok && ["null", ""].includes((await one.text()).trim()), `status ${one.status}`);
+  }
+
   // C/E. Payment endpoints + MCP, unauthenticated
   const wh = await get("/api/public/paystack/webhook", { method: "POST", body: "{}", headers: { "content-type": "application/json" } });
   ok("webhook without signature → 401, not HTML", wh.status === 401 && !isHtml(wh), `got ${wh.status}`);

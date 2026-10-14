@@ -2,6 +2,8 @@
 type PaystackData = { status?: string; amount?: number; currency?: string; reference?: string; metadata?: { enrolment_id?: string } };
 
 export async function checkPaystackCharge(reference: string, key: string) {
+  const { assertPaystackKeyAllowed } = await import("@/lib/environment.server");
+  assertPaystackKeyAllowed(key);
   const res = await fetch(`https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`, {
     headers: { Authorization: `Bearer ${key}` },
   });

@@ -416,8 +416,10 @@ export type Database = {
           id: string
           location: string | null
           main_challenge: string | null
+          module_choice: string | null
           payment_status: Database["public"]["Enums"]["enrolment_payment_status"]
           phone: string | null
+          purchase_option: string
           referral_code: string | null
           referral_source: string | null
           user_id: string
@@ -435,8 +437,10 @@ export type Database = {
           id?: string
           location?: string | null
           main_challenge?: string | null
+          module_choice?: string | null
           payment_status?: Database["public"]["Enums"]["enrolment_payment_status"]
           phone?: string | null
+          purchase_option?: string
           referral_code?: string | null
           referral_source?: string | null
           user_id: string
@@ -454,8 +458,10 @@ export type Database = {
           id?: string
           location?: string | null
           main_challenge?: string | null
+          module_choice?: string | null
           payment_status?: Database["public"]["Enums"]["enrolment_payment_status"]
           phone?: string | null
+          purchase_option?: string
           referral_code?: string | null
           referral_source?: string | null
           user_id?: string

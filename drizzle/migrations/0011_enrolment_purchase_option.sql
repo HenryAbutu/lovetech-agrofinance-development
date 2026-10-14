@@ -1,0 +1,1 @@
+ALTER TABLE public.academy_enrolments ADD COLUMN IF NOT EXISTS purchase_option text NOT NULL DEFAULT 'bundle', ADD COLUMN IF NOT EXISTS module_choice text;

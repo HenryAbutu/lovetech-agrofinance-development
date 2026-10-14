@@ -1982,6 +1982,7 @@ export type Database = {
         }[]
       }
       get_my_role: { Args: never; Returns: string }
+      get_public_learner: { Args: { _slug: string }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1994,6 +1995,16 @@ export type Database = {
         Returns: boolean
       }
       is_lms_staff: { Args: { _user_id: string }; Returns: boolean }
+      list_public_learners: {
+        Args: never
+        Returns: {
+          avatar_url: string
+          full_name: string
+          headline: string
+          location: string
+          public_slug: string
+        }[]
+      }
       lms_is_enrolled: {
         Args: { _slug: string; _user_id: string }
         Returns: boolean

@@ -200,7 +200,7 @@ function Page() {
         <div className="mx-auto max-w-3xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Enrol now</p>
           <h2 className="mb-2 font-serif text-4xl text-vetiver">Reserve your seat</h2>
-          <p className="mb-8 text-foreground/70">Complete the short form below and proceed to secure payment of ₦25,000 for the full 5-module bundle.</p>
+          <p className="mb-8 text-foreground/70">Complete the short form below and pay securely: ₦25,000 for the full 5-module bundle, or ₦15,000 for a single module.</p>
           {authed === false && (
             <div className="mb-6 rounded-md border border-ochre/30 bg-ochre/5 p-4 text-sm">
               You need to <Link to="/login" className="font-semibold text-vetiver underline">sign in</Link> or <Link to="/signup" className="font-semibold text-vetiver underline">create an account</Link> to enroll.
@@ -246,6 +246,28 @@ function Page() {
                   <Field name="referral_source" label="How did you hear about us?" />
                 </>
               )}
+
+              <fieldset className="rounded-md border border-border p-4">
+                <legend className="px-1 text-sm font-medium text-vetiver">Choose your option</legend>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <label className={`cursor-pointer rounded-md border p-3 text-sm ${plan === "bundle" ? "border-vetiver bg-vetiver/5" : "border-border"}`}>
+                    <input type="radio" name="plan" className="mr-2" checked={plan === "bundle"} onChange={() => setPlan("bundle")} />
+                    <span className="font-semibold">Full bundle — ₦25,000</span>
+                    <span className="block text-xs text-foreground/60">All 5 modules</span>
+                  </label>
+                  <label className={`cursor-pointer rounded-md border p-3 text-sm ${plan === "single_module" ? "border-vetiver bg-vetiver/5" : "border-border"}`}>
+                    <input type="radio" name="plan" className="mr-2" checked={plan === "single_module"} onChange={() => setPlan("single_module")} />
+                    <span className="font-semibold">Single module — ₦15,000</span>
+                    <span className="block text-xs text-foreground/60">Pick one module</span>
+                  </label>
+                </div>
+                {plan === "single_module" && (
+                  <select aria-label="Choose a module" required value={moduleChoice} onChange={(e) => setModuleChoice(e.target.value)} className="mt-3 w-full rounded-md border border-border bg-background px-3 py-2 text-sm">
+                    <option value="">Select a module…</option>
+                    {singleModules.map((m) => <option key={m} value={m}>{m}</option>)}
+                  </select>
+                )}
+              </fieldset>
 
               <div className="rounded-md border border-dashed border-ochre/40 bg-ochre/5 p-4">
                 <label className="mb-2 flex items-center gap-2 text-sm font-medium text-vetiver">

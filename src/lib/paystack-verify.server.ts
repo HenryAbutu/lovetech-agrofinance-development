@@ -34,13 +34,17 @@ export async function applyPaystackResult(reference: string, key: string) {
   if (r.status === "not_found") return r;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   if (r.ok) {
-    await supabaseAdmin.from("academy_payments")
+    // Only the first successful transition runs fulfilment, so duplicate webhooks/redirects are idempotent.
+    const { data: changed } = await supabaseAdmin.from("academy_payments")
       .update({ status: "success", paid_at: new Date().toISOString() })
-      .eq("paystack_reference", reference).neq("status", "success");
+      .eq("paystack_reference", reference).neq("status", "success")
+      .select("id");
     await supabaseAdmin.from("academy_enrolments")
       .update({ payment_status: "paid", access_status: "active" }).eq("id", r.enrolmentId);
-    const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
-    await fulfilPayment(reference);
+    if (changed && changed.length > 0) {
+      const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
+      await fulfilPayment(reference);
+    }
   } else {
     await supabaseAdmin.from("academy_payments")
       .update({ status: r.status }).eq("paystack_reference", reference).neq("status", "success");

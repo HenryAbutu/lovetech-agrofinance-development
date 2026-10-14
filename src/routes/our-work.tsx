@@ -8,7 +8,7 @@ export const Route = createFileRoute("/our-work")({
   head: () =>
     websiteHead(
       "Our Work & Professional Experience",
-      "A transparent distinction between founder/team prior professional experience and contracts awarded to Lovetech Agrofinance & Development Ltd.",
+      "A transparent distinction between founder/team prior professional experience and contracts awarded to Lovetech Agrofinance & Development Ltd.", "/our-work"
     ),
   component: Work,
 });

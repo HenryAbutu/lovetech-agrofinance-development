@@ -13,7 +13,7 @@ export const Route = createFileRoute("/advisory")({
   head: () =>
     websiteHead(
       "Advisory Services",
-      "Finance readiness, agribusiness and enterprise development, digital & AI solutions and programme support for businesses and institutions.",
+      "Finance readiness, agribusiness and enterprise development, digital & AI solutions and programme support for businesses and institutions.", "/advisory"
     ),
   component: Advisory,
 });

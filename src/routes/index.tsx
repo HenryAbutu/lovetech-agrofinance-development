@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
   head: () =>
     websiteHead(
       "Business advisory, enterprise & institutional development",
-      "Lovetech works with entrepreneurs, agribusinesses, financial institutions and development partners to prepare for finance and build stronger systems, skills and programmes.",
+      "Lovetech works with entrepreneurs, agribusinesses, financial institutions and development partners to prepare for finance and build stronger systems, skills and programmes.", "/"
     ),
   component: Home,
 });

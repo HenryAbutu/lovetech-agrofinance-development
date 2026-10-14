@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { FileCheck2, Building2, Receipt, TrendingUp, AlertTriangle, Target, ScrollText, ClipboardCheck, ArrowRight, CheckCircle2 } from "lucide-react";
@@ -8,6 +9,7 @@ import { LegalNotice } from "@/components/legal-notice";
 
 export const Route = createFileRoute("/finance-readiness")({
   head: () => ({
+    links: [canonicalLink("/finance-readiness")],
     meta: [
       { title: "Finance Readiness Diagnostic — LoveTech" },
       { name: "description", content: "Free diagnostic to assess your business's readiness for loans, grants and investment." },

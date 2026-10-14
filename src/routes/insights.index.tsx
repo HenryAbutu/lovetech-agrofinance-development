@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { useMemo, useState } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, Newspaper } from "lucide-react";
@@ -12,6 +13,7 @@ const postsQuery = queryOptions({
 
 export const Route = createFileRoute("/insights/")({
   head: () => ({
+    links: [canonicalLink("/insights")],
     meta: [
       { title: "Insights — Lovetech Agrofinance & Development" },
       { name: "description", content: "Practical updates, opportunities and analysis for Nigerian MSMEs, agribusinesses, entrepreneurs, cooperatives and development actors." },

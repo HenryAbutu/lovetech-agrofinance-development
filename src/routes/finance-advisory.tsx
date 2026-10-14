@@ -6,7 +6,7 @@ export const Route = createFileRoute("/finance-advisory")({
     websiteHead(
       "Finance Readiness & Access to Finance",
       serviceContent.find((s) => s.id === "finance")?.intro ??
-        "Finance Readiness & Access to Finance",
+        "Finance Readiness & Access to Finance", "/finance-advisory"
     ),
   component: () => <ServicePage id="finance" />,
 });

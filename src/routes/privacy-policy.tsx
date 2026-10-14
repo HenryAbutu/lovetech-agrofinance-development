@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { LegalDocument } from "@/components/legal-document";
 import content from "@/content/privacy-policy.md?raw";
 
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/privacy-policy")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
-    links: [{ rel: "canonical", href: "https://lovetechgroup.com.ng/privacy-policy" }],
+    links: [canonicalLink("/privacy-policy")],
   }),
   component: () => <LegalDocument title="Privacy Policy" content={content} />,
 });

@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 import { CheckCircle2, Clock, GraduationCap, MonitorSmartphone, Users, ClipboardCheck, MessageSquare, Target } from "lucide-react";
 import { findCourse } from "@/lib/academy-catalogue";
 import { WaitlistForm } from "@/components/waitlist-form";
@@ -11,7 +12,7 @@ export const Route = createFileRoute("/academy/courses/$slug")({
     if (!course) throw notFound();
     return { course };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Course not found — LoveTech Academy" }, { name: "robots", content: "noindex" }] };
     const c = loaderData.course;
     const title = `${c.title} — LoveTech Agro Academy`;
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/academy/courses/$slug")({
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary" },
       ],
+      links: [canonicalLink(`/academy/courses/${params.slug}`)],
     };
   },
   notFoundComponent: CourseNotFound,

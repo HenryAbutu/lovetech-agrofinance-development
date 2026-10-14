@@ -9,7 +9,7 @@ export const Route = createFileRoute("/about")({
   head: () =>
     websiteHead(
       "About Lovetech",
-      "Advisory rooted in real business challenges. Meet Lovetech Agrofinance & Development Ltd and founder Avess Swile Abutu.",
+      "Advisory rooted in real business challenges. Meet Lovetech Agrofinance & Development Ltd and founder Avess Swile Abutu.", "/about"
     ),
   component: About,
 });

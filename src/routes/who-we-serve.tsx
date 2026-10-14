@@ -8,7 +8,7 @@ export const Route = createFileRoute("/who-we-serve")({
   head: () =>
     websiteHead(
       "Who We Serve",
-      "Practical advisory for MSMEs, agribusinesses, cooperatives, development partners, public institutions and financial institutions.",
+      "Practical advisory for MSMEs, agribusinesses, cooperatives, development partners, public institutions and financial institutions.", "/who-we-serve"
     ),
   component: Audience,
 });

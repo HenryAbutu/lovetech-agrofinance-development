@@ -34,17 +34,17 @@ export async function applyPaystackResult(reference: string, key: string) {
   if (r.status === "not_found") return r;
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   if (r.ok) {
-    // Only the first successful transition runs fulfilment, so duplicate webhooks/redirects are idempotent.
-    const { data: changed } = await supabaseAdmin.from("academy_payments")
+    // Never overwrite an earlier success (keeps the original paid_at).
+    await supabaseAdmin.from("academy_payments")
       .update({ status: "success", paid_at: new Date().toISOString() })
-      .eq("paystack_reference", reference).neq("status", "success")
-      .select("id");
+      .eq("paystack_reference", reference).neq("status", "success");
     await supabaseAdmin.from("academy_enrolments")
       .update({ payment_status: "paid", access_status: "active" }).eq("id", r.enrolmentId);
-    if (changed && changed.length > 0) {
-      const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
-      await fulfilPayment(reference);
-    }
+    // Fulfilment runs on every verified delivery so a crashed earlier attempt can recover.
+    // Each step inside it is idempotent (unique coupon redemption, one referral per enrolment,
+    // invoice + emails gated on the invoice already existing).
+    const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
+    await fulfilPayment(reference);
   } else {
     await supabaseAdmin.from("academy_payments")
       .update({ status: r.status }).eq("paystack_reference", reference).neq("status", "success");

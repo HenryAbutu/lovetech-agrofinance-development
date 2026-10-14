@@ -97,9 +97,9 @@ const basicCourse: Course = {
     "Pre & post assessment quiz",
     "Certificate after completion",
   ],
-  ctaLabel: "Enrol Now — ₦8,900",
+  ctaLabel: "Enrol Now — ₦25,000",
   onOpenCTA: "enrol",
-  externalCTA: "/academy/courses/ai-tools-small-businesses",
+  externalCTA: "/academy/courses/professionals-ai-edge",
 };
 
 const advancedCourse: Course = {

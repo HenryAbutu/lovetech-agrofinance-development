@@ -87,7 +87,7 @@ function CoursePage() {
             ? "Your enrolment is awaiting payment. Complete payment to unlock the course."
             : "You are not enrolled in this course yet."}
         </p>
-        <Link to="/academy/courses/ai-tools-small-businesses" className="inline-flex rounded-sm bg-academy px-5 py-2.5 text-sm font-semibold text-white">
+        <Link to="/academy/courses/professionals-ai-edge" className="inline-flex rounded-sm bg-academy px-5 py-2.5 text-sm font-semibold text-white">
           Complete enrolment
         </Link>
       </main>

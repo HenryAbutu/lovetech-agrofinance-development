@@ -12,47 +12,30 @@ function serverAnon() {
   );
 }
 
-// Public directory — anon can call.
+// Public directory — anon can call. Reads go through database functions that return only
+// approved public fields (never email, phone, referral code or account ids).
 export const listPublicLearners = createServerFn({ method: "GET" })
   .handler(async () => {
     const supabase = serverAnon();
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("full_name, headline, location, avatar_url, public_slug")
-      .eq("is_public", true)
-      .not("public_slug", "is", null)
-      .order("full_name", { ascending: true })
-      .limit(100);
-    if (error) throw new Error(error.message);
+    const { data, error } = await supabase.rpc("list_public_learners");
+    if (error) throw new Error("Could not load learner profiles");
     return data ?? [];
   });
+
+type PublicLearner = {
+  profile: { full_name: string | null; headline: string | null; bio: string | null; location: string | null; avatar_url: string | null; website_url: string | null; public_slug: string | null };
+  badges: { badge: { id: string; name: string; description: string } | null }[];
+  certificates: { id: string; certificate_id: string | null; issued_at: string | null; course: { title: string; slug: string } | null }[];
+};
 
 export const getPublicProfile = createServerFn({ method: "GET" })
   .inputValidator((input) => z.object({ slug: z.string().min(1).max(120) }).parse(input))
   .handler(async ({ data }) => {
     const supabase = serverAnon();
-    const { data: prof, error } = await supabase
-      .from("profiles")
-      .select("id, full_name, headline, bio, location, avatar_url, website_url, public_slug")
-      .eq("public_slug", data.slug)
-      .eq("is_public", true)
-      .maybeSingle();
-    if (error) throw new Error(error.message);
-    if (!prof) return { profile: null, badges: [], certificates: [] };
-
-    const [{ data: badges }, { data: certs }] = await Promise.all([
-      supabase
-        .from("academy_learner_badges")
-        .select("badge:academy_badges(id, name, description)")
-        .eq("user_id", prof.id),
-      supabase
-        .from("academy_certificates")
-        .select("id, certificate_id, issued_at, course:academy_courses(title, slug)")
-        .eq("user_id", prof.id)
-        .eq("status", "issued")
-        .order("issued_at", { ascending: false }),
-    ]);
-    return { profile: prof, badges: badges ?? [], certificates: certs ?? [] };
+    const { data: res, error } = await supabase.rpc("get_public_learner", { _slug: data.slug });
+    if (error) throw new Error("Could not load this profile");
+    if (!res) return { profile: null, badges: [], certificates: [] } as { profile: null; badges: PublicLearner["badges"]; certificates: PublicLearner["certificates"] };
+    return res as unknown as PublicLearner;
   });
 
 // Authenticated: my profile + update

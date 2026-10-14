@@ -19,9 +19,9 @@ export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
     links: [canonicalLink("/academy/courses/professionals-ai-edge")],
     meta: [
       { title: "Enroll · AI for Work & Business — LoveTech Agro Academy" },
-      { name: "description", content: "Practical AI skills to work smarter, grow your business, and stay ahead. Launch price ₦5,000." },
+      { name: "description", content: "Practical AI skills to work smarter, grow your business, and stay ahead. ₦25,000 for all 5 modules, or ₦15,000 per module." },
       { property: "og:title", content: "AI for Work & Business" },
-      { property: "og:description", content: "Practical AI skills for professionals, teams and business owners. Launch price ₦5,000." },
+      { property: "og:description", content: "Practical AI skills for professionals, teams and business owners. ₦25,000 for all 5 modules, or ₦15,000 per module." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -144,7 +144,7 @@ function Page() {
     }
   }
 
-  const finalAmount = couponInfo?.ok && typeof couponInfo.final === "number" ? couponInfo.final : 5000;
+  const finalAmount = couponInfo?.ok && typeof couponInfo.final === "number" ? couponInfo.final : 25000;
   const isFree = finalAmount <= 0;
   const priceLabel = isFree ? "Enroll Now (Free)" : `Enroll & Pay ₦${finalAmount.toLocaleString()}`;
 
@@ -164,9 +164,9 @@ function Page() {
             <h1 className="font-serif text-5xl text-bone md:text-6xl">AI for Work & Business</h1>
             <p className="mt-5 max-w-2xl text-lg text-bone/75">A practical, beginner-friendly course to help you use AI to work smarter, save time, and grow — whether you're a professional, team member, founder or business owner.</p>
             <div className="mt-8 flex items-baseline gap-3">
-              <span className="text-lg text-bone/40 line-through">₦10,000</span>
-              <span className="font-serif text-5xl text-ochre">₦5,000</span>
-              <span className="text-sm text-bone/60">launch price</span>
+              
+              <span className="font-serif text-5xl text-ochre">₦25,000</span>
+              <span className="text-sm text-bone/60">5-module bundle · or ₦15,000 per module</span>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#enrol" className="inline-flex rounded-sm px-6 py-3 text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Enroll Now</a>
@@ -191,7 +191,7 @@ function Page() {
         <div className="mx-auto max-w-3xl">
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-ochre">Enrol now</p>
           <h2 className="mb-2 font-serif text-4xl text-vetiver">Reserve your seat</h2>
-          <p className="mb-8 text-foreground/70">Complete the short form below and proceed to secure payment of ₦5,000.</p>
+          <p className="mb-8 text-foreground/70">Complete the short form below and proceed to secure payment of ₦25,000 for the full 5-module bundle.</p>
           {authed === false && (
             <div className="mb-6 rounded-md border border-ochre/30 bg-ochre/5 p-4 text-sm">
               You need to <Link to="/login" className="font-semibold text-vetiver underline">sign in</Link> or <Link to="/signup" className="font-semibold text-vetiver underline">create an account</Link> to enroll.
@@ -304,9 +304,9 @@ function Page() {
           </div>
           <aside className="h-fit space-y-4">
             <div className="rounded-2xl border border-academy/30 bg-academy/5 p-6">
-              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-academy">Launch cohort</p>
-              <p className="font-serif text-3xl text-vetiver">₦5,000</p>
-              <p className="mt-1 text-sm text-foreground/60">50% off launch price.</p>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-academy">Course fee</p>
+              <p className="font-serif text-3xl text-vetiver">₦25,000</p>
+              <p className="mt-1 text-sm text-foreground/60">Full 5-module bundle. Single modules are ₦15,000 each.</p>
               <a href="#enrol" className="mt-4 block rounded-sm py-2.5 text-center text-sm font-semibold text-white" style={{ backgroundColor: "var(--academy)" }}>Reserve my seat</a>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">

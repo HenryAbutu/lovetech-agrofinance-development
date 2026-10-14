@@ -14,39 +14,11 @@ export const Route = createFileRoute("/api/public/paystack/verify")({
         if (!key) {
           throw redirect({ href: `${origin}/academy/dashboard?payment=unconfigured` });
         }
-
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
-        const res = await fetch(`https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`, {
-          headers: { Authorization: `Bearer ${key}` },
-        });
-        const json = (await res.json()) as {
-          status?: boolean;
-          data?: { status?: string; amount?: number; currency?: string; metadata?: { enrolment_id?: string } };
-        };
-
-        const ok = json.status && json.data?.status === "success";
-        const enrolmentId = json.data?.metadata?.enrolment_id ?? null;
-
-        await supabaseAdmin
-          .from("academy_payments")
-          .update({
-            status: ok ? "success" : (json.data?.status ?? "failed"),
-            paid_at: ok ? new Date().toISOString() : null,
-          })
-          .eq("paystack_reference", reference);
-
-        if (ok && enrolmentId) {
-          await supabaseAdmin
-            .from("academy_enrolments")
-            .update({ payment_status: "paid", access_status: "active" })
-            .eq("id", enrolmentId);
-          const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
-          await fulfilPayment(reference);
-        }
-
+        // Re-checks the charge with Paystack and that amount/currency match our record.
+        const { applyPaystackResult } = await import("@/lib/paystack-verify.server");
+        const r = await applyPaystackResult(reference, key);
         throw redirect({
-          href: `${origin}/academy/receipt?payment=${ok ? "success" : "failed"}&ref=${encodeURIComponent(reference)}`,
+          href: `${origin}/academy/receipt?payment=${r.ok ? "success" : "failed"}&ref=${encodeURIComponent(reference)}`,
         });
       },
     },

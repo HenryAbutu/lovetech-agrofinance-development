@@ -23,23 +23,9 @@ export const Route = createFileRoute("/api/public/paystack/webhook")({
         };
 
         if (event.event === "charge.success" && event.data?.reference) {
-          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-          const reference = event.data.reference;
-          const enrolmentId = event.data.metadata?.enrolment_id ?? null;
-
-          await supabaseAdmin
-            .from("academy_payments")
-            .update({ status: "success", paid_at: new Date().toISOString() })
-            .eq("paystack_reference", reference);
-
-          if (enrolmentId) {
-            await supabaseAdmin
-              .from("academy_enrolments")
-              .update({ payment_status: "paid", access_status: "active" })
-              .eq("id", enrolmentId);
-          }
-          const { fulfilPayment } = await import("@/lib/payment-fulfilment.server");
-          await fulfilPayment(reference);
+          // Never trust the webhook body alone: re-verify amount/currency with Paystack.
+          const { applyPaystackResult } = await import("@/lib/paystack-verify.server");
+          await applyPaystackResult(event.data.reference, key);
         }
 
         return new Response("ok");

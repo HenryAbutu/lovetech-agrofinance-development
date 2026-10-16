@@ -5,7 +5,7 @@ import { ClipboardCheck, FileEdit, CheckCircle2, Clock, XCircle, Trophy, ArrowRi
 import { getCourseAssessments } from "@/lib/assessments.functions";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/assessments")({
-  head: () => ({ meta: [{ title: "Assessments · LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "Assessments · LoveTech Academy" }] }),
   component: AssessmentsPage,
 });
 

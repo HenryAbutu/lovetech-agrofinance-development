@@ -19,7 +19,7 @@ export const Route = createFileRoute("/academy/courses/professionals-ai-edge")({
   head: () => ({
     links: [canonicalLink("/academy/courses/professionals-ai-edge")],
     meta: [
-      { title: "Enroll · AI for Work & Business — LoveTech Agro Academy" },
+      { title: "Enroll · AI for Work & Business — LoveTech Academy" },
       { name: "description", content: "Practical AI skills to work smarter, grow your business, and stay ahead. ₦25,000 for all 5 modules, or ₦15,000 per module." },
       { property: "og:title", content: "AI for Work & Business" },
       { property: "og:description", content: "Practical AI skills for professionals, teams and business owners. ₦25,000 for all 5 modules, or ₦15,000 per module." },

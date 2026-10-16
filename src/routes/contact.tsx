@@ -30,7 +30,7 @@ export const Route = createFileRoute("/contact")({
 
 const businesses = [
   { id: "Advisory & Academy", icon: Building2, blurb: "Finance readiness, business structure, digital systems, training and programmes.", to: "/advisory" as const },
-  { id: "LoveTech Agro Academy", icon: GraduationCap, blurb: "Courses, cohorts, corporate training and learner support.", to: "/academy" as const },
+  { id: "LoveTech Academy", icon: GraduationCap, blurb: "Courses, cohorts, corporate training and learner support.", to: "/academy" as const },
   { id: "House 8 Shortlet Apartments", icon: BedDouble, blurb: "Stays, long-stay rates and corporate accommodation in Abuja.", to: "/house-8" as const },
   { id: "Ruby Chai Wellness", icon: Leaf, blurb: "Tea orders, gifting packs and wholesale supply.", to: "/ruby-chai" as const },
 ];

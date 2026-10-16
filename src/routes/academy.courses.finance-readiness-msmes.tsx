@@ -6,7 +6,7 @@ export const Route = createFileRoute("/academy/courses/finance-readiness-msmes")
   head: () => ({
     links: [canonicalLink("/academy/courses/finance-readiness-msmes")],
     meta: [
-      { title: "Finance Readiness for MSMEs — LoveTech Agro Academy" },
+      { title: "Finance Readiness for MSMEs — LoveTech Academy" },
       { name: "description", content: "Upcoming programme preparing MSMEs for loans, grants, investment and partnerships. Join the waitlist." },
       { property: "og:title", content: "Finance Readiness for MSMEs — Lovetech Academy" },
       { property: "og:description", content: "Upcoming programme preparing MSMEs for finance and partnerships. Join the existing waitlist." },

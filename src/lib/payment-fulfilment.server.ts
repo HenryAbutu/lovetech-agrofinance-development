@@ -71,7 +71,7 @@ async function generateInvoicePdf(input: {
   y = tableTop - 24;
   page.drawText(input.courseTitle, { x: 48, y, size: 11, font: bold, color: ink });
   y -= 14;
-  page.drawText("Course enrolment · LoveTech Agro Academy", { x: 48, y, size: 9, font: italic, color: muted });
+  page.drawText("Course enrolment · LoveTech Academy", { x: 48, y, size: 9, font: italic, color: muted });
   const gross = input.amount + input.discount;
   page.drawText(fmt(gross), { x: 555 - serif.widthOfTextAtSize(fmt(gross), 11), y: y + 14, size: 11, font: serif, color: ink });
 
@@ -103,7 +103,7 @@ async function generateInvoicePdf(input: {
 
   // Footer
   page.drawLine({ start: { x: 40, y: 80 }, end: { x: 555, y: 80 }, thickness: 0.5, color: rgb(0.85, 0.85, 0.85) });
-  page.drawText("Thank you for learning with LoveTech Agro Academy.", { x: 40, y: 60, size: 10, font: italic, color: vetiver });
+  page.drawText("Thank you for learning with LoveTech Academy.", { x: 40, y: 60, size: 10, font: italic, color: vetiver });
   page.drawText("This is a computer-generated invoice. No signature required.", { x: 40, y: 46, size: 8, font: serif, color: muted });
 
   return new Uint8Array(await pdf.save());

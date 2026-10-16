@@ -6,7 +6,7 @@ export const Route = createFileRoute("/academy/courses/icss-2-0-entrepreneurship
   head: () => ({
     links: [canonicalLink("/academy/courses/icss-2-0-entrepreneurship")],
     meta: [
-      { title: "ICSS 2.0 Entrepreneurship Programme — LoveTech Agro Academy" },
+      { title: "ICSS 2.0 Entrepreneurship Programme — LoveTech Academy" },
       { name: "description", content: "Upcoming entrepreneurship programme for MSME growth, finance readiness and market access. Join the waitlist." },
       { property: "og:title", content: "ICSS 2.0 Entrepreneurship Programme — Lovetech Academy" },
       { property: "og:description", content: "Upcoming entrepreneurship programme for MSMEs. Join the existing programme waitlist." },

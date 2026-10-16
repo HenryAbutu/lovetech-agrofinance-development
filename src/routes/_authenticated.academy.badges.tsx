@@ -6,7 +6,7 @@ import type { LucideIcon } from "lucide-react";
 import { getMyBadgesAndPrefs } from "@/lib/leaderboard.functions";
 
 export const Route = createFileRoute("/_authenticated/academy/badges")({
-  head: () => ({ meta: [{ title: "My Badges · LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "My Badges · LoveTech Academy" }] }),
   component: BadgesPage,
 });
 

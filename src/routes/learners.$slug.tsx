@@ -12,8 +12,8 @@ const profileQuery = (slug: string) =>
 export const Route = createFileRoute("/learners/$slug")({
   head: ({ loaderData }) => {
     const p = (loaderData as { profile?: { full_name: string | null; headline: string | null; bio: string | null; avatar_url: string | null } | null } | undefined)?.profile;
-    const title = p ? `${p.full_name} · LoveTech Agro Academy` : "Learner · LoveTech Agro Academy";
-    const desc = p?.headline ?? p?.bio?.slice(0, 160) ?? "LoveTech Agro Academy learner profile.";
+    const title = p ? `${p.full_name} · LoveTech Academy` : "Learner · LoveTech Academy";
+    const desc = p?.headline ?? p?.bio?.slice(0, 160) ?? "LoveTech Academy learner profile.";
     return {
       meta: [
         { title },

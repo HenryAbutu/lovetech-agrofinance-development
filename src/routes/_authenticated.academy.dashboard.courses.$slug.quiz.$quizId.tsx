@@ -6,7 +6,7 @@ import { CheckCircle2, XCircle, ArrowLeft } from "lucide-react";
 import { getQuizForAttempt, submitQuizAttempt } from "@/lib/assessments.functions";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/quiz/$quizId")({
-  head: () => ({ meta: [{ title: "Quiz · LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "Quiz · LoveTech Academy" }] }),
   component: QuizPage,
 });
 

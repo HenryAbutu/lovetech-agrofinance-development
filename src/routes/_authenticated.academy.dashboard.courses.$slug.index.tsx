@@ -10,7 +10,7 @@ import { LessonDiscussion } from "@/components/lesson-discussion";
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/")({
-  head: () => ({ meta: [{ title: "Course · LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "Course · LoveTech Academy" }] }),
   component: CoursePage,
 });
 
@@ -101,7 +101,7 @@ function CoursePage() {
       {/* Header */}
       <div className="border-b border-border bg-card">
         <div className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-ochre">Lovetech AI Business Academy</p>
+          <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-ochre">LoveTech Academy</p>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h1 className="font-serif text-2xl text-vetiver md:text-3xl">{data.course.title}</h1>
             <div className="flex flex-wrap items-center gap-3 text-sm">

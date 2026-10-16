@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getSystemHealth } from "@/lib/system-health.functions";
 import { Users, Clock, BookOpen, Layers, FileText, ClipboardList, CheckCircle2, Award, Download } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { findCourse } from "@/lib/academy-catalogue";
@@ -19,6 +21,27 @@ async function loadOverview() {
   ]);
   if (wl.error) throw new Error(wl.error.message);
   return { lms, waitlist: wl.data ?? [], totalUsers: prof.count ?? 0 };
+}
+
+function SystemHealth() {
+  const fetchHealth = useServerFn(getSystemHealth);
+  const { data, error } = useQuery({ queryKey: ["admin", "system-health"], queryFn: () => fetchHealth() });
+  const dot = { ok: "bg-teal", warn: "bg-ochre", missing: "bg-destructive" } as const;
+  return (
+    <section className="rounded-xl border border-border bg-card p-4">
+      <h3 className="mb-3 text-sm font-semibold text-foreground">System & services</h3>
+      {error ? <p className="text-xs text-destructive">Could not check services.</p> : !data ? <p className="text-xs text-foreground/60">Checking…</p> : (
+        <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {data.map((s) => (
+            <li key={s.service} className="flex items-start gap-2 text-xs">
+              <span className={`mt-1 size-2 shrink-0 rounded-full ${dot[s.state]}`} />
+              <span><span className="font-semibold text-foreground">{s.service}</span><br /><span className="text-foreground/60">{s.detail}</span></span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
 }
 
 const PALETTE = ["bg-primary", "bg-teal", "bg-ochre", "bg-vetiver", "bg-muted-foreground"];
@@ -118,6 +141,8 @@ function Overview() {
             : <div key={c.label} className="rounded-xl border border-border bg-card p-4">{body}</div>;
         })}
       </div>
+
+      <SystemHealth />
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Panel title="Waitlist by course"><Bars rows={waitlistByCourse} empty="No waitlist entries yet." /></Panel>

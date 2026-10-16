@@ -14,7 +14,7 @@ const InputSchema = z.object({
   call_to_action: z.string().max(500).optional().nullable(),
 });
 
-const SYSTEM = `You are a senior course producer for LoveTech Agro Academy in Nigeria.
+const SYSTEM = `You are a senior course producer for LoveTech Academy in Nigeria.
 Generate a structured short video script (around the requested duration) that a presenter can record directly.
 The output MUST follow this 12-part structure with these exact headings:
 1. Hook

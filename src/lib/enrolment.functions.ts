@@ -106,7 +106,7 @@ export const enrolInCourse = createServerFn({ method: "POST" })
 
     // Payment rows are written server-side only (service role)
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    await supabaseAdmin.from("academy_payments").insert({
+    const { error: payErr } = await supabaseAdmin.from("academy_payments").insert({
       enrolment_id: enrol.id,
       course_id: course.id,
       user_email: data.email,
@@ -115,6 +115,11 @@ export const enrolInCourse = createServerFn({ method: "POST" })
       status: "initiated",
       payment_provider: "paystack",
     });
+    // Never open a Paystack checkout without a payment record, or the charge can't be matched later.
+    if (payErr) {
+      console.error("[enrol] payment record insert failed", payErr.message);
+      throw new Error("We couldn't start your payment. Please try again or contact support.");
+    }
 
     const paystackKey = process.env.PAYSTACK_SECRET_KEY;
 

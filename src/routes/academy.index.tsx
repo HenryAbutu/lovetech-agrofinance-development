@@ -6,6 +6,16 @@ import aiImage from "@/assets/course-ai-tools.jpg";
 import advancedImage from "@/assets/course-ai-edge.jpg";
 import financeImage from "@/assets/course-finance.jpg";
 import agricultureImage from "@/assets/hero-lovetech.jpg";
+import agribusinessImage from "@/assets/course-agribusiness.jpg";
+import diagnosticImage from "@/assets/diagnostic.jpg";
+import digitalBusinessImage from "@/assets/group/digital-business.jpg";
+import financeReviewImage from "@/assets/group/finance-review.jpg";
+import workshopImage from "@/assets/group/academy-workshop.jpg";
+import proposalImage from "@/assets/courses/proposal-writing.jpg";
+import grantImage from "@/assets/courses/grant-readiness.jpg";
+import climateImage from "@/assets/courses/climate-smart.jpg";
+import digitalToolsImage from "@/assets/courses/digital-tools.jpg";
+import exportImage from "@/assets/courses/export-readiness.jpg";
 import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
@@ -249,7 +259,24 @@ function discoveryTopic(category: string): string {
   if (/Agri|Agriculture|Climate|Cooperative/i.test(category)) return "Agribusiness & Enterprise";
   return "Business Development";
 }
-function discoveryImage(category: string) {
+const courseImages: Record<string, string> = {
+  "ai-for-businesses": aiImage,
+  "finance-readiness-msmes": financeImage,
+  "agribusiness-skills": agribusinessImage,
+  "business-automation-smes": digitalBusinessImage,
+  "proposal-grant-writing": proposalImage,
+  "programme-ai-for-business-advanced": advancedImage,
+  "programme-finance-readiness-msmes": financeReviewImage,
+  "programme-grant-readiness-proposal-writing": grantImage,
+  "programme-business-records-bookkeeping-msmes": diagnosticImage,
+  "programme-agribusiness-value-chain": agricultureImage,
+  "programme-climate-smart-green-enterprise": climateImage,
+  "programme-cooperative-management-governance": workshopImage,
+  "programme-digital-tools-small-business": digitalToolsImage,
+  "programme-export-readiness-agribusiness": exportImage,
+};
+function discoveryImage(id: string, category: string) {
+  if (courseImages[id]) return courseImages[id];
   const topic = discoveryTopic(category);
   return topic === "Digital & AI" ? aiImage : topic === "Finance Readiness" ? financeImage : topic === "Agribusiness & Enterprise" ? agricultureImage : academyImage;
 }
@@ -260,8 +287,8 @@ function AcademyPage() {
   void basicCourse; // consolidated into advancedCourse (same course)
   const legacy = [advancedCourse, ...upcoming];
   const courses: DiscoveryCourse[] = [
-    ...catalogue.map(c => ({ id:c.slug, title:c.title, summary:c.short, category:c.pathway, image:discoveryImage(c.pathway), level:c.level, duration:c.duration, delivery:c.delivery, routeSlug:c.slug })),
-    ...legacy.map(c => ({ id:`programme-${c.slug}`, title:c.displayTitle ?? c.title, summary:c.summary, category:c.category, image:c === advancedCourse ? advancedImage : discoveryImage(c.category), status:c.status, price:c.price, priceNote:c.priceNote, level:c.level, duration:c.duration, delivery:c.format, onOpen:() => setActive(c), actionLabel:c.onOpenCTA === "waitlist" ? "Join Waiting List" : "View details" })),
+    ...catalogue.map(c => ({ id:c.slug, title:c.title, summary:c.short, category:c.pathway, image:discoveryImage(c.slug, c.pathway), level:c.level, duration:c.duration, delivery:c.delivery, routeSlug:c.slug })),
+    ...legacy.map(c => ({ id:`programme-${c.slug}`, title:c.displayTitle ?? c.title, summary:c.summary, category:c.category, image:discoveryImage(`programme-${c.slug}`, c.category), status:c.status, price:c.price, priceNote:c.priceNote, level:c.level, duration:c.duration, delivery:c.format, onOpen:() => setActive(c), actionLabel:c.onOpenCTA === "waitlist" ? "Join Waiting List" : "View details" })),
   ];
   const filtered = courses.filter(c => {
     const matchesTopic = topic === "All Courses" || discoveryTopic(c.category) === topic || (topic === "Business Development" && /Business|SME|MSME|Proposal|Grant|Cooperative/i.test(c.title));

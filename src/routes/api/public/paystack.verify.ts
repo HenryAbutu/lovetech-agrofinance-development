@@ -6,7 +6,8 @@ export const Route = createFileRoute("/api/public/paystack/verify")({
       GET: async ({ request }) => {
         const url = new URL(request.url);
         const reference = url.searchParams.get("reference") ?? url.searchParams.get("trxref");
-        const origin = url.origin;
+        const { safeReturnOrigin } = await import("@/lib/enrolment.server");
+        const origin = safeReturnOrigin(url.searchParams.get("return"), url.origin);
         if (!reference) {
           throw redirect({ href: `${origin}/academy/dashboard?payment=missing_reference` });
         }

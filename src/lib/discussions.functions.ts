@@ -20,11 +20,9 @@ export const listLessonDiscussions = createServerFn({ method: "GET" })
     const userIds = Array.from(new Set((posts ?? []).map((p) => p.user_id)));
     let authors: Record<string, { full_name: string | null; avatar_url: string | null; public_slug: string | null; is_public: boolean }> = {};
     if (userIds.length) {
-      const { data: profs } = await supabase
-        .from("profiles")
-        .select("id, full_name, avatar_url, public_slug, is_public")
-        .in("id", userIds);
-      for (const p of profs ?? []) {
+      // Definer function returns only public-profile fields (or the caller's own row).
+      const { data: profs } = await (supabase.rpc as any)("get_discussion_authors", { _ids: userIds });
+      for (const p of (profs ?? []) as { id: string; full_name: string | null; avatar_url: string | null; public_slug: string | null; is_public: boolean }[]) {
         authors[p.id] = {
           full_name: p.full_name,
           avatar_url: p.avatar_url,

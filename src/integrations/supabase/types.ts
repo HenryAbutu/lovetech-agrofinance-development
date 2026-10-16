@@ -1984,6 +1984,16 @@ export type Database = {
           preferred_training_mode: string
         }[]
       }
+      get_discussion_authors: {
+        Args: { _ids: string[] }
+        Returns: {
+          avatar_url: string
+          full_name: string
+          id: string
+          is_public: boolean
+          public_slug: string
+        }[]
+      }
       get_my_role: { Args: never; Returns: string }
       get_public_learner: { Args: { _slug: string }; Returns: Json }
       has_role: {

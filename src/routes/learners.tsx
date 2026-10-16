@@ -11,10 +11,10 @@ const learnersQuery = queryOptions({
 export const Route = createFileRoute("/learners")({
   head: () => ({
     meta: [
-      { title: "Learner directory · LoveTech Agro Academy" },
-      { name: "description", content: "Meet learners and entrepreneurs building better businesses through LoveTech Agro Academy." },
-      { property: "og:title", content: "Learner directory · LoveTech Agro Academy" },
-      { property: "og:description", content: "Meet learners and entrepreneurs building better businesses through LoveTech Agro Academy." },
+      { title: "Learner directory · LoveTech Academy" },
+      { name: "description", content: "Meet learners and entrepreneurs building better businesses through LoveTech Academy." },
+      { property: "og:title", content: "Learner directory · LoveTech Academy" },
+      { property: "og:description", content: "Meet learners and entrepreneurs building better businesses through LoveTech Academy." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

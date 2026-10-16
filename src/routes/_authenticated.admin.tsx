@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { getMyAccess, type AppRole } from "@/lib/user-roles.functions";
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({ meta: [{ title: "Admin — LoveTech Agro Academy" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Admin — LoveTech Academy" }, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
 

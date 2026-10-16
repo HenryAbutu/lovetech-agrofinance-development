@@ -383,7 +383,7 @@ function CourseDetailModal({ course, onClose }: { course: Course; onClose: () =>
 
           <div className="rounded-xl border border-vetiver/20 bg-vetiver/5 p-4 text-sm text-vetiver">
             <p className="font-semibold">Certificate on completion</p>
-            <p className="mt-1 text-foreground/70">Complete required lessons, assessments and the assignment to earn your LoveTech Agro Academy certificate.</p>
+            <p className="mt-1 text-foreground/70">Complete required lessons, assessments and the assignment to earn your LoveTech Academy certificate.</p>
           </div>
 
           {/* CTA */}

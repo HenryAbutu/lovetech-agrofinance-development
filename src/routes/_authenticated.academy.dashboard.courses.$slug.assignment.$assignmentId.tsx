@@ -6,7 +6,7 @@ import { ArrowLeft, CheckCircle2, Clock, Trophy } from "lucide-react";
 import { getCourseAssessments, submitAssignment } from "@/lib/assessments.functions";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/assignment/$assignmentId")({
-  head: () => ({ meta: [{ title: "Assignment · LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "Assignment · LoveTech Academy" }] }),
   component: AssignmentPage,
 });
 

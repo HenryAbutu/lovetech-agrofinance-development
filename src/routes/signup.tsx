@@ -38,7 +38,7 @@ function SignupPage() {
     <main className="website web-auth px-6 py-20 lg:px-8">
       <div className="mx-auto max-w-md rounded-2xl border border-border bg-card p-8">
         <h1 className="mb-2 font-serif text-4xl text-vetiver">Create your account</h1>
-        <p className="mb-6 text-sm text-foreground/65">Join the LoveTech Agro Academy.</p>
+        <p className="mb-6 text-sm text-foreground/65">Join the LoveTech Academy.</p>
         {done ? (
           <div className="rounded-md border border-vetiver/30 bg-vetiver/5 p-4 text-sm">Check your email to confirm your address, then sign in.</div>
         ) : (

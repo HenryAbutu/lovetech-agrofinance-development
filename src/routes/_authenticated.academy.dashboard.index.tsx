@@ -9,7 +9,7 @@ import { whatsappUrl } from "@/lib/lms-config";
 import { LearnerDashboardSections, LearnerWelcome } from "@/components/learner-dashboard-sections";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/")({
-  head: () => ({ meta: [{ title: "My Dashboard — LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "My Dashboard — LoveTech Academy" }] }),
   component: Dashboard,
 });
 

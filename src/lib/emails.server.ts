@@ -57,7 +57,7 @@ const shell = (title: string, inner: string) => `<!doctype html><html><body styl
     <tr><td align="center">
       <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background:#ffffff;border-radius:12px;overflow:hidden;max-width:600px;">
         <tr><td style="background:#0F8A5F;padding:20px 28px;color:#ffffff;">
-          <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;">LoveTech Agro Academy</div>
+          <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;">LoveTech Academy</div>
           <div style="font-family:Georgia,serif;font-size:22px;margin-top:4px;">${title}</div>
         </td></tr>
         <tr><td style="padding:28px;">${inner}</td></tr>

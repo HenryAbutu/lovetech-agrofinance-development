@@ -6,7 +6,7 @@ import { useState } from "react";
 import { getCourseLeaderboard, getMyBadgesAndPrefs, updateLeaderboardPrefs } from "@/lib/leaderboard.functions";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/leaderboard")({
-  head: () => ({ meta: [{ title: "Leaderboard · LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "Leaderboard · LoveTech Academy" }] }),
   component: LeaderboardPage,
 });
 

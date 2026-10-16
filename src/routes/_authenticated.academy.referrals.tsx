@@ -6,7 +6,7 @@ import { Copy, Gift, Share2, Users, Check } from "lucide-react";
 import { getMyReferralInfo } from "@/lib/referrals.functions";
 
 export const Route = createFileRoute("/_authenticated/academy/referrals")({
-  head: () => ({ meta: [{ title: "Refer & Earn — LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "Refer & Earn — LoveTech Academy" }] }),
   component: Page,
 });
 

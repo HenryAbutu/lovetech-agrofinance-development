@@ -338,7 +338,7 @@ export const approveCertificate = createServerFn({ method: "POST" })
     page.drawRectangle({ x: 30, y: 30, width: 782, height: 535, borderColor: ochre, borderWidth: 1 });
 
     // Header
-    page.drawText("LOVETECH AGRO ACADEMY", { x: 421 - bold.widthOfTextAtSize("LOVETECH AGRO ACADEMY", 18) / 2, y: 510, size: 18, font: bold, color: vetiver });
+    page.drawText("LOVETECH ACADEMY", { x: 421 - bold.widthOfTextAtSize("LOVETECH ACADEMY", 18) / 2, y: 510, size: 18, font: bold, color: vetiver });
     const sub = "LoveTech Agrofinance & Development Ltd";
     page.drawText(sub, { x: 421 - serif.widthOfTextAtSize(sub, 11) / 2, y: 490, size: 11, font: italic, color: ink });
 
@@ -360,7 +360,7 @@ export const approveCertificate = createServerFn({ method: "POST" })
     const courseTitle = `"${course.title}"`;
     page.drawText(courseTitle, { x: 421 - bold.widthOfTextAtSize(courseTitle, 18) / 2, y: 255, size: 18, font: bold, color: ink });
 
-    const body2 = "delivered by LoveTech Agro Academy.";
+    const body2 = "delivered by LoveTech Academy.";
     page.drawText(body2, { x: 421 - serif.widthOfTextAtSize(body2, 13) / 2, y: 228, size: 13, font: serif, color: ink });
 
     // Footer

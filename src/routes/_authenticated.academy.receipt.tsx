@@ -14,7 +14,7 @@ const SearchSchema = z.object({
 
 export const Route = createFileRoute("/_authenticated/academy/receipt")({
   validateSearch: (s) => SearchSchema.parse(s),
-  head: () => ({ meta: [{ title: "Enrolment Receipt — LoveTech Agro Academy" }] }),
+  head: () => ({ meta: [{ title: "Enrolment Receipt — LoveTech Academy" }] }),
   component: Page,
 });
 
@@ -81,7 +81,7 @@ function Page() {
           <header className="mb-8 flex items-start justify-between gap-4 border-b border-border pb-6">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-ochre">Enrolment Receipt</p>
-              <h1 className="mt-1 font-serif text-3xl text-vetiver">LoveTech Agro Academy</h1>
+              <h1 className="mt-1 font-serif text-3xl text-vetiver">LoveTech Academy</h1>
               <p className="mt-1 text-sm text-foreground/60">27, 3rd Avenue, Aldenco Estate, Galadimawa, Abuja</p>
               <p className="text-sm text-foreground/60">info@lovetechgroup.com.ng · www.lovetechgroup.com.ng</p>
             </div>

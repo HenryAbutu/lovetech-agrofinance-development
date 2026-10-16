@@ -15,7 +15,7 @@ export const Route = createFileRoute("/academy/courses/$slug")({
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Course not found — LoveTech Academy" }, { name: "robots", content: "noindex" }] };
     const c = loaderData.course;
-    const title = `${c.title} — LoveTech Agro Academy`;
+    const title = `${c.title} — LoveTech Academy`;
     return {
       meta: [
         { title },

@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import {generateAcademyCertificate} from './academy-certificate.server';
 
 // ---------- helpers ----------
 async function assertAdmin(supabase: any, userId: string) {
@@ -67,6 +68,9 @@ const CourseSchema = z.object({
   regular_price: z.coerce.number().nonnegative().optional().nullable(),
   discount_price: z.coerce.number().nonnegative().optional().nullable(),
   delivery_mode: z.string().max(120).optional().nullable(),
+  content_ready: z.boolean().optional(),
+  publication_approved: z.boolean().optional(),
+  production_gaps: z.array(z.string().min(1).max(500)).max(30).optional(),
 });
 
 export const upsertCourse = createServerFn({ method: "POST" })
@@ -148,7 +152,7 @@ const LessonSchema = z.object({
   course_id: z.string().uuid(),
   module_id: z.string().uuid(),
   title: z.string().min(1).max(200),
-  description: z.string().max(4000).optional().nullable(),
+  description: z.string().max(50000).optional().nullable(),
   video_url: z.string().max(500).optional().nullable(),
   resource_url: z.string().max(500).optional().nullable(),
   duration_minutes: z.coerce.number().int().nonnegative().optional().nullable(),
@@ -162,6 +166,8 @@ export const upsertLesson = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const module = await supabaseAdmin.from('academy_modules').select('course_id').eq('id',data.module_id).maybeSingle();
+    if(module.error || module.data?.course_id !== data.course_id)throw new Error('The lesson must belong to a module in this course.');
     const { error } = await supabaseAdmin.from("academy_lessons").upsert(data);
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -304,7 +310,6 @@ export const approveCertificate = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { PDFDocument, StandardFonts, rgb } = await import("pdf-lib");
 
     // Course info
     const { data: course, error: cErr } = await supabaseAdmin
@@ -322,62 +327,7 @@ export const approveCertificate = createServerFn({ method: "POST" })
     const certificateId = `${prefix}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
     const issuedAt = new Date();
 
-    // Generate PDF
-    const pdf = await PDFDocument.create();
-    const page = pdf.addPage([842, 595]); // landscape A4
-    const serif = await pdf.embedFont(StandardFonts.TimesRoman);
-    const bold = await pdf.embedFont(StandardFonts.TimesRomanBold);
-    const italic = await pdf.embedFont(StandardFonts.TimesRomanItalic);
-
-    const vetiver = rgb(31 / 255, 77 / 255, 60 / 255);
-    const ochre = rgb(200 / 255, 148 / 255, 31 / 255);
-    const ink = rgb(26 / 255, 31 / 255, 28 / 255);
-
-    // Border
-    page.drawRectangle({ x: 20, y: 20, width: 802, height: 555, borderColor: vetiver, borderWidth: 3 });
-    page.drawRectangle({ x: 30, y: 30, width: 782, height: 535, borderColor: ochre, borderWidth: 1 });
-
-    // Header
-    page.drawText("LOVETECH ACADEMY", { x: 421 - bold.widthOfTextAtSize("LOVETECH ACADEMY", 18) / 2, y: 510, size: 18, font: bold, color: vetiver });
-    const sub = "LoveTech Agrofinance & Development Ltd";
-    page.drawText(sub, { x: 421 - serif.widthOfTextAtSize(sub, 11) / 2, y: 490, size: 11, font: italic, color: ink });
-
-    // Title
-    const cert = "Certificate of Completion";
-    page.drawText(cert, { x: 421 - bold.widthOfTextAtSize(cert, 34) / 2, y: 420, size: 34, font: bold, color: ink });
-
-    // Awarded to
-    const awarded = "This certifies that";
-    page.drawText(awarded, { x: 421 - serif.widthOfTextAtSize(awarded, 14) / 2, y: 370, size: 14, font: serif, color: ink });
-
-    const name = data.certificate_name;
-    page.drawText(name, { x: 421 - bold.widthOfTextAtSize(name, 30) / 2, y: 325, size: 30, font: bold, color: vetiver });
-    page.drawLine({ start: { x: 200, y: 315 }, end: { x: 642, y: 315 }, thickness: 0.5, color: ochre });
-
-    const body1 = "has successfully completed the course";
-    page.drawText(body1, { x: 421 - serif.widthOfTextAtSize(body1, 13) / 2, y: 285, size: 13, font: serif, color: ink });
-
-    const courseTitle = `"${course.title}"`;
-    page.drawText(courseTitle, { x: 421 - bold.widthOfTextAtSize(courseTitle, 18) / 2, y: 255, size: 18, font: bold, color: ink });
-
-    const body2 = "delivered by LoveTech Academy.";
-    page.drawText(body2, { x: 421 - serif.widthOfTextAtSize(body2, 13) / 2, y: 228, size: 13, font: serif, color: ink });
-
-    // Footer
-    const dateStr = issuedAt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-    page.drawText("Date Issued", { x: 130, y: 130, size: 10, font: serif, color: ink });
-    page.drawLine({ start: { x: 130, y: 120 }, end: { x: 310, y: 120 }, thickness: 0.5, color: ink });
-    page.drawText(dateStr, { x: 130, y: 100, size: 12, font: bold, color: ink });
-
-    page.drawText("Certificate ID", { x: 530, y: 130, size: 10, font: serif, color: ink });
-    page.drawLine({ start: { x: 530, y: 120 }, end: { x: 710, y: 120 }, thickness: 0.5, color: ink });
-    page.drawText(certificateId, { x: 530, y: 100, size: 12, font: bold, color: ink });
-
-    // Signature (typed)
-    page.drawText("Chinny Loveday-Chukwu", { x: 421 - italic.widthOfTextAtSize("Chinny Loveday-Chukwu", 14) / 2, y: 170, size: 14, font: italic, color: vetiver });
-    page.drawText("Founder & Chief Learning Officer", { x: 421 - serif.widthOfTextAtSize("Founder & Chief Learning Officer", 10) / 2, y: 155, size: 10, font: serif, color: ink });
-
-    const bytes = await pdf.save();
+    const bytes = await generateAcademyCertificate({name:data.certificate_name,courseTitle:course.title,certificateId,issuedAt});
 
     const path = `${data.user_id}/${data.course_id}.pdf`;
     const uint8 = new Uint8Array(bytes);

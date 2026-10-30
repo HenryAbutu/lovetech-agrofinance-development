@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { BookOpen, Download, ClipboardList, ClipboardCheck, Target, Award, ArrowRight } from "lucide-react";
 import { useSessionIdentity } from "@/hooks/use-session-identity";
-import { catalogue } from "@/lib/academy-catalogue";
-import { ASSESSMENTS, LEARNABLE, RESOURCES, RESOURCE_CATEGORIES, downloadResource } from "@/lib/learning-content";
-import { courseSummary, previewKeys, useLearnerData } from "@/lib/use-learner-data";
+import { flagships } from '@/components/website/academy-flagships';
+import { ASSESSMENTS, RESOURCES, RESOURCE_CATEGORIES, downloadResource } from "@/lib/learning-content";
+import { courseSummary, useLearnerData } from "@/lib/use-learner-data";
+import {Button} from '@/components/ui/button';
 
 const statusLabel = (s: string) => (s === "completed" ? "Completed" : s === "started" ? "Started" : "Not started");
 
@@ -19,7 +20,7 @@ export function LearnerDashboardSections() {
   if (error || !data) return <p className="text-sm text-destructive">Could not load your learning: {(error as Error)?.message}</p>;
 
   const mine = data.starts.map((s) => ({ s, sum: courseSummary(data, s.course_slug) })).filter((x) => x.sum.course);
-  const available = catalogue.filter((c) => !data.starts.some((s) => s.course_slug === c.slug));
+  const available = flagships;
   const pending = mine.flatMap(({ sum }) => sum.pending.map((l) => ({ l, sum })));
 
   return (
@@ -29,18 +30,18 @@ export function LearnerDashboardSections() {
           <div className="grid gap-4">
             {mine.map(({ s, sum }) => (
               <article key={s.id} className="rounded-xl border border-border bg-card p-5">
-                <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-vetiver">{sum.course.title}</h3>
                     <p className="mt-1 text-xs text-foreground/60">Enrolled · {s.cohort_name ? `Cohort: ${s.cohort_name}` : "Cohort not assigned yet"}</p>
                     <div className="mt-3 h-2 max-w-md overflow-hidden rounded-full bg-muted"><div className="h-full bg-teal" style={{ width: `${sum.percent}%` }} /></div>
-                    <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-foreground/70 sm:grid-cols-3">
+                    <dl className="mt-3 grid grid-cols-1 gap-x-4 gap-y-1 text-xs text-foreground/70 sm:grid-cols-3">
                       <div>Progress: <b>{sum.percent}%</b></div>
                       <div>Pre-test: <b>{statusLabel(sum.preTest)}</b></div>
                       <div>Post-test: <b>{statusLabel(sum.postTest)}</b></div>
                       <div>Pending assignments: <b>{sum.pending.length}</b></div>
                       <div>Completion: <b>{sum.completed ? "Complete" : "In progress"}</b></div>
-                      <div className="col-span-2 sm:col-span-1">Next: <b>{sum.nextLesson?.title ?? "All done"}</b></div>
+                      <div>Next: <b>{sum.nextLesson?.title ?? "All done"}</b></div>
                     </dl>
                   </div>
                   <Link to="/academy/learn/$slug" params={{ slug: s.course_slug }} className="inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-semibold text-primary-foreground">
@@ -66,18 +67,16 @@ export function LearnerDashboardSections() {
         </Section>
       )}
 
-      <Section icon={<BookOpen className="size-5" />} title="Available courses">
+      <Section icon={<BookOpen className="size-5" />} title="Flagship courses">
         <div className="grid gap-3 sm:grid-cols-2">
           {available.map((c) => (
             <div key={c.slug} className="rounded-xl border border-border bg-card p-4">
               <p className="font-semibold text-vetiver">{c.title}</p>
-              <p className="mt-1 text-xs text-foreground/60">{c.duration} · {c.delivery}</p>
+              <p className="mt-1 text-xs text-foreground/60">{[c.duration,c.delivery].filter(Boolean).join(' · ')}</p>
+              <p className="mt-2 text-sm font-semibold">₦25,000 · Coming Soon</p>
               <div className="mt-3 flex gap-2">
                 <Link to="/academy/courses/$slug" params={{ slug: c.slug }} className="rounded-lg border border-border px-3 py-1.5 text-xs font-semibold">View Course</Link>
                 <Link to="/academy/courses/$slug" params={{ slug: c.slug }} hash="register" className="rounded-lg bg-ochre px-3 py-1.5 text-xs font-bold text-ink">Join Waitlist</Link>
-                {LEARNABLE.has(c.slug) && previewKeys(data, c.slug).size > 0 && (
-                  <Link to="/academy/learn/$slug" params={{ slug: c.slug }} className="rounded-lg bg-muted px-3 py-1.5 text-xs font-semibold">Free preview</Link>
-                )}
               </div>
             </div>
           ))}
@@ -127,9 +126,9 @@ export function LearnerDashboardSections() {
                 <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-foreground/50">{cat}</p>
                 <div className="flex flex-wrap gap-2">
                   {items.map((r) => (
-                    <button key={r.key} type="button" onClick={() => downloadResource(r)} className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs font-semibold hover:bg-muted">
+                    <Button key={r.key} variant="outline" size="sm" onClick={() => downloadResource(r)}>
                       <Download className="size-3.5" /> {r.title}
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </div>

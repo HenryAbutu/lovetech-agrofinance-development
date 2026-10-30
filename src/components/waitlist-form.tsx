@@ -3,11 +3,11 @@ import { toast } from "sonner";
 import { useSessionIdentity } from "@/hooks/use-session-identity";
 import { LegalNotice } from "@/components/legal-notice";
 import { joinWaitlist } from "@/lib/waitlist";
+import { Button } from '@/components/ui/button';
 
 const MODES = ["Online", "Physical/In-person", "Hybrid", "Self-paced", "Not sure yet"];
 
 export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; courseLabel: string }) {
-  void courseSlug;
   const me = useSessionIdentity();
   const [state, setState] = useState<"idle" | "loading" | "done" | "duplicate">("idle");
   const [err, setErr] = useState("");
@@ -23,7 +23,7 @@ export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; 
     setState("loading");
     const tId = toast.loading("Submitting...");
     try {
-      const res = await joinWaitlist({ ...(me ?? {}), ...values }, courseLabel);
+      const res = await joinWaitlist({ ...(me ?? {}), ...values }, courseLabel, courseSlug);
       if (res.status === "duplicate") {
         toast.info("You are already on the waitlist for this programme.", { id: tId });
         setState("duplicate");
@@ -84,9 +84,9 @@ export function WaitlistForm({ courseSlug, courseLabel }: { courseSlug: string; 
         </select>
       </div>
       {err && <p role="alert" className="text-sm text-destructive">{err}</p>}
-      <button type="submit" disabled={state === "loading"} className="rounded-md bg-vetiver px-6 py-3 font-semibold text-bone disabled:opacity-60">
+      <Button type="submit" disabled={state === "loading"} variant="homepage" className="h-auto px-6 py-3">
         {state === "loading" ? "Submitting…" : "Join Waitlist"}
-      </button>
+      </Button>
       <LegalNotice action="joining the waitlist" />
     </form>
   );

@@ -69,7 +69,7 @@ function AdminLayout() {
     }
   }, [access.isLoading, access.isError, role, allowed, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (access.isLoading || !allowed) {
+  if (access.isLoading || !allowed || !role) {
     return <main className="grid min-h-[60vh] place-items-center text-sm text-foreground/60">Checking access…</main>;
   }
 
@@ -83,7 +83,7 @@ function AdminLayout() {
           </div>
           <div className="rounded-lg border border-border bg-background px-4 py-2 text-xs">
             <div><span className="text-foreground/60">Logged in as:</span> <span className="font-medium">{access.data?.email}</span></div>
-            <div className="mt-0.5"><span className="text-foreground/60">Role:</span> <span className="inline-flex rounded-full bg-primary/10 px-2 py-0.5 font-semibold text-primary">{ROLE_LABEL[role!]}</span></div>
+            <div className="mt-0.5"><span className="text-foreground/60">Role:</span> <span className="inline-flex rounded-full bg-primary/10 px-2 py-0.5 font-semibold text-primary">{ROLE_LABEL[role]}</span></div>
           </div>
         </div>
         <div className="mx-auto max-w-7xl overflow-x-auto px-6 lg:px-8">

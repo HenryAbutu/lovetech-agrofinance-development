@@ -16,7 +16,7 @@ export type WaitlistEntry = {
 export type WaitlistResult = { status: "ok" } | { status: "duplicate" };
 
 /** Saves a waitlist entry straight from the browser (works on any host, no server env needed). */
-export async function joinWaitlist(entry: WaitlistEntry, courseInterest: string): Promise<WaitlistResult> {
+export async function joinWaitlist(entry: WaitlistEntry, courseInterest: string, courseSlug?: string): Promise<WaitlistResult> {
   const session = await getActiveSupabaseSession();
   const user = session?.user ?? null;
   const meta = (user?.user_metadata ?? {}) as Record<string, unknown>;
@@ -40,6 +40,12 @@ export async function joinWaitlist(entry: WaitlistEntry, courseInterest: string)
   }
 
   const id = crypto.randomUUID();
+  let courseId: string | null = null;
+  if (courseSlug) {
+    const result = await supabase.from('academy_courses').select('id').eq('slug', courseSlug).maybeSingle();
+    if (result.error) throw new Error(result.error.message);
+    courseId = result.data?.id ?? null;
+  }
   const { error } = await supabase.from("academy_waitlist").insert({
     ...entry,
     id,
@@ -47,6 +53,7 @@ export async function joinWaitlist(entry: WaitlistEntry, courseInterest: string)
     email: email.slice(0, 320),
     interest_area: (entry.interest_area || courseInterest).slice(0, 200),
     course_interest: courseInterest.slice(0, 300),
+    course_id: courseId,
     source_page: typeof window !== "undefined" ? window.location.href.slice(0, 500) : null,
     user_id: user?.id ?? null,
     status: "new",

@@ -8,6 +8,7 @@ import { getMyCertificateSignedUrl } from "@/lib/certificate.functions";
 import { LMS_CONFIG, whatsappUrl } from "@/lib/lms-config";
 import { LessonDiscussion } from "@/components/lesson-discussion";
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
+import {Button} from '@/components/ui/button';
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/")({
   head: ({params}) => ({ meta: [{ title: `${params.slug.replaceAll('-', ' ')} · LoveTech Academy` },{name:'description',content:'Your enrolled course lessons, practice resources and assessments.'},{property:'og:title',content:`${params.slug} · LoveTech Academy`},{property:'og:description',content:'Enrolled course learning materials.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}] }),
@@ -87,8 +88,8 @@ function CoursePage() {
             ? "Your enrolment is awaiting payment. Complete payment to unlock the course."
             : "You are not enrolled in this course yet."}
         </p>
-        <Link to="/academy/courses/professionals-ai-edge" className="inline-flex rounded-sm bg-academy px-5 py-2.5 text-sm font-semibold text-white">
-          Complete enrolment
+        <Link to="/academy" className="inline-flex rounded-sm bg-academy px-5 py-2.5 text-sm font-semibold text-primary-foreground">
+          Browse Academy
         </Link>
       </main>
     );
@@ -151,12 +152,12 @@ function CoursePage() {
                 <h2 className="font-serif text-2xl text-vetiver">{activeLesson.title}</h2>
                 {activeLesson.description && <div className="mt-4 whitespace-pre-line text-sm leading-relaxed text-foreground/80">{activeLesson.description}</div>}
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <button
+                  <Button disabled={mutate.isPending}
                     onClick={() => mutate.mutate({ lesson_id: activeLesson.id, course_id: data.course.id, completed: !completionSet.has(activeLesson.id) })}
                     className={`inline-flex items-center gap-2 rounded-sm px-5 py-2.5 text-sm font-semibold ${completionSet.has(activeLesson.id) ? "border border-vetiver/30 text-vetiver hover:bg-vetiver/5" : "bg-vetiver text-bone"}`}
                   >
                     {completionSet.has(activeLesson.id) ? <><CheckCircle2 className="size-4" /> Completed — mark incomplete</> : <><CheckCircle2 className="size-4" /> Mark as complete</>}
-                  </button>
+                  </Button>
                   {activeLesson.resource_url && (
                     <a href={activeLesson.resource_url} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 rounded-sm border border-border px-5 py-2.5 text-sm font-semibold text-foreground/80 hover:bg-muted">
                       <Download className="size-4" /> Resource
@@ -254,7 +255,7 @@ function CoursePage() {
               })}
             </div>
           </div>
-          <a href={whatsappUrl("Hi, I need help with my course.")} target="_blank" rel="noreferrer noopener" className="mt-4 flex items-center justify-center gap-2 rounded-sm bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white">
+          <a href={whatsappUrl("Hi, I need help with my course.")} target="_blank" rel="noreferrer noopener" className="mt-4 flex items-center justify-center gap-2 rounded-sm bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground">
             <MessageCircle className="size-4" /> Support on WhatsApp
           </a>
         </aside>
@@ -268,9 +269,9 @@ function NextLessonButton({ lessons, activeId, onPick }: { lessons: Array<{ id: 
   const next = lessons[idx + 1];
   if (!next) return null;
   return (
-    <button onClick={() => onPick(next.id)} className="inline-flex items-center gap-2 rounded-sm border border-border px-5 py-2.5 text-sm font-semibold text-foreground/80 hover:bg-muted">
+    <Button variant="outline" onClick={() => onPick(next.id)}>
       Next lesson →
-    </button>
+    </Button>
   );
 }
 

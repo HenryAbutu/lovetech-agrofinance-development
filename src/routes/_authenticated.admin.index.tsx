@@ -7,8 +7,11 @@ import { supabase } from "@/lib/supabase";
 import { findCourse } from "@/lib/academy-catalogue";
 import { buildModules, learnableCourses } from "@/lib/learning-content";
 import { courseTitle, downloadCsv, label, loadLmsAdmin, LMS_ADMIN_KEY } from "@/lib/lms-admin";
+import {AcademyOperationalReport} from '@/components/academy-operational-report';
+import {Button} from '@/components/ui/button';
 
 export const Route = createFileRoute("/_authenticated/admin/")({
+  head:()=>({meta:[{title:'Academy overview — LoveTech Academy'},{name:'description',content:'Actual Academy course, enrolment, payment, waitlist and learning records.'},{property:'og:title',content:'Academy overview — LoveTech Academy'},{property:'og:description',content:'Academy administration and course performance.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),
   component: Overview,
 });
 
@@ -96,7 +99,7 @@ function Overview() {
   const cards = [
     { label: "Waitlist entries", value: waitlist.length, icon: Clock, sub: `${waitlist.filter((w: any) => w.status === "new").length} new`, to: "/admin/waitlist" },
     { label: "Enrolled learners", value: learners, icon: Users, sub: `${n} course enrolments · ${data.totalUsers} accounts`, to: "/admin/participants" },
-    { label: "Active courses", value: learnableCourses().length, icon: BookOpen, sub: "open for learning" },
+    { label: "Historical learning definitions", value: learnableCourses().length, icon: BookOpen, sub: "legacy programme structure" },
     { label: "Active cohorts", value: lms.cohorts.filter((c) => c.status === "active").length, icon: Layers, sub: `${lms.cohorts.length} cohorts in total`, to: "/admin/cohorts" },
     { label: "Pending assignments", value: pendingAssign, icon: FileText, sub: `${lms.subs.length} submitted in total`, to: "/admin/assignments" },
     { label: "Pending action plans", value: pendingPlans, icon: ClipboardList, sub: `${lms.plans.length} submitted in total`, to: "/admin/action-plans" },
@@ -116,8 +119,9 @@ function Overview() {
 
   return (
     <div className="space-y-8">
+      <AcademyOperationalReport />
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-bold">Academy & programme overview</h2>
+        <h2 className="text-lg font-bold">Historical programme evidence</h2>
         <div className="flex flex-wrap gap-2">
           <ExportBtn label="Waitlist" onClick={() => downloadCsv("waitlist", waitlist.map((w: any) => ({ name: w.full_name, email: w.email, phone: w.phone, business: w.business_name, sector: w.business_sector, course: w.course_interest ?? w.interest_area, mode: w.preferred_training_mode, status: w.status, joined: w.created_at })))} />
           <ExportBtn label="Learners" onClick={() => downloadCsv("learners", enrolments.map((e) => ({ learner: person(e.s.user_id), email: lms.person(e.s.user_id)?.email, course: courseTitle(e.s.course_slug), cohort: lms.cohortName(e.s.cohort_id) ?? e.s.cohort_name ?? "", status: e.s.access_status, progress: `${e.pct}%`, certificate_eligible: e.eligible ? "yes" : "no" })))} />
@@ -179,7 +183,7 @@ function Overview() {
 }
 
 function ExportBtn({ label, onClick, primary }: { label: string; onClick: () => void; primary?: boolean }) {
-  return <button type="button" onClick={onClick} className={`inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-semibold ${primary ? "bg-primary text-primary-foreground" : "border border-border bg-card"}`}><Download className="size-3" /> {label}</button>;
+  return <Button size="sm" variant={primary?'default':'outline'} onClick={onClick}><Download className="size-3" /> {label}</Button>;
 }
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return <section className="rounded-xl border border-border bg-card p-5"><h3 className="mb-4 text-sm font-semibold">{title}</h3>{children}</section>;

@@ -8,6 +8,7 @@ import { EnrolForm } from "@/components/admin-enrol-form";
 import { ASSESSMENTS, buildModules, learnableCourses } from "@/lib/learning-content";
 
 export const Route = createFileRoute("/_authenticated/admin/lms-settings")({
+  head:()=>({meta:[{title:'Historical LMS settings — LoveTech Academy'},{name:'description',content:'Manage historical programme settings and assessment links.'},{property:'og:title',content:'Historical LMS settings — LoveTech Academy'},{property:'og:description',content:'Historical learning programme administration.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),
   component: LmsSettings,
 });
 

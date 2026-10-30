@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { isFlagship } from "@/lib/flagship-rules";
+import {Tabs,TabsList,TabsTrigger} from '@/components/ui/tabs';
+import {listCourseResourcesAdmin,saveCourseResourceAdmin} from '@/lib/academy-resources.functions';
 import {
   listCoursesAdmin, upsertCourse,
   listModulesAdmin, upsertModule, deleteModule,
@@ -26,10 +28,12 @@ function CoursesAdmin() {
   const { data, isLoading } = useQuery({ queryKey: ["admin-courses"], queryFn: () => list() });
   const [expanded, setExpanded] = useState<string | null>(null);
   const [editing, setEditing] = useState<any | null>(null);
+  const [scope,setScope]=useState('flagship');
 
   const saveMut = useMutation({
     mutationFn: (c: any) => save({ data: c }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin-courses"] }); setEditing(null); },
+    onError: (e) => toast.error(e.message),
   });
 
   if (isLoading) return <p className="text-sm text-foreground/60">Loading…</p>;
@@ -38,21 +42,22 @@ function CoursesAdmin() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="font-serif text-2xl text-vetiver">Courses</h2>
-        <button onClick={() => setEditing({ slug: "", title: "", status: "draft" })} className="inline-flex items-center gap-2 rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone"><Plus className="size-4" /> New course</button>
+        <Button onClick={() => setEditing({ slug: "", title: "", status: "draft" })}><Plus/> New draft</Button>
       </div>
 
-      <div className="rounded-2xl border border-border bg-card">
-        {data?.courses.map((c: any) => (
+      <Tabs value={scope} onValueChange={setScope}><TabsList><TabsTrigger value="flagship">Six flagship courses</TabsTrigger><TabsTrigger value="archive">Historical / other drafts</TabsTrigger></TabsList></Tabs>
+      <div className="divide-y divide-border border-y border-border">
+        {data?.courses.filter(c=>scope==='flagship'?isFlagship(c.slug):!isFlagship(c.slug)).map((c: any) => (
           <div key={c.id} className="border-b border-border last:border-b-0">
             <div className="flex flex-wrap items-center gap-3 p-4">
-              <button onClick={() => setExpanded(expanded === c.id ? null : c.id)} className="text-vetiver">
+              <Button variant="ghost" size="icon" aria-label={`Show modules for ${c.title}`} onClick={() => setExpanded(expanded === c.id ? null : c.id)} className="text-vetiver">
                 {expanded === c.id ? <ChevronDown className="size-4" /> : <ChevronRight className="size-4" />}
-              </button>
+              </Button>
               <div className="flex-1">
                 <p className="font-serif text-lg text-vetiver">{c.title}</p>
                 <p className="text-xs text-foreground/60">/{c.slug} · {c.status} · ₦{Number(c.discount_price ?? c.regular_price ?? 0).toLocaleString()}</p>
               </div>
-              <button onClick={() => setEditing(c)} className="rounded-sm border border-border px-3 py-1 text-xs font-semibold">Edit</button>
+              <Button variant="outline" size="sm" onClick={() => setEditing(c)}>Edit</Button>
             </div>
             {isFlagship(c.slug) && <div className="mx-4 mb-4 border-l-2 border-border pl-4"><p className="text-sm font-semibold">Production readiness · {c.content_ready ? 'Content ready' : 'Content review pending'} · {c.publication_approved ? 'Publication approved' : 'Publication approval pending'}</p><ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-muted-foreground">{c.production_gaps?.map((g:string)=><li key={g}>{g}</li>)}</ul></div>}
             {expanded === c.id && <CourseContent courseId={c.id} />}
@@ -69,25 +74,26 @@ function CoursesAdmin() {
 function CourseEditor({ initial, onCancel, onSave, busy }: { initial: any; onCancel: () => void; onSave: (c: any) => void; busy: boolean }) {
   const [c, setC] = useState({ ...initial });
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
+    <div role="dialog" aria-modal="true" aria-label="Edit course" className="fixed inset-0 z-50 grid place-items-center bg-overlay p-4">
       <div className="w-full max-w-lg rounded-2xl bg-card p-6">
         <h3 className="mb-4 font-serif text-xl text-vetiver">{c.id ? "Edit course" : "New course"}</h3>
         <div className="space-y-3 text-sm">
           <Field label="Title"><input value={c.title ?? ""} onChange={(e) => setC({ ...c, title: e.target.value })} className="input" /></Field>
-          <Field label="Slug"><input value={c.slug ?? ""} onChange={(e) => setC({ ...c, slug: e.target.value })} className="input" /></Field>
+          <Field label="Slug"><input disabled={Boolean(c.id)} value={c.slug ?? ""} onChange={(e) => setC({ ...c, slug: e.target.value })} className="input" /></Field>
           <Field label="Subtitle"><input value={c.subtitle ?? ""} onChange={(e) => setC({ ...c, subtitle: e.target.value })} className="input" /></Field>
           <div className="grid grid-cols-2 gap-3">
             <Field label="Regular price (₦)"><input type="number" disabled={isFlagship(c.slug)} value={c.regular_price ?? ""} onChange={(e) => setC({ ...c, regular_price: e.target.value })} className="input" /></Field>
             {!isFlagship(c.slug) && <Field label="Discount price (₦)"><input type="number" value={c.discount_price ?? ""} onChange={(e) => setC({ ...c, discount_price: e.target.value })} className="input" /></Field>}
           </div>
+          {isFlagship(c.slug)&&<fieldset className="space-y-3 border-t border-border pt-4"><legend className="text-sm font-semibold">Publication review</legend><Field label="Outstanding production tasks (one per line)"><textarea className="input min-h-24" value={(c.production_gaps??[]).join('\n')} onChange={e=>setC({...c,production_gaps:e.target.value.split('\n').filter((g:string)=>g.trim())})}/></Field><label className="flex items-start gap-2"><input type="checkbox" checked={c.content_ready??false} onChange={e=>setC({...c,content_ready:e.target.checked})}/>Content, learner downloads and assessments reviewed</label><label className="flex items-start gap-2"><input type="checkbox" checked={c.publication_approved??false} onChange={e=>setC({...c,publication_approved:e.target.checked})}/>Publication approved by Academy administrator</label></fieldset>}
           <div className="grid grid-cols-2 gap-3">
             <Field label="Status"><select value={c.status} onChange={(e) => setC({ ...c, status: e.target.value })} className="input"><option value="draft">Draft</option><option value="enrolment_open">Enrolment open</option><option value="coming_soon">Coming soon</option><option value="closed">Closed</option><option value="archived">Archived</option></select></Field>
             <Field label="Delivery mode"><input value={c.delivery_mode ?? ""} onChange={(e) => setC({ ...c, delivery_mode: e.target.value })} className="input" /></Field>
           </div>
         </div>
         <div className="mt-5 flex justify-end gap-2">
-          <button onClick={onCancel} className="rounded-sm border border-border px-4 py-2 text-sm">Cancel</button>
-          <button onClick={() => onSave(c)} disabled={busy} className="rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone disabled:opacity-50">{busy ? "Saving…" : "Save"}</button>
+          <Button variant="outline" onClick={onCancel}>Cancel</Button>
+          <Button onClick={() => onSave(c)} disabled={busy}>{busy ? "Saving…" : "Save"}</Button>
         </div>
       </div>
     </div>
@@ -108,6 +114,11 @@ function CourseContent({ courseId }: { courseId: string }) {
 
   const [editingMod, setEditingMod] = useState<any | null>(null);
   const [editingLes, setEditingLes] = useState<any | null>(null);
+  const [editingResource,setEditingResource]=useState<any|null>(null);
+  const fetchResources=useServerFn(listCourseResourcesAdmin);
+  const saveResource=useServerFn(saveCourseResourceAdmin);
+  const resources=useQuery({queryKey:['admin-resources',courseId],queryFn:()=>fetchResources({data:{course_id:courseId}})});
+  const resourceMut=useMutation({mutationFn:(r:any)=>saveResource({data:r}),onSuccess:()=>{qc.invalidateQueries({queryKey:['admin-resources',courseId]});setEditingResource(null);},onError:e=>toast.error(e.message)});
 
   const modMut = useMutation({ mutationFn: (m: any) => saveMod({ data: m }), onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin-mods", courseId] }); setEditingMod(null); } });
   const modDelMut = useMutation({ mutationFn: (id: string) => delMod({ data: { id } }), onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-mods", courseId] }) });
@@ -149,6 +160,8 @@ function CourseContent({ courseId }: { courseId: string }) {
 
       {editingMod && <ModuleEditor initial={editingMod} onCancel={() => setEditingMod(null)} onSave={(m: any) => modMut.mutate(m)} busy={modMut.isPending} />}
       {editingLes && <LessonEditor initial={editingLes} onCancel={() => setEditingLes(null)} onSave={(l: any) => lesMut.mutate(l)} busy={lesMut.isPending} />}
+      <div className="mt-6 border-t border-border pt-4"><div className="flex items-center justify-between gap-3"><h4 className="text-sm font-semibold">Learner downloads</h4><Button variant="outline" size="sm" onClick={()=>setEditingResource({course_id:courseId,title:'',resource_type:'handbook',module_id:null,file_url:''})}><Plus/> Add download</Button></div>{resources.error?<p className="mt-3 text-sm text-destructive">Downloads could not be loaded.</p>:resources.data?.resources.map(r=><div key={r.id} className="mt-3 flex items-center justify-between gap-3 border-b border-border pb-3 text-sm"><span>{r.title} · {r.module_id?'Module resource':'Whole course'}</span><Button variant="outline" size="sm" onClick={()=>setEditingResource(r)}>Replace / edit</Button></div>)}</div>
+      {editingResource&&<ResourceEditor initial={editingResource} modules={mods.data?.modules??[]} busy={resourceMut.isPending} onCancel={()=>setEditingResource(null)} onSave={(r:any)=>resourceMut.mutate(r)}/>}
     </div>
   );
 }
@@ -164,6 +177,11 @@ function ModuleEditor({ initial, onCancel, onSave, busy }: any) {
       </div>
     </Modal>
   );
+}
+
+function ResourceEditor({initial,modules,busy,onCancel,onSave}:any){
+ const [r,setR]=useState({...initial});
+ return <Modal title="Learner download" busy={busy} onCancel={onCancel} onSave={()=>onSave(r)}><Field label="Title"><input className="input" value={r.title} onChange={e=>setR({...r,title:e.target.value})}/></Field><Field label="Module"><select className="input" value={r.module_id??''} onChange={e=>setR({...r,module_id:e.target.value||null})}><option value="">Whole course</option>{modules.map((m:any)=><option key={m.id} value={m.id}>{m.title}</option>)}</select></Field><Field label="Type"><select className="input" value={r.resource_type} onChange={e=>setR({...r,resource_type:e.target.value})}><option value="handbook">Handbook</option><option value="workbook">Workbook</option><option value="template">Template</option><option value="other">Other</option></select></Field><Field label="File URL"><input className="input" value={r.file_url??''} onChange={e=>setR({...r,file_url:e.target.value})}/><FileUploader courseId={r.course_id} kind="resource" accept=".pdf,.docx,.xlsx,.pptx" onDone={url=>setR((s:any)=>({...s,file_url:url}))}/></Field></Modal>;
 }
 
 function LessonEditor({ initial, onCancel, onSave, busy }: any) {
@@ -226,13 +244,13 @@ function FileUploader({ courseId, kind, accept, onDone }: { courseId: string; ki
 
 function Modal({ title, onCancel, onSave, busy, children }: any) {
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
+    <div role="dialog" aria-modal="true" aria-label={title} className="fixed inset-0 z-50 grid place-items-center bg-overlay p-4">
       <div className="w-full max-w-lg rounded-2xl bg-card p-6">
         <h3 className="mb-4 font-serif text-xl text-vetiver">{title}</h3>
         <div className="space-y-3 text-sm">{children}</div>
         <div className="mt-5 flex justify-end gap-2">
-          <button onClick={onCancel} className="rounded-sm border border-border px-4 py-2 text-sm">Cancel</button>
-          <button onClick={onSave} disabled={busy} className="rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone disabled:opacity-50">{busy ? "Saving…" : "Save"}</button>
+          <Button variant="outline" onClick={onCancel}>Cancel</Button>
+          <Button onClick={onSave} disabled={busy}>{busy ? "Saving…" : "Save"}</Button>
         </div>
       </div>
     </div>

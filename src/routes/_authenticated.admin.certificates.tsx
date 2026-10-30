@@ -6,6 +6,7 @@ import { Award, CheckCircle2 } from "lucide-react";
 import { listCertificateApplicantsAdmin, approveCertificate, revokeCertificate } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/certificates")({
+  head:()=>({meta:[{title:'Certificate review — LoveTech Academy'},{name:'description',content:'Review Academy certificate applications and issued awards.'},{property:'og:title',content:'Certificate review — LoveTech Academy'},{property:'og:description',content:'Academy certificate administration.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),
   component: CertificatesAdmin,
 });
 

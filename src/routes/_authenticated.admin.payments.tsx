@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { listPaymentsAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/payments")({
+  head:()=>({meta:[{title:'Payment records — LoveTech Academy'},{name:'description',content:'Review actual Academy payment and transaction records.'},{property:'og:title',content:'Payment records — LoveTech Academy'},{property:'og:description',content:'Academy payment administration.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),
   component: PaymentsAdmin,
 });
 

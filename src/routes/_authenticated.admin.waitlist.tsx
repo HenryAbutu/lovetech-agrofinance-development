@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { EnrolForm } from "@/components/admin-enrol-form";
 
 export const Route = createFileRoute("/_authenticated/admin/waitlist")({
+  head:()=>({meta:[{title:'Course waitlists — LoveTech Academy'},{name:'description',content:'Review and manage actual Academy course waitlist entries.'},{property:'og:title',content:'Course waitlists — LoveTech Academy'},{property:'og:description',content:'Academy waitlist administration.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),
   component: WaitlistAdmin,
 });
 

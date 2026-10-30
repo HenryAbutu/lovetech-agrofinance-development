@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -167,13 +168,15 @@ function ServiceWorkerBoot() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: s => s.location.pathname });
+  const academyTools = pathname.startsWith('/admin') || pathname.startsWith('/academy/dashboard') || pathname.startsWith('/academy/learn') || pathname.startsWith('/academy/badges') || pathname.startsWith('/academy/referrals') || pathname.startsWith('/academy/receipt');
   return (
     <QueryClientProvider client={queryClient}>
       <AuthSync />
       <ServiceWorkerBoot />
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
-        <div className="flex-1">
+        <div className={academyTools ? "academy-brand flex-1" : "flex-1"}>
           <Outlet />
         </div>
         <NextStepBand />

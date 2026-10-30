@@ -7,6 +7,7 @@ import { findCourse } from "@/lib/academy-catalogue";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { LEARNABLE, downloadCourseGuide } from "@/lib/learning-content";
 import { whatsappUrl } from "@/lib/lms-config";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/academy/courses/$slug")({
   loader: ({ params }) => {
@@ -50,6 +51,8 @@ function CoursePage() {
   const { course: c, flagship } = Route.useLoaderData();
   if (flagship) return <FlagshipDetail course={flagship}/>;
   if (!c) return null;
+  return <main className="website web-section"><div className="web-container"><h1 className="web-heading">{c.title}</h1><p className="my-6">This legacy programme is closed to new enrolments. Existing learners retain access.</p><div className="flex flex-wrap gap-4"><Button asChild><Link to="/academy/learn/$slug" params={{slug:c.slug}}>Existing learner access</Link></Button><Button asChild variant="outline"><Link to="/academy">Explore flagship courses</Link></Button></div></div></main>;
+  /* Historical presentation retained below; learning definitions remain unchanged. */
   return (
     <main className="website web-course bg-background">
       <section className="bg-ink px-6 py-16 text-bone lg:px-8 md:py-20">

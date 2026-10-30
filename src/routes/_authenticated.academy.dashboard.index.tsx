@@ -7,9 +7,10 @@ import { getMyEnrolments, checkIsAdmin } from "@/lib/learner.functions";
 import { AUTH_STORAGE_KEY, clearSupabaseAuthStorage, expireAuthCookie, getActiveSupabaseSession, supabase } from "@/lib/supabase";
 import { whatsappUrl } from "@/lib/lms-config";
 import { LearnerDashboardSections, LearnerWelcome } from "@/components/learner-dashboard-sections";
+import { Button } from '@/components/ui/button';
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/")({
-  head: () => ({ meta: [{ title: "My Dashboard — LoveTech Academy" }] }),
+  head: () => ({ meta: [{ title: "My Dashboard — LoveTech Academy" }, {name:'description',content:'Your LoveTech Academy enrolments, learning progress and certificates.'},{property:'og:title',content:'My Dashboard — LoveTech Academy'},{property:'og:description',content:'Your Academy learning workspace.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}] }),
   component: Dashboard,
 });
 
@@ -73,14 +74,14 @@ function Dashboard() {
             <h1 className="font-serif text-4xl text-vetiver md:text-5xl">My Academy</h1>
             <p className="mt-2 text-sm text-foreground/60">Continue learning, download resources, and track your certificates.</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <Link to="/settings/profile" className="rounded-sm border border-vetiver/30 px-4 py-2 text-sm font-semibold text-vetiver hover:bg-vetiver/5">Profile & notifications</Link>
             <Link to="/academy/referrals" className="rounded-sm border border-ochre/40 px-4 py-2 text-sm font-semibold text-ochre hover:bg-ochre/5">Refer & earn</Link>
             <Link to="/academy/badges" className="rounded-sm border border-ochre/40 px-4 py-2 text-sm font-semibold text-ochre hover:bg-ochre/5">My badges</Link>
             {admin.data?.isAdmin && (
               <Link to="/admin" className="rounded-sm bg-vetiver px-4 py-2 text-sm font-semibold text-bone">Admin</Link>
             )}
-            <button type="button" onClick={handleSignOut} disabled={signingOut} className="rounded-sm border border-border px-4 py-2 text-sm font-medium hover:bg-muted disabled:opacity-60">{signingOut ? "Signing out…" : "Sign out"}</button>
+            <Button variant="outline" onClick={handleSignOut} disabled={signingOut}>{signingOut ? "Signing out…" : "Sign out"}</Button>
           </div>
         </div>
 
@@ -121,7 +122,7 @@ function Dashboard() {
                     <Link
                       to="/academy/dashboard/courses/$slug"
                       params={{ slug: course.slug }}
-                      className="inline-flex items-center gap-2 rounded-sm bg-academy px-4 py-2 text-sm font-semibold text-white"
+                      className="inline-flex items-center gap-2 rounded-sm bg-academy px-4 py-2 text-sm font-semibold text-primary-foreground"
                     >
                       Continue learning <ArrowRight className="size-4" />
                     </Link>
@@ -140,7 +141,7 @@ function Dashboard() {
             <div className="flex-1">
               <h3 className="font-serif text-lg text-vetiver">Need help?</h3>
               <p className="text-sm text-foreground/70">Chat with Lovetech support about enrolment, payment, course access or certificates.</p>
-              <a href={whatsappUrl()} target="_blank" rel="noreferrer noopener" className="mt-3 inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-4 py-2 text-sm font-semibold text-white">
+              <a href={whatsappUrl()} target="_blank" rel="noreferrer noopener" className="mt-3 inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
                 WhatsApp support
               </a>
             </div>

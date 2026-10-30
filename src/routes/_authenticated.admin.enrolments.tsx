@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { listEnrolmentsAdmin, updateEnrolmentAccess } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/enrolments")({
+  head:()=>({meta:[{title:'Enrolment records — LoveTech Academy'},{name:'description',content:'Review Academy learner enrolments and authorised access.'},{property:'og:title',content:'Enrolment records — LoveTech Academy'},{property:'og:description',content:'Academy enrolment administration.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),
   component: EnrolmentsAdmin,
 });
 

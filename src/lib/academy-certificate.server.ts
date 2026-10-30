@@ -8,7 +8,7 @@ export async function generateAcademyCertificate(input:{name:string;courseTitle:
  async function asset(path:string){const r=await fetch(new URL(path,origin));if(!r.ok)throw new Error('Certificate brand asset unavailable');return new Uint8Array(await r.arrayBuffer());}
  const [headingBytes,bodyBytes,logoBytes]=await Promise.all([asset(headingAsset.url),asset(bodyAsset.url),asset(logoAsset.url)]);
  const pdf=await PDFDocument.create();pdf.registerFontkit(fontkit);
- const heading=await pdf.embedFont(headingBytes,{subset:true});const body=await pdf.embedFont(bodyBytes,{subset:true});const logo=await pdf.embedPng(logoBytes);
+ const heading=await pdf.embedFont(headingBytes,{subset:true});const body=await pdf.embedFont(bodyBytes,{subset:false});const logo=await pdf.embedPng(logoBytes);
  const page=pdf.addPage([842,595]);
  const navy=rgb(11/255,45/255,91/255),green=rgb(22/255,163/255,74/255),orange=rgb(249/255,115/255,22/255);
  page.drawRectangle({x:20,y:20,width:802,height:555,borderColor:navy,borderWidth:3});

@@ -7,6 +7,7 @@ import { findCourse } from "@/lib/academy-catalogue";
 import { WaitlistForm } from "@/components/waitlist-form";
 import { LEARNABLE, downloadCourseGuide } from "@/lib/learning-content";
 import { whatsappUrl } from "@/lib/lms-config";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/academy/courses/$slug")({
   loader: ({ params }) => {
@@ -50,113 +51,5 @@ function CoursePage() {
   const { course: c, flagship } = Route.useLoaderData();
   if (flagship) return <FlagshipDetail course={flagship}/>;
   if (!c) return null;
-  return (
-    <main className="website web-course bg-background">
-      <section className="bg-ink px-6 py-16 text-bone lg:px-8 md:py-20">
-        <div className="mx-auto max-w-5xl">
-          <Link to="/academy" className="text-xs font-semibold uppercase tracking-widest text-ochre">← LoveTech Academy</Link>
-          <p className="mt-4 text-xs font-semibold uppercase tracking-widest text-bone/60">{c.pathway} pathway{c.hybrid ? " · Hybrid programme" : ""}</p>
-          <h1 className="mt-2 font-serif text-3xl text-bone md:text-5xl">{c.title}</h1>
-          <p className="mt-5 max-w-3xl text-base text-bone/75 md:text-lg">{c.description}</p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            <Fact icon={<GraduationCap className="size-4" />} k="Level" v={c.level} />
-            <Fact icon={<Clock className="size-4" />} k="Duration" v={c.duration} />
-            <Fact icon={<MonitorSmartphone className="size-4" />} k="Delivery" v={c.delivery} />
-          </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {LEARNABLE.has(c.slug) && (
-              <Link to="/academy/learn/$slug" params={{ slug: c.slug }} className="inline-flex rounded-lg bg-ochre px-6 py-3 text-sm font-bold text-ink">{c.hybrid ? "Start Programme" : "Start Course"}</Link>
-            )}
-            <a href="#register" className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">Join Waitlist</a>
-            <button type="button" onClick={() => downloadCourseGuide(c)} className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">{c.hybrid ? "Download Programme Guide" : "Download Course Guide"}</button>
-            {c.hybrid ? (
-              <Link to="/academy/action-plan" search={{ course: c.slug }} className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">Submit Action Plan</Link>
-            ) : (
-              <a href={whatsappUrl()} target="_blank" rel="noreferrer noopener" className="inline-flex rounded-lg border border-bone/30 px-6 py-3 text-sm font-semibold text-bone">Contact Support</a>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {c.hybrid && (
-        <section className="border-b border-border px-6 py-12 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <h2 className="font-serif text-2xl text-vetiver">How this programme works</h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <Step icon={<MonitorSmartphone className="size-5" />} t="Online learning" b="Short, low-data lessons and downloads on your phone." />
-              <Step icon={<Users className="size-5" />} t="Practical sessions" b="Face-to-face sessions with your cohort and facilitator." />
-              <Step icon={<MessageSquare className="size-5" />} t="Coaching" b="At least two coaching touchpoints per cohort." />
-              <Step icon={<Target className="size-5" />} t="Action planning" b="Submit a practical plan for your business." />
-            </div>
-          </div>
-        </section>
-      )}
-
-      {c.modules.length > 0 && (
-        <section className="px-6 py-12 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <h2 className="font-serif text-2xl text-vetiver">Course modules</h2>
-            <ol className="mt-6 space-y-3">
-              {c.modules.map((m) => (
-                <li key={m.title} className="rounded-xl border border-border bg-card p-4 font-semibold text-vetiver">{m.title}</li>
-              ))}
-            </ol>
-          </div>
-        </section>
-      )}
-
-      {c.outputs.length > 0 && (
-        <section className="border-y border-border bg-muted/40 px-6 py-12 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <h2 className="font-serif text-2xl text-vetiver">{c.outputsTitle}</h2>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {c.outputs.map((o) => (
-                <li key={o} className="flex gap-2 text-sm text-foreground/80"><CheckCircle2 className="mt-0.5 size-4 shrink-0 text-teal" />{o}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {c.whoFor.length > 0 && (
-        <section className="px-6 py-12 lg:px-8">
-          <div className="mx-auto max-w-5xl">
-            <h2 className="font-serif text-2xl text-vetiver">Who this is for</h2>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {c.whoFor.map((w) => (
-                <li key={w} className="flex gap-2 text-sm text-foreground/80"><ClipboardCheck className="mt-0.5 size-4 shrink-0 text-teal" />{w}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      <section id="register" className="px-6 pb-20 pt-4 lg:px-8">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="mb-2 font-serif text-2xl text-vetiver">Register for the next cohort</h2>
-          <p className="mb-6 text-sm text-foreground/70">Enrolment for this course opens by cohort. Register now and we will contact you with dates, fees and your learner access.</p>
-          <WaitlistForm courseSlug={c.slug} courseLabel={c.title} />
-        </div>
-      </section>
-    </main>
-  );
-}
-
-function Fact({ icon, k, v }: { icon: React.ReactNode; k: string; v: string }) {
-  return (
-    <div className="rounded-xl border border-bone/15 bg-bone/5 p-4">
-      <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-bone/60">{icon}{k}</p>
-      <p className="mt-1 text-sm font-semibold text-bone">{v}</p>
-    </div>
-  );
-}
-
-function Step({ icon, t, b }: { icon: React.ReactNode; t: string; b: string }) {
-  return (
-    <div className="rounded-xl border border-border bg-card p-5">
-      <div className="mb-3 grid size-10 place-items-center rounded-lg bg-teal/10 text-teal">{icon}</div>
-      <p className="font-semibold text-vetiver">{t}</p>
-      <p className="mt-1 text-sm text-foreground/65">{b}</p>
-    </div>
-  );
+  return <main className="website web-section"><div className="web-container"><h1 className="web-heading">{c.title}</h1><p className="my-6">This legacy programme is closed to new enrolments. Existing learners retain access.</p><div className="flex flex-wrap gap-4"><Button asChild><Link to="/academy/learn/$slug" params={{slug:c.slug}}>Existing learner access</Link></Button><Button asChild variant="outline"><Link to="/academy">Explore flagship courses</Link></Button></div></div></main>;
 }

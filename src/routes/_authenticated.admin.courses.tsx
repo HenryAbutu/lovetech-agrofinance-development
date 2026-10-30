@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { isFlagship } from "@/lib/flagship-rules";
 import {Tabs,TabsList,TabsTrigger} from '@/components/ui/tabs';
+import {listCourseResourcesAdmin,saveCourseResourceAdmin} from '@/lib/academy-resources.functions';
 import {
   listCoursesAdmin, upsertCourse,
   listModulesAdmin, upsertModule, deleteModule,
@@ -113,6 +114,11 @@ function CourseContent({ courseId }: { courseId: string }) {
 
   const [editingMod, setEditingMod] = useState<any | null>(null);
   const [editingLes, setEditingLes] = useState<any | null>(null);
+  const [editingResource,setEditingResource]=useState<any|null>(null);
+  const fetchResources=useServerFn(listCourseResourcesAdmin);
+  const saveResource=useServerFn(saveCourseResourceAdmin);
+  const resources=useQuery({queryKey:['admin-resources',courseId],queryFn:()=>fetchResources({data:{course_id:courseId}})});
+  const resourceMut=useMutation({mutationFn:(r:any)=>saveResource({data:r}),onSuccess:()=>{qc.invalidateQueries({queryKey:['admin-resources',courseId]});setEditingResource(null);},onError:e=>toast.error(e.message)});
 
   const modMut = useMutation({ mutationFn: (m: any) => saveMod({ data: m }), onSuccess: () => { qc.invalidateQueries({ queryKey: ["admin-mods", courseId] }); setEditingMod(null); } });
   const modDelMut = useMutation({ mutationFn: (id: string) => delMod({ data: { id } }), onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-mods", courseId] }) });
@@ -154,6 +160,8 @@ function CourseContent({ courseId }: { courseId: string }) {
 
       {editingMod && <ModuleEditor initial={editingMod} onCancel={() => setEditingMod(null)} onSave={(m: any) => modMut.mutate(m)} busy={modMut.isPending} />}
       {editingLes && <LessonEditor initial={editingLes} onCancel={() => setEditingLes(null)} onSave={(l: any) => lesMut.mutate(l)} busy={lesMut.isPending} />}
+      <div className="mt-6 border-t border-border pt-4"><div className="flex items-center justify-between gap-3"><h4 className="text-sm font-semibold">Learner downloads</h4><Button variant="outline" size="sm" onClick={()=>setEditingResource({course_id:courseId,title:'',resource_type:'handbook',module_id:null,file_url:''})}><Plus/> Add download</Button></div>{resources.error?<p className="mt-3 text-sm text-destructive">Downloads could not be loaded.</p>:resources.data?.resources.map(r=><div key={r.id} className="mt-3 flex items-center justify-between gap-3 border-b border-border pb-3 text-sm"><span>{r.title} · {r.module_id?'Module resource':'Whole course'}</span><Button variant="outline" size="sm" onClick={()=>setEditingResource(r)}>Replace / edit</Button></div>)}</div>
+      {editingResource&&<ResourceEditor initial={editingResource} modules={mods.data?.modules??[]} busy={resourceMut.isPending} onCancel={()=>setEditingResource(null)} onSave={(r:any)=>resourceMut.mutate(r)}/>}
     </div>
   );
 }
@@ -169,6 +177,11 @@ function ModuleEditor({ initial, onCancel, onSave, busy }: any) {
       </div>
     </Modal>
   );
+}
+
+function ResourceEditor({initial,modules,busy,onCancel,onSave}:any){
+ const [r,setR]=useState({...initial});
+ return <Modal title="Learner download" busy={busy} onCancel={onCancel} onSave={()=>onSave(r)}><Field label="Title"><input className="input" value={r.title} onChange={e=>setR({...r,title:e.target.value})}/></Field><Field label="Module"><select className="input" value={r.module_id??''} onChange={e=>setR({...r,module_id:e.target.value||null})}><option value="">Whole course</option>{modules.map((m:any)=><option key={m.id} value={m.id}>{m.title}</option>)}</select></Field><Field label="Type"><select className="input" value={r.resource_type} onChange={e=>setR({...r,resource_type:e.target.value})}><option value="handbook">Handbook</option><option value="workbook">Workbook</option><option value="template">Template</option><option value="other">Other</option></select></Field><Field label="File URL"><input className="input" value={r.file_url??''} onChange={e=>setR({...r,file_url:e.target.value})}/><FileUploader courseId={r.course_id} kind="resource" accept=".pdf,.docx,.xlsx,.pptx" onDone={url=>setR((s:any)=>({...s,file_url:url}))}/></Field></Modal>;
 }
 
 function LessonEditor({ initial, onCancel, onSave, busy }: any) {

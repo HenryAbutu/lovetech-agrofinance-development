@@ -1,7 +1,8 @@
 # Six flagship Academy replacement — October 30
-- [ ] Phase 6–9: extend Academy branding to protected tools and newly generated certificates; preserve advisory pages.
-- [ ] Phase 8: separate flagship/archive management and add real database-backed Academy/course reporting.
-- [ ] Phase 7/9: verify content mapping, waitlist, access preservation, security and desktop/tablet/mobile; report limitations.
+- [x] Phase 6: extend Academy branding to protected tools and newly generated certificates; preserve advisory pages.
+- [x] Phase 8: separate flagship/archive management, enable readiness review and learner-download replacement, add real database-backed Academy/course reporting.
+- [x] Phase 7/9: verify content mapping, waitlist save/duplicate handling, historic access, learner admin blocking, unpaid content blocking, sign-out and desktop/tablet/mobile; provide report.
+- [ ] Signed-in administrator reporting/edit/upload QA — blocked by absence of an approved administrator test session; Henry’s approved account is a learner.
 - [x] Review supplied course packages and latest brand assets; identify missing content and publication gates.
 - [x] Replace public catalogue, homepage previews and promotions with six flagship courses; preserve historic learning and payment records.
 - [x] Apply uniform ₦25,000 pricing and availability-gated enrolment/waitlists.
@@ -9,7 +10,7 @@
 - [ ] Complete instructional lessons and assessments — blocked by missing packages for three courses, outline-only module quizzes and unapproved draft Forms/thresholds in supplied packages.
 - [ ] Launch paid enrolment — blocked by content readiness, assessment QA, cohort details and explicit course publication approval.
 - [x] Apply approved branding, six unique thumbnails and six-course Academy layout (three temporary covers flagged for replacement).
-- [x] Verify pricing, historic paid learner access and desktop/mobile course views; no publication or charges. Admin production view and waitlist submission still require end-to-end checks.
+- [x] Verify pricing, historic paid learner access and course views; waitlist verified. No publication, payments or issued certificates during this update.
 # Concise homepage and Academy discovery
 - [x] Implement approved eight-section homepage and integrate founder copy into About.
 - [x] Add searchable topic-based Academy shelves while preserving existing course definitions/actions.

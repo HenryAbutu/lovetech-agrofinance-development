@@ -30,18 +30,18 @@ export function LearnerDashboardSections() {
           <div className="grid gap-4">
             {mine.map(({ s, sum }) => (
               <article key={s.id} className="rounded-xl border border-border bg-card p-5">
-                <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-vetiver">{sum.course.title}</h3>
                     <p className="mt-1 text-xs text-foreground/60">Enrolled · {s.cohort_name ? `Cohort: ${s.cohort_name}` : "Cohort not assigned yet"}</p>
                     <div className="mt-3 h-2 max-w-md overflow-hidden rounded-full bg-muted"><div className="h-full bg-teal" style={{ width: `${sum.percent}%` }} /></div>
-                    <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-foreground/70 sm:grid-cols-3">
+                    <dl className="mt-3 grid grid-cols-1 gap-x-4 gap-y-1 text-xs text-foreground/70 sm:grid-cols-3">
                       <div>Progress: <b>{sum.percent}%</b></div>
                       <div>Pre-test: <b>{statusLabel(sum.preTest)}</b></div>
                       <div>Post-test: <b>{statusLabel(sum.postTest)}</b></div>
                       <div>Pending assignments: <b>{sum.pending.length}</b></div>
                       <div>Completion: <b>{sum.completed ? "Complete" : "In progress"}</b></div>
-                      <div className="col-span-2 sm:col-span-1">Next: <b>{sum.nextLesson?.title ?? "All done"}</b></div>
+                      <div>Next: <b>{sum.nextLesson?.title ?? "All done"}</b></div>
                     </dl>
                   </div>
                   <Link to="/academy/learn/$slug" params={{ slug: s.course_slug }} className="inline-flex items-center gap-2 rounded-lg bg-teal px-4 py-2 text-sm font-semibold text-primary-foreground">

@@ -5,6 +5,8 @@ import { useState } from "react";
 import { ChevronDown, ChevronRight, Plus, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
+import { isFlagship } from "@/lib/flagship-rules";
 import {
   listCoursesAdmin, upsertCourse,
   listModulesAdmin, upsertModule, deleteModule,
@@ -13,6 +15,7 @@ import {
 } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/courses")({
+  head:()=>({meta:[{title:'Course production · LoveTech Academy'},{name:'description',content:'Manage course materials and review publication readiness.'},{property:'og:title',content:'Course production · LoveTech Academy'},{property:'og:description',content:'Academy course administration.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),
   component: CoursesAdmin,
 });
 
@@ -51,6 +54,7 @@ function CoursesAdmin() {
               </div>
               <button onClick={() => setEditing(c)} className="rounded-sm border border-border px-3 py-1 text-xs font-semibold">Edit</button>
             </div>
+            {isFlagship(c.slug) && <div className="mx-4 mb-4 border-l-2 border-border pl-4"><p className="text-sm font-semibold">Production readiness · {c.content_ready ? 'Content ready' : 'Content review pending'} · {c.publication_approved ? 'Publication approved' : 'Publication approval pending'}</p><ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-muted-foreground">{c.production_gaps?.map((g:string)=><li key={g}>{g}</li>)}</ul></div>}
             {expanded === c.id && <CourseContent courseId={c.id} />}
           </div>
         ))}
@@ -73,11 +77,11 @@ function CourseEditor({ initial, onCancel, onSave, busy }: { initial: any; onCan
           <Field label="Slug"><input value={c.slug ?? ""} onChange={(e) => setC({ ...c, slug: e.target.value })} className="input" /></Field>
           <Field label="Subtitle"><input value={c.subtitle ?? ""} onChange={(e) => setC({ ...c, subtitle: e.target.value })} className="input" /></Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Regular price (₦)"><input type="number" value={c.regular_price ?? ""} onChange={(e) => setC({ ...c, regular_price: e.target.value })} className="input" /></Field>
-            <Field label="Discount price (₦)"><input type="number" value={c.discount_price ?? ""} onChange={(e) => setC({ ...c, discount_price: e.target.value })} className="input" /></Field>
+            <Field label="Regular price (₦)"><input type="number" disabled={isFlagship(c.slug)} value={c.regular_price ?? ""} onChange={(e) => setC({ ...c, regular_price: e.target.value })} className="input" /></Field>
+            {!isFlagship(c.slug) && <Field label="Discount price (₦)"><input type="number" value={c.discount_price ?? ""} onChange={(e) => setC({ ...c, discount_price: e.target.value })} className="input" /></Field>}
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Status"><select value={c.status} onChange={(e) => setC({ ...c, status: e.target.value })} className="input"><option value="draft">Draft</option><option value="published">Published</option><option value="coming_soon">Coming soon</option></select></Field>
+            <Field label="Status"><select value={c.status} onChange={(e) => setC({ ...c, status: e.target.value })} className="input"><option value="draft">Draft</option><option value="enrolment_open">Enrolment open</option><option value="coming_soon">Coming soon</option><option value="closed">Closed</option><option value="archived">Archived</option></select></Field>
             <Field label="Delivery mode"><input value={c.delivery_mode ?? ""} onChange={(e) => setC({ ...c, delivery_mode: e.target.value })} className="input" /></Field>
           </div>
         </div>

@@ -1,33 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { canonicalLink } from "@/lib/seo";
-import { WaitlistForm } from "@/components/waitlist-form";
-
-export const Route = createFileRoute("/academy/courses/icss-2-0-entrepreneurship")({
-  head: () => ({
-    links: [canonicalLink("/academy/courses/icss-2-0-entrepreneurship")],
-    meta: [
-      { title: "ICSS 2.0 Entrepreneurship Programme — LoveTech Academy" },
-      { name: "description", content: "Upcoming entrepreneurship programme for MSME growth, finance readiness and market access. Join the waitlist." },
-      { property: "og:title", content: "ICSS 2.0 Entrepreneurship Programme — Lovetech Academy" },
-      { property: "og:description", content: "Upcoming entrepreneurship programme for MSMEs. Join the existing programme waitlist." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: () => (
-    <main className="website web-course">
-      <section className="bg-ink px-6 py-24 text-bone lg:px-8">
-        <div className="mx-auto max-w-5xl">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ochre">Coming Soon</p>
-          <h1 className="font-serif text-5xl text-bone md:text-6xl">ICSS 2.0 Entrepreneurship Programme</h1>
-          <p className="mt-5 max-w-2xl text-lg text-bone/70">A practical entrepreneurship programme designed for Nigerian MSMEs ready to grow, structure and access finance. Join the waitlist for first access when enrolment opens.</p>
-        </div>
-      </section>
-      <section className="px-6 py-16 lg:px-8">
-        <div className="mx-auto max-w-3xl">
-          <WaitlistForm courseSlug="icss-2-0-entrepreneurship" courseLabel="ICSS 2.0" />
-        </div>
-      </section>
-    </main>
-  ),
-});
+import {createFileRoute,Link} from '@tanstack/react-router';
+import {Button} from '@/components/ui/button';
+import {canonicalLink} from '@/lib/seo';
+export const Route=createFileRoute('/academy/courses/icss-2-0-entrepreneurship')({head:()=>({links:[canonicalLink('/academy')],meta:[{title:'ICSS 2.0 Entrepreneurship Programme — Archived · LoveTech Academy'},{name:'description',content:'Legacy course closed to new enrolments. Existing learner access is preserved.'},{property:'og:title',content:'ICSS 2.0 Entrepreneurship Programme · LoveTech Academy'},{property:'og:description',content:'Explore the six new flagship courses.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}]}),component:()=> <main className="website web-section"><div className="web-container"><h1 className="web-heading">ICSS 2.0 Entrepreneurship Programme</h1><p className="my-6">This legacy programme is closed to new enrolments. Existing learners retain access.</p><Button asChild><Link to="/academy">Explore flagship courses</Link></Button></div></main>});

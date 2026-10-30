@@ -52,7 +52,7 @@ export const listCoursesAdmin = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("academy_courses")
-      .select("id, slug, title, subtitle, status, delivery_mode, regular_price, discount_price")
+      .select("id, slug, title, subtitle, status, delivery_mode, regular_price, discount_price, content_ready, publication_approved, production_gaps")
       .order("title");
     if (error) throw new Error(error.message);
     return { courses: data ?? [] };

@@ -3,6 +3,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
+import { assertFlagshipCheckout } from "@/lib/flagship-rules";
 import { resolveBasePrice, couponDiscount } from "@/lib/pricing";
 import type { EnrolSchema } from "@/lib/enrolment.functions";
 
@@ -42,11 +43,12 @@ export async function runEnrolment(
     const publicClient = getPublicClient();
     const { data: course, error: cErr } = await publicClient
       .from("academy_courses")
-      .select("id, title, discount_price, regular_price")
+      .select("id, title, discount_price, regular_price, status, content_ready, publication_approved")
       .eq("slug", data.course_slug)
       .maybeSingle();
     if (cErr) throw new Error(cErr.message);
     if (!course) throw new Error("Course not found");
+    assertFlagshipCheckout(data.course_slug, course, data.purchase_option, data.coupon_code);
 
     const { course_slug, coupon_code, referral_code, purchase_option, module_choice, ...rest } = data;
 

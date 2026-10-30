@@ -1,0 +1,1 @@
+CREATE POLICY "resources: enrolled learner reads course downloads" ON public.academy_resources FOR SELECT TO authenticated USING (public.is_enrolled_in_course(auth.uid(),course_id));

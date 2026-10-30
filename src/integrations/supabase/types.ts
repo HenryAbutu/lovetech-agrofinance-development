@@ -356,12 +356,15 @@ export type Database = {
       }
       academy_courses: {
         Row: {
+          content_ready: boolean
           course_image: string | null
           created_at: string
           delivery_mode: string | null
           description: string | null
           discount_price: number | null
           id: string
+          production_gaps: string[]
+          publication_approved: boolean
           registration_deadline: string | null
           regular_price: number | null
           slug: string
@@ -371,12 +374,15 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          content_ready?: boolean
           course_image?: string | null
           created_at?: string
           delivery_mode?: string | null
           description?: string | null
           discount_price?: number | null
           id?: string
+          production_gaps?: string[]
+          publication_approved?: boolean
           registration_deadline?: string | null
           regular_price?: number | null
           slug: string
@@ -386,12 +392,15 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          content_ready?: boolean
           course_image?: string | null
           created_at?: string
           delivery_mode?: string | null
           description?: string | null
           discount_price?: number | null
           id?: string
+          production_gaps?: string[]
+          publication_approved?: boolean
           registration_deadline?: string | null
           regular_price?: number | null
           slug?: string

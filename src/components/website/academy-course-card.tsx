@@ -10,7 +10,7 @@ export type DiscoveryCourse = {
 };
 export function AcademyCourseCard({ course, compact = false }: { course: DiscoveryCourse; compact?: boolean }) {
   return <article className="academy-discovery-card flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card text-card-foreground">
-    <img src={course.image} alt="" loading="lazy" className="aspect-[16/9] w-full object-cover" />
+    <img src={course.image} alt={`${course.title} course cover`} loading="lazy" className="aspect-[16/9] w-full object-cover" />
     <div className="flex flex-1 flex-col p-4">
       <p className="text-xs font-semibold text-primary">{course.category}</p>
       <h3 className="mt-2 text-base font-semibold leading-snug">{course.title}</h3>
@@ -20,6 +20,7 @@ export function AcademyCourseCard({ course, compact = false }: { course: Discove
       {course.price && <p className="mt-2 text-sm font-semibold">{course.price}{course.priceNote && <span className="block text-xs font-normal text-muted-foreground">{course.priceNote}</span>}</p>}
       <div className="mt-auto pt-4">
         {course.routeSlug ? <Button asChild variant="link" className="h-auto justify-start px-0"><Link to="/academy/courses/$slug" params={{ slug: course.routeSlug }}>View Course <ArrowRight /></Link></Button> : <Button variant="link" className="h-auto justify-start whitespace-normal px-0 text-left" onClick={course.onOpen}>{course.actionLabel ?? "View details"} <ArrowRight /></Button>}
+        {course.routeSlug && course.actionLabel === "Join Waitlist" && <Button asChild variant="outline" className="mt-3 w-full"><Link to="/academy/courses/$slug" params={{slug:course.routeSlug}} hash="register">Join Waitlist</Link></Button>}
       </div>
     </div>
   </article>;

@@ -1,3 +1,4 @@
+import { isFlagship, FLAGSHIP_PRICE } from "@/lib/flagship-rules";
 // Pure, browser-safe pricing rules shared by checkout (server) and course pages (display).
 // The server always recomputes the amount; the browser value is display-only.
 
@@ -24,6 +25,10 @@ export type CouponRecord = {
 
 /** Base price from the saved course record, or the configured single-module price. Throws on invalid choice. */
 export function resolveBasePrice(slug: string, course: CourseRecord, option?: string | null, moduleChoice?: string | null) {
+  if (isFlagship(slug)) {
+    if (option === "single_module") throw new Error("Single-module purchase is not available for flagship courses");
+    return { basePrice: FLAGSHIP_PRICE, option: "bundle" as const, module: null };
+  }
   if (option === "single_module") {
     const cfg = SINGLE_MODULE_OPTIONS[slug];
     if (!cfg) throw new Error("Single-module purchase isn't available for this course");

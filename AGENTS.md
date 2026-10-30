@@ -1,4 +1,5 @@
 # Architecture rules
+- Resolve public logo and flagship cover asset pointers through `publicAssetUrl()` at the published Lovable origin, so Netlify does not request Lovable-only asset paths from its own host; keep uploaded pointers and protected download/certificate flows unchanged.
 - Generate new Academy certificates through the shared branded PDF helper using approved logo/font assets; never regenerate already issued documents during branding updates.
 - Build Academy operational totals from paginated caller-scoped course, enrolment, payment and lesson records; keep static historical programme evidence labelled separately so old definitions cannot masquerade as flagship performance.
 - Keep flagship public discovery separate from historical learning definitions; new flagship content uses fresh academy course/module/lesson IDs, so changing public listings never rewrites historic progress. Enforce flagship pricing and publication readiness at the server and database boundaries.

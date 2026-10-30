@@ -5,6 +5,7 @@ import { Menu, X, ShieldCheck, ChevronDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { serviceContent } from "@/components/website/content";
 import logoAsset from "@/assets/flagship/logo.png.asset.json";
+import { publicAssetUrl } from "@/lib/public-asset";
 import { getActiveSupabaseSession, supabase, signOutAndRedirect } from "@/lib/supabase";
 import { checkIsAdmin } from "@/lib/learner.functions";
 
@@ -109,7 +110,7 @@ export function SiteHeader() {
           className="flex shrink-0 items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          <img src={logoAsset.url} alt="Lovetech" className="h-14 w-auto max-w-44 object-contain" />
+          <img src={publicAssetUrl(logoAsset.url)} alt="Lovetech" className="h-14 w-auto max-w-44 object-contain" />
           <span className="hidden border-l border-border pl-3 text-[10px] font-semibold leading-relaxed text-primary sm:block">
             AGROFINANCE &<br />
             DEVELOPMENT LTD
@@ -382,7 +383,7 @@ export function SiteFooter() {
         <div className="web-container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_.7fr_.7fr_.8fr]">
           <div className="flex flex-col">
             <img
-              src={logoAsset.url}
+              src={publicAssetUrl(logoAsset.url)}
               alt="Lovetech"
               className="mb-5 h-12 w-auto self-start rounded bg-background px-2 py-1"
             />

@@ -1,10 +1,12 @@
 # Six flagship Academy replacement — October 30
-- [ ] Review supplied course packages and latest brand assets; identify missing content and publication gates.
-- [ ] Replace public catalogue, homepage previews and promotions with six flagship courses; preserve historic learning and payment records.
-- [ ] Apply uniform ₦25,000 pricing and availability-gated enrolment/waitlists.
-- [ ] Integrate supplied lessons, learner downloads, assessments, capstones and administrator production gaps.
-- [ ] Apply approved branding, unique thumbnails and six-course Academy layout.
-- [ ] Verify pricing, permissions, historic learner access and desktop/mobile course flows; do not publish automatically.
+- [x] Review supplied course packages and latest brand assets; identify missing content and publication gates.
+- [x] Replace public catalogue, homepage previews and promotions with six flagship courses; preserve historic learning and payment records.
+- [x] Apply uniform ₦25,000 pricing and availability-gated enrolment/waitlists.
+- [x] Stage supplied handout lessons, learner downloads and draft assignment/capstone briefs for three courses; add administrator production gaps.
+- [ ] Complete instructional lessons and assessments — blocked by missing packages for three courses, outline-only module quizzes and unapproved draft Forms/thresholds in supplied packages.
+- [ ] Launch paid enrolment — blocked by content readiness, assessment QA, cohort details and explicit course publication approval.
+- [x] Apply approved branding, six unique thumbnails and six-course Academy layout (three temporary covers flagged for replacement).
+- [x] Verify pricing, historic paid learner access and desktop/mobile course views; no publication or charges. Admin production view and waitlist submission still require end-to-end checks.
 # Concise homepage and Academy discovery
 - [x] Implement approved eight-section homepage and integrate founder copy into About.
 - [x] Add searchable topic-based Academy shelves while preserving existing course definitions/actions.

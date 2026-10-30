@@ -113,6 +113,13 @@
       "when": 1793364997302,
       "tag": "0015_flagship_readiness_and_legacy_access",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1793365100350,
+      "tag": "0016_enrolled_course_resources",
+      "breakpoints": true
     }
   ]
 }

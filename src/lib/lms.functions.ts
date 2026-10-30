@@ -90,6 +90,8 @@ export const getMyCourseContent = createServerFn({ method: "GET" })
       .eq("course_id", course.id)
       .maybeSingle();
 
+    const { data: resources } = await supabase.from("academy_resources").select("id,title,file_url,resource_type").eq("course_id",course.id);
+
     return {
       course,
       enrolment,
@@ -98,6 +100,7 @@ export const getMyCourseContent = createServerFn({ method: "GET" })
       lessons: lessons ?? [],
       progress: progress ?? [],
       certificate,
+      resources: resources ?? [],
     };
   });
 

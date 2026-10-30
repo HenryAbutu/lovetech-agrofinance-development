@@ -10,7 +10,7 @@ import { LessonDiscussion } from "@/components/lesson-discussion";
 import { getActiveSupabaseSession, supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/_authenticated/academy/dashboard/courses/$slug/")({
-  head: () => ({ meta: [{ title: "Course · LoveTech Academy" }] }),
+  head: ({params}) => ({ meta: [{ title: `${params.slug.replaceAll('-', ' ')} · LoveTech Academy` },{name:'description',content:'Your enrolled course lessons, practice resources and assessments.'},{property:'og:title',content:`${params.slug} · LoveTech Academy`},{property:'og:description',content:'Enrolled course learning materials.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex'}] }),
   component: CoursePage,
 });
 
@@ -127,7 +127,7 @@ function CoursePage() {
         <div>
           {activeLesson ? (
             <article className="rounded-2xl border border-border bg-card overflow-hidden">
-              <div className="aspect-video w-full bg-ink text-bone">
+              {(activeLesson.video_url || !activeLesson.description) && <div className="aspect-video w-full bg-ink text-bone">
                 {activeLesson.video_url ? (
                   isEmbeddable(activeLesson.video_url) ? (
                     <iframe
@@ -146,10 +146,10 @@ function CoursePage() {
                     <p className="text-sm">Video for this lesson will be published soon.</p>
                   </div>
                 )}
-              </div>
+              </div>}
               <div className="p-6">
                 <h2 className="font-serif text-2xl text-vetiver">{activeLesson.title}</h2>
-                {activeLesson.description && <p className="mt-2 text-sm text-foreground/70">{activeLesson.description}</p>}
+                {activeLesson.description && <div className="mt-4 whitespace-pre-line text-sm leading-relaxed text-foreground/80">{activeLesson.description}</div>}
                 <div className="mt-6 flex flex-wrap gap-3">
                   <button
                     onClick={() => mutate.mutate({ lesson_id: activeLesson.id, course_id: data.course.id, completed: !completionSet.has(activeLesson.id) })}
@@ -171,6 +171,7 @@ function CoursePage() {
           )}
 
           {/* Assignments / Assessment / Resources */}
+          {data.resources.length>0 && <section className="mt-6 border-y border-border py-6"><h2 className="text-xl font-semibold">Course downloads</h2><div className="mt-4 flex flex-wrap gap-4">{data.resources.map(r=><a key={r.id} href={r.file_url ?? undefined} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary"><Download className="size-4"/>{r.title}</a>)}</div></section>}
           <section className="mt-6 grid gap-4 md:grid-cols-3">
             <ActionCard
               icon={<FileText className="size-5" />}

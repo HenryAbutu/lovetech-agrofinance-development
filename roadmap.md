@@ -1,4 +1,6 @@
 # Six flagship Academy replacement — October 30
+- [x] Restore public logo and six course cover URLs for external Netlify hosting without changing approved images or learner logic.
+- [ ] Verify restored images on live Netlify deployment — awaiting redeployment by the website owner.
 - [x] Phase 6: extend Academy branding to protected tools and newly generated certificates; preserve advisory pages.
 - [x] Phase 8: separate flagship/archive management, enable readiness review and learner-download replacement, add real database-backed Academy/course reporting.
 - [x] Phase 7/9: verify content mapping, waitlist save/duplicate handling, historic access, learner admin blocking, unpaid content blocking, sign-out and desktop/tablet/mobile; provide report.

@@ -120,6 +120,13 @@
       "when": 1793365100350,
       "tag": "0016_enrolled_course_resources",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1793366542198,
+      "tag": "0017_enforce_authorised_lesson_completion",
+      "breakpoints": true
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import {generateAcademyCertificate} from './academy-certificate.server';
 
 // ---------- helpers ----------
 async function assertAdmin(supabase: any, userId: string) {
@@ -382,7 +383,7 @@ export const approveCertificate = createServerFn({ method: "POST" })
     page.drawText("Chinny Loveday-Chukwu", { x: 421 - italic.widthOfTextAtSize("Chinny Loveday-Chukwu", 14) / 2, y: 170, size: 14, font: italic, color: vetiver });
     page.drawText("Founder & Chief Learning Officer", { x: 421 - serif.widthOfTextAtSize("Founder & Chief Learning Officer", 10) / 2, y: 155, size: 10, font: serif, color: ink });
 
-    const bytes = await pdf.save();
+    const bytes = await generateAcademyCertificate({name:data.certificate_name,courseTitle:course.title,certificateId,issuedAt});
 
     const path = `${data.user_id}/${data.course_id}.pdf`;
     const uint8 = new Uint8Array(bytes);

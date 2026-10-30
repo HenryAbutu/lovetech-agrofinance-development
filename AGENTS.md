@@ -5,7 +5,7 @@
 - Keep `/privacy` and `/terms` as permanent redirects to the canonical legal URLs so existing links remain usable.- Keep agent-integration (MCP) tools in `src/lib/mcp/` and query the database only as the signed-in caller, so connected assistants never see another user's data.
 - Keep user roles only in `user_roles` (never on profiles); `has_role(...,'admin')` also passes for super_admin, so every existing admin check covers super admins automatically.
 - Keep homepage visual content separate from auth and LMS logic, and use shared Button variants for its CTAs, so presentation updates preserve learner workflows and navigation.
-- Scope institutional website tokens and typography to public presentation wrappers and shared chrome; leave global learner tokens intact so the redesign cannot restyle protected learning tools.
+- Scope institutional website tokens to public wrappers and approved Academy tokens to Academy/admin route wrappers; leave unrelated global tokens intact so Academy branding cannot restyle advisory or venture tools.
 - Keep public service content and shared presentation in website-only modules; preserve all existing route paths and use dedicated top-level service routes so new advisory pages cannot intercept existing diagnostic or LMS URLs.
 
 - Keep public Academy discovery cards and shelves in website presentation modules, adapting existing catalogue metadata without changing course definitions or enrolment handlers; this isolates discovery styling from learner access.

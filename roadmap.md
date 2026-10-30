@@ -1,4 +1,7 @@
 # Six flagship Academy replacement — October 30
+- [ ] Phase 6–9: extend Academy branding to protected tools and newly generated certificates; preserve advisory pages.
+- [ ] Phase 8: separate flagship/archive management and add real database-backed Academy/course reporting.
+- [ ] Phase 7/9: verify content mapping, waitlist, access preservation, security and desktop/tablet/mobile; report limitations.
 - [x] Review supplied course packages and latest brand assets; identify missing content and publication gates.
 - [x] Replace public catalogue, homepage previews and promotions with six flagship courses; preserve historic learning and payment records.
 - [x] Apply uniform ₦25,000 pricing and availability-gated enrolment/waitlists.

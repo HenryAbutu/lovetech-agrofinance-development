@@ -67,6 +67,9 @@ const CourseSchema = z.object({
   regular_price: z.coerce.number().nonnegative().optional().nullable(),
   discount_price: z.coerce.number().nonnegative().optional().nullable(),
   delivery_mode: z.string().max(120).optional().nullable(),
+  content_ready: z.boolean().optional(),
+  publication_approved: z.boolean().optional(),
+  production_gaps: z.array(z.string().min(1).max(500)).max(30).optional(),
 });
 
 export const upsertCourse = createServerFn({ method: "POST" })
@@ -148,7 +151,7 @@ const LessonSchema = z.object({
   course_id: z.string().uuid(),
   module_id: z.string().uuid(),
   title: z.string().min(1).max(200),
-  description: z.string().max(4000).optional().nullable(),
+  description: z.string().max(50000).optional().nullable(),
   video_url: z.string().max(500).optional().nullable(),
   resource_url: z.string().max(500).optional().nullable(),
   duration_minutes: z.coerce.number().int().nonnegative().optional().nullable(),
@@ -162,6 +165,8 @@ export const upsertLesson = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const module = await supabaseAdmin.from('academy_modules').select('course_id').eq('id',data.module_id).maybeSingle();
+    if(module.error || module.data?.course_id !== data.course_id)throw new Error('The lesson must belong to a module in this course.');
     const { error } = await supabaseAdmin.from("academy_lessons").upsert(data);
     if (error) throw new Error(error.message);
     return { ok: true };

@@ -1,3 +1,10 @@
+# Six flagship Academy replacement — October 30
+- [ ] Review supplied course packages and latest brand assets; identify missing content and publication gates.
+- [ ] Replace public catalogue, homepage previews and promotions with six flagship courses; preserve historic learning and payment records.
+- [ ] Apply uniform ₦25,000 pricing and availability-gated enrolment/waitlists.
+- [ ] Integrate supplied lessons, learner downloads, assessments, capstones and administrator production gaps.
+- [ ] Apply approved branding, unique thumbnails and six-course Academy layout.
+- [ ] Verify pricing, permissions, historic learner access and desktop/mobile course flows; do not publish automatically.
 # Concise homepage and Academy discovery
 - [x] Implement approved eight-section homepage and integrate founder copy into About.
 - [x] Add searchable topic-based Academy shelves while preserving existing course definitions/actions.

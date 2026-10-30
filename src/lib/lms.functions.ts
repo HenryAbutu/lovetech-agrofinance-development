@@ -61,6 +61,9 @@ export const getMyCourseContent = createServerFn({ method: "GET" })
       .select("id, payment_status, access_status")
       .eq("user_id", userId)
       .eq("course_id", course.id)
+      .eq("access_status", "active")
+      .order("created_at", { ascending: false })
+      .limit(1)
       .maybeSingle();
 
     const hasAccess = enrolment?.access_status === "active";

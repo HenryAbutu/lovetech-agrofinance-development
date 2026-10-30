@@ -114,6 +114,10 @@ export const markLessonComplete = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    const lesson = await supabase.from('academy_lessons').select('id,course_id').eq('id',data.lesson_id).maybeSingle();
+    if(lesson.error || lesson.data?.course_id !== data.course_id)throw new Error('Lesson is not available in this course.');
+    const access = await supabase.from('academy_enrolments').select('id').eq('user_id',userId).eq('course_id',data.course_id).eq('access_status','active').limit(1).maybeSingle();
+    if(access.error || !access.data)throw new Error('Active course enrolment is required.');
     const { error } = await supabase
       .from("academy_lesson_progress")
       .upsert(

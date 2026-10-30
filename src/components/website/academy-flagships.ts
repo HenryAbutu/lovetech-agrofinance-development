@@ -1,9 +1,12 @@
 import ai from '@/assets/flagship/ai-for-agribusinesses-cover.png.asset.json';
 import finance from '@/assets/flagship/finance-ready-cover.png.asset.json';
 import growth from '@/assets/flagship/business-growth-accelerator-cover.png.asset.json';
-import digital from '@/assets/group/digital-business.jpg';
-import climate from '@/assets/courses/climate-smart.jpg';
-import project from '@/assets/courses/proposal-writing.jpg';
+import digitalAsset from '@/assets/flagship/ai-business-transformation-cover.jpg.asset.json';
+const digital=digitalAsset.url;
+import climateAsset from '@/assets/flagship/climate-smart-agribusiness-cover.jpg.asset.json';
+const climate=climateAsset.url;
+import projectAsset from '@/assets/flagship/development-project-design-cover.jpg.asset.json';
+const project=projectAsset.url;
 import { FLAGSHIP_PRICE } from '@/lib/flagship-rules';
 export const flagships = [
  {slug:'ai-for-agribusinesses',title:'AI for Agribusinesses: Smart Tools for Modern Agriculture',category:'Agribusiness and Artificial Intelligence',short:'Responsible AI workflows for market research, records, finance, marketing and everyday agribusiness operations.',description:'A practical online bootcamp helping agribusinesses use accessible AI tools while protecting data and verifying outputs.',duration:'4 live sessions · 2 hours each',delivery:'Live online + independent practice',image:ai.url,whoFor:['Agribusiness owners and managers','Cooperatives and producer groups','Extension and enterprise-support professionals'],outputs:['AI Opportunity Map','Verified market brief','Agribusiness Performance Snapshot','AI-enabled Agribusiness Action Pack'],modules:['AI foundations and effective prompting','Market intelligence, buyers and marketing','Records, data, finance and operations','Advisory workflows, responsible AI and capstone'],materials:true},
